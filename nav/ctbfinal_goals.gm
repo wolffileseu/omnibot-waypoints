@@ -1,0 +1,110 @@
+global _MG = 
+{
+	CAPPOINT_Allies = 
+	{
+		GoalType = "CapPoint",
+		MinRadius = 32,
+		Position = Vec3(-2685.600, 2957.978, -489.875),
+		TeamAvailability = 4,
+	},
+	CAPPOINT_Axis = 
+	{
+		GoalType = "CapPoint",
+		MinRadius = 32,
+		Position = Vec3(-2689.220, 2802.865, -488.875),
+		TeamAvailability = 2,
+	},
+	FLAG_allied_flag = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "Flag",
+		Position = Vec3(-2688.000, 2928.000, 677.125),
+		TeamAvailability = 2,
+	},
+	FLAG_axis_flag = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "Flag",
+		Position = Vec3(-2688.000, 2832.000, 677.125),
+		TeamAvailability = 4,
+	},
+	ROUTE_allied_spawn = 
+	{
+		GoalType = "ROUTE",
+		Position = Vec3(-2686.770, 339.473, 1.125),
+		Radius = 400,
+	},
+	ROUTE_allies_e = 
+	{
+		GoalType = "ROUTE",
+		Position = Vec3(-2500.048, 1128.499, 0.125),
+		Radius = 125,
+	},
+	ROUTE_allies_w = 
+	{
+		GoalType = "ROUTE",
+		Position = Vec3(-2881.494, 1145.496, 1.125),
+		Radius = 125,
+	},
+	ROUTE_axis_e = 
+	{
+		GoalType = "ROUTE",
+		Position = Vec3(-2486.430, 4602.536, 1.125),
+		Radius = 125,
+	},
+	ROUTE_axis_spawn = 
+	{
+		GoalType = "ROUTE",
+		Position = Vec3(-2673.890, 5421.844, 1.125),
+		Radius = 400,
+	},
+	ROUTE_axis_w = 
+	{
+		GoalType = "ROUTE",
+		Position = Vec3(-2885.595, 4603.718, 1.125),
+		Radius = 125,
+	},
+	ROUTE_flag = 
+	{
+		GoalType = "ROUTE",
+		Position = Vec3(-2685.614, 2876.575, 673.133),
+		Radius = 300,
+	},
+	ROUTE_n = 
+	{
+		GoalType = "ROUTE",
+		Position = Vec3(-2766.845, 4211.449, 1.125),
+		Radius = 125,
+	},
+	ROUTE_ne = 
+	{
+		GoalType = "ROUTE",
+		Position = Vec3(-2113.997, 3793.856, 1.130),
+		Radius = 125,
+	},
+	ROUTE_nw = 
+	{
+		GoalType = "ROUTE",
+		Position = Vec3(-3263.493, 3810.096, 1.125),
+		Radius = 125,
+	},
+	ROUTE_s = 
+	{
+		GoalType = "ROUTE",
+		Position = Vec3(-2632.287, 1583.563, 0.125),
+		Radius = 125,
+	},
+	ROUTE_se = 
+	{
+		GoalType = "ROUTE",
+		Position = Vec3(-2120.345, 1966.487, 1.131),
+		Radius = 125,
+	},
+	ROUTE_sw = 
+	{
+		GoalType = "ROUTE",
+		Position = Vec3(-3255.891, 1924.518, 1.125),
+		Radius = 125,
+	},
+	Version = 1,
+};
