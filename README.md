@@ -1,18 +1,28 @@
-# Omni-Bot Waypoints Mirror
+# Omni-Bot Waypoints
 
-Mirror of the Omni-Bot Enemy Territory waypoints from the official Assembla SVN repository (r4032).
+Community mirror of Omni-Bot waypoints from the official Assembla SVN (r4032).
 
-**680 maps** with complete waypoint support for Wolfenstein: Enemy Territory.
+## Structure
 
-Each map has up to 3 files:
-- `.way` — Waypoint navigation data
-- `.gm` — Map script (bot behavior)
-- `_goals.gm` — Goal definitions
+et/nav/ - Enemy Territory waypoints (680+ maps)
 
-## Source
-Original SVN: `http://svn.assembla.com/svn/omnibot/Enemy-Territory/0.8/et/nav/`
+## Files per map
+
+.way - Waypoint navigation data
+.gm - Map script (bot behavior)
+_goals.gm - Goal definitions
 
 ## Usage
-Copy the files for your map into your Omni-Bot `nav/` folder.
 
-Maintained by [Wolffiles.eu](https://wolffiles.eu)
+Copy the files for your map into your Omni-Bot nav/ folder.
+
+## Contributing
+
+Fork this repo, add/update waypoints, and submit a Pull Request.
+
+## Source
+
+Original SVN: http://svn.assembla.com/svn/omnibot/Enemy-Territory/0.8/et/nav/
+Browse online: https://wolffiles.eu/tools/omni-bot
+
+Maintained by Wolffiles.eu - https://wolffiles.eu
