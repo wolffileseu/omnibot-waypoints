@@ -1,0 +1,27 @@
+https://sourceforge.net/apps/mediawiki/notepad-plus/index.php?title=Editing_Configuration_Files#API_files
+
+API files are located in the plugins\APIs\ subfolder of the Notepad++ installation 
+folder. These files are optional: you need only one for each language for which 
+you'll use Auto Completion or calltips. They are also supported for User Defined 
+Languages, and bear the name <Language name>.xml.
+
+Under the usual <Notepad-plus> tag is a <AutoComplete> tag. It has an optional, 
+unused "language" attribute, which you can use for any descriptive purpose.
+
+The contents of a <AutoComplete> start with an autoclosing <Environment> tag, with 
+the following attributes:
+
+   1. ignoreCase: "no" if the language is case sensitive, else "yes" (default);
+   2. startFunc: the character(s) which start the parameter list: Default is "(";
+   3. stopFunc: the character(s) which end the parameter list: Default is ")";
+   4. paramSeparator: the character(s) which separate parameters. Defaults to ",";
+   5. terminal: the character(s) which mark the end of a prototype, when the 
+      language allows C-style separate prototyping. Defaults to ";". Leave it out if 
+      the language does not support separate prototyping, or set it to some illegal 
+      character.
+   6. additionalWordChar: character(s) that may be part of words and which are 
+      not a lower or upper case letter, a digit or the underscore. The value is a 
+      string with all these extra characters, in any order and without separators. 
+
+Any attribute can be omitted, and the <Environment> tag as well. The practice is 
+not recommended though. 

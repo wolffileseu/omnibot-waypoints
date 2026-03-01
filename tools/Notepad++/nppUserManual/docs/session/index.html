@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta name="generator" content="Hugo 0.68.3" />
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Sessions, Workspaces, and Projects There are three built-in &ldquo;multiple file management&rdquo; systems available natively in Notepad&#43;&#43;.
+ Sessions = a set of files that can be opened with one action. Folder as Workspace = a tree-based interface to easily access the files in a given Windows directory. Project Panels = a tree-based interface to access related files that aren&rsquo;t necessarily grouped in the same Windows directory structure.  There are also various plugins available that might help manage sessions or workspaces, or serve similar purposes but with a different feature set compared to these built-in features.">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="Sessions, Workspaces, and Projects" />
+<meta property="og:description" content="Sessions, Workspaces, and Projects There are three built-in &ldquo;multiple file management&rdquo; systems available natively in Notepad&#43;&#43;.
+ Sessions = a set of files that can be opened with one action. Folder as Workspace = a tree-based interface to easily access the files in a given Windows directory. Project Panels = a tree-based interface to access related files that aren&rsquo;t necessarily grouped in the same Windows directory structure.  There are also various plugins available that might help manage sessions or workspaces, or serve similar purposes but with a different feature set compared to these built-in features." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="../../docs/session/index.html" />
+
+<title>Sessions, Workspaces, and Projects | Notepad&#43;&#43; User Manual</title>
+<link rel="manifest" href="../../manifest.json">
+<link rel="icon" href="../../favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="../../book.min.6e40b5f911dc7f922b4354b4a32e0a00d71dc7ebac6d2334c02aa38eb679f117.css" attr_integ_ignore="sha256-bkC1&#43;RHcf5IrQ1S0oy4KANcdx&#43;usbSM0wCqjjrZ58Rc=">
+<script defer src="../../en.search.min.198a20a5f81cba6044d4b6b4ed8e396ecef5d158d13a4e21936619f0d5a4638a.js" attr_integ_ignore="sha256-GYogpfgcumBE1La07Y45bs710VjROk4hk2YZ8NWkY4o="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a href="../../index.html"><span>Notepad&#43;&#43; User Manual</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" readonly hidden placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/getting-started/index.html" class="">Getting started</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/files/index.html" class="">Working with Files</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/editing/index.html" class="">Editing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/searching/index.html" class="">Searching</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/views/index.html" class="">Views</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/session/index.html" class=" active">Sessions, Workspaces, and Projects</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/function-list/index.html" class="">Function List</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/auto-completion/index.html" class="">Auto-Completion</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/programing-languages/index.html" class="">Syntax Highlighting - Built-in Languages</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/user-defined-language-system/index.html" class="">Syntax Highlighting - User Defined Languages</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/introduction/index.html" class="">UDL &gt; Parser</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/default/index.html" class="">UDL &gt; Default Style</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/folding-in-code/index.html" class="">UDL &gt; Folding in code</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/folding-in-comment/index.html" class="">UDL &gt; Folding in comment</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/keywords/index.html" class="">UDL &gt; Keywords</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/comments/index.html" class="">UDL &gt; Comments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/numbers/index.html" class="">UDL &gt; Numbers</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/operators/index.html" class="">UDL &gt; Operators</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/delimiters/index.html" class="">UDL &gt; Delimiters</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/macros/index.html" class="">Macros - Task Automation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/run-menu/index.html" class="">Running External Commands</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/plugins/index.html" class="">Plugins</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/plugin-communication/index.html" class="">Plugin Communication</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/command-prompt/index.html" class="">Command Line Arguments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/preferences/index.html" class="">Preferences</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/config-files/index.html" class="">Configuration Files Details</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/themes/index.html" class="">Themes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/binary-translation/index.html" class="">Localization - User Interface Translation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/user-interface/index.html" class="">User Interface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/upgrading/index.html" class="">Upgrading</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/shell-extension/index.html" class="">Right Click - Edit With Notepad&#43;&#43;</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/ghost-typing/index.html" class="">Ghost Typing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/other-resources/index.html" class="">Other Resources</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/history/index.html" class="">User Manual History</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/license/index.html" class="">Copyright &amp; License</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="../../svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Sessions, Workspaces, and Projects</strong>
+
+  <label for="toc-control">
+    
+    <img src="../../svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#sessions-workspaces-and-projects">Sessions, Workspaces, and Projects</a>
+      <ul>
+        <li><a href="#sessions">Sessions</a>
+          <ul>
+            <li><a href="#inaccessible-files">Inaccessible Files</a></li>
+          </ul>
+        </li>
+        <li><a href="#folder-as-workspace">Folder as Workspace</a></li>
+        <li><a href="#project-panels">Project Panels</a>
+          <ul>
+            <li><a href="#project-panel-specifics">Project Panel Specifics</a></li>
+          </ul>
+        </li>
+        <li><a href="#differences-between-projects-and-folder-as-workspace">Differences Between Projects and Folder as Workspace</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="sessions-workspaces-and-projects">Sessions, Workspaces, and Projects</h1>
+<p>There are three built-in &ldquo;multiple file management&rdquo; systems available natively in Notepad++.</p>
+<ul>
+<li><a href="#sessions">Sessions</a> = a set of files that can be opened with one action.</li>
+<li><a href="#folder-as-workspace">Folder as Workspace</a> = a tree-based interface to easily access the files in a given Windows directory.</li>
+<li><a href="#project-panels">Project Panels</a> = a tree-based interface to access related files that aren&rsquo;t necessarily grouped in the same Windows directory structure.</li>
+</ul>
+<p>There are also various <a href="../plugins">plugins</a> available that might help manage sessions or workspaces, or serve similar purposes but with a different feature set compared to these built-in features.</p>
+<h2 id="sessions">Sessions</h2>
+<p>Sessions are a set of files to be opened in Notepad++.  Using sessions, you can open a set of files with one action.  They do not have to be in the same directory or even on the same drive.</p>
+<p>The session file stores the paths of the open files, the active file (and which view, see the section about Multi-View), the current selection and position in the file, the current bookmarks (see Bookmarks) and the current language (see the section about Languages).  When you load the session, all of that information is loaded back into Notepad++.</p>
+<ul>
+<li><strong>File &gt; Load Session&hellip;</strong> can be used to load an existing session.</li>
+<li><strong>File &gt; Save Session&hellip;</strong> can be used to save the currently-open files as a session.</li>
+</ul>
+<p>Session files are XML, and are identical in format to the <a href="../config-files/index.html#other-configuration-files"><code>session.xml</code> config file</a>.
+The <a href="../preferences/index.html#misc">MISC preferences</a> include an option to set a file extension that will automatically be opened equivalently to <strong>Load Session</strong>, even if you use <strong>File &gt; Open</strong> to access that session; that extension will also be the default when you <strong>Save Session</strong><a href="#FN1" title="Footnote ¹">¹</a>.</p>
+<p>You can also load a session file using the <a href="../command-prompt"><code>-openSession</code> command line argument</a>.</p>
+<p>When you load a session: If you are set to &ldquo;Default (Mono-instance)&rdquo; <a href="../preferences/index.html#multi-instance-and-date">in the Multi-instance settings</a>, then the files from that session are <em>added</em> to the current instance of Notepad++ (files already open will remain open, even if they aren&rsquo;t in the session you loaded); if you are set to  either &ldquo;Open session in new instance&rdquo; or &ldquo;Always in multi-instance mode&rdquo;, then the files from the session you are loading are opened in a new Notepad++ instance.</p>
+<p><em>Note</em>: As of Notepad++ v8.2, the loaded session is saved automatically on exit of Notepad++, if the <a href="../preferences/index.html#multi-instance-and-date">Multi-instance settings</a> is <strong>not</strong> set to &ldquo;Default (Mono-instance)&quot;.</p>
+<p><em>Caveat</em>: Unlike the default <code>session.xml</code>, which follows the <strong><a href="">Settings &gt; Preferences &gt; Backup</a> &gt; <code>☐ Enable session snapshot and periodic backup</code></strong> option and will keep new unnamed/unsaved documents in the main session when enabled, manual sessions do not follow that setting: if you have one or more new unsaved/unnamed documents, and use <strong>File &gt; Save Session&hellip;</strong>, those documents will <em>not</em> be included in the saved session.  If you want a document to be included when you <strong>File &gt; Save Session&hellip;</strong>, you need to have previously saved that document to a file on your filesystem.</p>
+<h3 id="inaccessible-files">Inaccessible Files</h3>
+<p>Sometimes, when you load a session, you might temporarily not be able to access a certain file &ndash; for example, if your network drive is temporarily inaccessbile, or your internet connection is down so a cloud-based folder is out-of-date.  Starting in Notepad++ v8.6, there is a <a href="../preferences/index.html#backup"><strong>Settings &gt; Preferences &gt; Backup</strong></a> option to <code>☐ Remember inaccessible files from past session</code> when you load a session (either through the menu or the default session).  With this checkmarked, if Notepad++ cannot find the files mentioned, it will ask if you want to create &ldquo;placeholders&rdquo;: if you do, then there will be empty read-only tabs in Notepad++, and the next time you load the session, if the files are accessible again, Notepad++ will load those files again; if you choose to not create the placeholders, then those files <em>will be removed from the session file</em>, and loading that session in the future <em>will not</em> attempt to load those inaccessible files anymore.  If you choose to let Notepad++ create a placeholder file but later close it, Notepad++ will also modify your session file when it exits, and it will no longer attempt to load those inaccessible files, because they are not in your session any more.  If you want Notepad++ to load the inaccessible files the next time you load the session, you <em>must</em> choose to create the placeholders and <em>must not</em> close the placeholder tabs in Notepad++.  Also, for the placeholder files, if the inaccessible file becomes available again while Notepad++ is still open, it will prompt you to reload the file (just like Notepad++ does when it notices a file has been changed by an external program) &ndash; you will want to say <strong>Yes</strong> to this prompt for Notepad++ to again show the contents of the previously-inaccessible file.</p>
+<h2 id="folder-as-workspace">Folder as Workspace</h2>
+<p>This feature allows you to use a tree-based interface to easily access the files in one or more filesystem directory.  When you drag a folder from Windows Explorer onto Notepad++, this feature will be activated (unless overridden by the <a href="../preferences/index.html#default-directory">&quot;&hellip; folder dropping&rdquo; option</a>).</p>
+<p>You can also load a Folder as Workspace using the <a href="../command-prompt"><code>-openFoldersAsWorkspace</code> command line argument</a>.</p>
+<p>The toolbar for the panel has three buttons:</p>
+<ul>
+<li><strong>Unfold All</strong>: Shows the entire hierarchy of all the directories shown.</li>
+<li><strong>Fold All</strong>: Collapses all the directory hierarchies so it just shows the top-level folders.</li>
+<li><strong>Locate Current File</strong>: If the file being actively edited in Notepad++'s active editor view is in one of the folders shown in the panel, the panel will unfold and scroll to that file in the file list, and will highlight that file.</li>
+</ul>
+<p>For folders/directories in the panel:</p>
+<ul>
+<li>If it has the <code>﹀</code> down-arrow chevron, clicking that will &ldquo;fold&rdquo; that level so that the files and directories under it are not visible.</li>
+<li>If it has the <code>〉</code> right-arrow chevron, clicking that will &ldquo;unfold&rdquo; that level, so that it will show the files and directories under that directory.</li>
+<li>Right-clicking on a directory&rsquo;s entry will bring up a context menu:
+<ul>
+<li><strong>Remove</strong>: Will remove that directory hierarchy from the Folder as Workspace panel (only available on the top level Folder as Workspace directories, not on subdirectories).</li>
+<li><strong>Copy Path</strong>: Puts the full path of the directory into the Windows clipboard, so you can paste it in Notepad++ or elsewhere in Windows.</li>
+<li><strong>Find in Files</strong>: Opens the <strong>Search &gt; Find in Files</strong> dialog with that directory chosen as the directory to be searched.</li>
+<li><strong>Explorer Here</strong>: Opens the Windows Explorer on that directory.</li>
+<li><strong>CMD Here</strong>: Opens a Windows <code>cmd.exe</code> window in that directory.</li>
+</ul>
+</li>
+</ul>
+<p>For files in that panel:</p>
+<ul>
+<li>Double-clicking on a file&rsquo;s entry will open that file in Notepad++'s active view, or will activate that file&rsquo;s tab if the file is already open in the current Notepad++ instance.</li>
+<li>Right-clicking on a file&rsquo;s entry will bring up a context menu:
+<ul>
+<li><strong>Open</strong>: Will open that file in Notepad++'s active view, or will activate that file&rsquo;s tab if the file is already open in the current Notepad++ instance.</li>
+<li><strong>Copy Path</strong>: Puts the full path of the file into the Windows clipboard, so you can paste it in Notepad++ or elsewhere in Windows.</li>
+<li><strong>Copy File Name</strong>: Puts the filename into the Windows clipboard.</li>
+<li><strong>Run by System</strong>: This will launch the file with Windows default application for that file type.</li>
+<li><strong>Explorer Here</strong>: Opens the Windows Explorer in the directory where the file is located.</li>
+<li><strong>CMD Here</strong>: Opens a Windows <code>cmd.exe</code> window in the directory where the file is located.</li>
+</ul>
+</li>
+</ul>
+<p>If you right click in the empty space in the Folder as Workspace panel (either in the empty portion of the toolbar to the left of the icons, or in the empty space below the final directory listing in the panel), you will get a context menu with <strong>Add</strong> and <strong>Remove All</strong>.</p>
+<ul>
+<li><strong>Add</strong>: Will let you open another folder into the panel.</li>
+<li><strong>Remove All</strong>: Will remove all directories from the Folder as Workspace panel.</li>
+</ul>
+<p>If there isn&rsquo;t any &ldquo;empty space&rdquo; to right-click on, you can either widen the panel (giving more empty space on the panel&rsquo;s toolbar) or you can collapse one or all of the folder listings (using the <code>﹀</code> by the folder name or the <strong>Fold All</strong> button on the toolbar) to show empty space at the bottom where you can right click.</p>
+<h2 id="project-panels">Project Panels</h2>
+<p>The Project Panels are similar to the <a href="#folder-as-workspace">Folder as Workspace</a> panel, but allow you to organize the tree view to your liking, rather than being forced to follow the Windows filesystem hiearchy.</p>
+<p>Double-clicking on a file from the tree-view will open it as a new tab in the Notepad++ editor (or will activate that tab if it&rsquo;s already open).  Closing the tab for a file from the Project will not remove it from the Project panel, so it&rsquo;s easy to re-open that file.</p>
+<p>There are three Project Panels available from the <strong>View &gt; Project Panels</strong> sub-menu.  The three Project Panels can be individually docked or floated.</p>
+<p>In each panel, you can open one Workspace file.  Using the <strong>Workspace</strong> button on the Project Panel, or right clicking on the Workspace&rsquo;s name in the tree view, you can perform a variety of actions, enumerated below.  The <a href="../preferences/index.html#misc">MISC preferences</a> include an option to set a file extension that will automatically be opened equivalently to the <strong>Open Workspace</strong> command, even if you use <strong>File &gt; Open</strong> to access that Workspace file; that extension will also be the default when you <strong>Save Workspace</strong><a href="#FN1" title="Footnote ¹">¹</a>.</p>
+<p>Each Workspace can house one or more Projects.  Clicking the <strong>Edit</strong> button on the Project Panel, or right clicking on the Project name, will give you administrative options for the selected Project, enumerated below.  In each Project, you can select individual files or the contents of whole Windows Directories to be added to the Project, and you can reorder the files.  If you add a Folder to the Project, you are <em>not</em> creating a Windows directory anywhere: you are creating a container inside the Notepad++ Project item; the files listed in a folder have not moved.  To reiterate: Project Folders are independent of the filesystem, and are just hierarchical containers for this feature of Notepad++.</p>
+<p>You can move a file from one place in the Project panel into a different Folder or Project by dragging the file within the Project Panel and dropping it on the name of the Project or Folder you want the file to move into.  Other than that, there aren&rsquo;t other drag-and-drop features in the Project Panel.</p>
+<p>Project Workspace files always contain file paths relative to the location of the workspace file itself. Thus, if a workspace file is stored in a filesystem folder which is part of a project, it is very easy to move that folder to another location on the hard disk. If the workspace file is loaded from its new location it will still work to load the local copy of the project.  (Because these files contain relative paths, when you open an existing workspace file or save a new workspace file, Notepad++ will default to being in the same directory as the file you are actively editing.  If you prefer a centralized directory to store all your workspace files, you will have to manually change to that directory to open or save there.)</p>
+<h3 id="project-panel-specifics">Project Panel Specifics</h3>
+<p>For any entry in the Project Panel tree view, right clicking will give you the available actions on that specific entry.</p>
+<ul>
+<li>On a Workspace:
+<ul>
+<li><strong>New Workspace</strong>: Close the existing Workspace (if one is open for this Project Panel) and create an empty Workspace for this Project Panel.</li>
+<li><strong>Open Workspace</strong>: Close the existing Workspace (if one is open for this Project Panel) and open the selected Workspace file.</li>
+<li><strong>Reload Workspace</strong>: Re-read the XML file for the active Workspace (it may have been edited externally).</li>
+<li><strong>Save</strong>: Save any changes in the Projects, files, and Folders of the active Workspace configuration.</li>
+<li><strong>Save As</strong>: Save the active Workspace in a new Windows filesystem location and use that new Workspace, while still leaving the old Workspace file under the old name.  (Example: if your active Workspace is <code>one.wkspc</code> and you <strong>Save As</strong> <code>two.wkspc</code>, then <code>one.wkspc</code> will still exist, but the active Workspace will be <code>two.wkspc</code>.)</li>
+<li><strong>Save a Copy As</strong>: Save the active Workspace in a new Windows filesystem location, while still keeping the old Workspace file as the active Workspace. (Example: if your active Workspace is <code>one.wkspc</code> and you <strong>Save a Copy As</strong> <code>two.wkspc</code>, then <code>one.wkspc</code> will still exist and be active, but there will also be a <code>two.wkspc</code> saved but not open.)</li>
+<li><strong>Add New Project</strong>: Add a new Project container to the active Workspace.</li>
+</ul>
+</li>
+<li>On a Project entry:
+<ul>
+<li><strong>Move Up / Move Down</strong>: Reorder the selected Project relative to other Projects in the Workspace.</li>
+<li><strong>Rename</strong>: Change the name of the Project.</li>
+<li><strong>Add Folder</strong>: Create a new container to go in this Project.</li>
+<li><strong>Add Files</strong>: Use a Windows <strong>Open</strong> dialog to select one or more files to add to the Project&rsquo;s tree.</li>
+<li><strong>Add Files from Directory</strong>: Add all the files from that Windows directory into the Project.
+<ul>
+<li>Please note: This does <em>not</em> create a new Folder entry in your Project.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>On a Folder entry:
+<ul>
+<li>Has all the same actions as on the Project entry, but everything is relative to this Folder instead of relative to the Project.</li>
+</ul>
+</li>
+<li>On a File entry:
+<ul>
+<li><strong>Move Up / Move Down</strong>: Reorder the selected file relative to other files or Folders in the containing Project or Folder.</li>
+<li><strong>Rename</strong>: Changes the name of the file in the list.
+<ul>
+<li>This action does <em>not</em> change the underlying file.</li>
+<li>If the new name does not exist as a file, it will show a little error symbol on the file icon in the tree.</li>
+<li>If the new name does exist as a file, the old file will still exist but will no longer be a part of this Project.</li>
+</ul>
+</li>
+<li><strong>Remove</strong>: Removes the file from the Project.
+<ul>
+<li>This action does <em>not</em> change the underlying file.</li>
+</ul>
+</li>
+<li><strong>Modify File Path</strong>: Similar to rename, changes the file in the list, but also allows you to change what Windows directory is being referenced.
+<ul>
+<li>This action does <em>not</em> change the underlying file.</li>
+<li>If the new name does not exist as a file, it will show a little error symbol on the file icon in the tree.</li>
+<li>If the new name does exist as a file, the old file will still exist but will no longer be a part of this Project.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="differences-between-projects-and-folder-as-workspace">Differences Between Projects and Folder as Workspace</h2>
+<p>In contrast to the Folder as Workspace feature, Projects are not bound to the content of a certain folder on the hard disk. Instead, it is possible to put together files and folders from various locations on the hard disk into one Project. It is even possible to create Folders in a project which actually don’t exist on the hard disk and add files from various locations to them.  With projects, it is possible to combine files and folders into a totally virtual structure. This can speed up accessing files which are logically related to each other but are widely spread over the hard disk.</p>
+<hr>
+<p><strong>Footnotes</strong></p>
+<p><a name="FN1">¹</a>: if you set the Session or Workspace extensions, you will find it difficult to edit the XML for the given Session or Workspace file inside Notepad++.  To do that, you can temporarily clear that preference setting, edit the file, then set the extension preference again.</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#sessions-workspaces-and-projects">Sessions, Workspaces, and Projects</a>
+      <ul>
+        <li><a href="#sessions">Sessions</a>
+          <ul>
+            <li><a href="#inaccessible-files">Inaccessible Files</a></li>
+          </ul>
+        </li>
+        <li><a href="#folder-as-workspace">Folder as Workspace</a></li>
+        <li><a href="#project-panels">Project Panels</a>
+          <ul>
+            <li><a href="#project-panel-specifics">Project Panel Specifics</a></li>
+          </ul>
+        </li>
+        <li><a href="#differences-between-projects-and-folder-as-workspace">Differences Between Projects and Folder as Workspace</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

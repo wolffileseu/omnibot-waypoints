@@ -1,0 +1,111 @@
+Omnibot DMS by MickyP & assistance from Crapshoot
+
+The DMS (Development Menu System)
+
+This Menu was originally designed as a tool to aid with waypointing plus goal creation without the need to remember all the commands & save manually typing.
+This was further developed with more omnibot related commands
+Nearly all the commands can be used as binds & it is recommended that you still use binds for the basic commands.
+The DMS comes in here where there are more Omnibot commands than keys you can bind or remember
+Although most of Omnibot commands are in the DMS this does not replace every command as some need additional parameters that need to be entered manually
+
+It is highly recommeded that you do read the Wiki so you have an understanding of what the DMS does
+https://mygamingtalk.com/wiki/OMNIBOT_-_Enemy_Territory_Modification
+
+Waypointing
+https://mygamingtalk.com/wiki/Template:Basewaypointing
+
+Goals
+https://mygamingtalk.com/wiki/Template:Goals
+
+Commands
+https://mygamingtalk.com/wiki/Omni-bot_Command_Reference
+
+Scripting
+https://mygamingtalk.com/wiki/Template:Basescripting
+
+Routing
+https://mygamingtalk.com/wiki/Template:Baserouting
+
+Versions
+
+0.81
+
+This was the 1st public release with the following featuring
+Waypointing Commands
+Drawing Goals
+Creating Goals
+Editing Goals
+Bot Roles
+Add Bots
+Omnibot Commands
+Cheats Menu
+Debuging Commands
+CVAR commands
+
+
+0.9x
+
+This is an updated version with more commands added /edited.
+Some are new & other were not originally added.
+
+# Waypointing Commands:
+
+cleargoalflags
+Infiltrator
+mywpmode
+strafe_l
+strafe_r
+waypoint_autofeature
+waypoint_addx
+waypoint_biconnectx
+waypoint_connectx
+waypoint_clearallflags
+waypoint_stats
+
+
+# Drawing Goals:
+
+Show Goalroutes
+Tripmine (Silent Mod)
+
+# Create Goals:
+
+Detonatespot
+Plantstart
+Plantnext
+Randomusepoint
+Show_goalroutes
+Tripmine (Silent Mod)
+
+
+# Edit Goals:
+
+Campstart
+Campnext
+
+
+# Add Bots:
+
+Dontshoot on/off
+Ignore Player (IP) on off
+
+
+# Omnibot Commands:
+
+Makemapgoallist
+Saveplayerpos
+Saveusepoint
+Tracebox
+Trigger_aimpos
+
+
+# Debuging Commands:
+
+Drawblocktests
+Showentityinfo
+
+
+# CVAR commands:
+
+G_warmup
+R_wolffog

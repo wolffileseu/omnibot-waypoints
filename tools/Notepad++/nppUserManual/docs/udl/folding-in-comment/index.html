@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta name="generator" content="Hugo 0.68.3" />
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="UDL &gt; Folding in comment This keyword set is new in UDL 2.1.
+It allows you to fold anything as long as your language supports comments.
+Let&rsquo;s demonstrate it by using C&#43;&#43; comments.
+Example 1 Note: When selecting keywords that turn comments into folding points, it is important to select unique keywords. Don&rsquo;t use stuff that is part of your source code, that will create unexpected folding points when you comment out parts of your source code.">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="UDL &gt; Folding in comment" />
+<meta property="og:description" content="UDL &gt; Folding in comment This keyword set is new in UDL 2.1.
+It allows you to fold anything as long as your language supports comments.
+Let&rsquo;s demonstrate it by using C&#43;&#43; comments.
+Example 1 Note: When selecting keywords that turn comments into folding points, it is important to select unique keywords. Don&rsquo;t use stuff that is part of your source code, that will create unexpected folding points when you comment out parts of your source code." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="../../../docs/udl/folding-in-comment/index.html" />
+
+<title>UDL &gt; Folding in comment | Notepad&#43;&#43; User Manual</title>
+<link rel="manifest" href="../../../manifest.json">
+<link rel="icon" href="../../../favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="../../../book.min.6e40b5f911dc7f922b4354b4a32e0a00d71dc7ebac6d2334c02aa38eb679f117.css" attr_integ_ignore="sha256-bkC1&#43;RHcf5IrQ1S0oy4KANcdx&#43;usbSM0wCqjjrZ58Rc=">
+<script defer src="../../../en.search.min.198a20a5f81cba6044d4b6b4ed8e396ecef5d158d13a4e21936619f0d5a4638a.js" attr_integ_ignore="sha256-GYogpfgcumBE1La07Y45bs710VjROk4hk2YZ8NWkY4o="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a href="../../../index.html"><span>Notepad&#43;&#43; User Manual</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" readonly hidden placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/getting-started/index.html" class="">Getting started</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/files/index.html" class="">Working with Files</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/editing/index.html" class="">Editing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/searching/index.html" class="">Searching</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/views/index.html" class="">Views</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/session/index.html" class="">Sessions, Workspaces, and Projects</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/function-list/index.html" class="">Function List</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/auto-completion/index.html" class="">Auto-Completion</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/programing-languages/index.html" class="">Syntax Highlighting - Built-in Languages</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/user-defined-language-system/index.html" class="">Syntax Highlighting - User Defined Languages</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/introduction/index.html" class="">UDL &gt; Parser</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/default/index.html" class="">UDL &gt; Default Style</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/folding-in-code/index.html" class="">UDL &gt; Folding in code</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/folding-in-comment/index.html" class=" active">UDL &gt; Folding in comment</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/keywords/index.html" class="">UDL &gt; Keywords</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/comments/index.html" class="">UDL &gt; Comments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/numbers/index.html" class="">UDL &gt; Numbers</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/operators/index.html" class="">UDL &gt; Operators</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/delimiters/index.html" class="">UDL &gt; Delimiters</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/macros/index.html" class="">Macros - Task Automation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/run-menu/index.html" class="">Running External Commands</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/plugins/index.html" class="">Plugins</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/plugin-communication/index.html" class="">Plugin Communication</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/command-prompt/index.html" class="">Command Line Arguments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/preferences/index.html" class="">Preferences</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/config-files/index.html" class="">Configuration Files Details</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/themes/index.html" class="">Themes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/binary-translation/index.html" class="">Localization - User Interface Translation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/user-interface/index.html" class="">User Interface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/upgrading/index.html" class="">Upgrading</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/shell-extension/index.html" class="">Right Click - Edit With Notepad&#43;&#43;</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/ghost-typing/index.html" class="">Ghost Typing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/other-resources/index.html" class="">Other Resources</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/history/index.html" class="">User Manual History</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/license/index.html" class="">Copyright &amp; License</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="../../../svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>UDL &gt; Folding in comment</strong>
+
+  <label for="toc-control">
+    
+    <img src="../../../svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#udl-gt-folding-in-comment">UDL &gt; Folding in comment</a>
+      <ul>
+        <li><a href="#example-1">Example 1</a></li>
+        <li><a href="#example-2">Example 2</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="udl-gt-folding-in-comment">UDL &gt; Folding in comment</h1>
+<p>This keyword set is new in UDL 2.1.<br>
+It allows you to fold anything as long as your language supports comments.<br>
+Let&rsquo;s demonstrate it by using C++ comments.</p>
+<h2 id="example-1">Example 1</h2>
+<p><img src="../images/folding_in_comment_01.png" alt="" /></p>
+<p>Note: When selecting keywords that turn comments into folding points, it is important to select unique keywords. Don&rsquo;t use stuff that is part of your source code, that will create unexpected folding points when you comment out parts of your source code.</p>
+<p><img src="../images/folding_in_comment_02.png" alt="" /></p>
+<p>Notice how comments that have &ldquo;folding in comment&rdquo; keywords embedded in them, create folding points in your code. I even mixed line comments and normal comments, and it works. So, any comment with &ldquo;folding in comment&rdquo; keywords embedded can become a folding point. And remember, these are just comments, you can put them anywhere you like. In fact, you can use this feature to organize your code. For one way to do it, see next example.</p>
+<h2 id="example-2">Example 2</h2>
+<p>Let&rsquo;s steal some ideas from C#. Our code will be organized in &ldquo;regions&rdquo;.</p>
+<p><img src="../images/folding_in_comment_03.png" alt="" /></p>
+<p>One keyword group will be anything that starts with &ldquo;at sign&rdquo; <code>@</code>, so check Prefix mode option.</p>
+<p><img src="../images/folding_in_comment_04.png" alt="" /></p>
+<p>We&rsquo;ll define comments as standard C++ comments:</p>
+<pre><code>/* cpp comment */
+// cpp line comment
+</code></pre><p>The important thing here is to allow nesting of keyword group two (words that start with <code>@</code> sign)</p>
+<p><img src="../images/folding_in_comment_05.png" alt="" /></p>
+<p>Finally, the magic happens.<br>
+I organized my code in three logical groups:</p>
+<ul>
+<li>initialization</li>
+<li>execution</li>
+<li>clean up</li>
+</ul>
+<p>These three keywords are not defined anywhere, I can call my regions anything I like, as long as I use <code>@</code> prefix.</p>
+<p>Notice how <code>region</code> and <code>end</code> keywords have the same color as comments, but <code>@region_name</code> uses distinct color to be easily noticeable.</p>
+<p><img src="../images/folding_in_comment_06.png" alt="" /></p>
+<p>Folding in comment keywords support multi-part keywords too.</p>
+<p>In the end, I would just like to say that, if used properly, this could be the single most useful feature of UDL 2.1.</p>
+<p style="border-top: 1px solid var(--h4-color); font-style: italic; color: var(--h4-color); font-size: smaller;">This
+page of the User Manual is derived and edited from Ivan Radić's <a href="https://github.com/ivan-radic/udl-documentation/">udl-documentation</a>,
+which he has maintained for Notepad++'s UDL 2.1 since 2015, under the
+<a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> license.</p>
+
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#udl-gt-folding-in-comment">UDL &gt; Folding in comment</a>
+      <ul>
+        <li><a href="#example-1">Example 1</a></li>
+        <li><a href="#example-2">Example 2</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,17 @@
+--langdef=ini
+--langmap=ini:.ini
+--regex-ini=/^[^a-zA-Z1-90\=\_\-\;\:]*[ \t]*(\[.+\])[ \t]*/\1/s,section/
+
+--langdef=reg
+--langmap=reg:.reg
+--regex-reg=/^[^a-zA-Z1-90\=\_\-\;\:]*[ \t]*(\[.+\])[ \t]*/\1/s,section/
+
+--langdef=ob
+--langmap=ob:.gm
+--regex-ob=/^[ \t]*([0-9A-Za-z_\.]+\[\s*"?([0-9A-Za-z_\.]+)"?\s*\])(\ *)\=(\ *)function(\ *)\(([0-9A-Za-z_\,\ ]*)\)/\1(\6)/f,Functions/
+--regex-ob=/^[ \t]*(global |member )?([0-9A-Za-z_\.]+)(\ *)\=(\ *)function(\ *)\(([0-9A-Za-z_\,\ ]*)\)/\2(\6)/f,Functions/
+--regex-ob=/^[ \t]*global(\ +)([A-Za-z][0-9A-Za-z_]*)(\ *)\=(\ *)((function)(\([0-9A-Za-z_\,\ ]*\)))?/\2\7/v,Globals/
+--regex-ob=/^[ \t]*(global(\s+))?([A-Za-z][0-9A-Za-z_\.]*)(\ *)\=\s*(\{.*|table\s*\(.*\);\s*(\/\/.*)?)?$/\1\3 \{\}/t,Tables/
+--regex-ob=/^[ \t]*(this\.)?Commands\["([0-9A-Za-z_]+)"\](\ *)\=/\2/c,Commands/
+--regex-ob=/^\t(Debug = (true|[1-9])),/\1/s,To Do/
+--regex-ob=/\/(\/|\*)\s*(TODO)(:?\s*(\w+\W){0,4})/\2\3/s,To Do/

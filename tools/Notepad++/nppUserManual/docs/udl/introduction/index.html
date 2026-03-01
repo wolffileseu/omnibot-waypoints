@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta name="generator" content="Hugo 0.68.3" />
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Introduction to UDL 2 code parser This section explains what &ldquo;backward&rdquo; and &ldquo;forward&rdquo; search is.
+Users should understand this part before proceeding to read about other UDL 2.1 features.
+Introduction to UDL 1.0 internal logic To understand the UDL 2.1 logic, you will first need to understand the UDL 1.0 logic, even though Notepad&#43;&#43; hasn&rsquo;t used UDL 1.0 in years, because it teaches the basic concepts involved.
+In this picture you can see a set of three keywords.">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="UDL &gt; Parser" />
+<meta property="og:description" content="Introduction to UDL 2 code parser This section explains what &ldquo;backward&rdquo; and &ldquo;forward&rdquo; search is.
+Users should understand this part before proceeding to read about other UDL 2.1 features.
+Introduction to UDL 1.0 internal logic To understand the UDL 2.1 logic, you will first need to understand the UDL 1.0 logic, even though Notepad&#43;&#43; hasn&rsquo;t used UDL 1.0 in years, because it teaches the basic concepts involved.
+In this picture you can see a set of three keywords." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="../../../docs/udl/introduction/index.html" />
+
+<title>UDL &gt; Parser | Notepad&#43;&#43; User Manual</title>
+<link rel="manifest" href="../../../manifest.json">
+<link rel="icon" href="../../../favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="../../../book.min.6e40b5f911dc7f922b4354b4a32e0a00d71dc7ebac6d2334c02aa38eb679f117.css" attr_integ_ignore="sha256-bkC1&#43;RHcf5IrQ1S0oy4KANcdx&#43;usbSM0wCqjjrZ58Rc=">
+<script defer src="../../../en.search.min.198a20a5f81cba6044d4b6b4ed8e396ecef5d158d13a4e21936619f0d5a4638a.js" attr_integ_ignore="sha256-GYogpfgcumBE1La07Y45bs710VjROk4hk2YZ8NWkY4o="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a href="../../../index.html"><span>Notepad&#43;&#43; User Manual</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" readonly hidden placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/getting-started/index.html" class="">Getting started</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/files/index.html" class="">Working with Files</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/editing/index.html" class="">Editing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/searching/index.html" class="">Searching</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/views/index.html" class="">Views</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/session/index.html" class="">Sessions, Workspaces, and Projects</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/function-list/index.html" class="">Function List</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/auto-completion/index.html" class="">Auto-Completion</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/programing-languages/index.html" class="">Syntax Highlighting - Built-in Languages</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/user-defined-language-system/index.html" class="">Syntax Highlighting - User Defined Languages</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/introduction/index.html" class=" active">UDL &gt; Parser</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/default/index.html" class="">UDL &gt; Default Style</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/folding-in-code/index.html" class="">UDL &gt; Folding in code</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/folding-in-comment/index.html" class="">UDL &gt; Folding in comment</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/keywords/index.html" class="">UDL &gt; Keywords</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/comments/index.html" class="">UDL &gt; Comments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/numbers/index.html" class="">UDL &gt; Numbers</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/operators/index.html" class="">UDL &gt; Operators</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/delimiters/index.html" class="">UDL &gt; Delimiters</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/macros/index.html" class="">Macros - Task Automation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/run-menu/index.html" class="">Running External Commands</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/plugins/index.html" class="">Plugins</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/plugin-communication/index.html" class="">Plugin Communication</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/command-prompt/index.html" class="">Command Line Arguments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/preferences/index.html" class="">Preferences</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/config-files/index.html" class="">Configuration Files Details</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/themes/index.html" class="">Themes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/binary-translation/index.html" class="">Localization - User Interface Translation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/user-interface/index.html" class="">User Interface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/upgrading/index.html" class="">Upgrading</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/shell-extension/index.html" class="">Right Click - Edit With Notepad&#43;&#43;</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/ghost-typing/index.html" class="">Ghost Typing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/other-resources/index.html" class="">Other Resources</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/history/index.html" class="">User Manual History</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/license/index.html" class="">Copyright &amp; License</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="../../../svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>UDL &gt; Parser</strong>
+
+  <label for="toc-control">
+    
+    <img src="../../../svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#introduction-to-udl-2-code-parser">Introduction to UDL 2 code parser</a>
+      <ul>
+        <li><a href="#introduction-to-udl-10-internal-logic">Introduction to UDL 1.0 internal logic</a></li>
+        <li><a href="#introduction-to-udl-21-internal-logic">Introduction to UDL 2.1 internal logic</a></li>
+        <li><a href="#complete-list-of-backwards-and-forwards-keywords">Complete list of &ldquo;backwards&rdquo; and &ldquo;forwards&rdquo; keywords</a></li>
+        <li><a href="#more-on-forward-and-backward-detection-logic">More on &ldquo;forward&rdquo; and &ldquo;backward&rdquo; detection logic</a>
+          <ul>
+            <li><a href="#forward-search-example">Forward search example</a></li>
+            <li><a href="#backward-search-example">Backward search example</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="introduction-to-udl-2-code-parser">Introduction to UDL 2 code parser</h1>
+<p>This section explains what &ldquo;backward&rdquo; and &ldquo;forward&rdquo; search is.<br>
+Users should understand this part before proceeding to read about other UDL 2.1 features.</p>
+<h2 id="introduction-to-udl-10-internal-logic">Introduction to UDL 1.0 internal logic</h2>
+<p>To understand the UDL 2.1 logic, you will first need to understand the UDL 1.0 logic, even though Notepad++ hasn&rsquo;t used UDL 1.0 in years, because it teaches the basic concepts involved.</p>
+<p><img src="../images/introduction_01.png" alt="" /></p>
+<p>In this picture you can see a set of three keywords.<br>
+How did UDL 1.0 recognized each one?<br>
+The simplest explanation would be something like this:</p>
+<ol>
+<li>identification starts in position 0, so first &ldquo;search start point&rdquo; is set to 0</li>
+<li>when first space char is reached (in position 5), UDL 1.0 detects new &ldquo;word&rdquo; (characters from position 0 through position 5), and tries to compare string that consists of characters on positions from 0 to 5 (in this case word is <code>first</code>), with UDL&rsquo;s own keyword list.</li>
+<li>if it detects a keyword, it sets appropriate styler (in this case keyword1 styler), and sets new &ldquo;search start point&rdquo; one char after space, i.e. position 6.</li>
+<li>now it repeats the process for other keywords.</li>
+</ol>
+<p>One obvious limitation is that you have to have space around your keywords, otherwise UDL 1.0 won&rsquo;t recognize them. There were some exceptions from this rule, e.g. operators in UDL 1.0 are just one charecter long, so it was possible to test each character directly and detect an operator. But generally, keywords had to be surounded by whitespace to be correctly recognized.</p>
+<p>I call this approach &ldquo;backwards&rdquo; detection, because <strong>keywords are detected in backward direction</strong> (e.g. keyword <code>first</code> is detected only after UDL reaches position 5). And yes, I do understand what &ldquo;backwards&rdquo; means in English, but I am not a native speaker, so bear with me, I mean nothing offensive.</p>
+<h2 id="introduction-to-udl-21-internal-logic">Introduction to UDL 2.1 internal logic</h2>
+<p><img src="../images/introduction_02.png" alt="" /></p>
+<p>What we have here is a combination of two keywords (<code>first</code> and <code>second</code>) connected by a two-character operator <code>&lt;&lt;</code>, and closed with another operator <code>;</code> (Note that operators are underlined so you could see them more easily). So, how does UDL 2.1 work then? Again, this is just a simplified description:</p>
+<ol>
+<li>identification starts in position 0, so first &ldquo;search start point&rdquo; is set to 0</li>
+<li>in each position UDL 2.1 performs a &ldquo;forward&rdquo; scan of operators.</li>
+<li>when UDL reaches position 5 (first <code>&lt;</code> character), it detects an operator.</li>
+<li>now UDL 2.1 does two things:
+<ul>
+<li>it performs &ldquo;backward&rdquo; scan (the same way UDL 1.0 does it) by comparing everything from last &ldquo;search start point&rdquo; until current position (in this case string <code>first</code>) and it correctly identifies it as a keyword.</li>
+<li>it applies keyword styler (for <code>first</code>) and a styler for operator <code>&lt;&lt;</code>, and sets new &ldquo;search start point&rdquo; to position 7 (letter <code>s</code>)</li>
+</ul>
+</li>
+<li>in the same way UDL 2.1 detects second operator <code>;</code> with &ldquo;forward&rdquo; search and second keyword <code>second</code> with backward search.</li>
+</ol>
+<p>So, UDL 2.1 uses a combination of &ldquo;forward&rdquo; and &ldquo;backward&rdquo; search in order to detect keywords that are &ldquo;glued&rdquo; together. And all keywords in UDL 2.1 are diveded in two basic groups which I call &ldquo;backwards&rdquo; and &ldquo;forwards&rdquo; (feel free to suggest a better name for these).</p>
+<h2 id="complete-list-of-backwards-and-forwards-keywords">Complete list of &ldquo;backwards&rdquo; and &ldquo;forwards&rdquo; keywords</h2>
+<p>Backwards:</p>
+<ul>
+<li>Keywords 1-8</li>
+<li>Folding in comment</li>
+<li>Operators2</li>
+</ul>
+<p>Forwards:</p>
+<ul>
+<li>Folding in code</li>
+<li>Comments</li>
+<li>Operators1</li>
+<li>Delimiters 1-8</li>
+<li>Numbers</li>
+</ul>
+<h2 id="more-on-forward-and-backward-detection-logic">More on &ldquo;forward&rdquo; and &ldquo;backward&rdquo; detection logic</h2>
+<p>Understanding dual logic of UDL 2.1 (detecting keyword in both backward and forward direction) is very important. So, before we proceed with details of UDL 2.1, let&rsquo;s first explain why is it important and where things can go wrong. The simplest way to demonstrate &ldquo;backward&rdquo; and &ldquo;forward&rdquo; logic is to define two sets of operators:</p>
+<p>C++ style:</p>
+<pre><code>&amp;&amp; || !
+</code></pre><p>Python style:</p>
+<pre><code>and or not
+</code></pre><h3 id="forward-search-example">Forward search example</h3>
+<p><img src="../images/introduction_03.png" alt="" /></p>
+<p>C++ boolean operators are special characters. They can never be part of variable name. That&rsquo;s why they can be &ldquo;glued&rdquo; to preceding or following keyword. And this is demonstrated in line three. There are no white spaces in line three, but each operator is recognized by UDL 2.1.</p>
+<p>Let&rsquo;s follow what happens in the background. For example, we&rsquo;ll focus on <code>&amp;&amp;</code> operator in line three.</p>
+<ol>
+<li>when UDL reaches first <code>&amp;</code> character it performs &ldquo;forward&rdquo; search and it detects that next two characters form an operator.</li>
+<li>at this point UDL does not care what follows after <code>&amp;&amp;</code> it simply treats <code>&amp;&amp;</code> as an operator</li>
+</ol>
+<p>Let&rsquo;s repeat that again.<br>
+In C++ an operator is always an operator and can never be something else, like part of another keyword or variable name. So, in forward search, there are no false positives, and it is not important what follows before or after forward keyword.</p>
+<h3 id="backward-search-example">Backward search example</h3>
+<p><img src="../images/introduction_04.png" alt="" /></p>
+<p><img src="../images/introduction_05.png" alt="" /></p>
+<p>Python boolean operators are normal English words and or not, very similar to other Python keywords. Unlike in C++, Python operators can easily be part of other keywords or variable names.</p>
+<p>So, if we define Python operators as forward search keywords, we end up with more than we asked for. Let&rsquo;s explain first picture (again operators are underlined to be easily recognized):</p>
+<ul>
+<li>in line one, Python operators work as expected</li>
+<li>in line three, operators are highlighted even if syntax is not correct</li>
+<li>in lines 5,6,7, operators are detected in random words that have <code>and</code> or <code>not</code> in them</li>
+</ul>
+<p>Obviously, this is not acceptable.</p>
+<p>That&rsquo;s why I defined a two sets of operators: Operators1 and Operators2:</p>
+<ul>
+<li>Operators1 are found using forward search.</li>
+<li>Operators2 are found using backward search.</li>
+</ul>
+<p>Second picture shows what happens when we redefine Python operators as Operators2. This time around, there are no ugly surprises. Operators are detected only if surrounded by white space or forward search keywords like Operators1 (demonstrated in lines 9,10,11)</p>
+<p>To sum up: both forward and backward search logic must be implemented in UDL 2.1 and it is the user&rsquo;s job to decide which one should be applied on a given set of keywords. The rule of thumb is: if your keyword can be &ldquo;glued&rdquo; to other keywords, like C++ boolean operators, use forward search; if your keyword must be separated from the rest of the source code by white space or special characters, use backward search.</p>
+<p>This option is given in case of operators and folding in code keywords. All other keyword sets simply fall into one of two search directions, and are not user selectable. Complete list is given in the paragraph above.</p>
+<p style="border-top: 1px solid var(--h4-color); font-style: italic; color: var(--h4-color); font-size: smaller;">This
+page of the User Manual is derived and edited from Ivan Radić's <a href="https://github.com/ivan-radic/udl-documentation/">udl-documentation</a>,
+which he has maintained for Notepad++'s UDL 2.1 since 2015, under the
+<a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> license.</p>
+
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#introduction-to-udl-2-code-parser">Introduction to UDL 2 code parser</a>
+      <ul>
+        <li><a href="#introduction-to-udl-10-internal-logic">Introduction to UDL 1.0 internal logic</a></li>
+        <li><a href="#introduction-to-udl-21-internal-logic">Introduction to UDL 2.1 internal logic</a></li>
+        <li><a href="#complete-list-of-backwards-and-forwards-keywords">Complete list of &ldquo;backwards&rdquo; and &ldquo;forwards&rdquo; keywords</a></li>
+        <li><a href="#more-on-forward-and-backward-detection-logic">More on &ldquo;forward&rdquo; and &ldquo;backward&rdquo; detection logic</a>
+          <ul>
+            <li><a href="#forward-search-example">Forward search example</a></li>
+            <li><a href="#backward-search-example">Backward search example</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

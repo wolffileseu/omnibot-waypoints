@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta name="generator" content="Hugo 0.68.3" />
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="UDL &gt; Delimiters This section describes new options users have when defining delimiters.
+Delimiters changed a lot in UDL 2.1.
+The most obvious difference is the GUI, so we&rsquo;ll start with that.
+Just like in case of keywords, number of delimiter lists has been expanded to eight (as suggested by Don), if more is needed, please state so in discussion on Notepad&#43;&#43; forum. And each Delimiter now accepts its own Escape char.">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="UDL &gt; Delimiters" />
+<meta property="og:description" content="UDL &gt; Delimiters This section describes new options users have when defining delimiters.
+Delimiters changed a lot in UDL 2.1.
+The most obvious difference is the GUI, so we&rsquo;ll start with that.
+Just like in case of keywords, number of delimiter lists has been expanded to eight (as suggested by Don), if more is needed, please state so in discussion on Notepad&#43;&#43; forum. And each Delimiter now accepts its own Escape char." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="../../../docs/udl/delimiters/index.html" />
+
+<title>UDL &gt; Delimiters | Notepad&#43;&#43; User Manual</title>
+<link rel="manifest" href="../../../manifest.json">
+<link rel="icon" href="../../../favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="../../../book.min.6e40b5f911dc7f922b4354b4a32e0a00d71dc7ebac6d2334c02aa38eb679f117.css" attr_integ_ignore="sha256-bkC1&#43;RHcf5IrQ1S0oy4KANcdx&#43;usbSM0wCqjjrZ58Rc=">
+<script defer src="../../../en.search.min.198a20a5f81cba6044d4b6b4ed8e396ecef5d158d13a4e21936619f0d5a4638a.js" attr_integ_ignore="sha256-GYogpfgcumBE1La07Y45bs710VjROk4hk2YZ8NWkY4o="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a href="../../../index.html"><span>Notepad&#43;&#43; User Manual</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" readonly hidden placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/getting-started/index.html" class="">Getting started</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/files/index.html" class="">Working with Files</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/editing/index.html" class="">Editing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/searching/index.html" class="">Searching</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/views/index.html" class="">Views</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/session/index.html" class="">Sessions, Workspaces, and Projects</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/function-list/index.html" class="">Function List</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/auto-completion/index.html" class="">Auto-Completion</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/programing-languages/index.html" class="">Syntax Highlighting - Built-in Languages</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/user-defined-language-system/index.html" class="">Syntax Highlighting - User Defined Languages</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/introduction/index.html" class="">UDL &gt; Parser</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/default/index.html" class="">UDL &gt; Default Style</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/folding-in-code/index.html" class="">UDL &gt; Folding in code</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/folding-in-comment/index.html" class="">UDL &gt; Folding in comment</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/keywords/index.html" class="">UDL &gt; Keywords</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/comments/index.html" class="">UDL &gt; Comments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/numbers/index.html" class="">UDL &gt; Numbers</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/operators/index.html" class="">UDL &gt; Operators</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/delimiters/index.html" class=" active">UDL &gt; Delimiters</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/macros/index.html" class="">Macros - Task Automation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/run-menu/index.html" class="">Running External Commands</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/plugins/index.html" class="">Plugins</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/plugin-communication/index.html" class="">Plugin Communication</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/command-prompt/index.html" class="">Command Line Arguments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/preferences/index.html" class="">Preferences</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/config-files/index.html" class="">Configuration Files Details</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/themes/index.html" class="">Themes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/binary-translation/index.html" class="">Localization - User Interface Translation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/user-interface/index.html" class="">User Interface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/upgrading/index.html" class="">Upgrading</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/shell-extension/index.html" class="">Right Click - Edit With Notepad&#43;&#43;</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/ghost-typing/index.html" class="">Ghost Typing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/other-resources/index.html" class="">Other Resources</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/history/index.html" class="">User Manual History</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/license/index.html" class="">Copyright &amp; License</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="../../../svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>UDL &gt; Delimiters</strong>
+
+  <label for="toc-control">
+    
+    <img src="../../../svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#udl-gt-delimiters">UDL &gt; Delimiters</a>
+      <ul>
+        <li><a href="#usage-examples">Usage examples</a>
+          <ul>
+            <li><a href="#example-1">Example 1</a></li>
+            <li><a href="#example-2">Example 2</a></li>
+            <li><a href="#example-3">Example 3</a></li>
+            <li><a href="#example-4">Example 4</a></li>
+            <li><a href="#example-5">Example 5</a></li>
+          </ul>
+        </li>
+        <li><a href="#nesting-of-delimiters">Nesting of delimiters</a>
+          <ul>
+            <li><a href="#example-6">Example 6</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="udl-gt-delimiters">UDL &gt; Delimiters</h1>
+<p>This section describes new options users have when defining delimiters.</p>
+<p>Delimiters changed a lot in UDL 2.1.<br>
+The most obvious difference is the GUI, so we&rsquo;ll start with that.</p>
+<p><img src="../images/delimiters_01.png" alt="" /></p>
+<p>Just like in case of keywords, number of delimiter lists has been expanded to eight (as suggested by Don), if more is needed, please state so in discussion on Notepad++ forum. And each Delimiter now accepts its own Escape char. There have been numerous changes under the hood also, and we&rsquo;ll cover them here through a series of short examples.</p>
+<h2 id="usage-examples">Usage examples</h2>
+<h3 id="example-1">Example 1</h3>
+<p>First example is a simple C++ string.<br>
+Nothing fancy here.</p>
+<p><img src="../images/delimiters_02.png" alt="" /></p>
+<p><img src="../images/delimiters_03.png" alt="" /></p>
+<h3 id="example-2">Example 2</h3>
+<p>This is little more interesting.<br>
+It is an attempt to define a line comment.</p>
+<p>Notice how UDL&rsquo;s special operator &ldquo;(( ))&rdquo; <strong>transforms string &ldquo;EOL&rdquo; into an end of line character</strong>. In fact it transforms it into a vector of three strings:</p>
+<pre><code>\r\n
+\n
+\r
+</code></pre><p>So, it will find a line end regardless of your file format (unix/dos/osx)</p>
+<p><img src="../images/delimiters_04.png" alt="" /></p>
+<p><img src="../images/delimiters_05.png" alt="" /></p>
+<h3 id="example-3">Example 3</h3>
+<p>Another interesting example.<br>
+C++ line comments support continuation to the next line, and there is just one continue character: backslash <code>\</code></p>
+<p>But there is a catch, C++ standard also defines something call digraphs and trigraphs. And a trigraph sequence for backslash is a <code>??/</code> (question mark twice than forward slash)</p>
+<p>So, to have complete definition of C++ line comments, one must define both continue sequences. In UDL 2.1 you do that with special operator &ldquo;(( ))&quot;. So, if two or more strings are defined inside of a special operator &ldquo;(( ))&quot;, they are interchangeable.</p>
+<p><img src="../images/delimiters_06.png" alt="" /></p>
+<p><img src="../images/delimiters_07.png" alt="" /></p>
+<h3 id="example-4">Example 4</h3>
+<p>In this example we define two different line comments.</p>
+<pre><code>first one is C++ style:       //
+second one is Python style:   #
+</code></pre><p>First thing to notice is how I aligned everything vertically.<br>
+In general, white space is not important when defining keywords, so you can use it any way you like it. It will be filtered out automatically.</p>
+<p>Second thing to understand is grouping of Continue characters.<br>
+C++ line comment (the first group), defines two continue characters, Python line comment defines just one.</p>
+<p>By using grouping with operator &ldquo;(( ))&rdquo; I was able to keep the logic of indexing and vertical aligning (both explained in <a href="../comments/index.html">comments section</a>) and to make sure that &ldquo;??/&rdquo; applies only to C++ line comments.</p>
+<p><img src="../images/delimiters_08.png" alt="" /></p>
+<p><img src="../images/delimiters_09.png" alt="" /></p>
+<h3 id="example-5">Example 5</h3>
+<p>If you need to use &ldquo;((&rdquo; and &ldquo;))&rdquo; as delimiter&rsquo;s open/close keywords, just define them inside of &ldquo;(( ))&rdquo; operator.<br>
+Also this is the only exception of the rule that <strong>whitespace can be used freely</strong>. When defining &ldquo;))&rdquo; inside of special operator &ldquo;(( ))&rdquo; you must &ldquo;glue&rdquo; four consecutive close braces. Otherwise you will define an empty keyword set.</p>
+<p><img src="../images/delimiters_10.png" alt="" /></p>
+<p><img src="../images/delimiters_11.png" alt="" /></p>
+<h2 id="nesting-of-delimiters">Nesting of delimiters</h2>
+<p>Comments and delimiters support nesting, and this can be used to define some complex operations.</p>
+<h3 id="example-6">Example 6</h3>
+<p>CoffeScript language defines its own regular expression syntax that is called hereRegex.<br>
+Funny thing about hereRegex syntax  is that supports comments inside regular expression, but:</p>
+<pre><code># this is a comment
+#{ this is not a comment
+</code></pre><p>Comments within hereRegex are everything after <code>#</code> character, but only if it is not followed by <code>{</code>. How do we solve this puzzle in UDL 2.1?</p>
+<p>We need to define three delimiters.</p>
+<ul>
+<li>Delimiter 1 represents hereRegex</li>
+<li>Delimiter 2 represents special case when <code>#</code> followed by a <code>{</code> does not start a line comment</li>
+<li>Delimiter 3 are line comments inside hereRegex</li>
+</ul>
+<p>Delimiter 1 and 2 have the same styling (so they would blend) and Delimiter 3 has a different style. Also, Delimiter 1 allows nesting of Delimiter 2 and 3. When all is set, hereRegex is highlighted as expected, with line comments in separate style.</p>
+<p>This is possible because UDL 2.1 checks Delimiters by starting with Delimiter 1 and going up to Delimiter 8. When it reaches position <code>#{</code> it detects Delimiter 2 simply because it tests for Delimiter 2 before testing for Delimiter 3.</p>
+<p>So, when Delimiters overlap, always put longer strings first !</p>
+<p><img src="../images/delimiters_12.png" alt="" /></p>
+<p><img src="../images/delimiters_13.png" alt="" /></p>
+<p style="border-top: 1px solid var(--h4-color); font-style: italic; color: var(--h4-color); font-size: smaller;">This
+page of the User Manual is derived and edited from Ivan Radić's <a href="https://github.com/ivan-radic/udl-documentation/">udl-documentation</a>,
+which he has maintained for Notepad++'s UDL 2.1 since 2015, under the
+<a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> license.</p>
+
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#udl-gt-delimiters">UDL &gt; Delimiters</a>
+      <ul>
+        <li><a href="#usage-examples">Usage examples</a>
+          <ul>
+            <li><a href="#example-1">Example 1</a></li>
+            <li><a href="#example-2">Example 2</a></li>
+            <li><a href="#example-3">Example 3</a></li>
+            <li><a href="#example-4">Example 4</a></li>
+            <li><a href="#example-5">Example 5</a></li>
+          </ul>
+        </li>
+        <li><a href="#nesting-of-delimiters">Nesting of delimiters</a>
+          <ul>
+            <li><a href="#example-6">Example 6</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

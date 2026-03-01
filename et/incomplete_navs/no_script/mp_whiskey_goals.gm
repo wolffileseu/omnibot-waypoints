@@ -1,0 +1,27 @@
+global _MG = 
+{
+	CAPPOINT_formula = 
+	{
+		GoalType = "CapPoint",
+		MinRadius = 32,
+		Position = Vec3(-809.818, -1001.892, -126.875),
+	},
+	FLAG_SECRET_WHISKEY_FORMULA = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "Flag",
+		Position = Vec3(0.000, -340.000, 376.125),
+		TagName = "SECRET WHISKEY FORMULA",
+		TeamAvailability = 2,
+	},
+	PLANT_SAFE_WITH_FORMULA = 
+	{
+		CreateOnLoad = 0,
+		ExplosiveType = 1,
+		GoalType = "PLANT",
+		Position = Vec3(0.000, -340.000, 396.000),
+		TagName = "SAFE WITH FORMULA",
+		TeamAvailability = 2,
+	},
+	Version = 1,
+};

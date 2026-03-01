@@ -1,0 +1,10 @@
+global _MG = 
+{
+	CAPPOINT_radio = 
+	{
+		GoalType = "CapPoint",
+		MinRadius = 32,
+		Position = Vec3(-818.540, -1005.874, -126.875),
+	},
+	Version = 1,
+};

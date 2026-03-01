@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta name="generator" content="Hugo 0.68.3" />
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="UDL &gt; Folding in code Folding in code is quite different in UDL 2.1. Instead of two keyword sets (open and close), now we have three keyword sets (open, middle and close). Also, there are two Folding in code groups: one for forward (style1) and one for backward (style2) search.
+Example 1 This is a typical C&#43;&#43; folding definition.
+Curly braces represent folding points in the code and preprocessor is also supported (for this demo not all statements were defined)">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="UDL &gt; Folding in code" />
+<meta property="og:description" content="UDL &gt; Folding in code Folding in code is quite different in UDL 2.1. Instead of two keyword sets (open and close), now we have three keyword sets (open, middle and close). Also, there are two Folding in code groups: one for forward (style1) and one for backward (style2) search.
+Example 1 This is a typical C&#43;&#43; folding definition.
+Curly braces represent folding points in the code and preprocessor is also supported (for this demo not all statements were defined)" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="../../../docs/udl/folding-in-code/index.html" />
+
+<title>UDL &gt; Folding in code | Notepad&#43;&#43; User Manual</title>
+<link rel="manifest" href="../../../manifest.json">
+<link rel="icon" href="../../../favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="../../../book.min.6e40b5f911dc7f922b4354b4a32e0a00d71dc7ebac6d2334c02aa38eb679f117.css" attr_integ_ignore="sha256-bkC1&#43;RHcf5IrQ1S0oy4KANcdx&#43;usbSM0wCqjjrZ58Rc=">
+<script defer src="../../../en.search.min.198a20a5f81cba6044d4b6b4ed8e396ecef5d158d13a4e21936619f0d5a4638a.js" attr_integ_ignore="sha256-GYogpfgcumBE1La07Y45bs710VjROk4hk2YZ8NWkY4o="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a href="../../../index.html"><span>Notepad&#43;&#43; User Manual</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" readonly hidden placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/getting-started/index.html" class="">Getting started</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/files/index.html" class="">Working with Files</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/editing/index.html" class="">Editing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/searching/index.html" class="">Searching</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/views/index.html" class="">Views</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/session/index.html" class="">Sessions, Workspaces, and Projects</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/function-list/index.html" class="">Function List</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/auto-completion/index.html" class="">Auto-Completion</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/programing-languages/index.html" class="">Syntax Highlighting - Built-in Languages</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/user-defined-language-system/index.html" class="">Syntax Highlighting - User Defined Languages</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/introduction/index.html" class="">UDL &gt; Parser</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/default/index.html" class="">UDL &gt; Default Style</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/folding-in-code/index.html" class=" active">UDL &gt; Folding in code</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/folding-in-comment/index.html" class="">UDL &gt; Folding in comment</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/keywords/index.html" class="">UDL &gt; Keywords</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/comments/index.html" class="">UDL &gt; Comments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/numbers/index.html" class="">UDL &gt; Numbers</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/operators/index.html" class="">UDL &gt; Operators</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/delimiters/index.html" class="">UDL &gt; Delimiters</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/macros/index.html" class="">Macros - Task Automation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/run-menu/index.html" class="">Running External Commands</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/plugins/index.html" class="">Plugins</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/plugin-communication/index.html" class="">Plugin Communication</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/command-prompt/index.html" class="">Command Line Arguments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/preferences/index.html" class="">Preferences</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/config-files/index.html" class="">Configuration Files Details</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/themes/index.html" class="">Themes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/binary-translation/index.html" class="">Localization - User Interface Translation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/user-interface/index.html" class="">User Interface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/upgrading/index.html" class="">Upgrading</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/shell-extension/index.html" class="">Right Click - Edit With Notepad&#43;&#43;</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/ghost-typing/index.html" class="">Ghost Typing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/other-resources/index.html" class="">Other Resources</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/history/index.html" class="">User Manual History</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/license/index.html" class="">Copyright &amp; License</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="../../../svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>UDL &gt; Folding in code</strong>
+
+  <label for="toc-control">
+    
+    <img src="../../../svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#udl-gt-folding-in-code">UDL &gt; Folding in code</a>
+      <ul>
+        <li><a href="#example-1">Example 1</a></li>
+        <li><a href="#example-2">Example 2</a></li>
+        <li><a href="#example-3">Example 3</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="udl-gt-folding-in-code">UDL &gt; Folding in code</h1>
+<p>Folding in code is quite different in UDL 2.1. Instead of two keyword sets (open and close), now we have three keyword sets (open, middle and close). Also, there are two Folding in code  groups: one for <a href="../introduction/index.html">forward (style1)</a> and one for <a href="../introduction/index.html">backward (style2)</a> search.</p>
+<h2 id="example-1">Example 1</h2>
+<p>This is a typical C++ folding definition.<br>
+Curly braces represent folding points in the code and preprocessor is also supported (for this demo not all statements were defined)</p>
+<p><img src="../images/folding_in_code_01.png" alt="" /></p>
+<p>There are two important things here.<br>
+As you can see both Folding 1 and Folding 2 create folding points, but they work differently.</p>
+<ul>
+<li>Folding 1 (the curly braces) is detected using forward search. It means these keywords can be &ldquo;glued&rdquo; to some other keyword. In this case opening curly brace stands next to closing round brace, and in line 12 around word <code>int</code></li>
+<li>Folding 2 (preprocessor stuff) works when surrounded by white space, but not when glued to word <code>UNICODE</code>, as demonstrated in line 14</li>
+</ul>
+<p><img src="../images/folding_in_code_02.png" alt="" /></p>
+<p>Note: forward and backward search concept is explained in more detail in the <a href="../introduction/index.html">UDL Parser</a> page.<br>
+You should read that part if you haven&rsquo;t already.</p>
+<h2 id="example-2">Example 2</h2>
+<p>UDL 2.1 will automatically create middle folding point if open folding point is followed by a close folding point on the same line.</p>
+<p><img src="../images/folding_in_code_03.png" alt="" /></p>
+<h2 id="example-3">Example 3</h2>
+<p>Use of multi-part keywords is supported in Folder in code 2, as you can see in this example.</p>
+<p><img src="../images/folding_in_code_04.png" alt="" /></p>
+<p style="border-top: 1px solid var(--h4-color); font-style: italic; color: var(--h4-color); font-size: smaller;">This
+page of the User Manual is derived and edited from Ivan Radić's <a href="https://github.com/ivan-radic/udl-documentation/">udl-documentation</a>,
+which he has maintained for Notepad++'s UDL 2.1 since 2015, under the
+<a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> license.</p>
+
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#udl-gt-folding-in-code">UDL &gt; Folding in code</a>
+      <ul>
+        <li><a href="#example-1">Example 1</a></li>
+        <li><a href="#example-2">Example 2</a></li>
+        <li><a href="#example-3">Example 3</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

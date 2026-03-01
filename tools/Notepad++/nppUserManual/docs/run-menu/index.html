@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta name="generator" content="Hugo 0.68.3" />
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="The Run menu allows you to run arbitrary external commands from inside Notepad&#43;&#43;, and to save the commands into new entries in the Run menu and even to assign keyboard shortcuts to those saved commands. Because of the variable syntax (defined in the Configuration Files Details &gt; User Defined Commands section of this manual), you can even use the filename or the current selected text or similar as arguments to the programs.">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="Running External Commands" />
+<meta property="og:description" content="The Run menu allows you to run arbitrary external commands from inside Notepad&#43;&#43;, and to save the commands into new entries in the Run menu and even to assign keyboard shortcuts to those saved commands. Because of the variable syntax (defined in the Configuration Files Details &gt; User Defined Commands section of this manual), you can even use the filename or the current selected text or similar as arguments to the programs." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="../../docs/run-menu/index.html" />
+
+<title>Running External Commands | Notepad&#43;&#43; User Manual</title>
+<link rel="manifest" href="../../manifest.json">
+<link rel="icon" href="../../favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="../../book.min.6e40b5f911dc7f922b4354b4a32e0a00d71dc7ebac6d2334c02aa38eb679f117.css" attr_integ_ignore="sha256-bkC1&#43;RHcf5IrQ1S0oy4KANcdx&#43;usbSM0wCqjjrZ58Rc=">
+<script defer src="../../en.search.min.198a20a5f81cba6044d4b6b4ed8e396ecef5d158d13a4e21936619f0d5a4638a.js" attr_integ_ignore="sha256-GYogpfgcumBE1La07Y45bs710VjROk4hk2YZ8NWkY4o="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a href="../../index.html"><span>Notepad&#43;&#43; User Manual</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" readonly hidden placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/getting-started/index.html" class="">Getting started</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/files/index.html" class="">Working with Files</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/editing/index.html" class="">Editing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/searching/index.html" class="">Searching</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/views/index.html" class="">Views</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/session/index.html" class="">Sessions, Workspaces, and Projects</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/function-list/index.html" class="">Function List</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/auto-completion/index.html" class="">Auto-Completion</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/programing-languages/index.html" class="">Syntax Highlighting - Built-in Languages</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/user-defined-language-system/index.html" class="">Syntax Highlighting - User Defined Languages</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/introduction/index.html" class="">UDL &gt; Parser</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/default/index.html" class="">UDL &gt; Default Style</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/folding-in-code/index.html" class="">UDL &gt; Folding in code</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/folding-in-comment/index.html" class="">UDL &gt; Folding in comment</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/keywords/index.html" class="">UDL &gt; Keywords</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/comments/index.html" class="">UDL &gt; Comments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/numbers/index.html" class="">UDL &gt; Numbers</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/operators/index.html" class="">UDL &gt; Operators</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/delimiters/index.html" class="">UDL &gt; Delimiters</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/macros/index.html" class="">Macros - Task Automation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/run-menu/index.html" class=" active">Running External Commands</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/plugins/index.html" class="">Plugins</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/plugin-communication/index.html" class="">Plugin Communication</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/command-prompt/index.html" class="">Command Line Arguments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/preferences/index.html" class="">Preferences</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/config-files/index.html" class="">Configuration Files Details</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/themes/index.html" class="">Themes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/binary-translation/index.html" class="">Localization - User Interface Translation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/user-interface/index.html" class="">User Interface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/upgrading/index.html" class="">Upgrading</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/shell-extension/index.html" class="">Right Click - Edit With Notepad&#43;&#43;</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/ghost-typing/index.html" class="">Ghost Typing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/other-resources/index.html" class="">Other Resources</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/history/index.html" class="">User Manual History</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/license/index.html" class="">Copyright &amp; License</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="../../svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Running External Commands</strong>
+
+  <label for="toc-control">
+    
+    <img src="../../svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#dialog">Dialog</a></li>
+        <li><a href="#running-saved-commands">Running Saved Commands</a></li>
+        <li><a href="#manage-shortcuts">Manage Shortcuts</a></li>
+        <li><a href="#example-usage">Example Usage</a>
+          <ul>
+            <li><a href="#run-the-current-file-with-its-default-association">Run the Current File with its default association</a></li>
+            <li><a href="#additional-browser-options">Additional Browser Options</a></li>
+            <li><a href="#enter-fancy-characters">Enter Fancy Characters</a></li>
+            <li><a href="#run-your-makefile">Run your makefile</a></li>
+            <li><a href="#getting-external-help">Getting External Help</a></li>
+            <li><a href="#a-filename-in-your-text">A Filename in Your Text</a></li>
+            <li><a href="#you-are-limited-only-by-your-imagination">You Are Limited Only By Your Imagination</a></li>
+          </ul>
+        </li>
+        <li><a href="#going-beyond-single-line-commands">Going Beyond Single-Line Commands</a></li>
+        <li><a href="#security-is-your-responsibility">Security is Your Responsibility</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><p>The <strong>Run</strong> menu allows you to run arbitrary external commands from inside Notepad++, and to save the commands into new entries in the <strong>Run</strong> menu and even to assign keyboard shortcuts to those saved commands.  Because of the variable syntax (defined in the <a href="https://npp-user-manual.org/docs/config-files/#userdefinedcommands">Configuration Files Details &gt; User Defined Commands</a> section of this manual), you can even use the filename or the current selected text or similar as arguments to the programs. <a href="https://npp-user-manual.org/docs/config-files/#userdefinedcommands">That section of the manual</a> also describes the underlying format of how saved <strong>Run</strong>-menu commands are stored in the <code>shortcuts.xml</code> config file.</p>
+<h2 id="dialog">Dialog</h2>
+<p>The <strong>Run &gt; Run&hellip;</strong> menu entry launches the <strong>Run&hellip;</strong> dialog, which is the way to run a new command.</p>
+<p>You can type any command that you could type from the Windows OS <strong>Run</strong> dialog (<code>Win+R</code> or <strong>Start Menu &gt; Run</strong>).  If you prefix the command with <code>cmd.exe /c</code> (making sure to use appropriate syntax), it will run the command in an old Windows command prompt window; prefixing with <code>cmd.exe /k</code> will run it in the command prompt window and will keep the window open after the command is done.  If you use a valid PowerShell command starting with <code>powershell.exe</code>, it will run the command in the PowerShell environment.</p>
+<p>The <strong>Program to Run</strong> entry field allows you to type the command to run.  If the command is not in your PATH, you will need to use <code>c:\full\path\to\application.exe</code>.  If you need a path that has spaces in it, make sure to use quotes around the path, like <code>&quot;c:\program files\myapp\myapplication.exe&quot; &quot;d:\some other\file name\as argument.txt&quot;</code> (following <code>cmd.exe</code> argument quoting rules).  The pulldown for this entry remembers previous commands you&rsquo;ve run in this instance of Notepad++.  The <code>...</code> button allows you to browse for the program executable to run.</p>
+<p>The <strong>Run</strong> button actually runs the command.</p>
+<p>The <strong>Save&hellip;</strong> button brings up a dialog to save the command you&rsquo;ve typed as a named entry for the <strong>Run</strong> menu.  You can also assign the saved command a keyboard shortcut for use inside Notepad++ in that sub-dialog.  <strong>OK</strong> will save the command (with the shortcut you defined); <strong>Cancel</strong> will abort the process, so the command doesn&rsquo;t get saved.</p>
+<p>The <strong>Cancel</strong> button (or the upper right X in the dialog) will allow you to exit the dialog without running the command.  This is useful if you&rsquo;ve changed your mind about running the external process, or if you just wanted to <strong>Save</strong> the command but not immediately run it.</p>
+<h2 id="running-saved-commands">Running Saved Commands</h2>
+<p>If you&rsquo;ve saved commands, they will show up underneath the <strong>Run&hellip;</strong> entry in the <strong>Run</strong> menu.  You can execute those commands by clicking on them.</p>
+<h2 id="manage-shortcuts">Manage Shortcuts</h2>
+<p><strong>Run &gt; Modify Shortcut / Delete Command</strong> will allow you to add or change or delete the shortcut for a command, or remove the command from the <strong>Run</strong> menu, using the <a href="https://npp-user-manual.org/docs/preferences/#shortcut-mapper">Shortcut Mapper</a> interface.  But in short: stay on the <strong>Run Commands</strong> tab of the <strong>Shortcut Mapper</strong> to deal with the <strong>Run</strong> menu entries; <strong>Modify</strong> will allow you to add or edit a shortcut; <strong>Clear</strong> will remove the shortcut but leave the command in the menu; <strong>Delete</strong> will completely remove the command from the menu; <strong>Close</strong> will exit the <strong>Shortcut Mapper</strong> dialog.</p>
+<h2 id="example-usage">Example Usage</h2>
+<h3 id="run-the-current-file-with-its-default-association">Run the Current File with its default association</h3>
+<p>The Windows OS defines default file associations based on the file extension.  If you run the command</p>
+<pre><code>&quot;$(FULL_CURRENT_PATH)&quot;
+</code></pre><p>the OS will take the saved contents of the file and run them based on the file extension (so a <code>.bat</code> file would run as normal, a <code>.csv</code> might launch a spreadsheet program, a <code>.py</code> file might run your installed Python interpreter, and so on).</p>
+<h3 id="additional-browser-options">Additional Browser Options</h3>
+<p>The Run menu can be an alternative to the <strong>View</strong> menu&rsquo;s <a href="../views/index.html#view-current-file-in"><strong>View Current File In&hellip;</strong></a> submenu: if you don&rsquo;t like the browser selection available, you can use the <code>&quot;$(FULL_CURRENT_PATH)&quot;</code> shown earlier to run your <code>.html</code> file with your default browser (whatever browser Windows uses when you double-click a <code>.html</code> file).  If you want even more options, define additional commands like <code>&quot;c:\program files\alternate browser\browser.exe&quot; &quot;$(FULL_CURRENT_PATH)&quot;</code> to load the active file in whatever browser you want.</p>
+<h3 id="enter-fancy-characters">Enter Fancy Characters</h3>
+<p>If you don&rsquo;t have a fancy Unicode keyboard, or if you want to be able to enter emojis, you could save a run menu command that runs <code>charmap.exe</code> to run windows built-in character map.  Or if you have a super-fancy emoji keyboard app, you could run <code>&quot;c:\program files\super fancy emoji keyboard\emojikeyboard.exe&quot;</code> to launch that keyboard from inside Notepad++.</p>
+<h3 id="run-your-makefile">Run your makefile</h3>
+<p>If you are editing source code, you might want to have a shortcut that will run <code>make</code> or <code>nmake</code> or <code>gmake</code> or similar build program in the current directory.</p>
+<h3 id="getting-external-help">Getting External Help</h3>
+<p>You could define <strong>Run</strong> menu entries to allow you to get help.  For example, running the command <code>https://en.wikipedia.org/wiki/Special:Search?search=$(CURRENT_WORD)</code> will look up the currently selected word (or the word where your <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a> is if you don&rsquo;t have a selection) in Wikipedia using your default browser.  Or running <code>https://docs.python.org/3/search.html?check_keywords=yes&amp;amp;q=$(CURRENT_WORD)</code> will look up the current word in the Python 3 online documentation.</p>
+<h3 id="a-filename-in-your-text">A Filename in Your Text</h3>
+<p>If your <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a> or selection is on the name of a file in your text, you can open that file in the current Notepad++ instance by running:</p>
+<pre><code>&quot;$(NPP_DIRECTORY)\notepad++.exe&quot; &quot;$(CURRENT_WORD)&quot;
+</code></pre><p>Or, if you want to force it to open in a new instance, use:</p>
+<pre><code>&quot;$(NPP_DIRECTORY)\notepad++.exe&quot; &quot;$(CURRENT_WORD)&quot; -nosession -multiInst
+</code></pre><h3 id="you-are-limited-only-by-your-imagination">You Are Limited Only By Your Imagination</h3>
+<p>If you can run it from <code>cmd.exe</code> or <code>powershell.exe</code> in a single command line, you can run it from here.  Let your imagination run wild.</p>
+<h2 id="going-beyond-single-line-commands">Going Beyond Single-Line Commands</h2>
+<p>If a single-line command isn&rsquo;t sufficient for your needs, you may want to consider one of the following options:</p>
+<ol>
+<li>
+<p>Write a batch file: writing a windows <code>.bat</code> or <code>.cmd</code> or <code>.ps1</code> file using cmd.exe or powershell syntax will allow you to specify a group of commands; you can then just use the <strong>Run &gt; Run&hellip;</strong>  to call that batch file to do your more complicated task.  You can pass any of the <a href="https://npp-user-manual.org/docs/config-files/#userdefinedcommands">special variables</a> as arguments to this batch file.</p>
+</li>
+<li>
+<p>Use the <a href="https://github.com/d0vgan/nppexec/">NppExec plugin</a>: this plugin can be installed from the <strong>Plugins &gt; Plugins Admin</strong> interface, and gives you access to a custom batch language, but with extended features that give you access to all the <a href="https://npp-user-manual.org/docs/config-files/#userdefinedcommands">special variables</a> plus extra access to the internals of the Notepad++ interface.  This also allows you to view the output of commands in an embedded interactive console window that can be docked in Notepad++.  (Does not use the <strong>Run</strong> menu.)</p>
+</li>
+<li>
+<p>Use <a href="https://github.com/bruderstein/PythonScript">PythonScript</a> or <a href="https://github.com/dail8859/LuaScript">LuaScript</a> or <a href="https://github.com/sieukrem/jn-npp-plugin/wiki">jN Notepad++</a> plugins (or similar) to write a script in your favorite programming language (and all those languages should give you access to any feature of that language, plus a way to access applications that live on your filesystem).  These may provide interactive console windows to give you even more flexibility. (Does not use the <strong>Run</strong> menu.)</p>
+</li>
+</ol>
+<h2 id="security-is-your-responsibility">Security is Your Responsibility</h2>
+<p>This menu allows you to run arbitrary programs from your PC.  Please ensure that you use paths to known safe applications.  Understand that you are solely responsible for what happens when you run an external application from Notepad++, and the developers of and contributors to Notepad++ are not responsible for or liable for external commands or the results of running them.</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#dialog">Dialog</a></li>
+        <li><a href="#running-saved-commands">Running Saved Commands</a></li>
+        <li><a href="#manage-shortcuts">Manage Shortcuts</a></li>
+        <li><a href="#example-usage">Example Usage</a>
+          <ul>
+            <li><a href="#run-the-current-file-with-its-default-association">Run the Current File with its default association</a></li>
+            <li><a href="#additional-browser-options">Additional Browser Options</a></li>
+            <li><a href="#enter-fancy-characters">Enter Fancy Characters</a></li>
+            <li><a href="#run-your-makefile">Run your makefile</a></li>
+            <li><a href="#getting-external-help">Getting External Help</a></li>
+            <li><a href="#a-filename-in-your-text">A Filename in Your Text</a></li>
+            <li><a href="#you-are-limited-only-by-your-imagination">You Are Limited Only By Your Imagination</a></li>
+          </ul>
+        </li>
+        <li><a href="#going-beyond-single-line-commands">Going Beyond Single-Line Commands</a></li>
+        <li><a href="#security-is-your-responsibility">Security is Your Responsibility</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

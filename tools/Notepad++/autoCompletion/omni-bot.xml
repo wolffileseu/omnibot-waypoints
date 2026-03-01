@@ -1,0 +1,3449 @@
+<?xml version="1.0" encoding="Windows-1252" ?>
+<NotepadPlus>
+	<AutoComplete language="GameMonkey">
+		<!--
+			Environment specifies how the language should be interpreted. ignoreCase makes autocomplete
+			ignore any casing, start and stopFunc specify what chars a function starts and stops with.
+			param specifies parameter separator and terminal can be used to specify a character that stops
+			any function. Using the same character for different functions results in undefined behaviour.
+			The basic character set used to recognise keywords is made of letters a-z, A-Z, 0-9 digits and the
+			underscore. You can add more characters – the dot is a likely candidate – by specifying the
+			additionalWordChars parameter in the environment. The value is a string with all the extra
+			parameters without any separators.
+			More info: https://sourceforge.net/apps/mediawiki/notepad-plus/index.php?title=Auto_Completion
+		-->
+		<Environment ignoreCase="yes" startFunc="(" stopFunc=")" paramSeparator="," terminal=";" />
+		<!--
+			The following items must be alphabetically ordered.
+			func="yes" means the keyword should be treated as a function, and thus can be used in the parameter
+			calltip system. If this is the case, the retVal attribute specifies the return value/type. Any
+			following Param tag specifies a parameter, they must be in order. The name attribute specifies
+			the parameter name. Note that a keyword can have several overloads.
+		-->
+		<KeyWord name="AABB" func="yes">
+			<Overload retVal="AABB:" descr="Axis aligned bounding box.">
+				<Param name="Vec3: position" />
+				<Param name="Vec3: position" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="abort" func="yes">
+			<Overload retVal="void:" descr="Causes an exception on the current thread with a user defined error">
+				<Param name="string: error message" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Abs" func="yes">
+			<Overload retVal="float:" descr="Absolute value of x.">
+				<Param name="float: x" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ACos" func="yes">
+			<Overload retVal="float:" descr="Arc Cosine.">
+				<Param name="float: x" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Action" />
+		<KeyWord name="Activator" />
+		<KeyWord name="AddAimRequest" func="yes">
+			<Overload retVal="void:" descr="scriptgoal.AddAimRequest() - Adds an aim request.">
+				<Param name="int: priority" />
+				<Param name='[string: &quot;position&quot;/&quot;movedirection&quot;/&quot;facing&quot;' />
+				<Param name="[Vec3: facing/position]]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AddBot" func="yes">
+			<Overload retVal="void:" descr="Adds a bot to the game.">
+				<Param name="[int: team ID" />
+				<Param name="int: class ID" />
+				<Param name="[string: name]]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AddFinishCriteria" func="yes">
+			<Overload retVal="bool:" descr="scriptGoal.AddFinishCriteria(subject, expression[, value]) - See the Wiki for the whole explanation.">
+				<Param name="subject: see the Wiki" />
+				<Param name="expression: see the Wiki" />
+				<Param name="[value: see the Wiki]" />
+			</Overload>
+			<Overload retVal="bool:" descr="scriptGoal.AddFinishCriteria(expression[, value]) - See the Wiki for the whole explanation.">
+				<Param name="expression: see the Wiki" />
+				<Param name="[value: see the Wiki]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AddRoute" func="yes">
+			<Overload retVal="void:" descr="mapGoal.AddRoute(string, string, float) - Adds a route to the map goal.">
+				<Param name="string: start" />
+				<Param name="string: end" />
+				<Param name="float: weight" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AddScriptGoal" func="yes">
+			<Overload retVal="bool:" descr="bot.AddScriptGoal(string) - Adds a goal to the bots behavior tree by name. Useful when a script goal has AutoAdd set to false, so you can more explicitly control when a bot gets the goal.">
+				<Param name="string: name of script goal to add to bot behavior tree" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AddUsePoint" func="yes">
+			<Overload retVal="void:" descr="goal.AddUsePoint - adds a usepoint to a goal at Vec3 position.">
+				<Param name="Vec3: position" />
+			</Overload>
+			<Overload retVal="void:" descr="Util.AddUsePoint - adds a usepoint to a goal at one or more positions.">
+				<Param name="string: goal name" />
+				<Param name="Vec3: position" />
+			</Overload>
+			<Overload retVal="void:" descr="Util.AddUsePoint - adds a usepoint to a goal at one or more positions.">
+				<Param name="string: goal name" />
+				<Param name="table: Vec3 positions" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AddUsePtFromWp" func="yes">
+			<Overload retVal="void:" descr="Util.AddUsePtFromWp - adds a usepoint to a goal at a waypoint position.">
+				<Param name="string: goal name" />
+				<Param name="string: waypoint name" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AddUseWp" func="yes">
+			<Overload retVal="void:" descr="Util.AddUseWp - adds a usepoint to a goal at a waypoint position.">
+				<Param name="string: goal name" />
+				<Param name="string: waypoint name" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AddWaypoint" func="yes">
+			<Overload retVal="int:" descr="Wp.AddWaypoint - adds a waypoint at given position.&#x0A;Returns waypoint ID.">
+				<Param name="Vec3: position" />
+				<Param name="Vec3: facing" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AddWeaponRequest" func="yes">
+			<Overload retVal="void:" descr="scriptgoal.AddWeaponRequest() - Adds a weapon request.">
+				<Param name="int: priority" />
+				<Param name="int: weapon ID" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AdjustForBotTeam" func="yes">
+			<Overload retVal="void:" descr="Server Manager specific function for managing bots vs humans games">
+				<Param name="int: NumPlayers" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AimDamping" />
+		<KeyWord name="AimOffset" />
+		<KeyWord name="AimOffsetZ" />
+		<KeyWord name="AimPersistance" />
+		<KeyWord name="AimPosition" />
+		<KeyWord name="AimStiffness" />
+		<KeyWord name="AimTolerance" />
+		<KeyWord name="AimVector" />
+		<KeyWord name="AimWeaponId" />
+		<KeyWord name="ALLIES" />
+		<KeyWord name="AllocGoalSerialNum" func="yes">
+			<Overload retVal="int:" descr="Allocates and returns the next available unique serial number for map goals">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AlwaysRecieveEvents" />
+		<KeyWord name="AngleAxis" func="yes">
+			<Overload retVal="Vec3:" descr="Computes an Angle from an Axis">
+				<Param name="float: Angle" />
+				<Param name="Vec3: Axis" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AppendPath" func="yes" />
+		<KeyWord name="Area" func="yes">
+			<Overload retVal="float:" descr="Computes the area from three given positions">
+				<Param name="Vec3: position" />
+				<Param name="Vec3: position" />
+				<Param name="Vec3: position" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Armor" />
+		<KeyWord name="ASin" func="yes">
+			<Overload retVal="float:" descr="Arc Sine.">
+				<Param name="float: x" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="assert" func="yes">
+			<Overload retVal="void:" descr="Causes an exception if Condition is not true.">
+				<Param name="boolean: Condition" />
+				<Param name="[string: Error message]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ATan" func="yes">
+			<Overload retVal="float:" descr="Arc Tangent.">
+				<Param name="float: x" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AutoAdd" />
+		<KeyWord name="AutoFinishOnNoProgressSlots" />
+		<KeyWord name="AutoFinishOnNoUseSlots" />
+		<KeyWord name="AutoFinishOnUnAvailable" />
+		<KeyWord name="AutoReleaseAim" />
+		<KeyWord name="AutoReleaseTrackers" />
+		<KeyWord name="AutoReleaseWeapon" />
+		<KeyWord name="AXIS" />
+		<KeyWord name="BalanceTeams" func="yes">
+			<Overload retVal="void:" descr="Server Manager specific function for balancing teams">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="BB.DELAY_GOAL" />
+		<KeyWord name="BB.IS_TAKEN" />
+		<KeyWord name="BB.RUN_AWAY" />
+		<KeyWord name="Bias" />
+		<KeyWord name="Blackboard.GetNumRecords" func="yes">
+			<Overload retVal="int:" descr="Retrieves the number of records of a given type.">
+				<Param name="blackboard key" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Blackboard.GetRecords" func="yes">
+			<Overload retVal="table:" descr="Retrieves all records matching a type from global Blackboard.">
+				<Param name="blackboard key" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Blackboard.MakeKey" func="yes">
+			<Overload retVal="int:" descr="Makes a numeric blackboard item key." />
+		</KeyWord>
+		<KeyWord name="Blackboard.PostRecord" func="yes">
+			<Overload retVal="void:" descr="Posts a record to the blackboard, keyed to a certain type, and storing arbitrary values.">
+				<Param name="blackboard key" />
+				<Param name="table" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Blackboard.PrintBlackboard" func="yes">
+			<Overload retVal="void:" descr="Prints the global blackboard to the in-game console.">
+				<Param name="[blackboard key]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Blackboard.RecordExistsOwner" func="yes">
+			<Overload retVal="int:" descr="Checks if a record exists for a certain key that matches a given owner id.">
+				<Param name="blackboard key" />
+				<Param name="owner ID" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Blackboard.RecordExistsTarget" func="yes">
+			<Overload retVal="int:" descr="Checks if a record exists for a certain key that matches a given target id.">
+				<Param name="blackboard key" />
+				<Param name="target ID" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Blackboard.RemoveByPoster" func="yes">
+			<Overload retVal="int:" descr="Removes all records of a given type by the given owner id.">
+				<Param name="owner ID" />
+				<Param name="[blackboard key]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Blackboard.RemoveByTarget" func="yes">
+			<Overload retVal="int:" descr="Removes all records of a given type by the given target id.">
+				<Param name="target ID" />
+				<Param name="[blackboard key]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="BlackboardDelay" func="yes">
+			<Overload retVal="void:" descr="scriptgoal.BlackBoardDelay() - Delays a given MapGoal the given seconds for a bot">
+				<Param name="float: seconds" />
+				<Param name="MapGoal" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="BlackboardIsDelayed" func="yes">
+			<Overload retVal="bool:" descr="scriptGoal.BlackboardIsDelayed(param) - Returns true if the goal has been found on the blackboard.">
+				<Param name="param: mapGoal or serialNumber" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="block" func="yes">
+			<Overload retVal="void:" descr="Halt thread execution until another thread signals one of the block variables.">
+				<Param name="var: Variables" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="BlockablePathOffset" />
+		<KeyWord name="BlockForVoiceMacro" func="yes">
+			<Overload retVal="?:" descr="scriptGoal.BlockForVoiceMacro(?) - ?." />
+		</KeyWord>
+		<KeyWord name="BlockForWeaponChange" func="yes">
+			<Overload retVal="void:" descr="scriptgoal.BlockForWeaponChange() - Waits until the bot has changed to the requested weapon.">
+				<Param name="int: weapon ID" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="BlockForWeaponFire" func="yes">
+			<Overload retVal="?:" descr="scriptGoal.BlockForWeaponFire(?) - ?." />
+		</KeyWord>
+		<KeyWord name="BONE.HEAD" />
+		<KeyWord name="BONE.LEFTARM" />
+		<KeyWord name="BONE.LEFTFOOT" />
+		<KeyWord name="BONE.LEFTHAND" />
+		<KeyWord name="BONE.LEFTLEG" />
+		<KeyWord name="BONE.PELVIS" />
+		<KeyWord name="BONE.RIGHTARM" />
+		<KeyWord name="BONE.RIGHTFOOT" />
+		<KeyWord name="BONE.RIGHTHAND" />
+		<KeyWord name="BONE.RIGHTLEG" />
+		<KeyWord name="BONE.TORSO" />
+		<KeyWord name="Bot" />
+		<KeyWord name="BotTable" />
+		<KeyWord name="BottomPathOffset" />
+		<KeyWord name="BottomWaypointOffset" />
+		<KeyWord name="break" />
+		<KeyWord name="BTN.AIM" />
+		<KeyWord name="BTN.AIMSENTRY" />
+		<KeyWord name="BTN.ATTACK1" />
+		<KeyWord name="BTN.ATTACK2" />
+		<KeyWord name="BTN.BACKWARD" />
+		<KeyWord name="BTN.BUILDDETPACK_10" />
+		<KeyWord name="BTN.BUILDDETPACK_20" />
+		<KeyWord name="BTN.BUILDDETPACK_30" />
+		<KeyWord name="BTN.BUILDDETPACK_5" />
+		<KeyWord name="BTN.BUILDDISPENSER" />
+		<KeyWord name="BTN.BUILDSENTRY" />
+		<KeyWord name="BTN.CALLFORENGY" />
+		<KeyWord name="BTN.CALLFORMEDIC" />
+		<KeyWord name="BTN.CLOAK" />
+		<KeyWord name="BTN.CROUCH" />
+		<KeyWord name="BTN.DETDISPENSER" />
+		<KeyWord name="BTN.DETPIPES" />
+		<KeyWord name="BTN.DETSENTRY" />
+		<KeyWord name="BTN.DROP" />
+		<KeyWord name="BTN.DROP_AMMO" />
+		<KeyWord name="BTN.DROP_ITEM" />
+		<KeyWord name="BTN.FORWARD" />
+		<KeyWord name="BTN.GREN1" />
+		<KeyWord name="BTN.GREN2" />
+		<KeyWord name="BTN.JUMP" />
+		<KeyWord name="BTN.LEAN_L" />
+		<KeyWord name="BTN.LEAN_R" />
+		<KeyWord name="BTN.PRONE" />
+		<KeyWord name="BTN.RADAR" />
+		<KeyWord name="BTN.RELOAD" />
+		<KeyWord name="BTN.RESPAWN" />
+		<KeyWord name="BTN.SABOTAGE_DISPENSER" />
+		<KeyWord name="BTN.SABOTAGE_SENTRY" />
+		<KeyWord name="BTN.SILENT_CLOAK" />
+		<KeyWord name="BTN.SPRINT" />
+		<KeyWord name="BTN.STRAFE_L" />
+		<KeyWord name="BTN.STRAFE_R" />
+		<KeyWord name="BTN.TAUNT" />
+		<KeyWord name="BTN.THROW_KNIFE" />
+		<KeyWord name="BTN.USE" />
+		<KeyWord name="BTN.WALK" />
+		<KeyWord name="BUY.AMMO_REFILL" />
+		<KeyWord name="BUY.AMMO_REGEN" />
+		<KeyWord name="BUY.ARMOR_RED" />
+		<KeyWord name="BUY.ARMOR_YELLOW" />
+		<KeyWord name="BUY.DAMAGE_BOOST" />
+		<KeyWord name="BUY.GRENADELAUNCHER" />
+		<KeyWord name="BUY.HEALTH_REGEN" />
+		<KeyWord name="BUY.HYPERBLASTER" />
+		<KeyWord name="BUY.LIGHTNINGGUN" />
+		<KeyWord name="BUY.MACHINEGUN" />
+		<KeyWord name="BUY.NAILGUN" />
+		<KeyWord name="BUY.NAPALMGUN" />
+		<KeyWord name="BUY.RAILGUN" />
+		<KeyWord name="BUY.ROCKETLAUNCHER" />
+		<KeyWord name="BUY.SHOTGUN" />
+		<KeyWord name="CalcTrajectory" func="yes">
+			<Overload retVal="table:" descr="Calculates a projectile trajectory.">
+				<Param name="Vec3: start position" />
+				<Param name="Vec3: target position" />
+				<Param name="float: projectile speed" />
+				<Param name="float: projectile gravity" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="CalculateAimPoint" />
+		<KeyWord name="CalculateDefaultDesirability" />
+		<KeyWord name="CalculateDesirability" />
+		<KeyWord name="CanGrabItem" func="yes">
+			<Overload retVal="bool:" descr="bot.CanGrabItem(GameEntity) - Returns true if bot can take item (flag, gold, radar parts, ...).">
+				<Param name="GameEntity" />
+			</Overload>
+			<Overload retVal="bool:" descr="bot.CanGrabItem(string) - Returns true if bot can take item (flag, gold, radar parts, ...).">
+				<Param name="string: FLAG or FLAG_dropped goal name" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="CanSnipe" func="yes">
+			<Overload retVal="bool:" descr="bot.CanSnipe() - It's deprecated and has been replaced by Util.CanBotSnipe(bot) in Enemy Territory." />
+		</KeyWord>
+		<KeyWord name="case" />
+		<KeyWord name="CAT.AUTODEFENSE" />
+		<KeyWord name="CAT.AVOID" />
+		<KeyWord name="CAT.BUILDABLE" />
+		<KeyWord name="CAT.MINE" />
+		<KeyWord name="CAT.MISC" />
+		<KeyWord name="CAT.MOUNTED_WPN" />
+		<KeyWord name="CAT.MOVER" />
+		<KeyWord name="CAT.OBSTACLE" />
+		<KeyWord name="CAT.PICKUP" />
+		<KeyWord name="CAT.PICKUP_AMMO" />
+		<KeyWord name="CAT.PICKUP_ARMOR" />
+		<KeyWord name="CAT.PICKUP_ENERGY" />
+		<KeyWord name="CAT.PICKUP_HEALTH" />
+		<KeyWord name="CAT.PICKUP_WEAPON" />
+		<KeyWord name="CAT.PLAYER" />
+		<KeyWord name="CAT.PROJECTILE" />
+		<KeyWord name="CAT.PROP" />
+		<KeyWord name="CAT.SHOOTABLE" />
+		<KeyWord name="CAT.STATIC" />
+		<KeyWord name="CAT.TRIGGER" />
+		<KeyWord name="CAT.VEHICLE" />
+		<KeyWord name="Ceil" func="yes">
+			<Overload retVal="int:" descr="Returns the smallest integer &gt;= number.">
+				<Param name="float: number" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="CenterPoint" func="yes">
+			<Overload retVal="Vec3:" descr="aabb.CenterPoint() - Gets the center of the bounding box." />
+		</KeyWord>
+		<KeyWord name="ChangeClass" func="yes">
+			<Overload retVal="void:" descr="bot.ChangeClass() - Instructs the bot to change to the given class.">
+				<Param name="int: Class ID" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ChangePrimaryWeapon" func="yes">
+			<Overload retVal="bool:" descr="bot.ChangePrimaryWeapon(WEAPON) - Selects a new primary weapon for the bot. Should take effect next spawn. You must not use this function inside map scripts. You should use SetWeaponAvailability if you want to disable some weapons.">
+				<Param name="WEAPON: weapon id" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ChangeSecondaryWeapon" func="yes">
+			<Overload retVal="bool:" descr="bot.ChangeSecondaryWeapon(WEAPON) - Selects a new secondary weapon for the bot. Should take effect next spawn.">
+				<Param name="WEAPON: weapon id" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ChangeSpawnPoint" func="yes">
+			<Overload retVal="void:" descr="bot.ChangeSpawnPoint(int) - Changes the desired spawn point for the bot to respawn at.">
+				<Param name="int: spawnpoint #" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ChangeTeam" func="yes">
+			<Overload retVal="void:" descr="bot.ChangeTeam() - Instructs the bot to change to the given team.">
+				<Param name="int: Team ID" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ChargeToIntercept" />
+		<KeyWord name="CheatsEnabled" func="yes">
+			<Overload retVal="boolean:" descr="Returns true if cheats are enabled." />
+		</KeyWord>
+		<KeyWord name="CheckBlockable" func="yes">
+			<Overload retVal="void:" descr="Wp.CheckBlockable - Checks blockable waypoint flags, to avoid temporary scripting reachability issues.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="CheckEntityBoundsIntersect" func="yes">
+			<Overload retVal="boolean:" descr="Checks if the bounds of two given entities intersect.">
+				<Param name="entity: game entity/game ID" />
+				<Param name="entity: game entity/game ID" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Clamp" func="yes">
+			<Overload retVal="num:" descr="Forces a number into the specified boundaries.">
+				<Param name="num: input" />
+				<Param name="num: lower bound" />
+				<Param name="num: upper bound" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Class" />
+		<KeyWord name="CLASS.ADRENALINE" />
+		<KeyWord name="CLASS.AIRSTRIKE" />
+		<KeyWord name="CLASS.ALLY_GRENADE" />
+		<KeyWord name="CLASS.AMMO" />
+		<KeyWord name="CLASS.AMMOCABINET" />
+		<KeyWord name="CLASS.AMMO_BELT" />
+		<KeyWord name="CLASS.AMMO_BFG" />
+		<KeyWord name="CLASS.AMMO_BULLETS" />
+		<KeyWord name="CLASS.AMMO_CELLS" />
+		<KeyWord name="CLASS.AMMO_CLIP" />
+		<KeyWord name="CLASS.AMMO_DARKMATTERGUN" />
+		<KeyWord name="CLASS.AMMO_GRENADE" />
+		<KeyWord name="CLASS.AMMO_GRENADELAUNCHER" />
+		<KeyWord name="CLASS.AMMO_HYPERBLASTER" />
+		<KeyWord name="CLASS.AMMO_LIGHTNINGGUN" />
+		<KeyWord name="CLASS.AMMO_MACHINEGUN" />
+		<KeyWord name="CLASS.AMMO_NAILGUN" />
+		<KeyWord name="CLASS.AMMO_NAPALMGUN" />
+		<KeyWord name="CLASS.AMMO_RAILGUN" />
+		<KeyWord name="CLASS.AMMO_REGEN" />
+		<KeyWord name="CLASS.AMMO_ROCKET" />
+		<KeyWord name="CLASS.AMMO_ROCKETLAUNCHER" />
+		<KeyWord name="CLASS.AMMO_SHELLS" />
+		<KeyWord name="CLASS.AMMO_SHOTGUN" />
+		<KeyWord name="CLASS.AMMO_PACK" />
+		<KeyWord name="CLASS.ANYPLAYER" />
+		<KeyWord name="CLASS.ARMOR" />
+		<KeyWord name="CLASS.ARTY" />
+		<KeyWord name="CLASS.ARTY_ENT" />
+		<KeyWord name="CLASS.AXIS_GRENADE" />
+		<KeyWord name="CLASS.BACKPACK" />
+		<KeyWord name="CLASS.BACKPACK_AMMO" />
+		<KeyWord name="CLASS.BACKPACK_ARMOR" />
+		<KeyWord name="CLASS.BACKPACK_GRENADES" />
+		<KeyWord name="CLASS.BACKPACK_HEALTH" />
+		<KeyWord name="CLASS.BFG" />
+		<KeyWord name="CLASS.BINOCULARS" />
+		<KeyWord name="CLASS.BREAKABLE" />
+		<KeyWord name="CLASS.BROKENCHAIR" />
+		<KeyWord name="CLASS.BUTTON" />
+		<KeyWord name="CLASS.CALTROP" />
+		<KeyWord name="CLASS.CAPPOINT" />
+		<KeyWord name="CLASS.CARBINE" />
+		<KeyWord name="CLASS.CIVILIAN" />
+		<KeyWord name="CLASS.COLT" />
+		<KeyWord name="CLASS.COLT_AKIMBO" />
+		<KeyWord name="CLASS.COLT_AKIMBO_SILENCED" />
+		<KeyWord name="CLASS.COLT_SILENCED" />
+		<KeyWord name="CLASS.CONC_GRENADE" />
+		<KeyWord name="CLASS.CORPSE" />
+		<KeyWord name="CLASS.COVERTOPS" />
+		<KeyWord name="CLASS.DARKMATTERSHOT" />
+		<KeyWord name="CLASS.DEADZONE" />
+		<KeyWord name="CLASS.DEMOMAN" />
+		<KeyWord name="CLASS.DETPACK" />
+		<KeyWord name="CLASS.DISPENSER" />
+		<KeyWord name="CLASS.DOUBLER" />
+		<KeyWord name="CLASS.DYNAMITE" />
+		<KeyWord name="CLASS.DYNAMITE_ENT" />
+		<KeyWord name="CLASS.EMP_GRENADE" />
+		<KeyWord name="CLASS.ENGINEER" />
+		<KeyWord name="CLASS.EXPLODING_BARREL" />
+		<KeyWord name="CLASS.FG42" />
+		<KeyWord name="CLASS.FG42_SCOPE" />
+		<KeyWord name="CLASS.FIELDOPS" />
+		<KeyWord name="CLASS.FLAG" />
+		<KeyWord name="CLASS.FLAME" />
+		<KeyWord name="CLASS.FLAMETHROWER" />
+		<KeyWord name="CLASS.GARAND" />
+		<KeyWord name="CLASS.GARAND_SCOPE" />
+		<KeyWord name="CLASS.GAS_GRENADE" />
+		<KeyWord name="CLASS.GLGREN" />
+		<KeyWord name="CLASS.GOAL" />
+		<KeyWord name="CLASS.GPG40" />
+		<KeyWord name="CLASS.GPG40_GRENADE" />
+		<KeyWord name="CLASS.GRENADE" />
+		<KeyWord name="CLASS.GUARD" />
+		<KeyWord name="CLASS.HASTE" />
+		<KeyWord name="CLASS.HEALTH" />
+		<KeyWord name="CLASS.HEALTHCABINET" />
+		<KeyWord name="CLASS.HYPERSHOT" />
+		<KeyWord name="CLASS.HWGUY" />
+		<KeyWord name="CLASS.INJUREDPLAYER" />
+		<KeyWord name="CLASS.INVISIBILITY" />
+		<KeyWord name="CLASS.JUMPPAD" />
+		<KeyWord name="CLASS.JUMPPAD_TARGET" />
+		<KeyWord name="CLASS.K43" />
+		<KeyWord name="CLASS.K43_SCOPE" />
+		<KeyWord name="CLASS.KAR98" />
+		<KeyWord name="CLASS.KNIFE" />
+		<KeyWord name="CLASS.LADDER" />
+		<KeyWord name="CLASS.LANDMINE" />
+		<KeyWord name="CLASS.LANDMINE_ENT" />
+		<KeyWord name="CLASS.LIEUTENANT" />
+		<KeyWord name="CLASS.LIFT" />
+		<KeyWord name="CLASS.LUGER" />
+		<KeyWord name="CLASS.LUGER_AKIMBO" />
+		<KeyWord name="CLASS.LUGER_AKIMBO_SILENCED" />
+		<KeyWord name="CLASS.LUGER_SILENCED" />
+		<KeyWord name="CLASS.MARINE_FLAG" />
+		<KeyWord name="CLASS.MEGAHEALTH" />
+		<KeyWord name="CLASS.M7" />
+		<KeyWord name="CLASS.M7_GRENADE" />
+		<KeyWord name="CLASS.MEDIC" />
+		<KeyWord name="CLASS.MEDKIT" />
+		<KeyWord name="CLASS.MG42MOUNT" />
+		<KeyWord name="CLASS.MIRV_GRENADE" />
+		<KeyWord name="CLASS.MIRVLET_GRENADE" />
+		<KeyWord name="CLASS.MOBILE_MG42" />
+		<KeyWord name="CLASS.MOBILE_MG42_SET" />
+		<KeyWord name="CLASS.MORTAR" />
+		<KeyWord name="CLASS.MORTAR_ENT" />
+		<KeyWord name="CLASS.MORTAR_SET" />
+		<KeyWord name="CLASS.MOUNTABLE_MG42" />
+		<KeyWord name="CLASS.MOVER" />
+		<KeyWord name="CLASS.MP40" />
+		<KeyWord name="CLASS.NAIL" />
+		<KeyWord name="CLASS.NAIL_GRENADE" />
+		<KeyWord name="CLASS.NAPALMSHOT" />
+		<KeyWord name="CLASS.NAPALM_GRENADE" />
+		<KeyWord name="CLASS.NAPALM_ROCKET" />
+		<KeyWord name="CLASS.NONE" />
+		<KeyWord name="CLASS.ONE_FLAG" />
+		<KeyWord name="CLASS.PANZERFAUST" />
+		<KeyWord name="CLASS.PIPEBOMB" />
+		<KeyWord name="CLASS.PLASMA" />
+		<KeyWord name="CLASS.PLAYER" />
+		<KeyWord name="CLASS.PLAYERSTART" />
+		<KeyWord name="CLASS.PLIERS" />
+		<KeyWord name="CLASS.POWERUP_AMMOREGEN" />
+		<KeyWord name="CLASS.POWERUP_DOUBLER" />
+		<KeyWord name="CLASS.POWERUP_GUARD" />
+		<KeyWord name="CLASS.POWERUP_HASTE" />
+		<KeyWord name="CLASS.POWERUP_INVISIBILITY" />
+		<KeyWord name="CLASS.POWERUP_MARINEFLAG" />
+		<KeyWord name="CLASS.POWERUP_ONEFLAG" />
+		<KeyWord name="CLASS.POWERUP_QUADDAMAGE" />
+		<KeyWord name="CLASS.POWERUP_REGENERATION" />
+		<KeyWord name="CLASS.POWERUP_SCOUT" />
+		<KeyWord name="CLASS.POWERUP_STROGGFLAG" />
+		<KeyWord name="CLASS.PROP" />
+		<KeyWord name="CLASS.PROP_EXPLODE" />
+		<KeyWord name="CLASS.PYRO" />
+		<KeyWord name="CLASS.QUAD_DAMAGE" />
+		<KeyWord name="CLASS.REGENERATION" />
+		<KeyWord name="CLASS.RESUPPLY" />
+		<KeyWord name="CLASS.ROCKET" />
+		<KeyWord name="CLASS.ROCKET_ENT" />
+		<KeyWord name="CLASS.SATCHEL" />
+		<KeyWord name="CLASS.SATCHEL_DET" />
+		<KeyWord name="CLASS.SATCHEL_ENT" />
+		<KeyWord name="CLASS.SCOUT" />
+		<KeyWord name="CLASS.SENTRY" />
+		<KeyWord name="CLASS.SMOKEBOMB" />
+		<KeyWord name="CLASS.SMOKEMARKER" />
+		<KeyWord name="CLASS.SMOKE_GRENADE" />
+		<KeyWord name="CLASS.SMOKE_MARKER" />
+		<KeyWord name="CLASS.SNIPER" />
+		<KeyWord name="CLASS.SOLDIER" />
+		<KeyWord name="CLASS.SOULBLAST" />
+		<KeyWord name="CLASS.SPECTATOR" />
+		<KeyWord name="CLASS.SPY" />
+		<KeyWord name="CLASS.STEN" />
+		<KeyWord name="CLASS.STROGG_FLAG" />
+		<KeyWord name="CLASS.SYRINGE" />
+		<KeyWord name="CLASS.TELEPORTER" />
+		<KeyWord name="CLASS.TELEPORTER_ENTRANCE" />
+		<KeyWord name="CLASS.TELEPORTER_EXIT" />
+		<KeyWord name="CLASS.THOMPSON" />
+		<KeyWord name="CLASS.TREASURE" />
+		<KeyWord name="CLASS.TRIPMINE" />
+		<KeyWord name="CLASS.TURRET" />
+		<KeyWord name="CLASS.VEHICLE" />
+		<KeyWord name="CLASS.VEHICLE_HVY" />
+		<KeyWord name="CLASS.VEHICLE_NODAMAGE" />
+		<KeyWord name="CLASS.WEAPON" />
+		<KeyWord name="ClearFinishCriteria" func="yes">
+			<Overload retVal="void:" descr="scriptGoal.ClearFinishCriteria([clearPersistent]) - Deletes finish criteria.">
+				<Param name="[clearPersistent:]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ClearGoalRole" func="yes">
+			<Overload retVal="void:" descr="Clears one or more roles of one or more MapGoals.">
+				<Param name="string: Goal name expression" />
+				<Param name="int/table of int: role id(s)" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ClearRoles" func="yes">
+			<Overload retVal="void:" descr="bot.ClearRoles() - clears the given role(s) from the bot.">
+				<Param name="int: role id" />
+				<Param name="int: ..." />
+			</Overload>
+			<Overload retVal="void:" descr="mapgoal.ClearRoles() - clears the given role(s) from the mapgoal.">
+				<Param name="int: role id" />
+				<Param name="int: ..." />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ClearWatchForMapGoalsInRadius" func="yes">
+			<Overload retVal="?:" descr="scriptGoal.ClearWatchForMapGoalsInRadius(?) - ?." />
+		</KeyWord>
+		<KeyWord name="Close" func="yes">
+			<Overload retVal="void:" descr="file.Close() - closes an open file." />
+		</KeyWord>
+		<KeyWord name="COLOR.AQUAMARINE" />
+		<KeyWord name="COLOR.BLACK" />
+		<KeyWord name="COLOR.BLUE" />
+		<KeyWord name="COLOR.BROWN" />
+		<KeyWord name="COLOR.CYAN" />
+		<KeyWord name="COLOR.GREEN" />
+		<KeyWord name="COLOR.GREY" />
+		<KeyWord name="COLOR.LAVENDER" />
+		<KeyWord name="COLOR.LIGHT_GREY" />
+		<KeyWord name="COLOR.MAGENTA" />
+		<KeyWord name="COLOR.ORANGE" />
+		<KeyWord name="COLOR.PINK" />
+		<KeyWord name="COLOR.RED" />
+		<KeyWord name="COLOR.WHITE" />
+		<KeyWord name="COLOR.YELLOW" />
+		<KeyWord name="Commands" />
+		<KeyWord name="Compare" func="yes">
+			<Overload retVal="int:" descr="str.Compare() - compares case-sensitive.&#x0A;Returns -1 if the this &lt; compare string, 0 if the strings are equal, 1 otherwise.">
+				<Param name="string: string to compare" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="CompareNoCase" func="yes">
+			<Overload retVal="int:" descr="str.CompareNoCase() - compares case-insensitive.&#x0A;Returns -1 if the this &lt; compare string, 0 if the strings are equal, 1 otherwise.">
+				<Param name="string: string to compare" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ComputeNormal" func="yes">
+			<Overload retVal="Vec3:" descr="Computes a normalized vector.">
+				<Param name="Vec3: vector 1" />
+				<Param name="Vec3: vector 2" />
+				<Param name="Vec3: vector 3" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Concave" func="yes">
+			<Overload retVal="bool:" descr="vec3.Concave(Vec3, Vec3) - ?.">
+				<Param name="Vec3: ?" />
+				<Param name="Vec3: ?" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ConfigGet" func="yes">
+			<Overload retVal="num/string:" descr="Returns a config parameter value from omni-bot.cfg.">
+				<Param name="string: section" />
+				<Param name="string: parameter name" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ConfigSet" func="yes">
+			<Overload retVal="void:" descr="Sets a config parameter value in omni-bot.cfg.">
+				<Param name="string: section" />
+				<Param name="string: parameter name" />
+				<Param name="string/num: parameter value" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Contains" func="yes">
+			<Overload retVal="bool:" descr="aabb.Contains(Vec3) - Checks if the bounding box contains a point.">
+				<Param name="Vec3: point" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="CONTENT.FOG" />
+		<KeyWord name="CONTENT.LAVA" />
+		<KeyWord name="CONTENT.MOVER" />
+		<KeyWord name="CONTENT.SLIME" />
+		<KeyWord name="CONTENT.SOLID" />
+		<KeyWord name="CONTENT.TELEPORTER" />
+		<KeyWord name="CONTENT.TRIGGER" />
+		<KeyWord name="CONTENT.WATER" />
+		<KeyWord name="continue" />
+		<KeyWord name="Cos" func="yes">
+			<Overload retVal="float:" descr="Cosine.">
+				<Param name="float: x" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="CreateGuiFromSchema" func="yes">
+			<Overload retVal="float:" descr="goal.CreateGuiFromSchema() - Creates Gui elements for schema properties.">
+				<Param name="schema" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="CreateMapGoal" func="yes">
+			<Overload retVal="MapGoal:" descr="Creates a new goal.">
+				<Param name="type" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="CreateOnLoad" />
+		<KeyWord name="Cross" func="yes">
+			<Overload retVal="Vec3:" descr="Returns the cross-product of two vectors.">
+				<Param name="Vec3: vector" />
+				<Param name="Vec3: vector" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="CrossProduct" func="yes">
+			<Overload retVal="Vec3:" descr="vec3.CrossProduct(Vec3) - ?.">
+				<Param name="Vec3: ?" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="CrouchToMoveWhenZoomed" />
+		<KeyWord name="debug" func="yes">
+			<Overload retVal="void:" descr="Cause the debugger to break at this point." />
+		</KeyWord>
+		<KeyWord name="Debug" />
+		<KeyWord name="DEBUG.EVENTS" />
+		<KeyWord name="DEBUG.FAILED_PATHS" />
+		<KeyWord name="DEBUG.FPINFO" />
+		<KeyWord name="DEBUG.LOG" />
+		<KeyWord name="DEBUG.MOVEMENT" />
+		<KeyWord name="DEBUG.PLANNER" />
+		<KeyWord name="DEBUG.SCRIPT" />
+		<KeyWord name="DebugString" />
+		<KeyWord name="default" />
+		<KeyWord name="DefaultDesirability" />
+		<KeyWord name="DefaultPriority" />
+		<KeyWord name="DefaultRenderHeight" />
+		<KeyWord name="DefaultRenderRadius" />
+		<KeyWord name="DegToRad" func="yes">
+			<Overload retVal="float:" descr="Converts degrees to Radians.">
+				<Param name="float: value to convert" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="DelayAfterFiring" />
+		<KeyWord name="DelayGetPriority" func="yes">
+			<Overload retVal="?:" descr="scriptGoal.DelayGetPriority(?) - ?." />
+		</KeyWord>
+		<KeyWord name="Delete" func="yes" />
+		<KeyWord name="DeleteIfEntityFlag" func="yes">
+			<Overload retVal="void:" descr="goal.DeleteIfEntityFlag() - Sets one or more entity flags that will cause the goal to be deleted.">
+				<Param name="int: entity flag" />
+				<Param name="int: ..." />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="DeleteTriggerRegion" func="yes">
+			<Overload retVal="void:" descr="Deletes a trigger region previously created with OnTriggerRegion. Because regions aren't required to have unique names, DeleteTriggerRegion will delete all regions that match the provided name. This allows grouping of different trigger regions by shared names.">
+				<Param name="int: trigger ID/string: name" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="DeleteWaypoint" func="yes">
+			<Overload retVal="bool:" descr="Wp.DeleteWaypoint - delete a waypoint from given position.&#x0A;Returns true if successful, false otherwise.">
+				<Param name="Vec3: position" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="DidPathFail" func="yes">
+			<Overload retVal="bool:" descr="scriptgoal.DidPathFail() - Returns true if path failed, false if not." />
+		</KeyWord>
+		<KeyWord name="DidPathSucceed" func="yes">
+			<Overload retVal="bool:" descr="scriptgoal.DidPathSucceed() - Returns true if path succeeded, false if not." />
+		</KeyWord>
+		<KeyWord name="Disable" />
+		<KeyWord name="DisableBotPush" func="yes">
+			<Overload retVal="void:" descr="bot.DisableBotPush() - Disables pushing on given bot.">
+				<Param name="bool: disable" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="DisableCombatMovement" />
+		<KeyWord name="DisableForControllingTeam" />
+		<KeyWord name="DisableGoal" func="yes">
+			<Overload retVal="void:" descr="Util.DisableGoal - disables one or more goals.">
+				<Param name="string: goal name expression" />
+				<Param name="[bool: true to exclude routes from being disabled]" />
+			</Overload>
+			<Overload retVal="void:" descr="goal.DisableGoal - disables a goal.">
+				<Param name="bool: disable" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="DisableIfEntityFlag" func="yes">
+			<Overload retVal="void:" descr="goal.DisableIfEntityFlag() - Sets one or more entity flags that will cause the goal to be disabled.">
+				<Param name="int: entity flag" />
+				<Param name="int: ..." />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Disconnect" func="yes">
+			<Overload retVal="?:" descr="Wp.Disconnect - ?.">
+				<Param name="?: ?" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Distance" />
+		<KeyWord name="Distance" func="yes">
+			<Overload retVal="float:" descr="vec3.Distance(Vec3) - Distance.">
+				<Param name="Vec3: ?" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Distance2" func="yes">
+			<Overload retVal="float:" descr="vec3.Distance2(Vec3) - Squared distance.">
+				<Param name="Vec3: ?" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="DistanceBetween" func="yes">
+			<Overload retVal="float:" descr="Returns the distance between two positions, game IDs or entities.">
+				<Param name="Vector3/Game ID/Game entity/MapGoal" />
+				<Param name="Vector3/Game ID/Game entity/MapGoal" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="DistanceTo" func="yes">
+			<Overload retVal="float:" descr="bot.DistanceTo() - returns the distance of the bot from a position, game ID or entity.">
+				<Param name="Vector3/Game ID/Game entity" />
+				<Param name="[bool: use eye position, default false]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="DistanceXY" func="yes">
+			<Overload retVal="float:" descr="vec3.DistanceXY(Vec3) - Squared 2D distance.">
+				<Param name="Vec3: ?" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="DoNotKill" />
+		<KeyWord name="DontSave" />
+		<KeyWord name="doString" func="yes">
+			<Overload retVal="int:" descr="Execute the passed script, return the thread ID for the thread executing the script.">
+				<Param name="string: Script to compile and execute" />
+				<Param name="[bool: execute before returning to this thread]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="DotProduct" func="yes">
+			<Overload retVal="Vec3:" descr="Returns the dot-product of two vectors.">
+				<Param name="Vec3: vector" />
+				<Param name="Vec3: vector" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="dowhile" />
+		<KeyWord name="DrawAABB" func="yes">
+			<Overload retVal="void:" descr="Draws an axis aligned bounding box.">
+				<Param name="AABB: Box" />
+				<Param name="int: color ID" />
+				<Param name="float: duration (secs.)" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="DrawArrow" func="yes">
+			<Overload retVal="void:" descr="Draws an arrow from start to end position in a given color for a given duration.">
+				<Param name="Vec3: start" />
+				<Param name="Vec3: end" />
+				<Param name="int: color ID" />
+				<Param name="float: duration (secs.)" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="DrawDebugAABB" func="yes">
+			<Overload retVal="void:" descr="Draws an axis aligned bounding box in a given color for a given duration.">
+				<Param name="AABB: Box" />
+				<Param name="int: color ID" />
+				<Param name="float: duration (secs.)" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="DrawDebugLine" func="yes">
+			<Overload retVal="void:" descr="Draws a debug line from start to end position in a given color for a given duration.">
+				<Param name="Vec3: start" />
+				<Param name="Vec3: end" />
+				<Param name="int: Color ID" />
+				<Param name="float: duration (secs.)" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="DrawEntityAABB" func="yes">
+			<Overload retVal="bool:" descr="Draws an entity's axis-aligned bounding box for a given duration in seconds.">
+				<Param name="entity" />
+				<Param name="float: duration" />
+				<Param name="int: color ID" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="DrawEntityOBB" func="yes">
+			<Overload retVal="bool:" descr="Draws an entity's obstacle bounding box for a given duration in seconds.">
+				<Param name="entity" />
+				<Param name="float: duration" />
+				<Param name="int: color ID" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="DrawLine" func="yes">
+			<Overload retVal="void:" descr="Draws a line between two positions in a given color for a given duration.">
+				<Param name="Vec3: start" />
+				<Param name="Vec3: end" />
+				<Param name="int: color ID" />
+				<Param name="float: duration (secs.)" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="DrawRadius" func="yes">
+			<Overload retVal="void:" descr="Draws a radius at a given position in a given color for a given duration.">
+				<Param name="Vec3: position" />
+				<Param name="float: radius" />
+				<Param name="int: color ID" />
+				<Param name="float: duration (secs.)" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="DrawText3d" func="yes">
+			<Overload retVal="void:" descr="Draws text at a 3d location.">
+				<Param name="Vec3: position" />
+				<Param name="string: message" />
+				<Param name="int: color ID" />
+				<Param name="float: duration (secs.)" />
+				<Param name="float: radius" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="DrawTrajectory" func="yes">
+			<Overload retVal="Vec3:" descr="Draws a projectile trajectory in a given color for a given duration.">
+				<Param name="table: trajectory" />
+				<Param name="int: color ID" />
+				<Param name="float: duration (secs.)" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="DUMP.ALL" />
+		<KeyWord name="DUMP.FUNCTIONS" />
+		<KeyWord name="DUMP.RECURSE" />
+		<KeyWord name="DUMP.REFERENCES" />
+		<KeyWord name="DUMP.TYPEFUNCTIONS" />
+		<KeyWord name="DumpBotTable" func="true">
+			<Overload retVal="void:" descr="bot.DumpBotTable(string) - Dumps a file with the bot's table to a file in the user folder.">
+				<Param name="string: filename" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="DumpConsoleToFile" func="yes">
+			<Overload retVal="void:" descr="Saves debug console, only if debug window is enabled.">
+				<Param name="string: file name" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="dumpGlobals" func="yes" />
+		<KeyWord name="dumpTable" func="yes" />
+		<KeyWord name="DynamicOrientation" />
+		<KeyWord name="DynamicPathsUpdated" func="yes">
+			<Overload retVal="void:" descr="Finds new path for bots in teams specified if paths go through waypoint which has dynamic flag.">
+				<Param name="teamId, ..." />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="DynamicPosition" />
+		<KeyWord name="echoTable" func="yes">
+			<Overload retVal="void:" descr="Echos the contents of a single table.">
+				<Param name="table: table to echo" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="EchoToScreen" func="yes">
+			<Overload retVal="void:" descr="Prints a message to the screen.">
+				<Param name="float: Duration (secs.)" />
+				<Param name="string: Message" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="else" />
+		<KeyWord name="else if" />
+		<KeyWord name="Enable" func="true">
+			<Overload retVal="void:" descr="bot.Enable(bool) - Enables/Disables all thinking for the bot.">
+				<Param name="bool: true to enable, false to disable" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="EnableDebugWindow" func="yes">
+			<Overload retVal="void:" descr="Enables the debug window.">
+				<Param name="boolean: enable" />
+				<Param name="[int: width (default 1024)" />
+				<Param name="int: height (default 768)" />
+				<Param name="int: bits per pixel (default 32)]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="EnableShooting" func="true">
+			<Overload retVal="void:" descr="bot.EnableShooting(bool) - Enables/Disables all shooting for the bot.">
+				<Param name="bool: true to enable, false to disable" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="EndOfFile" func="yes">
+			<Overload retVal="bool:" descr="fileObject.EndOfFile() - Checks if the File Object is at the end of the file. Useful for read operations." />
+		</KeyWord>
+		<KeyWord name="Enter" func="yes">
+			<Overload retVal="void:" descr="scriptgoal.Enter() - called after a scriptgoal is activated">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ENTFLAG.AC_FIRING" />
+		<KeyWord name="ENTFLAG.AIMING" />
+		<KeyWord name="ENTFLAG.BUILDING_DETP" />
+		<KeyWord name="ENTFLAG.BUILDING_DISP" />
+		<KeyWord name="ENTFLAG.BUILDING_SG" />
+		<KeyWord name="ENTFLAG.BUILDINPROGRESS" />
+		<KeyWord name="ENTFLAG.BURNING" />
+		<KeyWord name="ENTFLAG.CALTROP" />
+		<KeyWord name="ENTFLAG.CAN_SABOTAGE" />
+		<KeyWord name="ENTFLAG.CARRYABLE" />
+		<KeyWord name="ENTFLAG.CARRYINGGOAL" />
+		<KeyWord name="ENTFLAG.CROUCHED" />
+		<KeyWord name="ENTFLAG.DEAD" />
+		<KeyWord name="ENTFLAG.DISABLED" />
+		<KeyWord name="ENTFLAG.DISGUISED" />
+		<KeyWord name="ENTFLAG.FLASHLIGHT_ON" />
+		<KeyWord name="ENTFLAG.FROZEN" />
+		<KeyWord name="ENTFLAG.GASSED" />
+		<KeyWord name="ENTFLAG.HUMANCONTROLLED" />
+		<KeyWord name="ENTFLAG.INFECTED" />
+		<KeyWord name="ENTFLAG.INWATER" />
+		<KeyWord name="ENTFLAG.IN_BUY_ZONE" />
+		<KeyWord name="ENTFLAG.IN_VEHICLE" />
+		<KeyWord name="ENTFLAG.IRONSIGHT" />
+		<KeyWord name="ENTFLAG.LEGSHOT" />
+		<KeyWord name="ENTFLAG.LEVEL2" />
+		<KeyWord name="ENTFLAG.LEVEL3" />
+		<KeyWord name="ENTFLAG.LIMBO" />
+		<KeyWord name="ENTFLAG.MNT_AAGUN" />
+		<KeyWord name="ENTFLAG.MNT_MG42" />
+		<KeyWord name="ENTFLAG.MNT_TANK" />
+		<KeyWord name="ENTFLAG.MOUNTABLE" />
+		<KeyWord name="ENTFLAG.MOUNTED" />
+		<KeyWord name="ENTFLAG.NEED_ARMOR" />
+		<KeyWord name="ENTFLAG.NEED_HEALTH" />
+		<KeyWord name="ENTFLAG.ON_GROUND" />
+		<KeyWord name="ENTFLAG.ON_ICE" />
+		<KeyWord name="ENTFLAG.ON_LADDER" />
+		<KeyWord name="ENTFLAG.POISONED" />
+		<KeyWord name="ENTFLAG.PRONE" />
+		<KeyWord name="ENTFLAG.RADIOTAGGED" />
+		<KeyWord name="ENTFLAG.RELOADING" />
+		<KeyWord name="ENTFLAG.SABOTAGED" />
+		<KeyWord name="ENTFLAG.SABOTAGING" />
+		<KeyWord name="ENTFLAG.SNIPE_AIMING" />
+		<KeyWord name="ENTFLAG.TAUNTING" />
+		<KeyWord name="ENTFLAG.TEAM1" />
+		<KeyWord name="ENTFLAG.TEAM2" />
+		<KeyWord name="ENTFLAG.TEAM3" />
+		<KeyWord name="ENTFLAG.TEAM4" />
+		<KeyWord name="ENTFLAG.TRANQUED" />
+		<KeyWord name="ENTFLAG.UNDERWATER" />
+		<KeyWord name="ENTFLAG.VISTEST" />
+		<KeyWord name="ENTFLAG.ZOOMING" />
+		<KeyWord name="Entity" />
+		<KeyWord name="EntityIsOutside" func="yes">
+			<Overload retVal="boolean:" descr="Checks if a given entity is outside. Added in 0.83">
+				<Param name="entity" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="EntityIsValid" func="yes">
+			<Overload retVal="boolean:" descr="Checks if a given entity is valid.">
+				<Param name="entity" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="EntityKill" func="yes">
+			<Overload retVal="boolean:" descr="Kills an entity. Requires cheats to be enabled.">
+				<Param name="GameEntity/GameId" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Error" func="yes">
+			<Overload retVal="void:" descr="Prints an error message to the game&apos;s output console. ">
+				<Param name="string: error message" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="EscortVehicle" />
+		<KeyWord name="EscortVehicleGoalName" />
+		<KeyWord name="ETUtil.BuildVehiclePath" func="yes" />
+		<KeyWord name="ETUtil.BuildVehiclePathFlag" func="yes" />
+		<KeyWord name="ETUtil.BuildVehiclePathOff" func="yes" />
+		<KeyWord name="ETUtil.ChangeClass" func="yes" />
+		<KeyWord name="ETUtil.ChangeSpawn" func="yes" />
+		<KeyWord name="ETUtil.ChangeToPanzer" func="yes" />
+		<KeyWord name="ETUtil.CheatsEnabled" func="yes" />
+		<KeyWord name="ETUtil.CheckTripminePosition" func="yes" />
+		<KeyWord name="ETUtil.CheckVehiclePath" func="yes" />
+		<KeyWord name="ETUtil.CheckVehiclePathFlag" func="yes" />
+		<KeyWord name="ETUtil.CheckVehiclePathOff" func="yes" />
+		<KeyWord name="ETUtil.ClearMainGoals" func="yes" />
+		<KeyWord name="ETUtil.ClearSecondaryGoals" func="yes" />
+		<KeyWord name="ETUtil.CountClass" func="yes" />
+		<KeyWord name="ETUtil.CountTeam" func="yes" />
+		<KeyWord name="ETUtil.DisableGoal" func="yes" />
+		<KeyWord name="ETUtil.DisableRifleNade" func="yes" />
+		<KeyWord name="ETUtil.DrawObjectiveInfoDisplays" func="yes" />
+		<KeyWord name="ETUtil.DrawSpawns" func="yes" />
+		<KeyWord name="ETUtil.EnableGoal" func="yes" />
+		<KeyWord name="ETUtil.ExcludeClass" func="yes" />
+		<KeyWord name="ETUtil.FindUsableCorpse" func="yes" />
+		<KeyWord name="ETUtil.GetBotPrimaryWeapon" func="yes" />
+		<KeyWord name="ETUtil.GetBotSideArm" func="yes" />
+		<KeyWord name="ETUtil.GetTimeElapsed" func="yes" />
+		<KeyWord name="ETUtil.IsTeamClassDead" func="yes" />
+		<KeyWord name="ETUtil.IsTeamDead" func="yes" />
+		<KeyWord name="ETUtil.LimitGoal" func="yes" />
+		<KeyWord name="ETUtil.LimitToClass" func="yes" />
+		<KeyWord name="ETUtil.LosingChat" func="yes" />
+		<KeyWord name="ETUtil.NoSnipe" func="yes" />
+		<KeyWord name="ETUtil.NoSnipeWeapons" func="yes" />
+		<KeyWord name="ETUtil.numallies" func="yes" />
+		<KeyWord name="ETUtil.numaxis" func="yes" />
+		<KeyWord name="ETUtil.PanzerMap" func="yes" />
+		<KeyWord name="ETUtil.RandomSpawn" func="yes" />
+		<KeyWord name="ETUtil.RollCall" func="yes" />
+		<KeyWord name="ETUtil.SelectWeapon" func="yes" />
+		<KeyWord name="ETUtil.SetAimModeForMount" func="yes" />
+		<KeyWord name="ETUtil.SetCabinets" func="yes" />
+		<KeyWord name="ETUtil.SetDualObjective" func="yes" />
+		<KeyWord name="ETUtil.SetExcludeIndexes" func="yes" />
+		<KeyWord name="ETUtil.SetPrimaryGoals" func="yes" />
+		<KeyWord name="ETUtil.SetStartIndex" func="yes" />
+		<KeyWord name="ETUtil.ShowActiveGoals" func="yes" />
+		<KeyWord name="ETUtil.StopSniping" func="yes" />
+		<KeyWord name="ETUtil.SuicideNextSpawn" func="yes" />
+		<KeyWord name="ETUtil.SuicideSpawn" func="yes" />
+		<KeyWord name="ETUtil.SwitchWeapon" func="yes" />
+		<KeyWord name="ETUtil.TraceAllArty" func="yes" />
+		<KeyWord name="ETUtil.TraceArty" func="yes" />
+		<KeyWord name="ETUtil.WarpAnyBot" func="yes" />
+		<KeyWord name="ETUtil.WarpTestBot" func="yes" />
+		<KeyWord name="ETUtil.WarpTo" func="yes" />
+		<KeyWord name="ETUtil.WarpToGoalOffset" func="yes" />
+		<KeyWord name="ETUtil.WarpToPosition" func="yes" />
+		<KeyWord name="ETUtil.WinningChat" func="yes" />
+		<KeyWord name="EVENT.ADDWEAPON" />
+		<KeyWord name="EVENT.AIM_SUCCESS" />
+		<KeyWord name="EVENT.AMMO_RECIEVED" />
+		<KeyWord name="EVENT.BUILD_NOTONGROUND" />
+		<KeyWord name="EVENT.BURNED" />
+		<KeyWord name="EVENT.CANT_CLOAK" />
+		<KeyWord name="EVENT.CHANGECLASS" />
+		<KeyWord name="EVENT.CHANGETEAM" />
+		<KeyWord name="EVENT.CLASS_CHANGELATER" />
+		<KeyWord name="EVENT.CLASS_DISABLE" />
+		<KeyWord name="EVENT.CLASS_NOTAVAILABLE" />
+		<KeyWord name="EVENT.CLOAKED" />
+		<KeyWord name="EVENT.CURED" />
+		<KeyWord name="EVENT.DEATH" />
+		<KeyWord name="EVENT.DETPACK_ALREADYBUILT" />
+		<KeyWord name="EVENT.DETPACK_BUILDING" />
+		<KeyWord name="EVENT.DETPACK_BUILT" />
+		<KeyWord name="EVENT.DETPACK_CANTBUILD" />
+		<KeyWord name="EVENT.DETPACK_DETONATED" />
+		<KeyWord name="EVENT.DETPACK_NOAMMO" />
+		<KeyWord name="EVENT.DISCONNECTED" />
+		<KeyWord name="EVENT.DISGUISE_LOST" />
+		<KeyWord name="EVENT.DISGUISED" />
+		<KeyWord name="EVENT.DISGUISING" />
+		<KeyWord name="EVENT.DISPENSER_ALREADYBUILT" />
+		<KeyWord name="EVENT.DISPENSER_BUILDING" />
+		<KeyWord name="EVENT.DISPENSER_BUILT" />
+		<KeyWord name="EVENT.DISPENSER_CANTBUILD" />
+		<KeyWord name="EVENT.DISPENSER_DAMAGED" />
+		<KeyWord name="EVENT.DISPENSER_DESTROYED" />
+		<KeyWord name="EVENT.DISPENSER_DETONATED" />
+		<KeyWord name="EVENT.DISPENSER_DISMANTLED" />
+		<KeyWord name="EVENT.DISPENSER_ENEMYUSED" />
+		<KeyWord name="EVENT.DISPENSER_NOAMMO" />
+		<KeyWord name="EVENT.DISPENSER_STATS" />
+		<KeyWord name="EVENT.END_GAME" />
+		<KeyWord name="EVENT.END_ROUND" />
+		<KeyWord name="EVENT.ENT_ENTER_RADIUS" />
+		<KeyWord name="EVENT.ENT_LEAVE_RADIUS" />
+		<KeyWord name="EVENT.FEEL_PAIN" />
+		<KeyWord name="EVENT.FIRETEAM_CHAT_MSG" />
+		<KeyWord name="EVENT.FIRETEAM_CREATED" />
+		<KeyWord name="EVENT.FIRETEAM_DISBANDED" />
+		<KeyWord name="EVENT.FIRETEAM_INVITED" />
+		<KeyWord name="EVENT.FIRETEAM_JOINED" />
+		<KeyWord name="EVENT.FIRETEAM_LEFT" />
+		<KeyWord name="EVENT.FIRETEAM_PROPOSAL" />
+		<KeyWord name="EVENT.FIRETEAM_WARNED" />
+		<KeyWord name="EVENT.GAVE_ENGY_ARMOR" />
+		<KeyWord name="EVENT.GAVE_MEDIC_HEALTH" />
+		<KeyWord name="EVENT.GLOBAL_CHAT_MSG" />
+		<KeyWord name="EVENT.GLOBAL_VOICE" />
+		<KeyWord name="EVENT.GOAL_ABORTED" />
+		<KeyWord name="EVENT.GOAL_FAILED" />
+		<KeyWord name="EVENT.GOAL_SUCCESS" />
+		<KeyWord name="EVENT.GOT_DISPENSER_AMMO" />
+		<KeyWord name="EVENT.GOT_ENGY_ARMOR" />
+		<KeyWord name="EVENT.GOT_MEDIC_HEALTH" />
+		<KeyWord name="EVENT.GROUP_CHAT_MSG" />
+		<KeyWord name="EVENT.HEALED" />
+		<KeyWord name="EVENT.HEAR_SOUND" />
+		<KeyWord name="EVENT.INFECTED" />
+		<KeyWord name="EVENT.INVALID_CLASS" />
+		<KeyWord name="EVENT.INVALID_DISGUISE_CLASS" />
+		<KeyWord name="EVENT.INVALID_DISGUISE_TEAM" />
+		<KeyWord name="EVENT.INVALID_TEAM" />
+		<KeyWord name="EVENT.KILLEDSOMEONE" />
+		<KeyWord name="EVENT.MEDIC_CALLED" />
+		<KeyWord name="EVENT.MG_ENTER_RADIUS" />
+		<KeyWord name="EVENT.MG_LEAVE_RADIUS" />
+		<KeyWord name="EVENT.MORTAR_IMPACT" />
+		<KeyWord name="EVENT.NEW_ROUND" />
+		<KeyWord name="EVENT.PATH_FAILED" />
+		<KeyWord name="EVENT.PATH_SUCCESS" />
+		<KeyWord name="EVENT.PIPE_PROXIMITY" />
+		<KeyWord name="EVENT.PLAYER_USE" />
+		<KeyWord name="EVENT.POSTTRIGGERED_MINE" />
+		<KeyWord name="EVENT.PRETRIGGERED_MINE" />
+		<KeyWord name="EVENT.PRIVATE_VOICE" />
+		<KeyWord name="EVENT.PRIV_CHAT_MSG" />
+		<KeyWord name="EVENT.PROXIMITY_TRIGGER" />
+		<KeyWord name="EVENT.RADAR_DETECTENEMY" />
+		<KeyWord name="EVENT.RADIOTAG_UPDATE" />
+		<KeyWord name="EVENT.REFRESH_WEAPON" />
+		<KeyWord name="EVENT.REMOVEWEAPON" />
+		<KeyWord name="EVENT.RESET_WEAPONS" />
+		<KeyWord name="EVENT.REVIVED" />
+		<KeyWord name="EVENT.SABOTAGED_DISPENSER" />
+		<KeyWord name="EVENT.SABOTAGED_SENTRY" />
+		<KeyWord name="EVENT.SCRIPTMSG" />
+		<KeyWord name="EVENT.SENSE_ENTITY" />
+		<KeyWord name="EVENT.SENTRY_AIMED" />
+		<KeyWord name="EVENT.SENTRY_ALREADYBUILT" />
+		<KeyWord name="EVENT.SENTRY_BUILDING" />
+		<KeyWord name="EVENT.SENTRY_BUILT" />
+		<KeyWord name="EVENT.SENTRY_CANTBUILD" />
+		<KeyWord name="EVENT.SENTRY_DAMAGED" />
+		<KeyWord name="EVENT.SENTRY_DESTROYED" />
+		<KeyWord name="EVENT.SENTRY_DETONATED" />
+		<KeyWord name="EVENT.SENTRY_DISMANTLED" />
+		<KeyWord name="EVENT.SENTRY_NOAMMO" />
+		<KeyWord name="EVENT.SENTRY_SPOTENEMY" />
+		<KeyWord name="EVENT.SENTRY_STATS" />
+		<KeyWord name="EVENT.SENTRY_UPGRADED" />
+		<KeyWord name="EVENT.SPAWNED" />
+		<KeyWord name="EVENT.START_GAME" />
+		<KeyWord name="EVENT.TEAM_CHAT_MSG" />
+		<KeyWord name="EVENT.TEAM_VOICE" />
+		<KeyWord name="EVENT.UNCLOAKED" />
+		<KeyWord name="EVENT.WEAPON_CHANGE" />
+		<KeyWord name="EVENT.WEAPON_FIRE" />
+		<KeyWord name="Events" />
+		<KeyWord name="ExecCommand" func="yes">
+			<Overload retVal="void:" descr="Executes a command as if it were a bot console command.">
+				<Param name="string: Command" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ExecCommandOnClient" func="yes">
+			<Overload retVal="void:" descr="Executes a command as if the game entity executed it in console.">
+				<Param name="entity" />
+				<Param name="string: Command" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ExecScript" func="yes">
+			<Overload retVal="void:" descr="Executes the given script file.">
+				<Param name="string: name of script file" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="exit" func="yes">
+			<Overload retVal="void:" descr="Cause the current thread to terminate immediately." />
+		</KeyWord>
+		<KeyWord name="Exit" />
+		<KeyWord name="Expand" func="yes">
+			<Overload retVal="void:" descr="aabb.Expand(Vec3) - Expands the bounding box to contain a position.">
+				<Param name="Vec3: position to contain" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ExtraDebugText" />
+		<KeyWord name="Facing" />
+		<KeyWord name="FacingOffset" />
+		<KeyWord name="false" />
+		<KeyWord name="FieldOfView" />
+		<KeyWord name="File" func="yes" />
+		<KeyWord name="FileDelete" func="yes">
+			<Overload retVal="bool:" descr="Deletes a file by name. This function is restricted to files under the user folder.">
+				<Param name="string: filename" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="FileEnumerate" func="yes">
+			<Overload retVal="bool:" descr="Enumerates over all files in a directory. This function is restricted to files under the user folder. This function will call the provided script function with all files enumerated.">
+				<Param name="string: folder name" />
+				<Param name="script function" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="FileExists" func="yes">
+			<Overload retVal="bool:" descr="Checks if a file exists by name. This function is restricted to files under the user folder.">
+				<Param name="string: filename" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="FileSize" func="yes">
+			<Overload retVal="bool:" descr="fileObject.FileSize() - Gets the file size of the file, in bytes." />
+		</KeyWord>
+		<KeyWord name="Find" func="yes" />
+		<KeyWord name="FindClosestGoal" func="yes">
+			<Overload retVal="entity:" descr="Returns the goal closest to local player.">
+				<Param name="[float: radius]" />
+				<Param name="[string: regEx]" />
+				<Param name="[int: team]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="FindIntersection" func="yes">
+			<Overload retVal="AABB:" descr="aabb.FindIntersection(AABB) - Gets the AABB overlap of 2 bounding boxes.">
+				<Param name="AABB: bounding box to check intersection with" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="FindState" func="yes" />
+		<KeyWord name="Finished" func="yes" />
+		<KeyWord name="FireOnRelease" />
+		<KeyWord name="FireTeamApply" func="yes" />
+		<KeyWord name="FireteamCreate" func="yes" />
+		<KeyWord name="FireteamDisband" func="yes" />
+		<KeyWord name="FireTeamGetInfo" func="yes" />
+		<KeyWord name="FireTeamInvite" func="yes" />
+		<KeyWord name="FireTeamKick" func="yes" />
+		<KeyWord name="FireTeamLeave" func="yes" />
+		<KeyWord name="FireTeamPropose" func="yes" />
+		<KeyWord name="FireTeamWarn" func="yes" />
+		<KeyWord name="FireWeapon" func="yes">
+			<Overload retVal="void:" descr="bot.FireWeapon() - Fires the current weapon." />
+		</KeyWord>
+		<KeyWord name="Floor" func="yes">
+			<Overload retVal="int:" descr="Returns the largest integer &lt;= number.">
+				<Param name="float: number" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Flush" func="yes">
+			<Overload retVal="void:" descr="fileObject.Flush() - Flushes the file buffer to disk." />
+		</KeyWord>
+		<KeyWord name="ForceTarget" func="yes">
+			<Overload retVal="?:" descr="bot.ForceTarget(?) - ?." />
+		</KeyWord>
+		<KeyWord name="foreach" />
+		<KeyWord name="ForkThread" func="yes">
+			<Overload retVal="?:" descr="scriptGoal.ForkThread(?) - ?." />
+		</KeyWord>
+		<KeyWord name="format" func="yes" />
+		<KeyWord name="function" />
+		<KeyWord name="FuseTime" />
+		<KeyWord name="GetAllAlly" func="yes">
+			<Overload retVal="void:" descr="bot.GetAllAlly(category, class, table) - Fills a table with all known allied entities (from bot's sensory memory) that match a desired criteria.">
+				<Param name="CAT: category" />
+				<Param name="CLASS: class" />
+				<Param name="table: output" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetAllEnemy" func="yes">
+			<Overload retVal="void:" descr="bot.GetAllEnemy(category, class, table) - Fills a table with all known enemy entities (from bot's sensory memory) that match a desired criteria.">
+				<Param name="CAT: category" />
+				<Param name="CLASS: class" />
+				<Param name="table: output" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetAllType" func="yes">
+			<Overload retVal="void:" descr="bot.GetAllType(category, class, table) - Fills a table with all known entities (from bot's sensory memory) that match a desired criteria.">
+				<Param name="CAT: category" />
+				<Param name="CLASS: class" />
+				<Param name="table: output" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetAllWaypoints" func="yes" />
+		<KeyWord name="GetAt" func="yes" />
+		<KeyWord name="GetAxisLength" func="yes">
+			<Overload retVal="float:" descr="aabb.GetAxisLength(string) - Gets the length of an axis of the bounding box.">
+				<Param name="string: x, y or z" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetBestWeapon" func="yes">
+			<Overload retVal="weap id:" descr="bot.GetBestWeapon() - Gets a weapon id for the best weapon versus current target or a specific entity." />
+			<Overload retVal="weap id:" descr="bot.GetBestWeapon(entity) - Gets a weapon id for the best weapon versus current target or a specific entity.">
+				<Param name="entity: evaluate weapon versus specific target entity" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetCenterBounds" func="yes" />
+		<KeyWord name="GetClass" func="yes" />
+		<KeyWord name="GetClassNameFromId" func="yes" />
+		<KeyWord name="GetConstructableState" func="yes">
+			<Overload retVal="int: (1 if the bot can build the entity, 0 if the entity is already built, -1 if the entity is not constructable or has been built by enemy.)" descr="bot.GetConstructableState(entity) - Check state of a BUILD goal.">
+				<Param name="entity: entity" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetCurrentAmmo" func="yes">
+			<Overload retVal="bool:" descr="bot.GetCurrentAmmo(table) - Gets the primary ammo for the current weapon.">
+				<Param name="table: output" />
+			</Overload>
+			<Overload retVal="bool:" descr="bot.GetCurrentAmmo(table, int) - Gets the ammo information for the current weapon.">
+				<Param name="table: output" />
+				<Param name="int: firemode (0 for primary, 1 for secondary ammo)" />
+			</Overload>
+			<Overload retVal="bool:" descr="bot.GetCurrentAmmo(table, int, WEAPON) - Gets the ammo information for another weapon.">
+				<Param name="table: output" />
+				<Param name="int: firemode (0 for primary, 1 for secondary ammo)" />
+				<Param name="WEAPON: weapon id" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetCurrentWeapon" func="yes">
+			<Overload retVal="WEAPON: weapon id" descr="bot.GetCurrentWeapon() - Gets the current weapon id for the bot." />
+		</KeyWord>
+		<KeyWord name="GetCursorHint" func="yes">
+			<Overload retVal="table: (type, value)" descr="bot.GetCursorHint(table) - When a player is near enough something to get a hint icon, such as for dynamiting, this function can access what hint is showing. Some of these hints may or may not ever show up, they were taken as-is from the ET SDK. See the Wiki for the possible values of 'type'.">
+				<Param name="table: output (type, value)" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetCvar" func="yes">
+			<Overload retVal="variable:" descr="Gets the value of a game config variable.">
+				<Param name="string: variable name" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetDestroyableState" func="yes">
+			<Overload retVal="int:" descr="Gets the state of a destructible entity.">
+				<Param name="game entity" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetElapsedTime" func="yes">
+			<Overload retVal="?:" descr="timer.GetElapsedTime(?) - ?." />
+		</KeyWord>
+		<KeyWord name="GetEntBonePosition" func="yes">
+			<Overload retVal="Vec3:" descr="Gets the world position of a specific bone on an entity.">
+				<Param name="entity: game entity/game ID" />
+				<Param name="int: Bone ID" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetEntCategory" func="yes">
+			<Overload retVal="bool:" descr="Checks if the entity belongs to one or more entity categories.&#x0A;Returns true if the entity belongs to all provided categories.">
+				<Param name="entity: game entity/game ID" />
+				<Param name="int: category ID" />
+				<Param name="[...]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetEntClass" func="yes">
+			<Overload retVal="int:" descr="Gets the class of a game entity.">
+				<Param name="entity: game entity/game ID" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetEntEquippedWeapon" func="yes">
+			<Overload retVal="weaponId:" descr="Gets current weapon of a player.">
+				<Param name="entity: game entity/game ID" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetEntEyePosition" func="yes">
+			<Overload retVal="Vec3:" descr="Gets the world eye position of a game entity.">
+				<Param name="entity: game entity/game ID" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetEntFacing" func="yes">
+			<Overload retVal="Vec3:" descr="Gets the facing of a game entity.">
+				<Param name="entity: game entity/game ID" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetEntFlags" func="yes" />
+		<KeyWord name="GetEntHealthAndArmor" func="yes" />
+		<KeyWord name="GetEntity" func="yes" />
+		<KeyWord name="GetEntityByName" func="yes">
+			<Overload retVal="entity:" descr="Gets a game entity by its name.">
+				<Param name="string: name" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetEntityInSphere" func="yes" />
+		<KeyWord name="GetEntityLocalSpace" func="yes">
+			<Overload retVal="Vec3:" descr="Converts a world position into a local space position of a specified entity.">
+				<Param name="entity: game entity/game ID" />
+				<Param name="Vec3: world position" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetEntityName" func="yes">
+			<Overload retVal="string:" descr="Gets the name of a game entity.">
+				<Param name="entity: game entity/game ID" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetEntityStat" func="yes" />
+		<KeyWord name="GetEntityVisDistance" func="yes" />
+		<KeyWord name="GetEntityWorldSpace" func="yes">
+			<Overload retVal="Vec3:" descr="Converts a local space position into a world space position of a specified entity.">
+				<Param name="entity: game entity/game ID" />
+				<Param name="Vec3: local position" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetEntName" func="yes">
+			<Overload retVal="string:" descr="Gets the name of a game entity.">
+				<Param name="entity: game entity/game ID" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetEntOwner" func="yes">
+			<Overload retVal="int:" descr="Gets the owner of an entity. Typically used for entities that can be held or carried.">
+				<Param name="int: game ID of owner" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetEntPosition" func="yes">
+			<Overload retVal="Vec3:" descr="Gets the world position of a game entity.">
+				<Param name="entity: game entity/game ID" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetEntPowerups" func="yes" />
+		<KeyWord name="GetEntRotationMatrix" func="yes" />
+		<KeyWord name="GetEntTeam" func="yes">
+			<Overload retVal="int:" descr="Gets the team ID of a game entity.">
+				<Param name="entity: game entity/game ID" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetEntVelocity" func="yes">
+			<Overload retVal="Vec3:" descr="Gets the velocity of a game entity.">
+				<Param name="entity: game entity/game ID" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetEntWorldAABB" func="yes">
+			<Overload retVal="AABB:" descr="Gets the world AABB for an entity.">
+				<Param name="entity: game entity/game ID" />
+			</Overload>
+			<Overload retVal="bool:" descr="Gets the world AABB for an entity.">
+				<Param name="entity: game entity/game ID" />
+				<Param name="AABB: AABB to fill" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetExplosiveState" func="yes" />
+		<KeyWord name="GetExtension" func="yes" />
+		<KeyWord name="GetEyePosition" func="yes">
+			<Overload retVal="Vec3:" descr="bot.GetEyePosition() - Gets the world position of the bots 'eye'." />
+		</KeyWord>
+		<KeyWord name="GetFacing" func="yes" />
+		<KeyWord name="GetFilename" func="yes" />
+		<KeyWord name="GetFilenameNoExt" func="yes" />
+		<KeyWord name="GetGameEntity" func="yes" />
+		<KeyWord name="GetGameEntityFromId" func="yes" />
+		<KeyWord name="GetGameId" func="yes" />
+		<KeyWord name="GetGameIdFromEntity" func="yes" />
+		<KeyWord name="GetGameName" func="yes">
+			<Overload retVal="string:" descr="Gets the name of the currently running game." />
+		</KeyWord>
+		<KeyWord name="GetGameState" func="yes">
+			<Overload retVal="string:" descr="Gets the current state of the game." />
+		</KeyWord>
+		<KeyWord name="GetGameTimeLeft" func="yes">
+			<Overload retVal="int:" descr="Gets the current amount of time remaining in the game round in seconds." />
+		</KeyWord>
+		<KeyWord name="GetGameType" func="yes" />
+		<KeyWord name="GetGoal" func="yes" />
+		<KeyWord name="GetGoalPriority" func="yes" />
+		<KeyWord name="GetGoalState" func="yes">
+			<Overload retVal="?:" descr="mapGoal.GetGoalState() - Gets the goal state of the map goal." />
+		</KeyWord>
+		<KeyWord name="GetGoals" func="yes">
+			<Overload retVal="void:">
+				<Param name="table" />
+				<Param name="int: team" />
+				<Param name="string: regEx" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetGoalType" func="yes" />
+		<KeyWord name="GetGravity" func="yes">
+			<Overload retVal="num:" descr="Gets the current gravity value." />
+		</KeyWord>
+		<KeyWord name="GetGroupName" func="yes">
+			<Overload retVal="string:" descr="mapGoal.GetGroupName() - Gets the current group this goal is assigned to." />
+		</KeyWord>
+		<KeyWord name="GetHealthPercent" func="yes">
+			<Overload retVal="0.0 - 1.0 health scalar:" descr="bot.GetHealthPercent() - Gets the bot's current health percentage." />
+		</KeyWord>
+		<KeyWord name="GetHighLevelGoalName" func="yes">
+			<Overload retVal="string: (goal name, or NULL if the bot doesn't have a high level goal)" descr="bot.GetHighLevelGoalName() - Gets the bot's current high level goal name." />
+		</KeyWord>
+		<KeyWord name="GetLastTarget" func="yes">
+			<Overload retVal="entity:" descr="bot.GetLastTarget() - gets the target the bot had before the current target." />
+		</KeyWord>
+		<KeyWord name="GetLocalAABB" func="yes">
+			<Overload retVal="AABB:" descr="Gets the AABB of the local player. Only valid in listen servers." />
+		</KeyWord>
+		<KeyWord name="GetLocalAimNormal" func="yes" />
+		<KeyWord name="GetLocalAimPosition" func="yes">
+			<Overload retVal="Vec3:" descr="Gets the aim position of the local player. Only valid in listen servers." />
+		</KeyWord>
+		<KeyWord name="GetLocalCommand" func="yes">
+			<Overload retVal="string:" descr="Gets name of just running console command. It is useful if you use same script for multiple commands." />
+		</KeyWord>
+		<KeyWord name="GetLocalEntity" func="yes">
+			<Overload retVal="entity:" descr="Gets the entity of the local player. Only valid in listen servers." />
+		</KeyWord>
+		<KeyWord name="GetLocalEyePosition" func="yes">
+			<Overload retVal="Vec3:" descr="Gets the eye position of the local player. Only valid in listen servers." />
+		</KeyWord>
+		<KeyWord name="GetLocalFacing" func="yes">
+			<Overload retVal="Vec3:" descr="Gets the facing of the local player. Only valid in listen servers." />
+		</KeyWord>
+		<KeyWord name="GetLocalGroundPosition" func="yes">
+			<Overload retVal="Vec3:" descr="Gets the ground position of the local player. Only valid in listen servers." />
+		</KeyWord>
+		<KeyWord name="GetLocalPosition" func="yes">
+			<Overload retVal="Vec3:" descr="Gets the position of the local player. Only valid in listen servers." />
+		</KeyWord>
+		<KeyWord name="GetMapExtents" func="yes">
+			<Overload retVal="AABB:" descr="Gets the map&apos;s AABB." />
+		</KeyWord>
+		<KeyWord name="GetMapGoalName" func="yes">
+			<Overload retVal="string: (goal name or NULL if ROAMING, WatchForProjectile or CovertOps)" descr="bot.GetMapGoalName() - Gets the bot's current map goal name (for example: BUILD_Tank, DEFEND_depot1, ...)." />
+		</KeyWord>
+		<KeyWord name="GetMapName" func="yes">
+			<Overload retVal="string:" descr="Gets the name of the map currently running." />
+		</KeyWord>
+		<KeyWord name="GetMG42Info" func="yes">
+			<Overload retVal="bool:" descr="bot.GetMG42Info(table) - Gets information about currently mounted MG42 - vector CenterFacing and angles MinHorizontal, MaxHorizontal, MinVertical, MaxVertical.">
+				<Param name="table:" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetModName" func="yes">
+			<Overload retVal="string:" descr="Gets the name of the mod currently running." />
+		</KeyWord>
+		<KeyWord name="GetModVersion" func="yes">
+			<Overload retVal="string:" descr="Gets the version of the mod currently running." />
+		</KeyWord>
+		<KeyWord name="GetMostDesiredAmmo" func="yes">
+			<Overload retVal="void:" descr="bot.GetMostDesiredAmmo(table) - Gets information about the currently most needed ammo. See the Wiki for the output table specs.">
+				<Param name="table: output" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetMountedPlayerOnMG42" func="yes">
+			<Overload retVal="player's entity or null:" descr="bot.GetMountedPlayerOnMG42(ent) - Gets player who is mounting MG42.">
+				<Param name="ent: mg42Entity" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetName" func="yes">
+			<Overload retVal="string:" descr="mapGoal.GetName() - Gets the name of the map goal." />
+		</KeyWord>
+		<KeyWord name="GetNearest" func="yes">
+			<Overload retVal="entity:" descr="Gets the nearest target matching the desired criteria, friend or foe.">
+				<Param name="int: category" />
+				<Param name="[int: class ID]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetNearestAlly" func="yes">
+			<Overload retVal="entity:" descr="Gets the nearest target matching the desired criteria, only allies.">
+				<Param name="int: category" />
+				<Param name="[int: class ID]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetNearestDestination" func="yes">
+			<Overload retVal="int: (index or NULL)" descr="bot.GetNearestDestination(positions) - Finds paths from the current bot position to multiple destination positions. Returns index of the destination which has the shortest path. It can depend on navigation flags (e.g. teleports, axis/allied waypoints).">
+				<Param name="positions: table of Vec3" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetNearestEnemy" func="yes">
+			<Overload retVal="entity:" descr="Gets the nearest target matching the desired criteria, only enemies.">
+				<Param name="int: category" />
+				<Param name="[int: class ID]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetNearestNonSolid" func="yes" />
+		<KeyWord name="GetNumUsePoint" func="yes">
+			<Overload retVal="int:" descr="mapGoal.GetNumUsePoint() - Gets the number of use points the goal has." />
+		</KeyWord>
+		<KeyWord name="GetOwner" func="yes" />
+		<KeyWord name="GetPath" func="yes">
+			<Overload retVal="string:" descr="string.GetPath([includeSlash]) - GetPath will return the file path from a path string.">
+				<Param name="[bool: includeSlash (optional, default false)]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetPitch" func="yes">
+			<Overload retVal="float:" descr="vec3.GetPitch() - ?." />
+		</KeyWord>
+		<KeyWord name="GetPointContents" func="yes" />
+		<KeyWord name="GetPosition" func="yes" />
+		<KeyWord name="GetPriority" func="yes" />
+		<KeyWord name="GetPriorityDelay" />
+		<KeyWord name="GetRadius" func="yes">
+			<Overload retVal="float:" descr="mapGoal.GetRadius() - Gets the radius of the map goal." />
+		</KeyWord>
+		<KeyWord name="GetRange" func="yes">
+			<Overload retVal="float:" descr="mapGoal.GetRange() - Gets the range of the map goal." />
+		</KeyWord>
+		<KeyWord name="GetRandomWeapon" func="yes">
+			<Overload retVal="WEAPON: random weapon id" descr="bot.GetRandomWeapon() - Gets a random weapon id from the list of weapons the bot currently has." />
+		</KeyWord>
+		<KeyWord name="GetReinforceTime" func="yes">
+			<Overload retVal="int:" descr="bot.GetReinforceTime() - Gets the current time left (in seconds) before reinforcements spawn for the bots team." />
+		</KeyWord>
+		<KeyWord name="GetSkills" func="yes">
+			<Overload retVal="void:" descr="bot.GetSkills(table) - Gets the current skill values and puts them into the table parameter.">
+				<Param name="table: output" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetStat" func="yes">
+			<Overload retVal="the value of the stat" descr="bot.GetStat(string) - Gets a current stat from the bot by name. Valid stat names for ET are kills, deaths and xp.">
+				<Param name="string: (stat name)" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetTagName" func="yes">
+			<Overload retVal="string:" descr="mapGoal.GetTagName() - Gets the tag name of the map goal. This is usually a mash of the entity name and goal type." />
+		</KeyWord>
+		<KeyWord name="GetTarget" func="yes">
+			<Overload retVal="entity:" descr="bot.GetTarget() - gets the bot&apos;s current target entity." />
+		</KeyWord>
+		<KeyWord name="GetTargetInfo" func="yes" />
+		<KeyWord name="GetTeam" func="yes" />
+		<KeyWord name="GetTeamStat" func="yes" />
+		<KeyWord name="GetTime" func="yes">
+			<Overload retVal="int:" descr="Gets the current time elapsed in the game in milliseconds." />
+		</KeyWord>
+		<KeyWord name="GetUsePoint" func="yes">
+			<Overload retVal="Vec3:" descr="mapGoal.GetUsePoint() - Gets a use point, by index. If no index provided, returns a random one.">
+				<Param name="[int: index]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetVelocity" func="yes">
+			<Overload retVal="Vec3:" descr="Gets the world velocity of the bot." />
+		</KeyWord>
+		<KeyWord name="GetWaypointByGUID" func="yes" />
+		<KeyWord name="GetWaypointByName" func="yes" />
+		<KeyWord name="GetWeapon" func="yes" />
+		<KeyWord name="GetWeaponIdFromClassId" func="yes" />
+		<KeyWord name="GetYaw" func="yes">
+			<Overload retVal="float:" descr="vec3.GetYaw() - ?." />
+		</KeyWord>
+		<KeyWord name="global" />
+		<KeyWord name="gmVersion" func="yes" />
+		<KeyWord name="GoalState" />
+		<KeyWord name="GoalStateFunction" />
+		<KeyWord name="GoalType" />
+		<KeyWord name="GoGetAmmo" func="yes" />
+		<KeyWord name="GoGetArmor" func="yes" />
+		<KeyWord name="GoGetHealth" func="yes" />
+		<KeyWord name="Goto" func="yes">
+			<Overload retVal="void:" descr="Go to Vec3 position/facing.">
+				<Param name="Vec3: position" />
+				<Param name="Vec3: facing" />
+				<Param name="[boolean: append goal]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GotoAsync" func="yes">
+			<Overload retVal="void:" descr="Go to Vec3 position asynchronously.">
+				<Param name="Vec3: position" />
+				<Param name="[float: tolerance]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GotoRandom" func="yes" />
+		<KeyWord name="GotoRandomAsync" func="yes" />
+		<KeyWord name="GroundPoint" func="yes" />
+		<KeyWord name="Groups.DisableAllies" func="yes" />
+		<KeyWord name="Groups.DisableAxis" func="yes" />
+		<KeyWord name="Groups.EnableAllies" func="yes" />
+		<KeyWord name="Groups.EnableAxis" func="yes" />
+		<KeyWord name="Gui.ActionListener" func="yes" />
+		<KeyWord name="Gui.AddPageButton" func="yes" />
+		<KeyWord name="Gui.AddPageWindow" func="yes" />
+		<KeyWord name="Gui.AdjustingContainer" func="yes" />
+		<KeyWord name="Gui.Button" func="yes" />
+		<KeyWord name="Gui.CheckBox" func="yes" />
+		<KeyWord name="Gui.Color" func="yes" />
+		<KeyWord name="Gui.Container" func="yes" />
+		<KeyWord name="Gui.DeathListener" func="yes" />
+		<KeyWord name="Gui.DialogPanel" func="yes" />
+		<KeyWord name="Gui.DropDown" func="yes" />
+		<KeyWord name="Gui.FocusListener" func="yes" />
+		<KeyWord name="Gui.Hud" func="yes" />
+		<KeyWord name="Gui.Icon" func="yes" />
+		<KeyWord name="Gui.Image" func="yes" />
+		<KeyWord name="Gui.KeyListener" func="yes" />
+		<KeyWord name="Gui.Label" func="yes" />
+		<KeyWord name="Gui.ListBox" func="yes" />
+		<KeyWord name="Gui.ListModel" func="yes" />
+		<KeyWord name="Gui.MouseListener" func="yes" />
+		<KeyWord name="Gui.PointFacing" func="yes" />
+		<KeyWord name="Gui.RadioButton" func="yes" />
+		<KeyWord name="Gui.ScrollArea" func="yes" />
+		<KeyWord name="Gui.Slider" func="yes" />
+		<KeyWord name="Gui.Tab" func="yes" />
+		<KeyWord name="Gui.TabbedArea" func="yes" />
+		<KeyWord name="Gui.TextBox" func="yes" />
+		<KeyWord name="Gui.TextField" func="yes" />
+		<KeyWord name="Gui.Top" func="yes" />
+		<KeyWord name="Gui.Window" func="yes" />
+		<KeyWord name="HasAmmo" func="yes">
+			<Overload retVal="bool:" descr="bot.HasAmmo() - Checks bot' current weapon ammo." />
+			<Overload retVal="bool:" descr="bot.HasAmmo(WEAPON) - Checks bot' given weapon ammo.">
+				<Param name="WEAPON: weapon id" />
+			</Overload>
+			<Overload retVal="bool:" descr="bot.HasAmmo(WEAPON, int) - Checks bot' given weapon ammo, with given needed amount.">
+				<Param name="WEAPON: weapon id" />
+				<Param name="int: needed amount" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="HasAnyEntityFlag" func="yes">
+			<Overload retVal="bool:" descr="Returns true if a bot has any of the passed entity flags.&#x0A;Can take any number of flags as parameters.">
+				<Param name="int: flag ID" />
+				<Param name="[...]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="HasAnyWeapon" func="yes" />
+		<KeyWord name="HasClip" />
+		<KeyWord name="HasEntityFlag" func="yes">
+			<Overload retVal="bool:" descr="Returns true if a bot has all of the passed entity flags.&#x0A;Can take any number of flags as parameters.">
+				<Param name="int: flag ID" />
+				<Param name="[...]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="HasLineOfSightTo" func="yes">
+			<Overload retVal="bool:" descr="Returns true if the bot has a line of sight to the position or entity passed,&#x0A;false if the bot&apos;s view is obstructed.">
+				<Param name="Vec3: position" />
+				<Param name="[entity]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="HasPowerUp" func="yes">
+			<Overload retVal="bool:" descr="Checks if the bot has a given powerup.">
+				<Param name="int: powerup ID" />
+				<Param name="[...]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="HasRole" func="yes">
+			<Overload retVal="bool:" descr="bot.HasRole(role) - Returns true if the bot has the given role.">
+				<Param name="int: role id" />
+			</Overload>
+			<Overload retVal="bool:" descr="mapgoal.HasRole(role) - Returns true if the mapgoal has the given role.">
+				<Param name="int: role id" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="HasTarget" func="yes">
+			<Overload retVal="bool:" descr="Checks if the bot has a current target." />
+		</KeyWord>
+		<KeyWord name="HasWeapon" func="yes">
+			<Overload retVal="bool:" descr="bot.HasWeapon(WEAPON) - Checks if the bot has a specific weapon.">
+				<Param name="WEAPON: weapon id" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="HasZoom" />
+		<KeyWord name="Health" />
+		<KeyWord name="Help" />
+		<KeyWord name="HoldButton" func="yes">
+			<Overload retVal="void:" descr="bot.HoldButton - makes a bot hold a button for a given time in seconds.">
+				<Param name="int: button ID" />
+				<Param name="float: time (secs.)" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="HudDisplay" />
+		<KeyWord name="IgnoreReload" />
+		<KeyWord name="IgnoreTarget" func="yes">
+			<Overload retVal="void:" descr="bot.IgnoreTarget - makes a bot ignore a target for a given time in seconds.">
+				<Param name="game entity/ID" />
+				<Param name="float: time (secs.)" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="IgnoreTargetForTime" func="yes">
+			<Overload retVal="void:" descr="bot.IgnoreTargetForTime - See IgnoreTarget" />
+		</KeyWord>
+		<KeyWord name="import" func="yes" />
+		<KeyWord name="InFieldOfView" func="yes">
+			<Overload retVal="bool:" descr="bot.InFieldOfView - checks whether a position is within the bot&apos;s current field of view.">
+				<Param name="Vec3: position" />
+				<Param name="[float: degrees]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="InheritsVelocity" />
+		<KeyWord name="Initialize" func="yes" />
+		<KeyWord name="InitNewGoal" />
+		<KeyWord name="Insert" func="yes" />
+		<KeyWord name="InsertAfter" />
+		<KeyWord name="InsertBefore" />
+		<KeyWord name="InternalGoalState" />
+		<KeyWord name="Intersects" func="yes">
+			<Overload retVal="bool:" descr="aabb.Intersects(AABB) - Checks if 2 AABBs intersect.">
+				<Param name="AABB: bounding box to check intersection with" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="InUse" />
+		<KeyWord name="Inverse" func="yes" />
+		<KeyWord name="InverseTransformVector" func="yes" />
+		<KeyWord name="IsA" func="yes">
+			<Overload retVal="bool:" descr="targetInfo.IsA(param) - Returns true if Class is equal to parameter.">
+				<Param name="param: ?" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="IsActive" func="yes" />
+		<KeyWord name="IsAllied" func="yes" />
+		<KeyWord name="IsAvailable" func="yes">
+			<Overload retVal="bool:" descr="mapGoal.IsAvailable(TEAM) - Checks if the map goal is currently available to a certain team.">
+				<Param name="TEAM: team id" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="IsAvailableInitial" func="yes">
+			<Overload retVal="bool:" descr="mapGoal.IsAvailableInitial(TEAM) - Is goal available for team initially (before OnMapLoad is executed).">
+				<Param name="TEAM: team id" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="IsBool" func="yes" />
+		<KeyWord name="IsCarryingFlag" func="yes">
+			<Overload retVal="bool:" descr="bot.IsCarryingFlag() - Checks if the bot is carrying objective (flag, gold, documents, radar parts, ...)." />
+		</KeyWord>
+		<KeyWord name="IsDisabled" func="yes">
+			<Overload retVal="bool:" descr="mapGoal.IsDisabled() - Gets whether the goal is currently disabled." />
+		</KeyWord>
+		<KeyWord name="IsEmpty" func="yes" />
+		<KeyWord name="IsEntity" func="yes" />
+		<KeyWord name="IsFloat" func="yes" />
+		<KeyWord name="IsFloatOrInt" func="yes" />
+		<KeyWord name="IsFunction" func="yes" />
+		<KeyWord name="IsInFireTeam" func="yes" />
+		<KeyWord name="IsInt" func="yes" />
+		<KeyWord name="IsMG42Repairable" func="yes">
+			<Overload retVal="bool:" descr="bot.IsMG42Repairable(ent) - Returns true if mg42 is damaged and can be repaired.">
+				<Param name="ent: mg42Entity" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="IsNull" func="yes" />
+		<KeyWord name="IsOpen" func="yes">
+			<Overload retVal="bool:" descr="fileObject.IsOpen() - Checks if the file is currently open. Usually used after a call to Open." />
+		</KeyWord>
+		<KeyWord name="IsString" func="yes" />
+		<KeyWord name="IsStuck" func="yes">
+			<Overload retVal="bool:" descr="bot.IsStuck() - Checks if the bot considers himself to be stuck. Stuckness is typically defined as an insignificant amount of movement over a short period of time (0.5s). The time can be optionally passed to the function for flexibility." />
+			<Overload retVal="bool:" descr="bot.IsStuck(float) - Checks if the bot considers himself to be stuck. Stuckness is typically defined as an insignificant amount of movement over a short period of time (0.5s). The time can be optionally passed to the function for flexibility.">
+				<Param name="float: time in seconds" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="IsTable" func="yes" />
+		<KeyWord name="IsVec3" func="yes" />
+		<KeyWord name="IsWaitingForMedic" func="yes" />
+		<KeyWord name="IsWaypointViewOn" func="yes" />
+		<KeyWord name="IsWeaponCharged" func="yes">
+			<Overload retVal="bool:" descr="bot.IsWeaponCharged(WEAPON[, int]) - Checks if a weapon is charged. A charged weapon is one that is capable of being used that might occasionally be unavailable for use due to lack of character 'charge', whether that be a gameplay charge bar, stamina, skill, etc.">
+				<Param name="WEAPON: weapon id" />
+				<Param name="[int: firemode]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="IsZero" func="yes">
+			<Overload retVal="bool:" descr="aabb.IsZero() - Checks if the AABB has no volume." />
+		</KeyWord>
+		<KeyWord name="KickAll" func="yes" />
+		<KeyWord name="KickBot" func="yes" />
+		<KeyWord name="KickBotFromTeam" func="yes" />
+		<KeyWord name="KillThread" func="yes">
+			<Overload retVal="?:" descr="scriptGoal.KillThread(?) - ?." />
+		</KeyWord>
+		<KeyWord name="Left" func="yes">
+			<Overload retVal="string:" descr="string.Left(count) - returns the left count charaters of the string.">
+				<Param name="int: count" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Length" func="yes">
+			<Overload retVal="int:" descr="string.Length() - returns the length of a string." />
+			<Overload retVal="float:" descr="vec3.Length() - returns the length of a Vec3." />
+		</KeyWord>
+		<KeyWord name="Length2" func="yes">
+			<Overload retVal="float:" descr="vec3.Length2() - returns the squared length of a Vec3." />
+		</KeyWord>
+		<KeyWord name="Lerp" func="yes" />
+		<KeyWord name="LimitBots" />
+		<KeyWord name="LimitClass" />
+		<KeyWord name="LimitTeam" />
+		<KeyWord name="LimitTo" func="yes" />
+		<KeyWord name="LimitToClass" func="yes" />
+		<KeyWord name="LimitToEntityFlag" func="yes" />
+		<KeyWord name="LimitToNoClass" func="yes">
+			<Overload retVal="void:" descr="scriptGoal.LimitToNoClass(CLASS, ...) - This function will only allow the script goal to be created if the owning bot is NOT one of the classes provided. This is much more efficient than checking class in script in common cases where a goal only applies to a certain class of bot.">
+				<Param name="CLASS: any number of class Ids" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="LimitToNoEntityFlag" func="yes" />
+		<KeyWord name="LimitToNoPowerUp" func="yes" />
+		<KeyWord name="LimitToNoTarget" func="yes" />
+		<KeyWord name="LimitToPowerUp" func="yes" />
+		<KeyWord name="LimitToRole" func="yes" />
+		<KeyWord name="LimitToTargetClass" func="yes" />
+		<KeyWord name="LimitToTargetEntityFlag" func="yes" />
+		<KeyWord name="LimitToTargetNoEntityFlag" func="yes" />
+		<KeyWord name="LimitToTargetNoPowerUp" func="yes" />
+		<KeyWord name="LimitToTargetPowerUp" func="yes" />
+		<KeyWord name="LimitToTargetTeam" func="yes" />
+		<KeyWord name="LimitToTargetWeapon" func="yes" />
+		<KeyWord name="LimitToTeam" func="yes" />
+		<KeyWord name="LimitToWeapon" func="yes" />
+		<KeyWord name="local" />
+		<KeyWord name="Log" func="yes">
+			<Overload retVal="void:" descr="Writes a string to the Omni-bot log file.">
+				<Param name="string: message" />
+				<Param name="[int: level (0=info, 1=warning, 2=error, 3=critical) (default 0)]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="LowAmmoGetAmmoAmount" />
+		<KeyWord name="LowAmmoPriority" />
+		<KeyWord name="LowAmmoThreshold" />
+		<KeyWord name="Lower" func="yes">
+			<Overload retVal="string:" descr="string.Lower() - Converts a string to lower case." />
+		</KeyWord>
+		<KeyWord name="ManageHeat" />
+		<KeyWord name="ManagePlayers" func="yes" />
+		<KeyWord name="ManagePlayersDelayed" />
+		<KeyWord name="ManualDetonation" />
+		<KeyWord name="Map" />
+		<KeyWord name="MapDebugPrint" func="yes">
+			<Overload retVal="void:" descr="Util.MapDebugPrint - prints a string if Map.Debug is not false or null.">
+				<Param name="string: message" />
+				<Param name="[bool: only print message]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="MAP_TALK" />
+		<KeyWord name="MapGoal" />
+		<KeyWord name="MarkForRemoval" />
+		<KeyWord name="MarkInProgress" func="yes">
+			<Overload retVal="bool:" descr="scriptGoal.MarkInProgress([mapGoal]) - Returns true if an empty slot has been found and marked.">
+				<Param name="[mapGoal]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="MarkInUse" func="yes" />
+		<KeyWord name="Matrix3" func="yes" />
+		<KeyWord name="Max" func="yes">
+			<Overload retVal="float:" descr="Returns the maximum value of the two parameters.">
+				<Param name="float: x" />
+				<Param name="float: y" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="MaxAimAdjustmentTime" />
+		<KeyWord name="MaxAimError" />
+		<KeyWord name="MaxArmor" />
+		<KeyWord name="MaxCampTime" />
+		<KeyWord name="MaxChargeTime" />
+		<KeyWord name="MaxHealth" />
+		<KeyWord name="MaxLeadError" />
+		<KeyWord name="Maxs" />
+		<KeyWord name="MaxTurnSpeed" />
+		<KeyWord name="MaxUsers_InProgress" func="yes">
+			<Overload retVal="int:" descr="mapGoal.MaxUsers_InProgress() - Gets the max number of users that can go to the goal." />
+			<Overload retVal="int:" descr="mapGoal.MaxUsers_InProgress(int) - Sets the max number of users that can go to the goal.">
+				<Param name="int: max users in progress" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="MaxUsers_InUse" func="yes">
+			<Overload retVal="int:" descr="mapGoal.MaxUsers_InUse() - Gets the max number of users that can use the goal after they come to the goal position." />
+			<Overload retVal="int:" descr="mapGoal.MaxUsers_InUse(int) - Sets the max number of users that can use the goal after they come to the goal position.">
+				<Param name="int: max users in use" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="MaxViewDistance" />
+		<KeyWord name="MeleeWeapon" />
+		<KeyWord name="MemorySpan" />
+		<KeyWord name="Mid" func="yes">
+			<Overload retVal="string:" descr="string.Mid - returns count characters from the start index.">
+				<Param name="int: startIndex" />
+				<Param name="int: count" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Min" func="yes">
+			<Overload retVal="float:" descr="Returns the minimum value of the two parameters.">
+				<Param name="float: x" />
+				<Param name="float: y" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="MinAimAdjustmentTime" />
+		<KeyWord name="MinCampTime" />
+		<KeyWord name="MinChargeTime" />
+		<KeyWord name="MinLeadError" />
+		<KeyWord name="MinRadius" />
+		<KeyWord name="Mins" />
+		<KeyWord name="MinUseTime" />
+		<KeyWord name="MoveBotToAnotherTeam" func="yes" />
+		<KeyWord name="MoveMode.Run" />
+		<KeyWord name="MoveMode.Walk" />
+		<KeyWord name="MoveTowards" func="yes">
+			<Overload retVal="int:" descr="bot.MoveTowards(pos) - makes a bot move towards a Vec3 position.">
+				<Param name="Vec3: position" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="MustBeOnGround" />
+		<KeyWord name="Name" />
+		<KeyWord name="NearestPointInLine" func="yes" />
+		<KeyWord name="NearestPointInLineSegment" func="yes" />
+		<KeyWord name="NearestPointInPlane" func="yes" />
+		<KeyWord name="Normalize" func="yes">
+			<Overload retVal="Vec3:" descr="vec3.Normalize() - ?." />
+		</KeyWord>
+		<KeyWord name="OnBotJoin" />
+		<KeyWord name="OnEnter" />
+		<KeyWord name="OnExit" />
+		<KeyWord name="OnMapLoad" />
+		<KeyWord name="OnPathThrough" />
+		<KeyWord name="OnSpawn" />
+		<KeyWord name="OnTrigger" func="yes">
+			<Overload retVal="void:" descr="Registers a callback function with a trigger.">
+				<Param name="string: Trigger" />
+				<Param name="function: Callback" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="OnTriggerRegion" func="yes">
+			<Overload retVal="int:" descr="Creates an AABB trigger region and returns an identifier for it.">
+				<Param name="AABB: region" />
+				<Param name="table: trigger info" />
+			</Overload>
+			<Overload retVal="int:" descr="Creates a spherical Vec3 trigger region and returns an identifier for it.">
+				<Param name="Vec3: position" />
+				<Param name="num: radius" />
+				<Param name="table: trigger info" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Open" func="yes">
+			<Overload retVal="bool:" descr="file.Open() - opens a file. Returns true if successful, false if failed.">
+				<Param name="string: filename" />
+				<Param name='string: &quot;text&quot;/&quot;binary&quot;' />
+				<Param name="[bool: readonly" />
+				<Param name="[bool: append]]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Parent" />
+		<KeyWord name="PathLevelOffset" />
+		<KeyWord name="PitchOffset" />
+		<KeyWord name="PlaySound" func="yes" />
+		<KeyWord name="PointInTriangle" func="yes" />
+		<KeyWord name="Position" />
+		<KeyWord name="POWERUP.ADRENALINE" />
+		<KeyWord name="POWERUP.AMMOREGEN" />
+		<KeyWord name="POWERUP.BERSERK" />
+		<KeyWord name="POWERUP.BLUEFLAG" />
+		<KeyWord name="POWERUP.DEADZONE" />
+		<KeyWord name="POWERUP.DISGUISE_BLUE" />
+		<KeyWord name="POWERUP.DISGUISE_CIVILIAN" />
+		<KeyWord name="POWERUP.DISGUISE_DEMOMAN" />
+		<KeyWord name="POWERUP.DISGUISE_ENGINEER" />
+		<KeyWord name="POWERUP.DISGUISE_GREEN" />
+		<KeyWord name="POWERUP.DISGUISE_HWGUY" />
+		<KeyWord name="POWERUP.DISGUISE_MEDIC" />
+		<KeyWord name="POWERUP.DISGUISE_PYRO" />
+		<KeyWord name="POWERUP.DISGUISE_RED" />
+		<KeyWord name="POWERUP.DISGUISE_SCOUT" />
+		<KeyWord name="POWERUP.DISGUISE_SNIPER" />
+		<KeyWord name="POWERUP.DISGUISE_SOLDIER" />
+		<KeyWord name="POWERUP.DISGUISE_SPY" />
+		<KeyWord name="POWERUP.DISGUISE_YELLOW" />
+		<KeyWord name="POWERUP.DOUBLER" />
+		<KeyWord name="POWERUP.GUARD" />
+		<KeyWord name="POWERUP.HASTE" />
+		<KeyWord name="POWERUP.INVINCIBLE" />
+		<KeyWord name="POWERUP.INVISIBILITY" />
+		<KeyWord name="POWERUP.MARINEFLAG" />
+		<KeyWord name="POWERUP.MEGAHEALTH" />
+		<KeyWord name="POWERUP.ONEFLAG" />
+		<KeyWord name="POWERUP.QUADDAMAGE" />
+		<KeyWord name="POWERUP.REDFLAG" />
+		<KeyWord name="POWERUP.REGENERATION" />
+		<KeyWord name="POWERUP.SCOUT" />
+		<KeyWord name="POWERUP.STROGGFLAG" />
+		<KeyWord name="POWERUP.TEAM_AMMOREGEN" />
+		<KeyWord name="POWERUP.TEAM_DAMAGEMOD" />
+		<KeyWord name="POWERUP.TEAM_HEALTHREGEN" />
+		<KeyWord name="PressButton" func="yes">
+			<Overload retVal="void:" descr="Makes a bot press one or more buttons.">
+				<Param name="int: Button ID" />
+				<Param name="[...]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="PrimaryFire" />
+		<KeyWord name="print" func="yes">
+			<Overload retVal="void:" descr="Prints a string to the game console.">
+				<Param name="string: string to print" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Priority" />
+		<KeyWord name="Priority.High" />
+		<KeyWord name="Priority.Idle" />
+		<KeyWord name="Priority.Low" />
+		<KeyWord name="Priority.LowMed" />
+		<KeyWord name="Priority.Medium" />
+		<KeyWord name="Priority.Min" />
+		<KeyWord name="Priority.Override" />
+		<KeyWord name="Priority.VeryHigh" />
+		<KeyWord name="Priority.VeryLow" />
+		<KeyWord name="Priority.Zero" />
+		<KeyWord name="PROFILE.CLASS" />
+		<KeyWord name="PROFILE.CUSTOM" />
+		<KeyWord name="PROFILE.NONE" />
+		<KeyWord name="ProjectileGravity" />
+		<KeyWord name="ProjectileSpeed" />
+		<KeyWord name="QueryGoals" func="yes" />
+		<KeyWord name="Radius" />
+		<KeyWord name="RadToDeg" func="yes">
+			<Overload retVal="float:" descr="Converts radians to degrees.">
+				<Param name="float: rad" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="RandFloat" func="yes">
+			<Overload retVal="float:" descr="Returns a random float between min and max.">
+				<Param name="float: min" />
+				<Param name="float: max" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="RandInt" func="yes">
+			<Overload retVal="int:" descr="Returns a random integer between min and max.">
+				<Param name="float: min" />
+				<Param name="float: max" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="RandRange" func="yes">
+			<Overload retVal="float:" descr="Returns a random float between min and max.">
+				<Param name="float: min" />
+				<Param name="float: max" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ReactionTime" />
+		<KeyWord name="ReadByte" func="yes" />
+		<KeyWord name="ReadFloat" func="yes" />
+		<KeyWord name="ReadInt" func="yes" />
+		<KeyWord name="ReadLine" func="yes" />
+		<KeyWord name="ReadShort" func="yes" />
+		<KeyWord name="ReadString" func="yes" />
+		<KeyWord name="Reflection" func="yes" />
+		<KeyWord name="RegionTrigger.BreakableDistance" />
+		<KeyWord name="RegionTrigger.DisableBotPush" />
+		<KeyWord name="RegionTrigger.DisableCombatMovement" />
+		<KeyWord name="RegionTrigger.KillTrigger" />
+		<KeyWord name="RegionTrigger.VehicleTrigger" />
+		<KeyWord name="RegisterDefaultProfile" func="yes" />
+		<KeyWord name="ReleaseAimRequest" func="yes">
+			<Overload retVal="void:" descr="Releases the aim request from script goal." />
+		</KeyWord>
+		<KeyWord name="ReleaseButton" func="yes" />
+		<KeyWord name="ReleaseWeaponRequest" func="yes">
+			<Overload retVal="void:" descr="Releases the weapon request from script goal." />
+		</KeyWord>
+		<KeyWord name="ReloadGoalScripts" func="yes" />
+		<KeyWord name="ReloadProfile" func="yes">
+			<Overload retVal="void:" descr="bot.ReloadProfile() - Reloads the bots profile. The profile is any script associated with the bots name." />
+		</KeyWord>
+		<KeyWord name="RemoveState" func="yes">
+			<Overload retVal="void:" descr="bot.RemoveState(string) - Removes a state from a bots behavior tree by name.">
+				<Param name="string: name of script goal to remove from bot behavior tree" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="RemoveWithEntity" />
+		<KeyWord name="Render" func="yes">
+			<Overload retVal="void:" descr="Renders an AABB for the given amount of seconds.">
+				<Param name="num: seconds" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="RenderDefault" func="yes">
+			<Overload retVal="void:" descr="mapGoal.RenderDefault() - Draws goal name, radius, availability, use points, ExtraDebugText, ..." />
+		</KeyWord>
+		<KeyWord name="RenderDefaultAtCenterBounds" func="yes" />
+		<KeyWord name="RenderDefaultBounds" func="yes" />
+		<KeyWord name="RenderDefaultCurrentAvailability" />
+		<KeyWord name="RenderDefaultGroup" />
+		<KeyWord name="RenderDefaultInitialAvailability" />
+		<KeyWord name="RenderDefaultName" />
+		<KeyWord name="RenderDefaultRadius" />
+		<KeyWord name="RenderDefaultRole" />
+		<KeyWord name="RenderGoal" />
+		<KeyWord name="RenderRandomUsePoint" />
+		<KeyWord name="RenderRangeLimit" />
+		<KeyWord name="RenderRoutes" />
+		<KeyWord name="Replace" func="yes" />
+		<KeyWord name="ReplaceCharsInSet" func="yes">
+			<Overload retVal="string:" descr="ReplaceCharsInSet will replace all chars in this that are within the charset with the given int char.">
+				<Param name="char: char to replace with" />
+				<Param name="string: string of chars to replace" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="RequiresAmmo" />
+		<KeyWord name="RequiresShooterOutside" />
+		<KeyWord name="RequiresTargetOutside" />
+		<KeyWord name="Reset" func="yes">
+			<Overload retVal="?:" descr="timer.Reset(?) - ?." />
+		</KeyWord>
+		<KeyWord name="ResetGoalPriorities" func="yes">
+			<Overload retVal="void:" descr="mapGoal.ResetGoalPriorities() - Clears all the current priorities." />
+		</KeyWord>
+		<KeyWord name="ResetStuckTime" func="yes">
+			<Overload retVal="void:" descr="bot.ResetStuckTime() - Reset the stuck timer." />
+		</KeyWord>
+		<KeyWord name="return" />
+		<KeyWord name="Reverse" func="yes">
+			<Overload retVal="string:" descr="string.Reverse - reverses the characters of a string." />
+		</KeyWord>
+		<KeyWord name="ReverseFind" func="yes">
+			<Overload retVal="int: (index of first occurrence, or -1 if the string was not found)" descr="string.ReverseFind(string) - ReverseFind will find the first occurance of the passed string within this string starting from the right.">
+				<Param name="string: string to find" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="RideVehicle" />
+		<KeyWord name="RideVehicleGoalName" />
+		<KeyWord name="Right" func="yes">
+			<Overload retVal="string:" descr="string.Right - returns the right count characters of the string.">
+				<Param name="int: count" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="RightAt" func="yes">
+			<Overload retVal="string:" descr="Returns the characters right of and including the given index.">
+				<Param name="int: index" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ROLE.AMBUSHER" />
+		<KeyWord name="ROLE.ATTACKER" />
+		<KeyWord name="ROLE.ATTACKER1" />
+		<KeyWord name="ROLE.ATTACKER2" />
+		<KeyWord name="ROLE.ATTACKER3" />
+		<KeyWord name="ROLE.DEFENDER" />
+		<KeyWord name="ROLE.DEFENDER1" />
+		<KeyWord name="ROLE.DEFENDER2" />
+		<KeyWord name="ROLE.DEFENDER3" />
+		<KeyWord name="ROLE.DEFENSECAPTAIN" />
+		<KeyWord name="ROLE.ESCORT" />
+		<KeyWord name="ROLE.FIRETEAMCAPTAIN" />
+		<KeyWord name="ROLE.INFILTRATOR" />
+		<KeyWord name="ROLE.OFFENSECAPTAIN" />
+		<KeyWord name="ROLE.ROAMER" />
+		<KeyWord name="ROLE.SNIPER" />
+		<KeyWord name="ROLE.TEAMCAPTAIN" />
+		<KeyWord name="RolePriorityBonus" />
+		<KeyWord name="Round" func="yes">
+			<Overload retVal="int:" descr="Rounds a number to the nearest integer.">
+				<Param name="float: x" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="RouteTo" func="yes" />
+		<KeyWord name="RunScript" func="yes" />
+		<KeyWord name="SaveToTable" />
+		<KeyWord name="Say" func="yes">
+			<Overload retVal="void:" descr="Makes a bot say something in global chat.">
+				<Param name="string: Message" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SayFireTeam" func="yes">
+			<Overload retVal="void:" descr="Makes a bot say something in fireteam chat.">
+				<Param name="string: Message" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SayTeam" func="yes">
+			<Overload retVal="void:" descr="Makes a bot say something in team chat.">
+				<Param name="string: Message" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SayVoice" func="yes">
+			<Overload retVal="void:" descr="Makes a bot use given voice message, e.g. bot.SayVoice(VOICE.THANKS).">
+				<Param name="int: Message ID" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Scale" func="yes">
+			<Overload retVal="void:" descr="aabb.Scale(float) - Scales the AABB by some amount in every direction.">
+				<Param name="float: scale amount" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Scan" func="yes" />
+		<KeyWord name="Schema" func="yes" />
+		<KeyWord name="ScriptEvent" func="yes">
+			<Overload retVal="void:" descr="bot.ScriptEvent(name, param1, param2, param3) - Sends SCRIPTMSG event.">
+				<Param name="name" />
+				<Param name="param1" />
+				<Param name="param2" />
+				<Param name="param3" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ScriptMessage" func="yes" />
+		<KeyWord name="SecondaryFire" />
+		<KeyWord name="Seek" func="yes">
+			<Overload retVal="void:" descr="fileObject.Seek(int) - Seeks the read/write position to a specified offset.">
+				<Param name="int: byte offset to seek to" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SendTrigger" func="yes">
+			<Overload retVal="void:" descr="Sends a trigger with the given trigger info table.">
+				<Param name="table: TriggerInfo" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SerialNum" />
+		<KeyWord name="Server.AvailableTeams" />
+		<KeyWord name="Server.BalanceTeams" />
+		<KeyWord name="Server.BotsPerHuman" />
+		<KeyWord name="Server.BotTeam" />
+		<KeyWord name="Server.ClassCount" />
+		<KeyWord name="Server.CountSpectators" />
+		<KeyWord name="Server.HumanTeam" />
+		<KeyWord name="Server.MaxBots" />
+		<KeyWord name="Server.MaxPlayers" />
+		<KeyWord name="Server.MinBots" />
+		<KeyWord name="Server.MinClassCount" />
+		<KeyWord name="Server.NumBots" />
+		<KeyWord name="Server.NumPlayers" />
+		<KeyWord name="Server.NumPlayersNoSpec" />
+		<KeyWord name="Server.SaveConfigChanges" />
+		<KeyWord name="Server.SleepBots" />
+		<KeyWord name="Server.Team" />
+		<KeyWord name="ServerCommand" func="yes" />
+		<KeyWord name="ServerScriptFunction" func="yes" />
+		<KeyWord name="Set" func="yes">
+			<Overload retVal="void:" descr="aabb.Set(Vec3, Vec3) - Initializes the AABB mins and maxs.">
+				<Param name="Vec3: mins" />
+				<Param name="Vec3: maxs" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetAt" func="yes">
+			<Overload retVal="string:" descr="string.SetAt(int, char) - Returns string with modified character at offset, or original string if index out of range.">
+				<Param name="int: index" />
+				<Param name="char: char" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetAvailable" func="yes">
+			<Overload retVal="void:" descr="mapGoal.SetAvailable(TEAM, bool) - Sets the map goal available for a certain team. Prefer SetAvailableMapGoals instead.">
+				<Param name="TEAM: team id" />
+				<Param name="bool: availability" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetAvailableInitial" func="yes">
+			<Overload retVal="void:" descr="mapGoal.SetAvailableInitial(TEAM, bool) - Sets goal available for team initially.">
+				<Param name="TEAM: team id" />
+				<Param name="bool: availability" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetAvailableMapGoals" func="yes">
+			<Overload retVal="void:">
+				<Param name="int: Team ID" />
+				<Param name="boolean: Availability" />
+				<Param name="string: Goal name expression" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetBaseGoalType" func="yes" />
+		<KeyWord name="SetBotsPerHuman" func="yes" />
+		<KeyWord name="SetBotTeam" func="yes" />
+		<KeyWord name="SetBounds" func="yes">
+			<Overload retVal="void:" descr="mapGoal.SetBounds(AABB) - Sets the bounds for a map goal. This is the local space bounds. It will automatically be transformed to the world position of the map goal.">
+				<Param name="AABB: new bounds" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetBurstRange" func="yes">
+			<Overload retVal="void:" descr="fireMode.SetBurstRange - This function can be called multiple times in order to set several ranges for burst firing. Whenever the target is within one of the ranges, the bot will use controlled burst fire as set up by this function.">
+				<Param name="float: min range" />
+				<Param name="float: max range" />
+				<Param name="int: number of rounds" />
+				<Param name="float: min delay in seconds" />
+				<Param name="float: max delay in seconds" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetCenter" func="yes">
+			<Overload retVal="void:" descr="aabb.SetCenter(Vec3) - Translates the bounding box to some position. Usually used to move a local space bounding box to world space.">
+				<Param name="Vec3: new center position" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetCvar" func="yes">
+			<Overload retVal="void:" descr="Sets a game config variable.">
+				<Param name="string: variable name" />
+				<Param name="string: value" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetDebugFlag" func="yes">
+			<Overload retVal="void:" descr="bot.SetDebugFlag(DEBUG, bool) - Enables a debug flag for the bot. See the global DEBUG table for available options. Enabling debug flags typically cause various debug visualizations to render in order to help identify whats going on with various systems of the bot.">
+				<Param name="DEBUG: flag" />
+				<Param name="bool: enable/disable" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetDesirabilityRange" func="yes">
+			<Overload retVal="void:" descr="fireMode.SetDesirabilityRange - This function can be called multiple times to assign a desirability to use the weapon when the target is within a given range of the bot.">
+				<Param name="float: min range" />
+				<Param name="float: max range" />
+				<Param name="float: desirability" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetEntity" func="yes">
+			<Overload retVal="void:" descr="mapGoal.SetEntity(ent) - Sets the entity for a map goal. It is usually not needed because most entities are detected automatically.">
+				<Param name="ent: entity" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetExtension" func="yes" />
+		<KeyWord name="SetFacing" func="yes">
+			<Overload retVal="void:" descr="mapGoal.SetFacing(Vec3) - Sets the facing for a map goal.">
+				<Param name="Vec3: new facing" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetGoalGroup" func="yes" />
+		<KeyWord name="SetGoalOffset" func="yes">
+			<Overload retVal="void:" descr="Util.SetGoalOffset - moves a map goal by a given offset.">
+				<Param name="num: x coordinate" />
+				<Param name="num: y coordinate" />
+				<Param name="num: z coordinate" />
+				<Param name="string: goal name" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetGoalPosition" func="yes">
+			<Overload retVal="void:" descr="Util.SetGoalPosition - sets the map position of a goal.">
+				<Param name="num: x coordinate" />
+				<Param name="num: y coordinate" />
+				<Param name="num: z coordinate" />
+				<Param name="string: goal name" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetGoalPriority" func="yes">
+			<Overload retVal="void:" descr="Sets the relative priority of a goal.">
+				<Param name="string: goal name" />
+				<Param name="float: priority" />
+				<Param name="[int: team id" />
+				<Param name="[int: class id]]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetGoalRole" func="yes">
+			<Overload retVal="void:" descr="Sets one or more roles of one or more MapGoals. The last parameter must be true for dynamically created goals (FLAG_dropped, FLAGRETURN, DEFUSE ...).">
+				<Param name="string: goal name" />
+				<Param name="role or table: role(s)" />
+				<Param name="[boolean: persistency]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetGroupName" func="yes">
+			<Overload retVal="void:" descr="mapGoal.SetGroupName(string) - Sets the current group this goal is assigned to.">
+				<Param name="string: group name" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetHumanTeam" func="yes" />
+		<KeyWord name="SetIgnoreEntFlags" func="yes">
+			<Overload retVal="?:" descr="fireMode.SetIgnoreEntFlags(?) - ?." />
+		</KeyWord>
+		<KeyWord name="SetMapGoalProperties" func="yes">
+			<Overload retVal="void:" descr="Sets properties of a map goal.">
+				<Param name="string: goal name expression" />
+				<Param name="table: properties" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetMaxUsers" func="yes">
+			<Overload retVal="void:" descr="Util.SetMaxUsers - sets max users in use and in progress for a map goal.">
+				<Param name="int: max users" />
+				<Param name="string: goal name expression" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetMaxUsersInProgress" func="yes">
+			<Overload retVal="void:" descr="Util.SetMaxUsersInProgress - sets max users heading for a map goal.">
+				<Param name="int: max users" />
+				<Param name="string: goal name expression" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetMaxUsersInUse" func="yes">
+			<Overload retVal="void:" descr="Util.SetMaxUsersInUse - sets max users in use for a map goal.">
+				<Param name="int: max users" />
+				<Param name="string: goal name expression" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetPosition" func="yes">
+			<Overload retVal="void:" descr="mapGoal.SetPosition(Vec3) - Sets the position for a map goal.">
+				<Param name="Vec3: new position" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetPositionGoal" func="yes">
+			<Overload retVal="void:" descr="Util.SetPositionGoal - sets position of goal 1 on goal 2.">
+				<Param name="string: name of goal to move" />
+				<Param name="string: name of goal on which to move" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetProperty" />
+		<KeyWord name="SetRadius" func="yes">
+			<Overload retVal="void:" descr="mapGoal.SetRadius(float) - Sets the radius for a map goal.">
+				<Param name="float: new radius" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetRange" func="yes">
+			<Overload retVal="void:" descr="mapGoal.SetRange(float) - Sets the range for a script based map goal. The QueryGoals functions does not return goals which are out of range. Default range for all goals is 0 which means unlimited. Goals will not be interrupted if the range changes after the bot has activated the goal.">
+				<Param name="float: new range" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetRemoveFlag" func="yes">
+			<Overload retVal="void:" descr="mapGoal.SetRemoveFlag(bool) - Marks the goal for removal.">
+				<Param name="bool: mark for removal" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetRoleForGoals" func="yes">
+			<Overload retVal="void:" descr="Util.SetRoleForGoals - sets the given role on the goal(s).">
+				<Param name="string: goal expression" />
+				<Param name="int: role id" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetRoles" func="yes">
+			<Overload retVal="void:" descr="bot.SetRoles(role, ...) - sets the given role(s) on the bot.">
+				<Param name="int: role id" />
+				<Param name="..." />
+			</Overload>
+			<Overload retVal="void:" descr="mapgoal.SetRoles(role, ...) - sets the given role(s) on the mapgoal.">
+				<Param name="int: role id" />
+				<Param name="..." />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetStateEnabled" func="yes">
+			<Overload retVal="void:" descr="bot.SetStateEnabled(string, bool) - Enables/Disables a state by name.">
+				<Param name="string: name of state" />
+				<Param name="bool: enable/disable" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetTargetBias" func="yes">
+			<Overload retVal="void:" descr="fireMode.SetTargetBias - Sets a bias multiplier for a target type. This bias will be multiplied with the desirability when calculating the desirability of a weapon versus a target.">
+				<Param name="CLASS: target type" />
+				<Param name="float: bias" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetWaypointFlag" func="yes">
+			<Overload retVal="void:" descr="Wp.SetWaypointFlag - sets/deletes a flag on a waypoint.">
+				<Param name="string: waypoint name" />
+				<Param name="string/table of string: waypoint flag(s)" />
+				<Param name="boolean: waypoint flag status" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetWaypointName" func="yes">
+			<Overload retVal="void:" descr="Wp.SetWaypointName - sets the name of a waypoint.">
+				<Param name="int: waypoint ID" />
+				<Param name="string: waypoint name" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetWaypointProperty" func="yes">
+			<Overload retVal="void:" descr="Wp.SetWaypointProperty - sets a property on a waypoint.">
+				<Param name="string: waypoint name" />
+				<Param name="string: waypoint property" />
+				<Param name="string: property value" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetWeaponAvailability" func="yes">
+			<Overload retVal="void:" descr="WeaponTable.SetWeaponAvailability - enables or disables specified weapon for class.
+				The weapon parameter can be table.
+				The class parameter can be null to set availability for all classes.
+				note: allied PANZERFAUST is automatically converted to BAZOOKA or LAW in Noquarter or ETnam
+				note: bots select random available weapon every spawn (in limbo)">
+				<Param name="CLASS: Class (nullable)" />
+				<Param name="WEAPON: Weapon(s)" />
+				<Param name="&lt;true/false&gt;" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetXYZ" func="yes">
+			<Overload retVal="Vec3:" descr="vec3.SetXYZ(x, y, z) - sets the new value of the Vec3.">
+				<Param name="x: new x value" />
+				<Param name="y: new y value" />
+				<Param name="z: new z value" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ShootButton" />
+		<KeyWord name="ShowMovers" />
+		<KeyWord name="ShowPaths" func="yes">
+			<Overload retVal="void:" descr="Debug Information function. Prints Omni-bot version, revision, and revision date, along with file system paths." />
+		</KeyWord>
+		<KeyWord name="Sign" func="yes">
+			<Overload retVal="int:" descr="Returns a signed scalar of param. Negative numbers return -1, positive numbers return 1.">
+				<Param name="num: param" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="signal" func="yes">
+			<Overload retVal="void:" descr="Signal an event. Param can be a variable of any type used as signal.">
+				<Param name="variable: event" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Signal" func="yes">
+			<Overload retVal="?:" descr="scriptGoal.Signal(?) - ?." />
+		</KeyWord>
+		<KeyWord name="Sin" func="yes">
+			<Overload retVal="float:" descr="Sine of x.">
+				<Param name="float: x" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SKILL.BATTLE_SENSE" />
+		<KeyWord name="SKILL.COVERTOPS" />
+		<KeyWord name="SKILL.ENGINEERING" />
+		<KeyWord name="SKILL.FIRST_AID" />
+		<KeyWord name="SKILL.HEAVY_WEAPONS" />
+		<KeyWord name="SKILL.LIGHT_WEAPONS" />
+		<KeyWord name="SKILL.SIGNALS" />
+		<KeyWord name="SkipGetPriorityWhenActive" />
+		<KeyWord name="sleep" func="yes">
+			<Overload retVal="void:" descr="Stop execution of the thread for period of time in seconds.">
+				<Param name="float: seconds" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SnipeMap" />
+		<KeyWord name="SpanExcluding" func="yes">
+			<Overload retVal="string:" descr="string.SpanExcluding(string) - Return this string while characters are not within the passed string.">
+				<Param name="sting: charset" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SpanIncluding" func="yes">
+			<Overload retVal="string:" descr="string.SpanIncluding(string) - Return this string while characters are within the passed string.">
+				<Param name="sting: charset" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SplashRadius" />
+		<KeyWord name="Sqrt" func="yes">
+			<Overload retVal="float:" descr="Returns the sqare root of a number.">
+				<Param name="float: number" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="stateGet" func="yes">
+			<Overload retVal="func:" descr="Returns the current state function being executed." />
+		</KeyWord>
+		<KeyWord name="stateGetLast" func="yes">
+			<Overload retVal="func:" descr="Returns the last state that was set before the current one." />
+		</KeyWord>
+		<KeyWord name="stateSet" func="yes">
+			<Overload retVal="void:" descr="Set execution of this thread to a new state function immediately.">
+				<Param name="function" />
+				<Param name="[parameters]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="stateSetExitFunction" func="yes">
+			<Overload retVal="void:" descr="Set a function to call when state is about to change.">
+				<Param name="function" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="stateSetOnThread" func="yes" />
+		<KeyWord name="Stop" func="yes">
+			<Overload retVal="void:" descr="scriptGoal.Stop() - Interrupts any active Goto and signals PATH_FAILED." />
+		</KeyWord>
+		<KeyWord name="StopSound" func="yes" />
+		<KeyWord name="StopWhileZoomed" />
+		<KeyWord name="String" func="yes" />
+		<KeyWord name="SURFACE.LADDER" />
+		<KeyWord name="SURFACE.SLICK" />
+		<KeyWord name="switch" />
+		<KeyWord name="SymmetricRandom" func="yes">
+			<Overload retVal="float:" descr="Returns random number between -1.0 and 1.0." />
+		</KeyWord>
+		<KeyWord name="sysCollectGarbage" func="yes">
+			<Overload retVal="boolean:" descr="Run the garbage collector iff the current memory used is greater than the desired memory used. Return 1 if the garbage collector was run, 0 otherwise.">
+				<Param name="bool: forceFullCollect" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="sysGetDesiredMemoryUsageHard" func="yes">
+			<Overload retVal="int:" descr="Get the desired hard-limit memory usage in bytes." />
+		</KeyWord>
+		<KeyWord name="sysGetDesiredMemoryUsageSoft" func="yes">
+			<Overload retVal="int:" descr="Get the desired soft-limit memory usage in bytes." />
+		</KeyWord>
+		<KeyWord name="sysGetMemoryUsage" func="yes">
+			<Overload retVal="int:" descr="Return the current memory used in bytes." />
+		</KeyWord>
+		<KeyWord name="sysGetStatsGCNumFullCollects" func="yes">
+			<Overload retVal="int:" descr="Return the number of times full garbage collection has occurred." />
+		</KeyWord>
+		<KeyWord name="sysGetStatsGCNumIncCollects" func="yes">
+			<Overload retVal="int:" descr="Return the number of times incremental garbage collection has occurred." />
+		</KeyWord>
+		<KeyWord name="sysGetStatsGCNumWarnings" func="yes">
+			<Overload retVal="int:" descr="Return the number of warnings generated because the GC or VM thought that the GC was poorly configured." />
+		</KeyWord>
+		<KeyWord name="sysIsGCRunning" func="yes" />
+		<KeyWord name="sysSetDesiredMemoryUsageAuto" func="yes">
+			<Overload retVal="void:" descr="Enable or disable automatic adjustment of the memory limit(s) for subsequent garbage collections.">
+				<Param name="bool: enable" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="sysSetDesiredMemoryUsageHard" func="yes">
+			<Overload retVal="void:" descr="Set the desired hard-limit memory usage in bytes.">
+				<Param name="int: desired (bytes)" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="sysSetDesiredMemoryUsageSoft" func="yes">
+			<Overload retVal="void:" descr="Set the desired soft-limit memory usage in bytes. This soft value should be less than the hard value.">
+				<Param name="int: desired" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="System.FileDelete" func="yes" />
+		<KeyWord name="System.FileEnumerate" func="yes" />
+		<KeyWord name="System.FileExists" func="yes" />
+		<KeyWord name="System.NewLine" />
+		<KeyWord name="System.Time" func="yes">
+			<Overload retVal="string:" descr="System.Time(): Returns a formatted string with current day, date, and time." />
+		</KeyWord>
+		<KeyWord name="sysTime" func="yes">
+			<Overload retVal="int:" descr="Returns the machine time in milliseconds." />
+		</KeyWord>
+		<KeyWord name="table" func="yes" />
+		<KeyWord name="tableClear" func="yes" />
+		<KeyWord name="tableCopyTo" func="yes" />
+		<KeyWord name="tableCount" func="yes">
+			<Overload retVal="int:" descr="Returns the number of elements in a table object.">
+				<Param name="table: table" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="tableDuplicate" func="yes">
+			<Overload retVal="table:" descr="Returns a copy of a table.">
+				<Param name="table: table" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="tableRandom" func="yes" />
+		<KeyWord name="tableSort" func="yes" />
+		<KeyWord name="Tan" func="yes">
+			<Overload retVal="float:" descr="Returns the tangent of x.">
+				<Param name="float: x" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="TargetBreakableDist" />
+		<KeyWord name="Team" />
+		<KeyWord name="TEAM.ALLIES" />
+		<KeyWord name="TEAM.AXIS" />
+		<KeyWord name="TEAM.BLUE" />
+		<KeyWord name="TEAM.GREEN" />
+		<KeyWord name="TEAM.NONE" />
+		<KeyWord name="TEAM.MARINE" />
+		<KeyWord name="TEAM.RED" />
+		<KeyWord name="TEAM.SPECTATOR" />
+		<KeyWord name="TEAM.STROGG" />
+		<KeyWord name="TEAM.YELLOW" />
+		<KeyWord name="TeamAvailability" />
+		<KeyWord name="TeamLandminesAvailable" func="yes">
+			<Overload retVal="int:" descr="bot.TeamLandminesAvailable() - Returns the remaining count of team landmines." />
+		</KeyWord>
+		<KeyWord name="Tell" func="yes">
+			<Overload retVal="int: (byte position in file)" descr="fileObject.Tell() - Returns the current offset of the read/write position in the file." />
+		</KeyWord>
+		<KeyWord name="TextDuration" />
+		<KeyWord name="TextOffset" />
+		<KeyWord name="this" />
+		<KeyWord name="this.Enter" />
+		<KeyWord name="this.Exit" />
+		<KeyWord name="this.Finished" />
+		<KeyWord name="this.GetPriority" />
+		<KeyWord name="this.Initialize" />
+		<KeyWord name="this.OnSpawn" />
+		<KeyWord name="this.Update" />
+		<KeyWord name="thread" func="yes">
+			<Overload retVal="int:" descr="Create a new thread. Returns a thread identifier that may be used to control or query the thread.">
+				<Param name="function: func" />
+				<Param name="[params]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="threadAllIds" func="yes">
+			<Overload retVal="table:" descr="Returns a table of all thread identifiers." />
+		</KeyWord>
+		<KeyWord name="threadId" func="yes">
+			<Overload retVal="int:" descr="Return the identifier of the current thread." />
+		</KeyWord>
+		<KeyWord name="threadKill" func="yes">
+			<Overload retVal="void:" descr="Kill a thread. If no parameter is present, the current thread will be killed.">
+				<Param name="[int: thread ID]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="threadKillAll" func="yes">
+			<Overload retVal="void:" descr="Kill all threads, optionally including the current one. Pass true to kill current thread.">
+				<Param name="[bool: kill current thread]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="threadSync" func="yes" />
+		<KeyWord name="threadTime" func="yes">
+			<Overload retVal="int:" descr="Return the time the thread has been running in milliseconds." />
+		</KeyWord>
+		<KeyWord name="Time" func="yes">
+			<Overload retVal="string:" descr="System.Time(): Returns a formatted string with current day, date, and time." />
+		</KeyWord>
+		<KeyWord name="TimeFormat" func="yes">
+			<Overload retVal="string:" descr="Util.TimeFormat(): Returns formatted date&#x2F;time string.">
+				<Param name="string: &quot;day&quot;&#x2F;&quot;date&quot;&#x2F;&quot;time&quot;" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ToBool" func="yes">
+			<Overload retVal="bool:" descr="Converts a number or string to a boolean if possible.">
+				<Param name="number/string" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ToFloat" func="yes">
+			<Overload retVal="bool:" descr="Converts an integer or string to a float if possible.">
+				<Param name="integer/string" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ToInt" func="yes">
+			<Overload retVal="int:" descr="Converts a float or string to an integer if possible.">
+				<Param name="float/string" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Tokenize" func="yes">
+			<Overload retVal="table:" descr="Split a string into substrings (tokens) at occurrences of the string passed as parameter.">
+				<Param name="string: delimiter" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ToLocalSpace" func="yes">
+			<Overload retVal="Vec3: (local space vector)" descr="bot.ToLocalSpace(Vec3) - Converts a vector into local bot space. This results in a position relative to the bots current position and rotation. This function is useful for simplifying some types of logic.">
+				<Param name="Vec3: world space vector" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="TopPathOffset" />
+		<KeyWord name="TopWaypointOffset" />
+		<KeyWord name="ToString" func="yes">
+			<Overload retVal="string:" descr="Converts param to a string if possible.">
+				<Param name="param" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ToStringWithType" func="yes" />
+		<KeyWord name="ToVector" func="yes">
+			<Overload retVal="Vec3:" descr="Converts a string to a vector if possible.">
+				<Param name="string: string to convert" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ToWorldSpace" func="yes">
+			<Overload retVal="Vec3: (world space vector)" descr="bot.ToWorldSpace(Vec3) - Converts a vector from local bot space to world space.">
+				<Param name="Vec3: local space vector" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="TRACE.ALL" />
+		<KeyWord name="TRACE.FLOODFILL" />
+		<KeyWord name="TRACE.FLOODFILLENT" />
+		<KeyWord name="TRACE.GRATE" />
+		<KeyWord name="TRACE.OPAQUE" />
+		<KeyWord name="TRACE.PLAYER" />
+		<KeyWord name="TRACE.PLAYERCLIP" />
+		<KeyWord name="TRACE.SHOT" />
+		<KeyWord name="TRACE.SMOKEBOMB" />
+		<KeyWord name="TRACE.SOLID" />
+		<KeyWord name="TRACE.VISIBLE" />
+		<KeyWord name="TRACE.WATER" />
+		<KeyWord name="TraceLine" func="yes">
+			<Overload retVal="table:" descr="Performs a traceline collision test, and returns the results in a table.">
+				<Param name="Vec3: start" />
+				<Param name="Vec3: end" />
+				<Param name="AABB: box" />
+				<Param name="int: trace bit mask" />
+				<Param name="int: ignore game ID" />
+				<Param name="boolean: use PVS" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="TransformAndDrawLineList" func="yes">
+			<Overload retVal="void:" descr="">
+				<Param name="VecList: table of Vec3" />
+				<Param name="Color: color" />
+				<Param name="float: duration" />
+				<Param name="Vec3: position" />
+				<Param name="Vec3: euler" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="TransformVector" func="yes" />
+		<KeyWord name="TriggerOnClass" />
+		<KeyWord name="TriggerOnEntity" />
+		<KeyWord name="TrimLeft" func="yes">
+			<Overload retVal="string:" descr="string.TrimLeft() - returns a string trimmed from the left.">
+				<Param name='[string: characters to trim off (default &quot; \r\n\v\t&quot;)]' />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="TrimRight" func="yes">
+			<Overload retVal="string:" descr="string.TrimRight() - returns a string trimmed from the right.">
+				<Param name='[string: characters to trim off (default &quot; \r\n\v\t&quot;)]' />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="true" />
+		<KeyWord name="TurnToFacing" func="yes" />
+		<KeyWord name="TurnToPosition" func="yes" />
+		<KeyWord name="typeId" func="yes">
+			<Overload retVal="int:" descr="Return the type ID of the variable passed.">
+				<Param name="variable: var" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="typeName" func="yes">
+			<Overload retVal="string:" descr="Return the type name of the passed variable.">
+				<Param name="variable: var" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="typeRegisterOperator" func="yes">
+			<Overload retVal="boolean:" descr="Register an operator for a type. Return 1 on success, otherwise 0.">
+				<Param name="int: type_id" />
+				<Param name="string: operator_name" />
+				<Param name="function: function" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="typeRegisterVariable" func="yes">
+			<Overload retVal="boolean:" descr="Register a variable with a type such that (type).varname will return the variable. Return 1 on success, otherwise 0.">
+				<Param name="int: type_id" />
+				<Param name="string: variable_name" />
+				<Param name="variable: variable" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="UnitCircleNormalize" func="yes" />
+		<KeyWord name="UnitRandom" func="yes">
+			<Overload retVal="float" descr="Returns random number between 0.0 and 1.0" />
+		</KeyWord>
+		<KeyWord name="unitTest" func="yes" />
+		<KeyWord name="Update" />
+		<KeyWord name="UpdateWeaponRequest" func="yes">
+			<Overload retVal="?:" descr="scriptGoal.UpdateWeaponRequest(?) - ?." />
+		</KeyWord>
+		<KeyWord name="UpgradeVersion" />
+		<KeyWord name="Upper" func="yes">
+			<Overload retVal="string:" descr="string.Upper() - Converts a string to upper case." />
+		</KeyWord>
+		<KeyWord name="UseMortarTrajectory" />
+		<KeyWord name="Util.AddBotKickWhenDead" func="yes" />
+		<KeyWord name="Util.AddBotTester" func="yes" />
+		<KeyWord name="Util.AddGoalRoute" func="yes" />
+		<KeyWord name="Util.AddInvVehicle" func="yes" />
+		<KeyWord name="Util.AddRouteTo" func="yes" />
+		<KeyWord name="Util.AddTable" func="yes" />
+		<KeyWord name="Util.AddToTable" func="yes" />
+		<KeyWord name="Util.AddUsePoint" func="yes" />
+		<KeyWord name="Util.AddUsePtFromWp" func="yes" />
+		<KeyWord name="Util.AddUseWp" func="yes" />
+		<KeyWord name="Util.AddWaypointArray" func="yes" />
+		<KeyWord name="Util.AliveCount" func="yes" />
+		<KeyWord name="Util.AllClasses" func="yes" />
+		<KeyWord name="Util.AllTeamPlayers" func="yes" />
+		<KeyWord name="Util.AllTeams" func="yes" />
+		<KeyWord name="Util.AmmoForWeapon" func="yes" />
+		<KeyWord name="Util.AutoTestMap" func="yes" />
+		<KeyWord name="Util.BotChat" func="yes" />
+		<KeyWord name="Util.BotDebug" func="yes" />
+		<KeyWord name="Util.BotHasAnyRole" func="yes" />
+		<KeyWord name="Util.BotNames" func="yes" />
+		<KeyWord name="Util.BotSay" func="yes" />
+		<KeyWord name="Util.BotSayAndWait" func="yes" />
+		<KeyWord name="Util.BotsWithGoal" func="yes" />
+		<KeyWord name="Util.BotWaitAndSay" func="yes" />
+		<KeyWord name="Util.ButtonName" func="yes" />
+		<KeyWord name="Util.ButtonNameToId" func="yes" />
+		<KeyWord name="Util.CacheGoalPositions" func="yes" />
+		<KeyWord name="Util.CanBotSnipe" func="yes" />
+		<KeyWord name="Util.CappointForFlag" func="yes" />
+		<KeyWord name="Util.CatName" func="yes" />
+		<KeyWord name="Util.ChangeBotSpawn" func="yes" />
+		<KeyWord name="Util.ChangeCrucialClassForRole" func="yes" />
+		<KeyWord name="Util.ChangeSpawn" func="yes" />
+		<KeyWord name="Util.ChangeSpawnForRole" func="yes" />
+		<KeyWord name="Util.ChangeToSniperWeapons" func="yes" />
+		<KeyWord name="Util.CheckForEntityAtPosition" func="yes" />
+		<KeyWord name="Util.ClassName" func="yes" />
+		<KeyWord name="Util.ClassTablesInitialized" func="yes" />
+		<KeyWord name="Util.ClearGoal" func="yes" />
+		<KeyWord name="Util.ClearRoleForGoals" func="yes" />
+		<KeyWord name="Util.ClearRoleForGroup" func="yes" />
+		<KeyWord name="Util.ClearRoleForTable" func="yes" />
+		<KeyWord name="Util.ClearWaypointNames" func="yes" />
+		<KeyWord name="Util.DefaultMovers" func="yes" />
+		<KeyWord name="Util.Dialog" func="yes" />
+		<KeyWord name="Util.DialogOff" func="yes" />
+		<KeyWord name="Util.DisableGoal" func="yes" />
+		<KeyWord name="Util.DisableGroup" func="yes" />
+		<KeyWord name="Util.DisplayGoal" func="yes" />
+		<KeyWord name="Util.DisplayGoalOutput" func="yes" />
+		<KeyWord name="Util.Distance" func="yes" />
+		<KeyWord name="Util.DistanceView" func="yes" />
+		<KeyWord name="Util.DistanceViewOn" func="yes" />
+		<KeyWord name="Util.DoClassChanges" func="yes" />
+		<KeyWord name="Util.EchoCloseGoal" func="yes" />
+		<KeyWord name="Util.EnableBotDebug" func="yes" />
+		<KeyWord name="Util.EnableGoal" func="yes" />
+		<KeyWord name="Util.EnableGroup" func="yes" />
+		<KeyWord name="Util.EnableWaypointAutoSave" func="yes" />
+		<KeyWord name="Util.EntityPositionByName" func="yes" />
+		<KeyWord name="Util.ExcludeClass" func="yes" />
+		<KeyWord name="Util.ExecOnBots" func="yes" />
+		<KeyWord name="Util.FindClosestGoal" func="yes" />
+		<KeyWord name="Util.FindGround" func="yes" />
+		<KeyWord name="Util.FindPaththroughNodes" func="yes" />
+		<KeyWord name="Util.FixMoverPos" func="yes" />
+		<KeyWord name="Util.FlagCarrier" func="yes" />
+		<KeyWord name="Util.FollowWaypoints" func="yes" />
+		<KeyWord name="Util.ForceRouting" func="yes" />
+		<KeyWord name="Util.GetBotByName" func="yes" />
+		<KeyWord name="Util.GetBotPointer" func="yes" />
+		<KeyWord name="Util.GetClosestRoute" func="yes" />
+		<KeyWord name="Util.GetClosestRouteToPlayer" func="yes" />
+		<KeyWord name="Util.GetClosestWP" func="yes" />
+		<KeyWord name="Util.GetEntHealth" func="yes" />
+		<KeyWord name="Util.GetGoal" func="yes" />
+		<KeyWord name="Util.GetGoalEnt" func="yes" />
+		<KeyWord name="Util.GetGoals" func="yes" />
+		<KeyWord name="Util.GetGroup" func="yes" />
+		<KeyWord name="Util.GetMapGoalPosition" func="yes" />
+		<KeyWord name="Util.GetMaxUsers" func="yes" />
+		<KeyWord name="Util.GetMaxUsersInProgress" func="yes" />
+		<KeyWord name="Util.GetMaxUsersInUse" func="yes" />
+		<KeyWord name="Util.GetNearestMountableVehicle" func="yes" />
+		<KeyWord name="Util.GetNearestVehicle" func="yes" />
+		<KeyWord name="Util.GetPositionFromParam" func="yes" />
+		<KeyWord name="Util.GetPriority" func="yes" />
+		<KeyWord name="Util.GetRandomFromTable" func="yes" />
+		<KeyWord name="Util.GetRandomTableValue" func="yes" />
+		<KeyWord name="Util.GetTableKey" func="yes" />
+		<KeyWord name="Util.GetTableValue" func="yes" />
+		<KeyWord name="Util.GetVehicleGoalName" func="yes" />
+		<KeyWord name="Util.GetWpGUIDPosition" func="yes" />
+		<KeyWord name="Util.GetWpNamePosition" func="yes" />
+		<KeyWord name="Util.GetWPPoss" func="yes" />
+		<KeyWord name="Util.GoalExists" func="yes" />
+		<KeyWord name="Util.GoalNames" func="yes" />
+		<KeyWord name="Util.GoalRoutes" func="yes" />
+		<KeyWord name="Util.GoalStatuses" func="yes" />
+		<KeyWord name="Util.GoalTable" func="yes" />
+		<KeyWord name="Util.HasAmmoForWeapon" func="yes" />
+		<KeyWord name="Util.HaveTeam" func="yes" />
+		<KeyWord name="Util.IgnorePlayer" func="yes" />
+		<KeyWord name="Util.IgnoreTargetGoal" func="yes" />
+		<KeyWord name="Util.IgnoreTargetGoalAll" func="yes" />
+		<KeyWord name="Util.IgnoreTargetGoalAllBots" func="yes" />
+		<KeyWord name="Util.IgnoreTargetGoalTable" func="yes" />
+		<KeyWord name="Util.IgnoreTargetGoalTableAll" func="yes" />
+		<KeyWord name="Util.IndexedSniperWeapons" func="yes" />
+		<KeyWord name="Util.InitializeClassTables" func="yes" />
+		<KeyWord name="Util.InvalidGoal" func="yes" />
+		<KeyWord name="Util.IsBot" func="yes" />
+		<KeyWord name="Util.IsBotGone" func="yes" />
+		<KeyWord name="Util.IsHuman" func="yes" />
+		<KeyWord name="Util.IsSnipeMap" func="yes" />
+		<KeyWord name="Util.IsVehicleAvailable" func="yes" />
+		<KeyWord name="Util.IsVehicleDead" func="yes" />
+		<KeyWord name="Util.KillGoal" func="yes" />
+		<KeyWord name="Util.KillTeam" func="yes" />
+		<KeyWord name="Util.LimitGoal" func="yes" />
+		<KeyWord name="Util.LimitToClass" func="yes" />
+		<KeyWord name="Util.LimitToTeam" func="yes" />
+		<KeyWord name="Util.ListTableMembers" func="yes" />
+		<KeyWord name="Util.MakeRGBA" func="yes" />
+		<KeyWord name="Util.ManageClasses" func="yes" />
+		<KeyWord name="Util.MapDebugPrint" func="yes" />
+		<KeyWord name="Util.MapDeprecateMessage" func="yes" />
+		<KeyWord name="Util.Mash" func="yes" />
+		<KeyWord name="Util.MountableVehicleGoals" />
+		<KeyWord name="Util.MoverGoals" />
+		<KeyWord name="Util.NoTimeLimit" func="yes" />
+		<KeyWord name="Util.NumberOfGoals" func="yes" />
+		<KeyWord name="Util.OneBotSay" func="yes" />
+		<KeyWord name="Util.OneBotSayTeam" func="yes" />
+		<KeyWord name="Util.OneBotVSayTeam" func="yes" />
+		<KeyWord name="Util.OnTriggerPosition" func="yes" />
+		<KeyWord name="Util.PathFailed" func="yes" />
+		<KeyWord name="Util.PlayerClassTable" func="yes" />
+		<KeyWord name="Util.ProcessMovers" func="yes" />
+		<KeyWord name="Util.ProcessMoversCalled" func="yes" />
+		<KeyWord name="Util.RandomBotSpawn" func="yes" />
+		<KeyWord name="Util.RandomChat" func="yes" />
+		<KeyWord name="Util.RandomSpawn" func="yes" />
+		<KeyWord name="Util.RandomSpawnThread" func="yes" />
+		<KeyWord name="Util.RemoveGoal" func="yes" />
+		<KeyWord name="Util.RenderPaththroughNodes" func="yes" />
+		<KeyWord name="Util.ResetClassCounters" func="yes" />
+		<KeyWord name="Util.ResetMovers" func="yes" />
+		<KeyWord name="Util.ResetSkip" func="yes" />
+		<KeyWord name="Util.RollCall" func="yes" />
+		<KeyWord name="Util.Routes" func="yes" />
+		<KeyWord name="Util.RouteTo" func="yes" />
+		<KeyWord name="Util.ScriptDebugPrint" func="yes" />
+		<KeyWord name="Util.SetAllRoles" func="yes" />
+		<KeyWord name="Util.SetCustomProperty" func="yes" />
+		<KeyWord name="Util.SetGoal" func="yes" />
+		<KeyWord name="Util.SetGoalBounds" func="yes" />
+		<KeyWord name="Util.SetGoalOffset" func="yes" />
+		<KeyWord name="Util.SetGoalPosition" func="yes" />
+		<KeyWord name="Util.SetGoalRange" func="yes" />
+		<KeyWord name="Util.SetGroup" func="yes" />
+		<KeyWord name="Util.SetGroupForTable" func="yes" />
+		<KeyWord name="Util.SetMaxUsers" func="yes" />
+		<KeyWord name="Util.SetMaxUsersInProgress" func="yes" />
+		<KeyWord name="Util.SetMaxUsersInUse" func="yes" />
+		<KeyWord name="Util.SetPercentInProgress" func="yes" />
+		<KeyWord name="Util.SetPositionGoal" func="yes" />
+		<KeyWord name="Util.SetPropertyTeamClassGoal" func="yes" />
+		<KeyWord name="Util.SetRoleForGoals" func="yes" />
+		<KeyWord name="Util.SetRoleForGroup" func="yes" />
+		<KeyWord name="Util.SetRoleForTable" func="yes" />
+		<KeyWord name="Util.SetSkip" func="yes" />
+		<KeyWord name="Util.ShowActiveGoals" func="yes" />
+		<KeyWord name="Util.ShowEntityInfo" func="yes" />
+		<KeyWord name="Util.ShowGoalInfo" func="yes" />
+		<KeyWord name="Util.ShowGoalName" func="yes" />
+		<KeyWord name="Util.ShowGoalOffset" func="yes" />
+		<KeyWord name="Util.ShowGroup" func="yes" />
+		<KeyWord name="Util.Skip" func="yes" />
+		<KeyWord name="Util.SnipeMap" func="yes" />
+		<KeyWord name="Util.Sniper" func="yes" />
+		<KeyWord name="Util.SniperClass" func="yes" />
+		<KeyWord name="Util.SniperWeapons" func="yes" />
+		<KeyWord name="Util.StressTest" func="yes" />
+		<KeyWord name="Util.SystemUsageTimeline" func="yes" />
+		<KeyWord name="Util.TableAddVector" func="yes" />
+		<KeyWord name="Util.TeamClassCounter" func="yes" />
+		<KeyWord name="Util.TeamHeavyClass" func="yes" />
+		<KeyWord name="Util.TeamLightClass" func="yes" />
+		<KeyWord name="Util.TeamName" func="yes" />
+		<KeyWord name="Util.TeamNames" func="yes" />
+		<KeyWord name="Util.TeamNameToId" func="yes" />
+		<KeyWord name="Util.TeamSniperWeapons" func="yes" />
+		<KeyWord name="Util.TestBot" func="yes" />
+		<KeyWord name="Util.TestGoalPriorities" func="yes" />
+		<KeyWord name="Util.TestMap" func="yes" />
+		<KeyWord name="Util.TestVoiceMacro" func="yes" />
+		<KeyWord name="Util.TimeFormat" func="yes" />
+		<KeyWord name="Util.TimeLimit1" func="yes" />
+		<KeyWord name="Util.TraceForEntityInfo" func="yes" />
+		<KeyWord name="Util.TraceForPosition" func="yes" />
+		<KeyWord name="Util.TraceFromPlane" func="yes" />
+		<KeyWord name="Util.TraceFromPlayer" func="yes" />
+		<KeyWord name="Util.UpdateClasses" func="yes" />
+		<KeyWord name="Util.UpdateSwitchData" func="yes" />
+		<KeyWord name="Util.VehicleGoals" func="yes" />
+		<KeyWord name="Util.VehiclesInMap" func="yes" />
+		<KeyWord name="Util.WaitForPlayerSpawn" func="yes" />
+		<KeyWord name="Util.WaitUntilBotGone" func="yes" />
+		<KeyWord name="Util.WaitUntilBotSpawned" func="yes" />
+		<KeyWord name="Util.WaypointAutoSaveFunction" func="yes" />
+		<KeyWord name="Util.WaypointAutoSaveInfo" func="yes" />
+		<KeyWord name="Util.WeaponName" func="yes" />
+		<KeyWord name="Util.WeaponNameToId" func="yes" />
+		<KeyWord name="Util.WithinBounds" func="yes" />
+		<KeyWord name="Util.WithinRange" func="yes" />
+		<KeyWord name="Util.WpNameInfo" func="yes" />
+		<KeyWord name="Validate.Enum" func="yes" />
+		<KeyWord name="Validate.FloatRange" func="yes" />
+		<KeyWord name="Validate.IntRange" func="yes" />
+		<KeyWord name="Validate.NumRange" func="yes" />
+		<KeyWord name="Validate.Table" func="yes" />
+		<KeyWord name="Validate.TableOf" func="yes" />
+		<KeyWord name="Validate.Type" func="yes" />
+		<KeyWord name="Vec2" func="yes">
+			<Overload retVal="Vec2:">
+				<Param name="float: x" />
+				<Param name="float: y" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Vec3" func="yes">
+			<Overload retVal="Vec3:">
+				<Param name="float: x" />
+				<Param name="float: y" />
+				<Param name="float: z" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Vec3FromSpherical" func="yes" />
+		<KeyWord name="Vector2" func="yes">
+			<Overload retVal="Vec2:">
+				<Param name="float: x" />
+				<Param name="float: y" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Vector3" func="yes">
+			<Overload retVal="Vec3:">
+				<Param name="float: x" />
+				<Param name="float: y" />
+				<Param name="float: z" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Velocity" />
+		<KeyWord name="Version" />
+		<KeyWord name="VOICE.AFFIRMATIVE" />
+		<KeyWord name="VOICE.ALL_CLEAR" />
+		<KeyWord name="VOICE.CLEAR_MINES" />
+		<KeyWord name="VOICE.CLEAR_PATH" />
+		<KeyWord name="VOICE.COMMAND_ACK" />
+		<KeyWord name="VOICE.COMMAND_COMPLETED" />
+		<KeyWord name="VOICE.COMMAND_DECLINED" />
+		<KeyWord name="VOICE.CONST_COMMENCING" />
+		<KeyWord name="VOICE.COVER_ME" />
+		<KeyWord name="VOICE.DEFEND_OBJECTIVE" />
+		<KeyWord name="VOICE.DESTROY_CONST" />
+		<KeyWord name="VOICE.DESTROY_PRIMARY" />
+		<KeyWord name="VOICE.DESTROY_SECONDARY" />
+		<KeyWord name="VOICE.DESTROY_VEHICLE" />
+		<KeyWord name="VOICE.DISARM_DYNAMITE" />
+		<KeyWord name="VOICE.ENEMY_DISGUISED" />
+		<KeyWord name="VOICE.ENEMY_WEAK" />
+		<KeyWord name="VOICE.ESCORT_VEHICLE" />
+		<KeyWord name="VOICE.FIRE_IN_THE_HOLE" />
+		<KeyWord name="VOICE.FOLLOW_ME" />
+		<KeyWord name="VOICE.G_AFFIRMATIVE" />
+		<KeyWord name="VOICE.G_BYE" />
+		<KeyWord name="VOICE.G_CHEER" />
+		<KeyWord name="VOICE.G_ENEMY_WEAK" />
+		<KeyWord name="VOICE.G_GOODGAME" />
+		<KeyWord name="VOICE.G_GREATSHOT" />
+		<KeyWord name="VOICE.G_HI" />
+		<KeyWord name="VOICE.G_HOLD_FIRE" />
+		<KeyWord name="VOICE.G_NEGATIVE" />
+		<KeyWord name="VOICE.G_OOPS" />
+		<KeyWord name="VOICE.G_SORRY" />
+		<KeyWord name="VOICE.G_THANKS" />
+		<KeyWord name="VOICE.G_WELCOME" />
+		<KeyWord name="VOICE.HOLD_FIRE" />
+		<KeyWord name="VOICE.IMA_COVERTOPS" />
+		<KeyWord name="VOICE.IMA_ENGINEER" />
+		<KeyWord name="VOICE.IMA_FIELDOPS" />
+		<KeyWord name="VOICE.IMA_MEDIC" />
+		<KeyWord name="VOICE.IMA_SOLDIER" />
+		<KeyWord name="VOICE.INCOMING" />
+		<KeyWord name="VOICE.LETS_GO" />
+		<KeyWord name="VOICE.MINES_CLEARED" />
+		<KeyWord name="VOICE.MOVE" />
+		<KeyWord name="VOICE.NEED_AMMO" />
+		<KeyWord name="VOICE.NEED_BACKUP" />
+		<KeyWord name="VOICE.NEED_ENGINEER" />
+		<KeyWord name="VOICE.NEED_MEDIC" />
+		<KeyWord name="VOICE.NEED_OPS" />
+		<KeyWord name="VOICE.NEGATIVE" />
+		<KeyWord name="VOICE.ON_DEFENSE" />
+		<KeyWord name="VOICE.ON_OFFENSE" />
+		<KeyWord name="VOICE.OOPS" />
+		<KeyWord name="VOICE.PATH_CLEARED" />
+		<KeyWord name="VOICE.P_ATTACK" />
+		<KeyWord name="VOICE.P_CALLAIRSTRIKE" />
+		<KeyWord name="VOICE.P_CALLARTILLERY" />
+		<KeyWord name="VOICE.P_CHECKFORLANDMINES" />
+		<KeyWord name="VOICE.P_CONSTRUCTOBJECTIVE" />
+		<KeyWord name="VOICE.P_DEPLOYLANDMINES" />
+		<KeyWord name="VOICE.P_DEPLOYMORTAR" />
+		<KeyWord name="VOICE.P_DESTROYOBJECTIVE" />
+		<KeyWord name="VOICE.P_DISARMLANDMINES" />
+		<KeyWord name="VOICE.P_EXPLOREAREA" />
+		<KeyWord name="VOICE.P_FALLBACK" />
+		<KeyWord name="VOICE.P_GOUNDERCOVER" />
+		<KeyWord name="VOICE.P_HEALME" />
+		<KeyWord name="VOICE.P_HEALSQUAD" />
+		<KeyWord name="VOICE.P_INFILTRATE" />
+		<KeyWord name="VOICE.P_PROVIDESNIPERCOVER" />
+		<KeyWord name="VOICE.P_REPAIROBJECTIVE" />
+		<KeyWord name="VOICE.P_RESUPPLYME" />
+		<KeyWord name="VOICE.P_RESUPPLYSQUAD" />
+		<KeyWord name="VOICE.P_REVIVEME" />
+		<KeyWord name="VOICE.P_REVIVETEAMMATE" />
+		<KeyWord name="VOICE.P_SATCHELOBJECTIVE" />
+		<KeyWord name="VOICE.REINFORCE_DEF" />
+		<KeyWord name="VOICE.REINFORCE_OFF" />
+		<KeyWord name="VOICE.REPAIR_VEHICLE" />
+		<KeyWord name="VOICE.SORRY" />
+		<KeyWord name="VOICE.TAKING_FIRE" />
+		<KeyWord name="VOICE.THANKS" />
+		<KeyWord name="VOICE.WELCOME" />
+		<KeyWord name="VOICE.WHERE_TO" />
+		<KeyWord name="VoteNo" func="yes" />
+		<KeyWord name="VoteYes" func="yes" />
+		<KeyWord name="WalkWhileZoomed" />
+		<KeyWord name="WatchForEntityCategory" func="yes" />
+		<KeyWord name="WatchForMapGoalsInRadius" func="yes">
+			<Overload retVal="void:" descr="scriptGoal.WatchForMapGoalsInRadius({Radius, Category[, RequireLOS]}) - ?.">
+				<Param name="{Radius: float" />
+				<Param name="Category: CAT id" />
+				<Param name="[RequireLOS: TRACE id, default 0]}" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="WaterProof" />
+		<KeyWord name="WEAPON.ADRENALINE" />
+		<KeyWord name="WEAPON.ADRENALINESHARE" />
+		<KeyWord name="WEAPON.ALLY_GRENADE" />
+		<KeyWord name="WEAPON.AMMO_PACK" />
+		<KeyWord name="WEAPON.ARTY" />
+		<KeyWord name="WEAPON.ASSAULTCANNON" />
+		<KeyWord name="WEAPON.AUTORIFLE" />
+		<KeyWord name="WEAPON.AXE" />
+		<KeyWord name="WEAPON.AXIS_GRENADE" />
+		<KeyWord name="WEAPON.BAR" />
+		<KeyWord name="WEAPON.BAR_SET" />
+		<KeyWord name="WEAPON.BAZOOKA" />
+		<KeyWord name="WEAPON.BFG" />
+		<KeyWord name="WEAPON.BINOCULARS" />
+		<KeyWord name="WEAPON.BLASTER" />
+		<KeyWord name="WEAPON.CARBINE" />
+		<KeyWord name="WEAPON.CHAINGUN" />
+		<KeyWord name="WEAPON.CHAINSAW" />
+		<KeyWord name="WEAPON.COLT" />
+		<KeyWord name="WEAPON.COLT_AKIMBO" />
+		<KeyWord name="WEAPON.COLT_AKIMBO_SILENCED" />
+		<KeyWord name="WEAPON.COLT_SILENCED" />
+		<KeyWord name="WEAPON.CROWBAR" />
+		<KeyWord name="WEAPON.DARKMATTERGUN" />
+		<KeyWord name="WEAPON.DYNAMITE" />
+		<KeyWord name="WEAPON.FG42" />
+		<KeyWord name="WEAPON.FG42_SCOPE" />
+		<KeyWord name="WEAPON.FISTS" />
+		<KeyWord name="WEAPON.FLAMETHROWER" />
+		<KeyWord name="WEAPON.FLASHLIGHT" />
+		<KeyWord name="WEAPON.GARAND" />
+		<KeyWord name="WEAPON.GARAND_SCOPE" />
+		<KeyWord name="WEAPON.GAUNTLET" />
+		<KeyWord name="WEAPON.GPG40" />
+		<KeyWord name="WEAPON.GRABBER" />
+		<KeyWord name="WEAPON.GRANATWERFER" />
+		<KeyWord name="WEAPON.GRANATWERFER_SET" />
+		<KeyWord name="WEAPON.GRENADE" />
+		<KeyWord name="WEAPON.GRENADE_CALTROPS" />
+		<KeyWord name="WEAPON.GRENADE_CONC" />
+		<KeyWord name="WEAPON.GRENADE_EMP" />
+		<KeyWord name="WEAPON.GRENADE_GAS" />
+		<KeyWord name="WEAPON.GRENADE_MIRV" />
+		<KeyWord name="WEAPON.GRENADE_NAIL" />
+		<KeyWord name="WEAPON.GRENADE_NAPALM" />
+		<KeyWord name="WEAPON.GRENADE1" />
+		<KeyWord name="WEAPON.GRENADE2" />
+		<KeyWord name="WEAPON.GRENADELAUNCHER" />
+		<KeyWord name="WEAPON.HANDGRENADE" />
+		<KeyWord name="WEAPON.HYPERBLASTER" />
+		<KeyWord name="WEAPON.K43" />
+		<KeyWord name="WEAPON.K43_SCOPE" />
+		<KeyWord name="WEAPON.KAR98" />
+		<KeyWord name="WEAPON.KNIFE" />
+		<KeyWord name="WEAPON.KNIFE_KABAR" />
+		<KeyWord name="WEAPON.LANDMINE" />
+		<KeyWord name="WEAPON.LIGHTNINGGUN" />
+		<KeyWord name="WEAPON.LUGER" />
+		<KeyWord name="WEAPON.LUGER_AKIMBO" />
+		<KeyWord name="WEAPON.LUGER_AKIMBO_SILENCED" />
+		<KeyWord name="WEAPON.LUGER_SILENCED" />
+		<KeyWord name="WEAPON.M7" />
+		<KeyWord name="WEAPON.M97" />
+		<KeyWord name="WEAPON.MACHINEGUN" />
+		<KeyWord name="WEAPON.MAUSER" />
+		<KeyWord name="WEAPON.MEDKIT" />
+		<KeyWord name="WEAPON.MINE_BOUNCINGBETTY" />
+		<KeyWord name="WEAPON.MINE_POISONGAS" />
+		<KeyWord name="WEAPON.MOBILE_BROWNING" />
+		<KeyWord name="WEAPON.MOBILE_BROWNING_SET" />
+		<KeyWord name="WEAPON.MOBILE_MG42" />
+		<KeyWord name="WEAPON.MOBILE_MG42_SET" />
+		<KeyWord name="WEAPON.MORTAR" />
+		<KeyWord name="WEAPON.MORTAR_SET" />
+		<KeyWord name="WEAPON.MOUNTABLE_MG42" />
+		<KeyWord name="WEAPON.MP34" />
+		<KeyWord name="WEAPON.MP40" />
+		<KeyWord name="WEAPON.NAILGUN" />
+		<KeyWord name="WEAPON.NAPALMCANNON" />
+		<KeyWord name="WEAPON.NAPALMGUN" />
+		<KeyWord name="WEAPON.NONE" />
+		<KeyWord name="WEAPON.PANZERFAUST" />
+		<KeyWord name="WEAPON.PIPELAUNCHER" />
+		<KeyWord name="WEAPON.PISTOL" />
+		<KeyWord name="WEAPON.PLASMAGUN" />
+		<KeyWord name="WEAPON.PLIERS" />
+		<KeyWord name="WEAPON.POISONGAS" />
+		<KeyWord name="WEAPON.POISONSYRINGE" />
+		<KeyWord name="WEAPON.RAILGUN" />
+		<KeyWord name="WEAPON.ROCKET" />
+		<KeyWord name="WEAPON.ROCKETLAUNCHER" />
+		<KeyWord name="WEAPON.RPG" />
+		<KeyWord name="WEAPON.SATCHEL" />
+		<KeyWord name="WEAPON.SATCHEL_DET" />
+		<KeyWord name="WEAPON.SHOTGUN" />
+		<KeyWord name="WEAPON.SHOTGUN_DBL" />
+		<KeyWord name="WEAPON.SMOKE_GRENADE" />
+		<KeyWord name="WEAPON.SMOKE_MARKER" />
+		<KeyWord name="WEAPON.SNIPER" />
+		<KeyWord name="WEAPON.SNIPERRIFLE" />
+		<KeyWord name="WEAPON.SOULCUBE" />
+		<KeyWord name="WEAPON.SPANNER" />
+		<KeyWord name="WEAPON.STEN" />
+		<KeyWord name="WEAPON.STENMKII" />
+		<KeyWord name="WEAPON.STG44" />
+		<KeyWord name="WEAPON.SUPERNAILGUN" />
+		<KeyWord name="WEAPON.SUPERSHOTGUN" />
+		<KeyWord name="WEAPON.SYRINGE" />
+		<KeyWord name="WEAPON.THOMPSON" />
+		<KeyWord name="WEAPON.TRANQGUN" />
+		<KeyWord name="WEAPON.UMBRELLA" />
+		<KeyWord name="WEAPON.VENOM" />
+		<KeyWord name="WeaponAliasId" />
+		<KeyWord name="WeaponId" />
+		<KeyWord name="WeaponTable" />
+		<KeyWord name="WeaponType" />
+		<KeyWord name="Wp.AddWaypoint" func="yes" />
+		<KeyWord name="Wp.CheckBlockable" func="yes" />
+		<KeyWord name="Wp.Connect" func="yes" />
+		<KeyWord name="Wp.DeleteWaypoint" func="yes" />
+		<KeyWord name="Wp.Disconnect" func="yes" />
+		<KeyWord name="Wp.GetAllSelectedWaypoints" func="yes" />
+		<KeyWord name="Wp.GetAllWaypoints" func="yes" />
+		<KeyWord name="Wp.GetClosestWaypoint" func="yes" />
+		<KeyWord name="Wp.GetWaypointByGUID" func="yes" />
+		<KeyWord name="Wp.GetWaypointByName" func="yes" />
+		<KeyWord name="Wp.IsWaypointViewOn" func="yes" />
+		<KeyWord name="Wp.Load" func="yes" />
+		<KeyWord name="Wp.Save" func="yes" />
+		<KeyWord name="Wp.SetBlockablePathOffset" func="yes" />
+		<KeyWord name="Wp.SetBottomPathOffset" func="yes" />
+		<KeyWord name="Wp.SetBottomWaypointOffset" func="yes" />
+		<KeyWord name="Wp.SetFacingOffset" func="yes" />
+		<KeyWord name="Wp.SetRadius" func="yes" />
+		<KeyWord name="Wp.SetTopPathOffset" func="yes" />
+		<KeyWord name="Wp.SetTopWaypointOffset" func="yes" />
+		<KeyWord name="Wp.SetWaypointFlag" func="yes" />
+		<KeyWord name="Wp.SetWaypointName" func="yes" />
+		<KeyWord name="Wp.SetWaypointProperty" func="yes" />
+		<KeyWord name="Wp.WaypointColor" func="yes" />
+		<KeyWord name="Write" func="yes">
+			<Overload retVal="void:" descr="fileObject.Write(...) - Writes a value of varying types to the file, in whatever file mode was used to open the file.">
+				<Param name="This function can take any number of parameters, of types integer, float, string, or NewLine;" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="yield" func="yes">
+			<Overload retVal="void:" descr="Cause current execution to yield control to the virtual machine." />
+		</KeyWord>
+		<KeyWord name="ZoomButton" />
+	</AutoComplete>
+</NotepadPlus>

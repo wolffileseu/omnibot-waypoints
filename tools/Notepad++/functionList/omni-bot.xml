@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<!-- ======================================================== [ OB ] -->
+		<!-- OB - Omni-Bot                                                   -->
+
+		<parser id="ob_function" displayName="Omni-Bot" commentExpr="((/\*.*?\*)/|(//.*?$))">
+			<function mainExpr="(?x) # use inline comments
+					^
+					(
+						(
+							(global|member)\s+
+							\b(?!_MG)\b
+							[\w_\.]+
+						)
+
+						|	# Or, functions, excepted a selection of some
+
+						\s+
+						(
+							\b(?!EvalFunc|ExitConditions|navigate|OnEnter|OnExit|Wait)\b
+							[\w_\.]+
+						)
+						\s*=\s*
+						(
+							function\s*\(
+						)
+
+						|	# Or, specific fixed tables;
+							# for Roles, we exclude the _goals case, where we have an index list
+
+						\s+
+						(
+							Navigation
+							|
+							Roles\s*=\s*{\s*(?!\s*\[)	# Bug: If followed by a comment, not caught...
+							|
+							Switches
+						)
+
+						|	# Or, trigger table, with the 1st property being its name
+
+						\s+[\w_\.]+\s*=\s*{\s*Name\s*\=
+
+						|	# At last, we catch the goals of a _goals file,
+							# but not the equivalent of InitializeRoutes,
+							# aka MapRoutes table entries (so, single identation)
+							# It has to be followed by the equal caracter then an opening bracket,
+							# else variables/constants would also be caught
+							# Bug: [A-Z]+ catches lower-case chars too before the _...
+
+						(\t|[ ]{4})[A-Z0-9]+_\w+\s*=\s*{(?!\s*&quot;)
+					)
+				"
+				displayMode="$functionName">
+				<functionName>
+					<nameExpr expr="^\s*(global |member )?\K[\w_\.]+"/>
+				</functionName>
+			</function>
+		</parser>
+	</functionList>
+</NotepadPlus>

@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta name="generator" content="Hugo 0.68.3" />
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="What is Auto-completion Notepad&#43;&#43; offers automatic completion of various sorts of text after you have entered an initial substring (or prefix), which can save you having to type all of a long word (and potentially save you mistyping it). For instance, if you&rsquo;re coding in JavaScript and type syn, Notepad&#43;&#43; can present synchronized (a JavaScript keyword) as a suggestion. You accept the suggestion by typing the completion key (see &ldquo;Automatic completion&quot;, below), and the word is completed within your buffer as if you&rsquo;d typed it all out.">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="Auto-Completion" />
+<meta property="og:description" content="What is Auto-completion Notepad&#43;&#43; offers automatic completion of various sorts of text after you have entered an initial substring (or prefix), which can save you having to type all of a long word (and potentially save you mistyping it). For instance, if you&rsquo;re coding in JavaScript and type syn, Notepad&#43;&#43; can present synchronized (a JavaScript keyword) as a suggestion. You accept the suggestion by typing the completion key (see &ldquo;Automatic completion&quot;, below), and the word is completed within your buffer as if you&rsquo;d typed it all out." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="../../docs/auto-completion/index.html" />
+
+<title>Auto-Completion | Notepad&#43;&#43; User Manual</title>
+<link rel="manifest" href="../../manifest.json">
+<link rel="icon" href="../../favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="../../book.min.6e40b5f911dc7f922b4354b4a32e0a00d71dc7ebac6d2334c02aa38eb679f117.css" attr_integ_ignore="sha256-bkC1&#43;RHcf5IrQ1S0oy4KANcdx&#43;usbSM0wCqjjrZ58Rc=">
+<script defer src="../../en.search.min.198a20a5f81cba6044d4b6b4ed8e396ecef5d158d13a4e21936619f0d5a4638a.js" attr_integ_ignore="sha256-GYogpfgcumBE1La07Y45bs710VjROk4hk2YZ8NWkY4o="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a href="../../index.html"><span>Notepad&#43;&#43; User Manual</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" readonly hidden placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/getting-started/index.html" class="">Getting started</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/files/index.html" class="">Working with Files</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/editing/index.html" class="">Editing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/searching/index.html" class="">Searching</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/views/index.html" class="">Views</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/session/index.html" class="">Sessions, Workspaces, and Projects</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/function-list/index.html" class="">Function List</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/auto-completion/index.html" class=" active">Auto-Completion</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/programing-languages/index.html" class="">Syntax Highlighting - Built-in Languages</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/user-defined-language-system/index.html" class="">Syntax Highlighting - User Defined Languages</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/introduction/index.html" class="">UDL &gt; Parser</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/default/index.html" class="">UDL &gt; Default Style</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/folding-in-code/index.html" class="">UDL &gt; Folding in code</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/folding-in-comment/index.html" class="">UDL &gt; Folding in comment</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/keywords/index.html" class="">UDL &gt; Keywords</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/comments/index.html" class="">UDL &gt; Comments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/numbers/index.html" class="">UDL &gt; Numbers</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/operators/index.html" class="">UDL &gt; Operators</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/delimiters/index.html" class="">UDL &gt; Delimiters</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/macros/index.html" class="">Macros - Task Automation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/run-menu/index.html" class="">Running External Commands</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/plugins/index.html" class="">Plugins</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/plugin-communication/index.html" class="">Plugin Communication</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/command-prompt/index.html" class="">Command Line Arguments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/preferences/index.html" class="">Preferences</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/config-files/index.html" class="">Configuration Files Details</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/themes/index.html" class="">Themes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/binary-translation/index.html" class="">Localization - User Interface Translation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/user-interface/index.html" class="">User Interface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/upgrading/index.html" class="">Upgrading</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/shell-extension/index.html" class="">Right Click - Edit With Notepad&#43;&#43;</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/ghost-typing/index.html" class="">Ghost Typing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/other-resources/index.html" class="">Other Resources</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/history/index.html" class="">User Manual History</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/license/index.html" class="">Copyright &amp; License</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="../../svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Auto-Completion</strong>
+
+  <label for="toc-control">
+    
+    <img src="../../svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#what-is-auto-completion">What is Auto-completion</a></li>
+        <li><a href="#function-completion">Function completion</a>
+          <ul>
+            <li><a href="#parameter-hints">Parameter hints</a></li>
+          </ul>
+        </li>
+        <li><a href="#word-completion">Word completion</a></li>
+        <li><a href="#path-completion">Path completion</a></li>
+        <li><a href="#how-to-make-it-work">How to make it work</a>
+          <ul>
+            <li><a href="#automatic-completion">Automatic completion</a>
+              <ul>
+                <li><a href="#completion-key">Completion key</a></li>
+              </ul>
+            </li>
+            <li><a href="#manual-completion">Manual completion</a></li>
+            <li><a href="#auto-insertion">Auto-insertion</a></li>
+            <li><a href="#displayed-completion-list">Displayed Completion List</a></li>
+          </ul>
+        </li>
+        <li><a href="#auto-completion-settings">Auto-completion Settings</a></li>
+        <li><a href="#create-auto-completion-definition-files">Create auto-completion definition files</a>
+          <ul>
+            <li><a href="#auto-completion-file-format">Auto-completion File Format</a>
+              <ul>
+                <li><a href="#names">Names</a></li>
+                <li><a href="#special-characters">Special Characters</a></li>
+                <li><a href="#sorting">Sorting</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#validating-autocompletion-files">Validating autoCompletion files</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h2 id="what-is-auto-completion">What is Auto-completion</h2>
+<p>Notepad++ offers automatic completion of various sorts of text after you have entered an initial substring (or prefix), which can save you having to type all of a long word (and potentially save you mistyping it). For instance, if you&rsquo;re coding in JavaScript and type <code>syn</code>, Notepad++ can present <code>synchronized</code> (a JavaScript keyword) as a suggestion. You accept the suggestion by typing the completion key (see &ldquo;<a href="#automatic-completion">Automatic completion</a>&quot;, below), and the word is completed within your buffer as if you&rsquo;d typed it all out. If the suggested word is not what you want, keep typing.</p>
+<p>If more than one word in the list of candidate words matches what you&rsquo;ve typed, Notepad++ will present a list containing the words; the highlighted word in the list is the one that will be selected on the completion key, but you can use the <kbd>Down-arrow</kbd> &amp; &lt;kbd&lt;Up-arrow</kbd> keys, or <kbd>PageDown</kbd> &amp; <kbd>PageUp</kbd>, to move through the list; or, type <kbd>Esc</kbd> to dismiss the list.</p>
+<p>There are three sets of candidate words that Notepad++ uses to create suggestions; these are referred to as &ldquo;words&rdquo;, &ldquo;functions&rdquo; and &ldquo;system paths&rdquo;.</p>
+<h2 id="function-completion">Function completion</h2>
+<p>&ldquo;Functions&rdquo; are pre-defined and loaded along with the lexer that corresponds to the computer language of the file. (The lexer defines the syntax coloring; the auto-completion file specifies the names of the functions.) Typically these function words include language keywords (which technically are not functions) such as <code>switch</code> in C and similar languages or <code>lambda</code> in Python, and some set of standard library function names such as <code>assert</code> or <code>fdopen</code> in C.</p>
+<p>These function lists are stored in auto-completion definition files, each named according to its language. (The words in these files do not necessarily include all the keywords listed in the lexer definitions.) These files can specify which of the words are keywords and which are functions; functions support an additional completion feature, &ldquo;parameter hint.&rdquo;  Both the functions and keywords from this file are considered &ldquo;Function completion&rdquo; throughout this documentation.</p>
+<h3 id="parameter-hints">Parameter hints</h3>
+<p>The auto-complete definition file can specify if a keyword is a function. When a function name has been typed in, followed by the opening parenthesis used to enclose the function&rsquo;s arguments, Notepad++ will automatically, or manually, display a hint (a.k.a. a &ldquo;call tip&rdquo;): a small tooltip-style box opens with text containing a description of the function. While the actual text shown is up to the author of the definition file, typically this would show, at minimum, a keyword for each of the parameters taken by the function call. This may save you a trip to the function&rsquo;s documentation to remember what those parameters are.</p>
+<p>If there are multiple hint definitions for the current function, there will be up and down arrows (▲ ▼) in the tooltip box. You may click on those arrows, or use <kbd>Alt+UpArrow</kbd> or <kbd>Alt+DownArrow</kbd> keyboard shortcuts, to cycle through the parameter hints.  (Those keyboard shortcuts are not listed in or affected by the Shortcut Mapper tool.  The keyboard shortcuts are new to v8.4.5.)</p>
+<p>Notepad++ will display the hint automatically when the open-parenthesis is typed, if that option is selected in the Auto-Completion settings. The user can also select the &ldquo;Function parameters hint&rdquo; from the menu or by keystroke (default: <kbd>Ctrl+Shift+Space</kbd>), when the <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a> is between the opening and closing parentheses of the function call. And again, the hint can be dismissed with <kbd>Esc</kbd>.</p>
+<h2 id="word-completion">Word completion</h2>
+<p>&ldquo;Words&rdquo; are taken from the current file—everywhere in the current file, comments and code. Any word two or more characters long is added to the list. This includes numbers, but numbers with decimal points are split into two different &ldquo;words.&rdquo;</p>
+<h2 id="path-completion">Path completion</h2>
+<p>Different from function and word completion which can be triggered automatically after 1 (or X) keystroke(s), Path completion needs to be triggered manually, by using shortcut (default: <kbd>Ctrl+Alt+Space</kbd>) or via menu command <strong>Edit &gt; Auto-Completion &gt; Path Completion</strong> after typing the drive (for example &ldquo;C:&quot;). If the string on the left of <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a> is not part of one of the system paths, the path list won&rsquo;t appear.</p>
+<h2 id="how-to-make-it-work">How to make it work</h2>
+<h3 id="automatic-completion">Automatic completion</h3>
+<p>The completion list can be triggered automatically as you type, via settings in <a href="../preferences/index.html#auto-completion"><strong>Settings &gt; Preferences &gt; Auto-Completion</strong></a>: Auto-Completion is controlled by a checkbox. Additionally there is a setting <strong>From X th character</strong>, accepting the minimum length of a prefix needed before the completion list is shown (some people like 2, some 3, some 4&hellip;); and, there is a setting to specify which candidates should be used: words, functions, or both.</p>
+<p>With auto-completion active, after typing a prefix of at least the minimum length, a list is presented with all the available words from the selected list(s) that match what&rsquo;s been typed. (If none match, no list is shown.) The list may be a single entry long, or it may contain multiple items which require navigation, but either way you can select the match and, it is hoped, save yourself some typing.  You can use arrow keys (or the mouse) to navigate through the entries in the popup; hitting the completion key or double-clicking on the choice will select that choice and enter it as if you had just typed the whole word; hitting the <kbd>Esc</kbd> key will exit the auto-completion popup <em>without</em> choosing one of the suggestions.</p>
+<p>If instead of selecting, you keep typing, items that no longer match will be removed from the list, and it will disappear entirely once you&rsquo;ve typed a string that matches none of the selections. (Note that if you dismiss the list with <kbd>Esc</kbd>, and then keep typing, and what you type continues to match wordlist entries, then the list will reappear.)</p>
+<h4 id="completion-key">Completion key</h4>
+<p>In v8.2 and earlier, both the <kbd>Tab</kbd> and <kbd>Enter</kbd> keys would be accepted as the completion key, without a configuration option to affect it.  For v8.2.1 through v8.3, the default active completion key is <kbd>Tab</kbd>, though you can use <a href="../preferences/index.html#auto-completion">preferences</a> to set whether <kbd>Tab</kbd> is active, <kbd>Enter</kbd> is active, or both are active as completion key.  Subsequent versions (v8.3.1 and newer) have both completion keys active by default, but the <a href="../preferences/#auto-completion">preferences</a> will still allow the user to select which completion key(s) to have active.  (<em>Note</em>: as with other <a href="../config-files/">configuration file settings</a>, upgrades will <strong>not</strong> overwrite a setting in an existing config.xml, so your choices made or saved in v8.2.1 through v8.3.0 will remain active through future upgrades; the defaults listed will only apply on new installations, or if there is no setting for <code>insertSelectedItemUseENTER</code> or <code>insertSelectedItemUseTAB</code> in the config.xml, or if the config.xml file has been deleted or otherwise doesn&rsquo;t exist and needs to be regenerated.)</p>
+<h3 id="manual-completion">Manual completion</h3>
+<p>If auto completion is turned off, you can manually force the completion of what you&rsquo;ve typed, limiting the selection to either the list of functions or the list of words. By default, these functions are bound to <kbd>Ctrl+Space</kbd> (functions) or <kbd>Ctrl+Enter</kbd> (words); they are also available in the <a href="../editing/index.html#edit-menu">Edit menu</a>. Typing one of these keystrokes or using those menu commands attempts an immediate completion: if there is a single matching entry in the wordlist, that entry is used, with no display of a list. If there are multiple matching entries, the list is displayed just as if auto-completion were triggered at the same point.</p>
+<p>Note: Manual &ldquo;Function completion&rdquo; (currently) shows a list of all the functions in the wordlist, even if they don&rsquo;t match the current prefix—unless no function matches the prefix, in which case no list is shown. Manual &ldquo;Word completion&rdquo; shows only the matching words.</p>
+<h3 id="auto-insertion">Auto-insertion</h3>
+<p>Some characters traditionally work in pairs, so that it makes sense to ask an editor to type them in pairs when an opening bracket is being typed - the extra closing brace being disposable.</p>
+<p>Through <a href="../preferences/index.html#auto-completion"><strong>Settings &gt; Preferences &gt; Auto-Completion</strong></a>, the <strong>Auto-Insert</strong> options allow selection of any or all of five predefined characters—parenthesis, bracket, brace, double-quote and single quote (apostrophe)—to be automatically matched. Not only that, three custom pairs of characters may be specified. For instance, you might use Unicode open- and close- double quotes; with this feature, you can have both characters inserted when you type the opening quote mark. (Only single characters are allowed in these fields.)</p>
+<p>In each case, when the opening character is typed, the closing character will automatically be inserted, with the <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a> placed between the two.  However, there are a few restrictions, to prevent unwanted auto-insertion, such as <code>don''t</code>:</p>
+<ul>
+<li>If your <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a> is between an empty pair of parentheses <code>()</code> or square brackets <code>[]</code> or curly brackets <code>{}</code>, it will perform auto-insertion.</li>
+<li>If there are whitespace characters (like space or tab or the beginning or ending of a line) both before and after the <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a>, it will perform auto-insertion.</li>
+<li>If there is whitespace before the <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a> and a closing parenthesis <code>)</code> or square bracket <code>]</code> or curly bracket <code>}</code> after the <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a>, it will perform auto-insertion.</li>
+<li>If those conditions are not met, then it will <em>not</em> perform auto-insertion.</li>
+<li>Examples:
+<table>
+<thead>
+<tr>
+<th>condition</th>
+<th>before</th>
+<th>after</th>
+<th>auto-insert?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>empty parens</td>
+<td><code>()</code></td>
+<td><code>(&quot;&quot;)</code></td>
+<td>yes</td>
+</tr>
+<tr>
+<td>double space (left of both spaces)</td>
+<td><code>xyz  abc</code></td>
+<td><code>xyz&quot;  abc</code></td>
+<td>no</td>
+</tr>
+<tr>
+<td>double space (between the spaces)</td>
+<td><code>xyz  abc</code></td>
+<td><code>xyz &quot;&quot; abc</code></td>
+<td>yes</td>
+</tr>
+<tr>
+<td>double space (right of both spaces)</td>
+<td><code>xyz  abc</code></td>
+<td><code>xyz  &quot;abc</code></td>
+<td>no</td>
+</tr>
+<tr>
+<td>space then closing bracket (left of space)</td>
+<td><code>[ ]</code></td>
+<td><code>[&quot;&quot; ]</code></td>
+<td>yes</td>
+</tr>
+<tr>
+<td>space then closing bracket (right of space)</td>
+<td><code>[ ]</code></td>
+<td><code>[ &quot;&quot;]</code></td>
+<td>yes</td>
+</tr>
+<tr>
+<td>letter curly</td>
+<td><code>r}</code></td>
+<td><code>r&quot;}</code></td>
+<td>no</td>
+</tr>
+<tr>
+<td>punctuation paren</td>
+<td><code>,)</code></td>
+<td><code>,&quot;)</code></td>
+<td>no</td>
+</tr>
+<tr>
+<td>punctuation space paren (left of space)</td>
+<td><code>, )</code></td>
+<td><code>,&quot; )</code></td>
+<td>no</td>
+</tr>
+<tr>
+<td>punctuation space paren (right of space)</td>
+<td><code>, )</code></td>
+<td><code>, &quot;&quot;)</code></td>
+<td>yes</td>
+</tr>
+<tr>
+<td>prevents <code>don''t</code></td>
+<td><code>don</code></td>
+<td><code>don'</code></td>
+<td>no</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<p>Additionally, Auto-Insert supports automatic HTML &amp; XML tag closure. With this feature active, when editing HTML or XML files, after you type an opening tag, such as <code>&lt;div&gt;</code>, the program will automatically match it with the closing <code>&lt;/div&gt;</code>, with the <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a> placed between the two tags so that content can be added. Matching will work even if attributes are entered while typing the opening tag. And if the opening tag is terminated with a slash (<code>/</code>) —such as <code>&lt;hr/&gt;</code> —then no matching tag is inserted. (In the case of <code>&lt;hr&gt;</code> entered without a slash, a matching close tag will still be inserted, even if unnecessary, for both HTML and XML editing. Consider this a push towards XML correctness in your HTML code.)</p>
+<h3 id="displayed-completion-list">Displayed Completion List</h3>
+<p>When you use <a href="#manual-completion">Manual Completion</a>, the list will only show the items that were manually triggered &ndash; so either only the word list or only the function list.  If <a href="#automatic-completion">Automatic completion</a> is triggered, the list will show both words and functions that match.  As of v8.3.1, the completion list will use the <i>fx</i> icon to help the user tell the difference between the &ldquo;<a href="#function-completion">Function completion</a>&rdquo; items (keywords and functions from the configuration file will get the <i>fx</i> icon) and &ldquo;<a href="#word-completion">Word completion</a>&rdquo; items (words from the active document will <em>not</em> have the icon).</p>
+<h2 id="auto-completion-settings">Auto-completion Settings</h2>
+<p>The main auto-completion settings are found at <a href="../preferences/index.html#auto-completion"><strong>Settings &gt; Preferences &gt; Auto-Completion</strong></a>.</p>
+<p>The keyboard shortcuts for manual completion can be adjusted in <a href="../preferences/index.html#shortcut-mapper"><strong>Settings &gt; Shortcut Mapper</strong></a>, in the <strong>Main menu</strong> tab, in the <strong>Category</strong> = <strong>Edit</strong>; you can filter on <code>completion</code> to easily find them.</p>
+<h2 id="create-auto-completion-definition-files">Create auto-completion definition files</h2>
+<p>Notepad++ uses XML configuration files to define the per-language function and parameter auto-completion.  Those AutoComplete files are located in the <code>autoCompletion</code> subdirectory of the Notepad++ install folder.</p>
+<p>The syntax of AutoComplete files is simple, but does have a few rules, most importantly correct syntax and proper sorting. If the syntax is incorrect, the XML file will fail to load and AutoComplete will be not be available for that file type.</p>
+<p>Improper sorting (see below) can cause the AutoComplete function to behave erratic, causing it to fail on certain words.</p>
+<p>The basic character set used to recognize keywords is made of letters <code>a-z</code>, <code>A-Z</code>, digits <code>0-9</code>, and the underscore <code>_</code>.  Punctuation might work for auto-completion; however, if you want to use the parameter hints, you should not use punctuation in the keyword name.</p>
+<p>Syntax:</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;NotepadPlus&gt;
+   &lt;AutoComplete language=&quot;C++&quot;&gt;
+       &lt;Environment ignoreCase=&quot;no&quot; startFunc=&quot;(&quot; stopFunc=&quot;)&quot; paramSeparator=&quot;,&quot; terminal=&quot;;&quot; additionalWordChar = &quot;.&quot;/&gt;
+       &lt;KeyWord name=&quot;abs&quot; func=&quot;yes&quot;&gt;
+           &lt;Overload retVal=&quot;int&quot; descr=&quot;Returns absolute value of given integer&quot;&gt;
+               &lt;Param name=&quot;int number&quot; /&gt;
+           &lt;/Overload&gt;
+       &lt;/KeyWord&gt;
+   &lt;/AutoComplete&gt;
+&lt;/NotepadPlus&gt;
+</code></pre>
+<p>A small example of how the XML file is built is given above. <code>&lt;NotepadPlus&gt;</code>, <code>&lt;AutoComplete&gt;</code> and <code>&lt;Environment&gt;</code> elements are singleton elements: there should be only one of each, and all of them should be present for correctness, although it is allowed to remove the <code>&lt;Environment&gt;</code> element. Doing so will default all values to the ones given in the above example.</p>
+<p>For keywords that are not functions, the <code>&lt;KeyWord&gt;</code> tag is autoclosing and only has the <code>name</code> attribute. To indicate a keyword can be displayed in a calltip, add the attribute <code>func=&quot;yes&quot;</code>. In this case, the <code>&lt;KeyWord&gt;</code> tag is a node and contains other tags.</p>
+<p>Then, for each overload of the function, an <code>&lt;Overload&gt;</code> element should be added, which specifies the behavior and the parameters of the function. A function must have at least one <code>&lt;Overload&gt;</code> or it will not be displayed as a calltip.  Multiple <code>&lt;Overload&gt;</code> elements allow there to be different sets of parameters for a given function.  The <code>retVal</code> attribute must be present and specifies the type of the return value, but the <code>descr</code> attribute is optional and describes the functions behavior, like a comment. You can add newlines in the description if you wish to do so. For each parameter the function takes, a <code>&lt;Param&gt;</code> element can be added. The <code>name</code> attribute must be present and specifies the type of the parameters and/or any name of the parameter.</p>
+<p>In the <code>&lt;AutoComplete&gt;</code> element you can add the <code>language</code> attribute, but it is not used by Notepad++; you can add it for completeness if you wish and can technically take any string you want, though standard practice among autoCompletion developers has been to put the official name of the language as the value (like the <code>C++</code> shown above).</p>
+<h3 id="auto-completion-file-format">Auto-completion File Format</h3>
+<p>Auto-complete files files are located in the <code>autoCompletion\</code> subfolder of the Notepad++ installation folder (unlike some config files, these will <em>not</em> work in the <code>%AppData%\Notepad++\</code> hierarchy). These files are optional: you need only one for each language for which you&rsquo;ll use Auto Completion or calltips. They are also supported for User Defined Languages, and bear the name <code>&lt;Language name&gt;.xml</code>.</p>
+<p>Note: Create a <code>normal.xml</code> AutoComplete file for adding custom suggestions to the default language, Normal Text [i.e., language set to &ldquo;None (Normal Text)&quot;].</p>
+<p>Under the usual <code>&lt;NotepadPlus&gt;</code> tag is a <code>&lt;AutoComplete&gt;</code> tag. It has an optional, unused <code>language</code> attribute, which you can use for any descriptive purpose.</p>
+<p>The contents of a <code>&lt;AutoComplete&gt;</code> start with an autoclosing <code>&lt;Environment&gt;</code> tag, with the following attributes:</p>
+<ol>
+<li><code>ignoreCase</code>: <code>&quot;no&quot;</code> if the language is case sensitive, else <code>&quot;yes&quot;</code> (default).</li>
+<li><code>startFunc</code>: the character(s) which start the parameter list. Default is <code>&quot;(&quot;</code>.</li>
+<li><code>stopFunc</code>: the character(s) which end the parameter list. Default is <code>&quot;)&quot;</code>.</li>
+<li><code>paramSeparator</code>: the character(s) which separate parameters. Defaults to <code>&quot;,&quot;</code>.</li>
+<li><code>terminal</code>: the character(s) which mark the end of a prototype, when the language allows C-style separate prototyping. Defaults to <code>&quot;;&quot;</code>. Leave it out if the language does not support separate prototyping, or set it to some illegal character.</li>
+<li><code>additionalWordChar</code>: character(s) that may be part of words and which are not a lower or upper case letter, a digit or the underscore. The value is a string with all these extra characters, in any order and without separators. The string is empty by default.</li>
+</ol>
+<p>NOTE: Spaces can&rsquo;t be used as the character for the attributes.</p>
+<p>Any attribute can be omitted, and the <code>&lt;Environment&gt;</code> tag as well. The practice is not recommended though.</p>
+<p>Following is a list of <code>&lt;KeyWord&gt;</code> tags. They are either auto-closing, for keywords that are not routines, or not when they are. Each such tag has a mandatory <code>name</code> attribute, the keyword/routine name to recognise. The list <strong>must be sorted according to this attribute and the value of the <code>&lt;Environment&gt;</code> ignoreCase attribute</strong>. See subsections below for more on keyword names and sorting.</p>
+<p>When a <code>&lt;KeyWord&gt;</code> tag is not auto-closing, it must have a second attribute, <code>func=&quot;yes&quot;</code>. The contents are a nonempty, unsorted list of <code>&lt;Overload&gt;</code> tags, each of which describes a possible signature for the routine. <code>&lt;Overload&gt;</code> has a <code>retVal</code> attribute, which you would set to the initial comment in the call tip. In C/C++, this traditionally would be the return type; <code>&quot;&quot;</code> is a permitted value. Furthermore, the <code>&lt;Overload&gt;</code> tag has an optional <code>descr</code> attribute, which can be used to add a description of the function. Tip: You can use <code>&amp;#x0a;</code> to insert line breaks.</p>
+<p>An <code>&lt;Overload&gt;</code> tag contains one or more parameter description, sorted in occurrence order. Such description is represented by an auto-closing <code>&lt;Param&gt;</code> tag with a &ldquo;name&rdquo; attribute. This may contain a parameter name or other useful comments.</p>
+<p>The parameter names (actually any text you like, it may even mention a parameter name), return value and description have to fit into an internal buffer, truncation occurs otherwise. For any given function, all text, plus 2 bytes per parameter, plus 24 bytes if 2 overloads or more, can&rsquo;t spill over 2,043 bytes. Remember that a byte is a byte, so formatting whitespace competes with actual text.</p>
+<p>A typical example of entry could be this:</p>
+<pre><code>&lt;KeyWord name=&quot;cos&quot; func=&quot;yes&quot; &gt;
+   &lt;Overload retVal=&quot;{double}&quot; descr=&quot;Cosine of x&quot; &gt;
+       &lt;Param name=&quot;x, radians&quot; /&gt;
+   &lt;/Overload&gt;
+&lt;/KeyWord&gt;
+</code></pre>
+<p>resulting in the following call tip:</p>
+<pre><code>{double} cos (x, radians)
+Cosine of x
+</code></pre>
+<p>Remember that the call tip shows up when you type the opening parenthesis after the routine name. Default <code>&quot;(&quot;</code> or whatever set with startFunc in the <code>&lt;Environment&gt;</code> tag.</p>
+<h4 id="names">Names</h4>
+<p>For both call tips and autocompletion to work, keywords must be words, ie identifiers most languages would readily accept. This means that only the 26 Latin alphabet letters in either lower or upper case (no diacritics), digits and the underscore are safe to use. Additional allowed characters will work if they are not whitespace. Autocompletion may cope with spaces or blanks, call tips won&rsquo;t. This is a Scintilla limitation.</p>
+<h4 id="special-characters">Special Characters</h4>
+<p>If you want to include special characters in the <code>retVal</code> or <code>descr</code> attributes and have it render properly in the call tip popup, or if you want to have non-ASCII characters in the auto-completion text, you need to use <a href="https://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references">hexadecimal XML numeric entities</a>, in the form <em>&amp;#xhhhh;</em>.  So <code>&amp;#x00A0;</code> will insert a non-breaking space, or <code>&amp;#x2190;</code> to get an ← arrow.</p>
+<h4 id="sorting">Sorting</h4>
+<p>The <code>&lt;KeyWord&gt;</code> tag list must be sorted by <code>name</code> in ascending order. <strong>Failure to do so will result in a non working file, without a warning.</strong></p>
+<p>Now which sorting, case sensitive or insensitive? It depends on the value of the ignoreCase <code>&lt;Environment&gt;</code> attribute. If set to <code>&quot;yes&quot;</code>, use case insensitive sorting, which considers all letters to be in upper case. Otherwise, use case sensitive sorting.</p>
+<p>The simplest way to build a new file might be this:</p>
+<ol>
+<li>in a new document, list all keywords to be recognised;</li>
+<li>sort the list with the right ordering;</li>
+<li>Using the Column Editor, add <code>&lt;KeyWord name=&quot;</code> in front of each line.</li>
+<li>Using extended mode search-and-replace, add <code>&quot;/&gt;</code> at the end of all lines.</li>
+<li>Add some fancy character (<code>+</code> is a good candidate) to the end of lines that represent functions;</li>
+<li>Using extended mode, replace <code>/&gt;+\r\n</code> by <code>&gt;\r\n\t&lt;Overload retVal=&quot;&quot;&gt;\r\n\t&lt;/Overload&gt;\r\n&lt;/KeyWord&gt;\r\n</code></li>
+<li>Now manually add text and extra overloads. Re-indent as applicable;</li>
+<li>Save and test your file;</li>
+<li>Sloppy work, test again (recursive, beware of infinite loops).</li>
+</ol>
+<p>For case sensitive sorting, you can use Notepad++'s <strong>Edit &gt; Line Operations &gt; Sort Lexicographically Ascending</strong>, or any generic ASCII/ANSI sorter that sorts on the byte value of the characters. Simply put, this means the underscore character is between uppercase and lowercase letters.</p>
+<p>For case insensitive sorting, treat lowercase letters as uppercase, that is, subtract 32 from each lowercase byte value; this means the underscore must come both after uppercase and lowercase letters.  Unfortunately, Notepad++'s <strong>Edit &gt; Line Operations &gt; Sort Lexicographically Ascending</strong> does case-sensitive sorting, and will not work for this purpose.</p>
+<h2 id="validating-autocompletion-files">Validating autoCompletion files</h2>
+<p>If you are developing an autoCompletion file and would like to be able to validate that you have correct XML syntax while you are doing so, you can see the instructions in the <a href="#" title="URL TBD">Notepad++ Community &ldquo;Validating Config-File XML&rdquo; FAQ</a>.</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#what-is-auto-completion">What is Auto-completion</a></li>
+        <li><a href="#function-completion">Function completion</a>
+          <ul>
+            <li><a href="#parameter-hints">Parameter hints</a></li>
+          </ul>
+        </li>
+        <li><a href="#word-completion">Word completion</a></li>
+        <li><a href="#path-completion">Path completion</a></li>
+        <li><a href="#how-to-make-it-work">How to make it work</a>
+          <ul>
+            <li><a href="#automatic-completion">Automatic completion</a>
+              <ul>
+                <li><a href="#completion-key">Completion key</a></li>
+              </ul>
+            </li>
+            <li><a href="#manual-completion">Manual completion</a></li>
+            <li><a href="#auto-insertion">Auto-insertion</a></li>
+            <li><a href="#displayed-completion-list">Displayed Completion List</a></li>
+          </ul>
+        </li>
+        <li><a href="#auto-completion-settings">Auto-completion Settings</a></li>
+        <li><a href="#create-auto-completion-definition-files">Create auto-completion definition files</a>
+          <ul>
+            <li><a href="#auto-completion-file-format">Auto-completion File Format</a>
+              <ul>
+                <li><a href="#names">Names</a></li>
+                <li><a href="#special-characters">Special Characters</a></li>
+                <li><a href="#sorting">Sorting</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#validating-autocompletion-files">Validating autoCompletion files</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

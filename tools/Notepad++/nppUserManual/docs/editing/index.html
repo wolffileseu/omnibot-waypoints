@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta name="generator" content="Hugo 0.68.3" />
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Caret and Cursor When editing in Notepad&#43;&#43;, the insertion point in the editing window where your text will be typed is called the &ldquo;caret&rdquo;, and is indicated by either a vertical bar or a box around the insertion location, depending on Caret settings. This is separate from the mouse cursor, which is the graphical pointer that moves freely as you move your mouse, not limited to the editing window, and can be used for changing the caret location and for interacting with the rest of the user interface.">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="Editing" />
+<meta property="og:description" content="Caret and Cursor When editing in Notepad&#43;&#43;, the insertion point in the editing window where your text will be typed is called the &ldquo;caret&rdquo;, and is indicated by either a vertical bar or a box around the insertion location, depending on Caret settings. This is separate from the mouse cursor, which is the graphical pointer that moves freely as you move your mouse, not limited to the editing window, and can be used for changing the caret location and for interacting with the rest of the user interface." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="../../docs/editing/index.html" />
+
+<title>Editing | Notepad&#43;&#43; User Manual</title>
+<link rel="manifest" href="../../manifest.json">
+<link rel="icon" href="../../favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="../../book.min.6e40b5f911dc7f922b4354b4a32e0a00d71dc7ebac6d2334c02aa38eb679f117.css" attr_integ_ignore="sha256-bkC1&#43;RHcf5IrQ1S0oy4KANcdx&#43;usbSM0wCqjjrZ58Rc=">
+<script defer src="../../en.search.min.198a20a5f81cba6044d4b6b4ed8e396ecef5d158d13a4e21936619f0d5a4638a.js" attr_integ_ignore="sha256-GYogpfgcumBE1La07Y45bs710VjROk4hk2YZ8NWkY4o="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a href="../../index.html"><span>Notepad&#43;&#43; User Manual</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" readonly hidden placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/getting-started/index.html" class="">Getting started</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/files/index.html" class="">Working with Files</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/editing/index.html" class=" active">Editing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/searching/index.html" class="">Searching</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/views/index.html" class="">Views</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/session/index.html" class="">Sessions, Workspaces, and Projects</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/function-list/index.html" class="">Function List</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/auto-completion/index.html" class="">Auto-Completion</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/programing-languages/index.html" class="">Syntax Highlighting - Built-in Languages</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/user-defined-language-system/index.html" class="">Syntax Highlighting - User Defined Languages</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/introduction/index.html" class="">UDL &gt; Parser</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/default/index.html" class="">UDL &gt; Default Style</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/folding-in-code/index.html" class="">UDL &gt; Folding in code</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/folding-in-comment/index.html" class="">UDL &gt; Folding in comment</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/keywords/index.html" class="">UDL &gt; Keywords</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/comments/index.html" class="">UDL &gt; Comments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/numbers/index.html" class="">UDL &gt; Numbers</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/operators/index.html" class="">UDL &gt; Operators</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/delimiters/index.html" class="">UDL &gt; Delimiters</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/macros/index.html" class="">Macros - Task Automation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/run-menu/index.html" class="">Running External Commands</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/plugins/index.html" class="">Plugins</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/plugin-communication/index.html" class="">Plugin Communication</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/command-prompt/index.html" class="">Command Line Arguments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/preferences/index.html" class="">Preferences</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/config-files/index.html" class="">Configuration Files Details</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/themes/index.html" class="">Themes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/binary-translation/index.html" class="">Localization - User Interface Translation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/user-interface/index.html" class="">User Interface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/upgrading/index.html" class="">Upgrading</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/shell-extension/index.html" class="">Right Click - Edit With Notepad&#43;&#43;</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/ghost-typing/index.html" class="">Ghost Typing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/other-resources/index.html" class="">Other Resources</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/history/index.html" class="">User Manual History</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/license/index.html" class="">Copyright &amp; License</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="../../svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Editing</strong>
+
+  <label for="toc-control">
+    
+    <img src="../../svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#caret-and-cursor">Caret and Cursor</a></li>
+        <li><a href="#typing-mode">Typing Mode</a></li>
+        <li><a href="#selection-modes--column-editor">Selection modes &amp; Column Editor</a>
+          <ul>
+            <li><a href="#entering-column-mode">Entering Column Mode</a></li>
+            <li><a href="#leaving-column-mode">Leaving Column Mode</a></li>
+            <li><a href="#editing-in-column-mode">Editing In Column Mode</a></li>
+            <li><a href="#column-editor-dialog">Column Editor Dialog</a></li>
+          </ul>
+        </li>
+        <li><a href="#multi-editing">Multi-Editing</a>
+          <ul>
+            <li><a href="#multi-editing-howto">Multi-Editing HowTo</a>
+              <ul>
+                <li><a href="#step-1">Step 1</a></li>
+                <li><a href="#step-2">Step 2</a></li>
+                <li><a href="#step-3">Step 3</a></li>
+                <li><a href="#step-4">Step 4</a></li>
+                <li><a href="#step-5">Step 5</a></li>
+                <li><a href="#step-6">Step 6</a></li>
+                <li><a href="#step-7">Step 7</a></li>
+                <li><a href="#step-8">Step 8</a></li>
+                <li><a href="#step-9">Step 9</a></li>
+                <li><a href="#step-10">Step 10</a></li>
+                <li><a href="#step-11">Step 11</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#dual-view">Dual View</a></li>
+        <li><a href="#clone-document">Clone Document</a></li>
+        <li><a href="#virtual-space">Virtual Space</a></li>
+        <li><a href="#character-panel">Character Panel</a></li>
+        <li><a href="#change-history">Change History</a></li>
+        <li><a href="#edit-menu">Edit Menu</a></li>
+        <li><a href="#other-editing-commands-and-shortcuts">Other Editing Commands and Shortcuts</a>
+          <ul>
+            <li><a href="#context-awareness">Context Awareness</a></li>
+            <li><a href="#drag-and-drop-move-or-copy">Drag-and-Drop Move or Copy</a></li>
+          </ul>
+        </li>
+        <li><a href="#printing">Printing</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h2 id="caret-and-cursor">Caret and Cursor</h2>
+<p>When editing in Notepad++, the insertion point in the editing window where your text will be typed is called the &ldquo;caret&rdquo;, and is indicated by either a vertical bar or a box around the insertion location, depending on <a href="../preferences/index.html#editing-1">Caret settings</a>. This is separate from the mouse cursor, which is the graphical pointer that moves freely as you move your mouse, not limited to the editing window, and can be used for changing the caret location and for interacting with the rest of the user interface. (Some also call the &ldquo;caret&rdquo; the &ldquo;typing cursor&rdquo; or &ldquo;<a href="https://en.wikipedia.org/wiki/Caret_navigation">text insertion/selection cursor</a>&rdquo; or sometimes just the &ldquo;cursor&rdquo;.  The name &ldquo;caret&rdquo; comes from the &ldquo;<a href="https://en.wikipedia.org/wiki/Caret_%28proofreading%29">proofreader&rsquo;s caret</a>&rdquo; <code>‸</code> or <code>^</code>, which is used to indicate where text needs to be inserted in a manuscript. The Notepad++ user interface and this manual both try to disambiguate the two by using &ldquo;caret&rdquo; for the typing cursor and &ldquo;cursor&rdquo; for the mouse cursor.)</p>
+<h2 id="typing-mode">Typing Mode</h2>
+<p>As with many other text editors and other Windows applications, Notepad++ allows two different typing modes: &ldquo;insertion mode&rdquo; and &ldquo;overwrite mode&rdquo;.</p>
+<ul>
+<li>In insertion mode, text is typed at the position of the caret, and any characters that came after the caret remain after the caret.  For example: if you had <code>ab‸cd</code> (where <code>‸</code> indicates the typing caret, not the literal <code>‸</code> character), then typing <code>xyz</code> would end up with <code>abxyz‸cd</code>.</li>
+<li>In overwrite mode, also known as &ldquo;type over mode&rdquo;, text is typed at the position of the caret, and any characters that came after the caret will be overwritten.  For example: if you had <code>ab‸cd</code> (where <code>‸</code> indicates the typing caret, not the literal <code>‸</code> character), then typing <code>xyz</code> would end up with <code>abxyz‸</code>, with the <code>cd</code> no longer being there.</li>
+</ul>
+<p>While in insertion mode, the caret-position indicator will be either a vertical bar (like <code>|</code>) or a shaded box (like <code>▒</code>), depending on <a href="../preferences/index.html#editing-1"><strong>Settings &gt; Preferences &gt; Editing 1 &gt; Caret Settings</strong></a>.  When in overwrite mode, the caret-position indicator will be an underline (like <code>_</code>).  The speed of the blinking for the caret-position indicator can also be set in the same preferences section.</p>
+<p>To toggle between insertion mode and overwrite mode, use the <kbd>Insert</kbd> key on your keyboard.  Alternatively, if the <a href="../user-interface/index.html#status-bar">Status Bar</a> is not hidden using <strong><a href="../preferences/#general">Settings &gt; Preferences &gt; General</a> &gt; Status Bar &gt; <code>☐ Hide</code></strong>, one field in the Status Bar will show <code>INS</code> or <code>OVR</code> to indicate the typing mode, and clicking on that indicator will toggle the mode.</p>
+<h2 id="selection-modes--column-editor">Selection modes &amp; Column Editor</h2>
+<p>Notepad++ has two modes for selecting text: stream selection and column mode selection.</p>
+<p>Normally when you select text by <kbd>LeftClick+Drag</kbd> with the mouse, or <kbd>Shift+Arrow</kbd> key commands, you make what is called a stream selection.  In this mode, the text that is selected is contiguous, left-to-right, top-to-bottom.  There is another mode of selection called column mode that you can enter in order to select text that isn&rsquo;t contiguous horizontally, but rather vertically; column mode is also referred to as column-block, rectangular selection, or rectangular block selection, because it makes a rectangle of selected text.</p>
+<p>Most users are accustomed to stream selection mode, because it behaves similarly to other applications.  But to clarify <em>exiting</em> stream selection: If you have a stream selection, and click in the text (whether inside or outside the current selection) without using the <kbd>Ctrl</kbd> or <kbd>Shift</kbd> modifiers, then you will no longer have a stream selection, and your typing <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a> will move to wherever in the text that you clicked; similarly, using the keyboard to arrow or <kbd>PageUp</kbd>/<kbd>PageDown</kbd> away from the text, you will no longer have a stream selection, and your typing <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a> will move as appropriate for the movement key you used.  Either way, if you made your selection from left-to-right, then the typing <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a> will end up on the right side of the old selection when you exit selection mode; similarly, if you made your selection from right-to-left, the typing <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a> will end up on the left side of the old selection when you exit selection mode.</p>
+<p>Whether you are in Column-Mode selection, or have a multiple-stream selection using Multi-Edit, the row or sub-selection that was added to the selection most-recently will be considered the &ldquo;main selection&rdquo;; certain actions (like the <a href="#edit"><strong>Edit &gt; Blank Operations &gt; Trim &hellip;</strong></a> actions, below) will only work on the &ldquo;main selection&rdquo; instead of the whole selection; as of v8.6, <strong><a href="../../preferences/index.html#global-styles">Global Styles</a> &gt; Multi-selected text colour</strong> and <strong>Multi-edit carets colour</strong> were added, so the earlier portions of the selection will use those colors, whereas the &ldquo;main selection&rdquo; will use the original <strong>Selected text colour</strong> and <strong>Caret colour</strong> &ndash; so setting those text colours to different colours will help you quickly tell whether the selection is the &ldquo;main selection&rdquo; or one of the other portions of the multi-select or column selection.</p>
+<p>The next sub-sections will provide more detail for the Column Mode selection, as that is the mode that needs more clarification for users unaccustomed to rectangular selection.</p>
+<h3 id="entering-column-mode">Entering Column Mode</h3>
+<p>On the <strong>Edit</strong> menu is an entry <strong>Column Mode</strong> which when executed opens a text box window that explains the basics of column mode selection of text:</p>
+<p>There are 3 ways to switch to column-select mode:</p>
+<ol>
+<li>
+<p>(Keyboard and Mouse)  Hold Alt while left-click dragging</p>
+</li>
+<li>
+<p>(Keyboard only)  Hold Alt+Shift while using arrow keys</p>
+</li>
+<li>
+<p>(Keyboard or Mouse)  Put <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a> at desired start of column block position, then execute the <strong>Begin/End Select in Column Mode</strong> command; move <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a> to desired end of column block position, then execute the <strong>Begin/End Select in Column Mode</strong> command again.</p>
+</li>
+</ol>
+<p>Other ways to enter column-mode exist, e.g. try Alt+Shift+PageDown, but knowing the intricacies of these &ndash; what works and what doesn&rsquo;t &ndash; takes some practice on the part of the user.</p>
+<p>When column-selecting with the mouse, once you stop making a column mode selection by letting up on the mouse&rsquo;s left click button, the only way to then alter the shape of the rectangular selection is with the keyboard (<kbd>Alt+Shift+Arrows</kbd>).</p>
+<p>To help you understand, here is an animation of using <kbd>Alt+LeftClick+Drag</kbd> or <kbd>Alt+Shift+Arrows</kbd> to make a selection in column mode:</p>
+<p><img src="../images/columnMode.gif" alt="" /></p>
+<h3 id="leaving-column-mode">Leaving Column Mode</h3>
+<p>As soon as you make a <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a> movement that doesn&rsquo;t intentionally keep you in column mode, your selection mode returns to the stream selection mode (such as hitting an arrow key without also holding <kbd>Alt+Shift</kbd>).  Alternatively, hitting the <kbd>Esc</kbd> key will also leave Column Mode.</p>
+<p>When you do leave Column Mode, the typing <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a> will be at the last corner of your selection. Thus, if you made your column selection from upper left to lower right of the rectangle, the <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a> will be in the lower right after you leave Column Mode; if you did your column selection from upper right to lower left, the <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a> will be in the lower left; if you do the column selection from lower left to upper right, then the <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a> will end up in the upper right; and if you do the column selection from lower right to upper left, then the <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a> will end up in the upper left.</p>
+<h3 id="editing-in-column-mode">Editing In Column Mode</h3>
+<p>In column mode, typing will type the same thing in all the rows of the column.  If you copy/cut in column mode, then you copy/cut a rectangle of text, which can be pasted over an identical-sized rectangle elsewhere, or pasted into a separate document or separate application.  This is implemented for making working with rectangles of text (instead of whole lines of text) more convenient.</p>
+<p>In column mode selection, when text is copied/cut, artificial line-ending characters are introduced into the text.  Thus, pasting in column mode can sometimes lead to surprising results, especially when you simply want the text inserted as if it isn&rsquo;t a column block.  Example: You copy a column block that spans 10 lines and then move the <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a> to column 1 on an empty line in your document and perform the paste.  The first line of the data from the paste ends up fine, but for the remaining lines, the paste has pushed existing text on subsequent lines to the right before inserting the new columns.  The solution here is to first (before the paste), use the Enter key to insert enough blank lines in the document so that the paste won&rsquo;t do this.</p>
+<h3 id="column-editor-dialog">Column Editor Dialog</h3>
+<p>The Column Editor dialog, accessed via <strong>Edit &gt; Column Editor</strong>, allows you to insert text or numbers in every row of the active Column Mode selection:</p>
+<p><img src="../images/columnEditor.gif" alt="" /></p>
+<ul>
+<li>The <strong>Text to Insert</strong> will use the same text in every row.</li>
+<li>The <strong>Number to Insert</strong> will insert increasing numbers.
+<ul>
+<li>
+<p><strong>Initial number</strong> sets the starting number.</p>
+</li>
+<li>
+<p><strong>Increase by</strong> will change the step between numbers.  With a value of <code>0</code> (or if left empty), it will insert the same number every time.</p>
+</li>
+<li>
+<p><strong>Repeat</strong> will repeat the same number <em>n</em> times.  Defaults to 1 if left blank.</p>
+</li>
+<li>
+<p><strong>Leading</strong> is a pull-down selector that will allow choosing between no leading characters, leading zeros, or leading spaces.</p>
+<table>
+<thead>
+<tr>
+<th>None</th>
+<th>Zeros</th>
+<th>Spaces</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="../images/colEdit-LeadingNone.png" alt="" /></td>
+<td><img src="../images/colEdit-LeadingZeros.png" alt="" /></td>
+<td><img src="../images/colEdit-LeadingSpaces.png" alt="" /></td>
+</tr>
+<tr>
+<td><em>examples shown with <strong>View &gt; Show Symbol &gt; Show Spaces and Tab</strong> to make the leading spaces obvious.</em></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>(Prior to v8.5.2, the only option was a checkbox for <strong>☐ Leading zeros</strong>, so unchecked was equivalent to &ldquo;None&rdquo; and checkmarked was equivalent to &ldquo;Zeros&rdquo;)</p>
+</li>
+<li>
+<p><strong>Format</strong> chooses between <strong>Dec</strong> (0-9), <strong>Hex</strong> (0-9,A-F), <strong>Oct</strong> (0-7), or <strong>Bin</strong> (0-1).
+<em>Note</em>: the numerical boxes above are always in decimal, even if a different format is chosen for display.  (Example: to get <code>F</code>-<code>1F</code>, column-select 17 rows and set the initial number to <code>15</code> &ndash; it will not allow <code>F</code>.)</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="multi-editing">Multi-Editing</h2>
+<p>Multi-Editing mode (available via mouse usage only) allows you to make multiple <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a>s by using <kbd>Ctrl+Click</kbd> for each additional <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a>.  This allows performing the same editing actions (typing, copy/cut/paste/delete, arrowing through the text) in multiple locations, even if they aren&rsquo;t lined up in a nice column, or even if there are lines between the <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a>s that you don&rsquo;t want to affect.  You may place as many additional <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a>s as you want.</p>
+<p>In addition to placing additional <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a>s, you may also make multiple selections.  After making an initial selection, do a <kbd>Ctrl+Click+Drag</kbd> operation to place a second selection in another location.  You may create as many such selections as you&rsquo;d like.  A primary use for this type of selection might be so that you can copy several selections with one command, or to replace multiple selections with the same content if you begin typing or do a paste.</p>
+<p>Starting in v8.6.1, if you <kbd>Ctrl+Click</kbd> at a previous multi-<a href="#caret-and-cursor" title="typing/insertion cursor">caret</a> location, or <kbd>Ctrl+Click</kbd> within a previous multi-selection region, that <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a> or selection region will be removed, while leaving other portions of your multi-selection still active.  (This effectively allows you to &ldquo;undo&rdquo; a <em>portion</em> of the multi-selection without having to redo everything, and is useful in complex multi-selections when you accidentally <kbd>Ctrl+Clicked</kbd> in the wrong place or changed your mind.)</p>
+<p>Multi-Editing mode is only available when stream selection(s) are active; it doesn&rsquo;t work in conjunction with column-block selection.  Unlike stream selections, where with Multi-editing you can define two or more selections simultaneously, with column mode there can be only one active selection at a time.</p>
+<p>Before v8.6, whether or not you can use Multi-Editing mode was determined by the <a href="../preferences/index.html#editing-2"><strong>Settings &gt; Preferences &gt; Editing &gt; ☑ Enable Multi-Editing (Ctrl+Mouse click/selection)</strong></a> checkbox: with it checkmarked, <kbd>Ctrl+Click</kbd> will add <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a> locations; with it not checkmarked, Multi-Editing is disabled.  In v8.6 - v8.6.2, Multi-Editing is always on, and that option was been removed; starting in v8.6.3, that option was returned, but is now at <a href="../preferences/#editing-2"><strong>Settings &gt; Preferences &gt; Editing 2 &gt; ☑ Enable Multi-Editing (Ctrl+Mouse click/selection)</strong></a>.</p>
+<p>Starting in v8.6, Multi-Edit became the default, and was significantly enhanced.  The <a href="#multi-editing-howto">Multi-Editing HowTo</a> (below) gives a tutorial in how to use this improved feature, including the new <a href="#edit-menu"><strong>Edit</strong> menu</a> <strong>&hellip;Multi-Select&hellip;</strong> commands.</p>
+<p>With the improved Multi-Edit, Column Mode selections are treated more like Multi-Edit selections; in order to disable this treatment, create the <a href="../config-files/index.html#other-configuration-files">zero-byte config file</a> <code>noColumnToMultiSelect.xml</code> (in v8.6.1-v8.6.2); going forward, instead of a zero-byte file, there is a second option in the <a href="../preferences/#editing-2"><strong>Editing 2</strong></a> preferences to <strong>☐ Enable Column Selection to Multi-Editing</strong>.</p>
+<h3 id="multi-editing-howto">Multi-Editing HowTo</h3>
+<p>The animation below is the demo of the feature that was published on the <a href="https://notepad-plus-plus.org/news/v86-20thyearanniversary/">v8.6 release announce</a>:</p>
+<p><img src="https://github.com/notepad-plus-plus/notepad-plus-plus/assets/90293/79b59d65-6862-4e5d-b2c2-1d19d0f2f551" alt="multiedit" /></p>
+<p>Here is a step-by-step guide that shows you how to transform from</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># var1, var2, object1, object2, object3, flag1, flag2</span>
+</code></pre></div><p>to</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">var1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">param</span>[<span style="color:#e6db74">&#34;var1&#34;</span>]
+<span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">var2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">param</span>[<span style="color:#e6db74">&#34;var2&#34;</span>]
+<span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">object1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">param</span>[<span style="color:#e6db74">&#34;object1&#34;</span>]
+<span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">object2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">param</span>[<span style="color:#e6db74">&#34;object2&#34;</span>]
+<span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">object3</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">param</span>[<span style="color:#e6db74">&#34;object3&#34;</span>]
+<span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">flag1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">param</span>[<span style="color:#e6db74">&#34;flag1&#34;</span>]
+<span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">flag2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">param</span>[<span style="color:#e6db74">&#34;flag2&#34;</span>]
+</code></pre></div><p>Once you understand how it work this part, the remain demo should be intuitive &amp; easy to follow.</p>
+<h4 id="step-1">Step 1</h4>
+<p>Copy the line from <code>var1</code> to <code>flag2</code> and paste it, and add another comma at the end</p>
+<p><img src="https://github.com/notepad-plus-plus/notepad-plus-plus/assets/90293/724c867f-78de-4086-9adc-9d5a5cf48481" alt="image" /></p>
+<h4 id="step-2">Step 2</h4>
+<p>Select the first <code>,</code> of <code>var1,</code></p>
+<p><img src="https://github.com/notepad-plus-plus/notepad-plus-plus/assets/90293/e544ff80-6758-449e-b762-d443471c22dd" alt="image" /></p>
+<h4 id="step-3">Step 3</h4>
+<p>Run <strong>Edit &gt; Multi-Select Next &gt; Match Case Only</strong> command 6 times.
+Note: You can always run this command via the menu, but it&rsquo;ll be much easier to use the shortcut (I assigned <em><strong>Ctrl-E</strong></em> to it).
+You can assign any available shortcut to <strong>Multi-Select Next &gt; Match Case Only</strong> command via <a href="../preferences/index.html#shortcut-mapper">Shortcut Mapper</a>.</p>
+<p><img src="https://github.com/notepad-plus-plus/notepad-plus-plus/assets/90293/0ac09902-0abb-4b11-8c83-bfdaa0b1c69b" alt="image" /></p>
+<h4 id="step-4">Step 4</h4>
+<p>Type <kbd>DELETE</kbd> twice and then <kbd>ENTER</kbd> once, then <kbd>ArrowUp</kbd> to move all <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a>s up.</p>
+<p><img src="https://github.com/notepad-plus-plus/notepad-plus-plus/assets/90293/de872b16-6b18-42cf-b993-93cb7370be63" alt="image" /></p>
+<h4 id="step-5">Step 5</h4>
+<p>Type <code>obj.</code></p>
+<p><img src="https://github.com/notepad-plus-plus/notepad-plus-plus/assets/90293/5f960695-a0d8-4f40-93b6-8eee3e164bba" alt="image" /></p>
+<h4 id="step-6">Step 6</h4>
+<p>Use <kbd>Ctrl+ArrowRight</kbd> to move the <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a>s to the end of the words.</p>
+<p><img src="https://github.com/notepad-plus-plus/notepad-plus-plus/assets/90293/56aee7fc-cdc7-4603-9332-a9148ae882ef" alt="image" /></p>
+<h4 id="step-7">Step 7</h4>
+<p>Type <code> = param[&quot;&quot;]</code></p>
+<p><img src="https://github.com/notepad-plus-plus/notepad-plus-plus/assets/90293/66fb36a1-042e-4d88-88cf-b8f4278c3e79" alt="image" /></p>
+<h4 id="step-8">Step 8</h4>
+<p>Put your <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a> after <code>obj.</code> of the 1st line, the <kbd>Alt+Shift+ArrowDown</kbd> to the last line.
+(Or you can use <kbd>Ctrl+ArrowLeft</kbd> to move <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a>s after <code>obj.</code> column.)</p>
+<p><img src="https://github.com/notepad-plus-plus/notepad-plus-plus/assets/90293/d92f4e4a-1cd4-40c5-9990-43136db901f3" alt="image" /></p>
+<h4 id="step-9">Step 9</h4>
+<p>Use <kbd>Ctrl+Shift+ArrowRight</kbd> to multi-select the words, then copy them (<kbd>Ctrl+C</kbd>).</p>
+<p><img src="https://github.com/notepad-plus-plus/notepad-plus-plus/assets/90293/abecd307-10ef-4ebb-b0fd-3670bbde9aed" alt="image" /></p>
+<h4 id="step-10">Step 10</h4>
+<p>Move all <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a>s to right by using <kbd>ArrowRight</kbd> to between <code>&quot;&quot;</code>, then paste (<kbd>Ctrl+V</kbd>).</p>
+<p><img src="https://github.com/notepad-plus-plus/notepad-plus-plus/assets/90293/5e91706b-96fe-4adb-80c1-6fb2aaf1d6f9" alt="image" /></p>
+<h4 id="step-11">Step 11</h4>
+<p>Use what you learned from Steps 1 through 10 to continue trying to mimic the behavior of the demo animation.</p>
+<h2 id="dual-view">Dual View</h2>
+<p>To create Dual View, drag and drop any tab that you want it to be in another view (or right click on the tab) then choose &ldquo;Move to Other View&rdquo; command from the popup context menu.
+Once you&rsquo;ve got 2 views, you can move files between 2 views by drag-and-dropping.</p>
+<p><img src="../images/move2view.gif" alt="" /></p>
+<p>You can find more on moving to other views or instances in the <a href="../views/index.html#move-clone">Views &gt; Move / Clone</a> section, and more on manipulating tabs through the tab bar in <a href="../other-resources/#tabs">Other Resources &gt; Tabs</a>.</p>
+<h2 id="clone-document">Clone Document</h2>
+<p>Drag and drop any tab that you want to clone (or right click on the tab) then choose &ldquo;Clone to Other View&rdquo; command from the popup context menu.
+The cloned document is the same document as its original one, but with the separated views.</p>
+<p><img src="../images/clonedDoc.gif" alt="" /></p>
+<p>You can find more on cloning to other views or instances in the <a href="../views/index.html#move-clone">Views &gt; Move / Clone</a> section, and more on manipulating tabs through the tab bar in <a href="../other-resources/#tabs">Other Resources &gt; Tabs</a>.</p>
+<h2 id="virtual-space">Virtual Space</h2>
+<p>When editing a text document in Notepad++, there is potentially a blank area beyond the end of each line, which has no characters (not even space characters), because it&rsquo;s past the end-of-line characters.  By default, if you tried to click in that empty space, the <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a> (typing cursor) would move to the end of the line, instead of being placed where you clicked.  However, if you enabled <strong><a href="../preferences/index.html#editing-1">Settings &gt; Preferences &gt; Editing 1</a> &gt; <code>☐ Enable virtual space</code></strong>, then if you clicked in that empty space, Notepad++ would place the <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a> there, beyond the end of the line; if you then typed some text, Notepad++ would fill the empty space between the end of the line and the <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a> with spaces, and the text you typed would go after those spaces.  (The Virtual Space feature was added in Notepad++ v8.4.3, so if you have an older Notepad++, you would need to upgrade to use this feature.)</p>
+<p>This Virtual Space feature, however, does not influence blank space beyond the last line of the document: if you have fewer lines on your document than your screen allows, or if you enabled <strong><a href="../preferences/index.html#editing-1">Settings &gt; Preferences &gt; Editing 1</a> &gt; <code>☐ Enable scrolling beyond last line</code></strong>, there could be empty space visible below the last numbered line in the Notepad++ document.  However, whatever the state of the Virtual Space option, if you click in the empty space below the last line, the <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a> will just go to the last line, and you cannot access any Virtual Space there &ndash; so you cannot click a few lines below the end and start typing, and have Notepad++ fill in with blank lines or spaces. (You could, however, just hit <kbd>Enter</kbd> from the end of the last line, and you will then be able to continue your document into what used to be empty space.)</p>
+<h2 id="character-panel">Character Panel</h2>
+<p>The Character Panel, accessed through the <strong>Edit &gt; Character Panel</strong> menu entry, allows the user to interact with the first 256 characters in the active <a href="../preferences/index.html#encoding-menu">Encoding or Character set</a>.</p>
+<p>When opened, the Character Panel will be by default a docked window on the right-hand side of the Notepad++ main window, entitled <code>ASCII Codes Insertion Panel</code>. (This is a bit of a misnomer since ASCII is defined as values 0 - 127 and the panel shows values in the range  0 - 255.)</p>
+<p>This panel contains a grid-like control that has five columns: <code>Value</code>, <code>Hex</code>, <code>Character</code>, <code>HTML Name</code>, <code>HTML Decimal</code> and <code>HTML Hexadecimal</code>.  The HTML columns show the various HTML entity formats for each character: <code>HTML Name</code> is the named entity, like <code>&amp;quot;</code>.  <code>HTML Decimal</code> (or <code>HTML Code</code> in older versions) is the decimal entity, like <code>&amp;#34;</code>.  And <code>HTML Hexadecimal</code> (new to v8.5.2) is the hexadecimal entity, like <code>&amp;#x22;</code>.  (All three of those examples refer to the ASCII double quote <code>&quot;</code> character.)</p>
+<p>If input focus is moved to a line in the Character Panel and Enter is pressed, the character from the <code>Character</code> column will be inserted at the current position in the document being edited.  If the mouse is used there is more flexibility: an item from the grid that is double-clicked will be inserted.  For example, when double-clicking <code>&amp;quot;</code> from the <code>HTML Name</code> column on the line of value 34, <code>&amp;quot;</code> (as literal text) will be inserted at the current position in the active document &ndash; so this can be used to insert the character number in decimal or hexadecimal, the character itself, or the HTML entity (named or decimal or hexadecimal) into the document being edited.</p>
+<p>When Notepad++ is told to interpret a file as ANSI or any of the Character Sets (described in the <a href="../preferences/index.html#encoding-menu"><strong>Encoding</strong>-menu docs</a>), the Character Panel shows information about the 256 8-bit character numbers (that is, the <code>Value</code>) for the character set selected.  Note that for all character sets, the 0-127 character values always represent the same character (the ASCII character); character values from 128-255 are character-set specific as to which character each value represents.  The panel offers an easy way to see value and character equivalence, and insert characters that don&rsquo;t exist on your keyboard.</p>
+<p>When Notepad++ is told to interpret a file as Unicode (the entries starting with <code>UTF-8</code> or <code>UTF-16</code> in the <a href="../preferences/index.html#encoding-menu"><strong>Encoding</strong> menu</a>), the Character Panel will show the same characters for values 128-255 as the default codepage character set on the user&rsquo;s system (viewable as <code>Current ANSI codepage</code> in the <strong>? &gt; Debug Info</strong> menu entry).  In this case, for values 128-255, the <code>Value</code> column is meaningless &ndash; only the <code>Character</code> shown is important.  If this panel is used to insert the character into the active document, the correct Unicode character bytes will be used instead of the value as in the simpler ANSI case.  For values from 0-127, the character/value pair <em>is</em> meaningful, because for this range the ANSI set of characters &ndash; the true ASCII set &ndash; line up with the same characters and values in the Unicode set.</p>
+<h2 id="change-history">Change History</h2>
+<p>Notepad++ has a column in the margin section which indicates which lines have been changed since the file was last loaded, controlled by a checkbox in <a href="../preferences/index.html#margins-border-edge"><strong>Settings &gt; Preferences &gt; Margins/Border/Edge</strong></a> with the background color set by the <a href="../preferences/#global-styles"><strong>Settings &gt; Style Configurator &gt; Global Styles &gt; Change History margin</strong></a> (new to v8.4.6)</p>
+<p><img src="../images/ChangeHistoryColors.png" alt="" /></p>
+<ul>
+<li>When the file is first loaded (or a new file is created), no lines have a color in that margin column.</li>
+<li>If a line is changed (added or edited) since the most recent load or save, it will be orange. (This is <code>Modified but unsaved</code> in the image.)</li>
+<li>After the changes to the file are saved, any lines that have been changed since the file was loaded will be green. (This is <code>Modified but saved</code> in the image.)
+<ul>
+<li><em>Note</em>: If you tell Notepad++ to reload the file from disk, <em>all</em> lines will be green.</li>
+<li>Multiple saves will leave those lines green, even if they weren&rsquo;t changed since the previous save.</li>
+<li>The only way to get back to having no color in the margin is to close the file and reload it (easy enough to do with <strong>File &gt; Close</strong> followed by <strong>File &gt; Recent Files &gt; Restore Recent Closed Files</strong>, or with default shortcuts, use <kbd>Ctrl+W</kbd> then <kbd>Ctrl+Shift+T</kbd>).</li>
+</ul>
+</li>
+<li>If the file is saved, if you use <strong>Undo</strong> to go back to the previous modified state, it will be a pale green (some call it &ldquo;olive&rdquo; or &ldquo;yellow-green&rdquo;).  (This is <code>Revert to modified</code> in the image.)</li>
+<li>If the file is saved, if you use <strong>Undo</strong> to go back to the original state of that line (the text it had when the file was originally loaded), it will be a pale blue (some call it &ldquo;cyan&rdquo;). (This is <code>Revert to original</code> in the image.)</li>
+</ul>
+<h2 id="edit-menu">Edit Menu</h2>
+<p>The top of the <strong>Edit</strong> menu features typical editing commands which any Windows user should be familiar with:</p>
+<ul>
+<li><strong>Undo</strong> - reverts the text to its content before the previous operation; can be used one or more times consecutively to step back through a document&rsquo;s textual history</li>
+<li><strong>Redo</strong> - if <strong>Undo</strong> was executed previously, this will reinstate the change(s) previously undone; may be executed multiple times</li>
+<li><strong>Cut</strong> - will remove any selected text from the document and place it on the Windows clipboard</li>
+<li><strong>Copy</strong> - will put a copy of any selected text on the Windows clipboard; document content is unaltered</li>
+<li><strong>Paste</strong> - if the Windows clipboard contains text, this will insert a copy of that text at the point of the <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a>; if text is selected when this command is executed, the selected text will be replaced by the text from the clipboard; if the clipboard does not contain text, nothing will happen</li>
+<li><strong>Delete</strong> - will remove any selected text from the document</li>
+<li><strong>Select All</strong> - selects all text in the document into a stream selection</li>
+</ul>
+<p>Below the common editing commands are two that (each) allow text to be selected in two distinct steps:</p>
+<ul>
+<li><strong>Begin/End Select</strong></li>
+<li><strong>Begin/End Select in Column Mode</strong></li>
+</ul>
+<p>Normally text selection is a dedicated process &ndash; once a selection is started, the only thing you can do is to complete it, before moving on to other actions.  But sometimes it is useful to do other things, in particular document navigation actions, between defining the starting point of a selection and actually bringing the selection into existence.</p>
+<p>The <strong>Begin/End Select</strong> commands are useful when making huge selections of text; rather than holding Shift while using arrow keys or the mouse to select text, and be at the mercy of the system scroll speed as you watch the viewport scroll interminably to locate the far-away ending point for the selection you started, you can use the <strong>Begin/End Select</strong> feature.  Execute <strong>Begin/End Select</strong> once to set a starting point of a future selection, then use a <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a> movement command(s) (example: Ctrl+End to move quickly to the end of a document), and finally run <strong>Begin/End Select</strong> a second time to create a text selection between the two far-away document positions.</p>
+<p>After you use <strong>Begin/End Select</strong> the first time to set the starting point, the menu item for the command will appear &ldquo;checkmarked&rdquo; to let you know that you have started the process, and need to execute the command a second time to define the selection end point and show the text as selected.</p>
+<p><strong>Begin/End Select in Column Mode</strong> works very similarly to the normal version of the command, with the exception being that when the two-stage command is completed, a column mode selection will be made rather than a stream selection.  If you execute the first part of one of the commands, and then change your mind about the type of selection needed, you must complete the in-progress command before you will be allowed to begin the one of the opposite type.  (New to v8.5.)</p>
+<p>Below the <strong>Begin/End Select</strong> entries, there are a number of sub-menus to the <strong>Edit</strong> menu, which group together various categories of editing-related commands, and a few other editing commands in the main <strong>Edit</strong> menu.</p>
+<ul>
+<li>
+<p><strong>Insert &gt;</strong> ⇒ submenu with actions that insert the date and time (new to v8.1.4)</p>
+<ul>
+<li><strong>Date Time (short)</strong> ⇒ like <code>12:46 PM 8/21/2021</code> (new to v8.1.4)</li>
+<li><strong>Date Time (long)</strong> ⇒ like <code>12:46 PM Saturday, August 21, 2021</code>) (new to v8.1.4)</li>
+<li><strong>Date Time (custom)</strong> ⇒ can insert a date with a customized format, as defined in the <a href="../preferences/index.html#multi-instance-and-date"><strong>Settings &gt; Preferences &gt; Multi-Instance &amp; Date</strong></a> dialog</li>
+</ul>
+</li>
+<li>
+<p><strong>Copy to Clipboard &gt;</strong> ⇒ submenu with actions that copy current filename, path, or directory name to the clipboard</p>
+</li>
+<li>
+<p><strong>Indent &gt;</strong> ⇒ submenu with actions that increase or decrease the current line&rsquo;s indentation, based on <a href="../preferences/index.html#language">the syntax language&rsquo;s</a> tab/indent settings</p>
+<ul>
+<li><strong>Increase Line Indent</strong> ⇒ Inserts a tab or equivalent number of spaces at the beginning of the line (any whitespace already at the beginning of the line will still be there, coming <em>after</em> the new tab or spaces that was inserted)</li>
+<li><strong>Decrease Line Indent</strong> ⇒ Removes a tab or equivalent number of spaces at the beginning of the line (if there aren&rsquo;t enough leading space characters to remove an entire tabwidth, all the leading space characters will be removed)</li>
+</ul>
+</li>
+<li>
+<p><strong>Convert Case to &gt;</strong> ⇒ submenu with actions that change the case of the selected text</p>
+<ul>
+<li><strong>Uppercase</strong> ⇒ convert to all uppercase: <code>StArT mIxEd</code> ⇒ <code>START MIXED</code></li>
+<li><strong>lowercase</strong> ⇒ convert to all lowercase: <code>StArT mIxEd</code> ⇒ <code>start mixed</code></li>
+<li><strong>Proper Case</strong> ⇒ first character of every word is made uppercase, all others made lowercase: <code>isCharAlpha NMumericW</code> ⇒ <code>Ischaralpha Nmumericw</code></li>
+<li><strong>Proper Case (blend)</strong> ⇒ first character of every word is made uppercase, all others left alone: <code>isCharAlpha NMumericW</code> ⇒ <code>IsCharAlpha NMumericW</code></li>
+<li><strong>Sentence case</strong> ⇒ first character of each sentence is made uppercase, all others made lowercase: <code>tHis Is A Sentence. iS tHis Second?</code> ⇒ <code>This is a sentence. Is this second?</code></li>
+<li><strong>Sentence case (blend)</strong> ⇒ first character of each sentence is made uppercase, all others left alone: <code>tHis Is A Sentence. iS tHis Second?</code> ⇒ <code>THis Is A Sentence. IS tHis Second?</code></li>
+<li><strong>iNVERT cASE</strong> ⇒ any that were uppercase are changed to lowercase, and any that were lowercase are changed to uppercase: <code>StArT mIxEd</code> ⇒ <code>sTaRt MiXeD</code></li>
+<li><strong>ranDOm CasE</strong> ⇒ each character gets a random case: <code>StArT mIxEd</code> ⇒ <code>StaRt mIxeD</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Line Operations &gt;</strong> ⇒ submenu with actions that typically work on lines (also known as &ldquo;rows&rdquo;) of your document</p>
+<ul>
+<li>There is a method for duplicating data:
+<ul>
+<li><strong>Duplicate Current Line</strong>: Duplicates the current line. (Prior to v8.6, if a selection was active it would duplicate just that selection, but starting in v8.6, selection state is ignored for this menu command; if you want the old behavior, the <kbd>Ctrl+D</kbd> shortcut is, by default, still assigned to the selection-aware duplication, under <code>SCI_SELECTIONDUPLICATE</code> in the <a href="../preferences/index.html#shortcut-mapper">Shortcut Mapper</a>.)</li>
+</ul>
+</li>
+<li>There are two versions of the Remove Duplicates functionality:
+<ul>
+<li><strong>Remove Duplicate Lines</strong>: leaves only the first instance of any full lines that have more than one copy anywhere in the active file; acts upon the line set spanned by the current selection, or the entire file if no active selection</li>
+<li><strong>Remove Consecutive Duplicate Lines</strong>: will only remove duplicates that are on the lines immediately following the first instance (still keeping the first instance); acts upon the line set spanned by the current selection, or the entire file if no active selection</li>
+<li>NOTE: Duplicates removal is performed with the assumption that all line-endings in the file are uniform and match the current selection for the file being edited &ndash; the quickest way to check that selection is to glance at the status bar, where the current line-ending type is shown either as <code>Windows (CR LF)</code>, <code>Unix (LF)</code> or <code>Macintosh (CR)</code>.  It might be desirable to check the line-ending types in your file before executing a sorting operation, and use the <strong>Edit &gt; EOL Conversion &gt;</strong> choices or right-click on the Status Bar&rsquo;s EOL indicator to fix the line endings if necessary.</li>
+</ul>
+</li>
+<li>There are methods for splitting lines and joining lines together:
+<ul>
+<li><strong>Split Lines</strong>: will insert a line-ending into a long line(s): if there is one or more <a href="../preferences/index.html#margins-border-edge">Vertical Edge</a> value specified, it will split at the right-most Vertical Edge; otherwise, it will split at the current size of the editor window.  It operates on the lines spanned by the current stream selection or the single line of the <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a> if no stream selection is currently active.</li>
+<li><strong>Join Lines</strong>: will combine the lines touched by the active stream selection by replacing line-endings with a single space character. It requires an active stream selection that spans two or more lines.</li>
+</ul>
+</li>
+<li>There are commands for removing lines
+<ul>
+<li><strong>Remove empty lines</strong>: will remove all lines containing no characters from the entire document</li>
+<li><strong>Remove empty lines (Containing Blank characters)</strong>: will remove all lines containing no characters from the entire document; if a line contains only space or tab characters that line will be removed as well</li>
+</ul>
+</li>
+<li>There are commands for changing the order of existing lines:
+<ul>
+<li><strong>Move Up Current Line</strong>: will swap the current line with the line above it, effectively moving the line of the <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a> up one row in the document; if a selection spanning lines is active upon invocation, it will move those lines touched by the selection up as a group</li>
+<li><strong>Move Down Current Line</strong>: will swap the current line with the line below it, effectively moving the line of the <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a> down one row in the document; if a selection spanning lines is active upon invocation, it will move those lines touched by the selection down as a group</li>
+<li><strong>Reverse Line Order</strong>: will take the selected lines (or all of the lines of the current document if no active selection) and will order them reversely (i.e. flipped) from their existing order (added in v8.0.0)</li>
+<li><strong>Randomize Line Order</strong>: will take the selected lines (or all of the lines of the current document if no active selection) and place them in an unpredictable order</li>
+</ul>
+</li>
+<li>There are a variety of sorting algorithms:
+<ul>
+<li><strong>Ascending</strong> means smallest to largest (A-Z)</li>
+<li><strong>Descending</strong> means largest to smallest (Z-A)</li>
+<li><strong>Lexicographically</strong> (or <strong>Lex.</strong>) means based on character codepoint, comparing one character at a time:
+<ul>
+<li>All uppercase letters will sort before any lowercase letter, so uppercase <code>Z</code> will sort before lowercase <code>a</code></li>
+<li>The sequence <code>10</code> will sort before <code>2</code>, because it sorts character-by-character of each collection of characters, and the character <code>1</code> comes before the character <code>2</code></li>
+</ul>
+</li>
+<li><strong>Ignoring case</strong> means that lowercase <code>a</code> will sort the same as uppercase <code>A</code>, and both will come before either <code>Z</code> or <code>z</code></li>
+<li><strong>As Integers</strong> means that <code>10</code> will sort as being bigger than <code>2</code>
+<ul>
+<li>Note that sorting as integers will sort IP addresses (like <code>192.168.0.1</code> and <code>8.8.8.8</code>) reasonably (as <code>8.8.8.8</code> before <code>192.168.0.1</code>).</li>
+<li>Note that if you have the same non-numeric prefixes on your numbers (like <code>xyz9</code> and <code>xyz11</code>), it will sort the numeric portion as integers.</li>
+<li>Note that if you have right-aligned numbers, with leading spaces before numbers of different lengths, the spaces will change the ordering from what you expect:
+<pre><code>   1
+  10
+ 100
+1000
+</code></pre><p>will be sorted as</p>
+<pre><code> 100
+  10
+   1
+1000
+</code></pre><p>because integers prefixed by spaces come before integers without spaces (because spaces are lexicographically earlier than digits; in this example, that means <code>1000</code> is last, because it had no space prefix), but integers prefixed with one space will be sorted before integers prefixed with two spaces.</p>
+</li>
+</ul>
+</li>
+<li><strong>As Decimals (Comma)</strong> means it will recognize <code>10,234</code> and <code>9,876</code> as decimal numbers and sort them numerically</li>
+<li><strong>As Decimals (Dot)</strong> means it will recognize <code>10.234</code> and <code>9.876</code> as decimal numbers and sort them numerically</li>
+<li>NOTE: Sorting is performed with the assumption that all line-endings in the file are uniform and match the current selection for the file being edited &ndash; the quickest way to check that selection is to glance at the status bar, where the current line-ending type is shown either as <code>Windows (CR LF)</code>, <code>Unix (LF)</code> or <code>Macintosh (CR)</code>.  It might be desirable to check the line-ending types in your file before executing a sorting operation, and use the <strong>Edit &gt; EOL Conversion &gt;</strong> choices or right-click on the Status Bar&rsquo;s EOL indicator to fix the line endings if necessary.</li>
+<li>NOTE: If a <a href="./index.html#selection-modes-column-editor">Column Mode</a> selection is active, the sort will re-order all the lines included in the selection, but the sort key (the text that decides the sort order) will be limited to what is inside the column selection. This column-selection-based sort will be a &ldquo;stable sort&rdquo;: if the keys are identical on two lines, then the order of those two lines will not change, even if text outside of the selected key columns is different.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Comment/Uncomment &gt;</strong> ⇒ submenu with actions that add or remove comment syntax, based on the file&rsquo;s <strong>Language</strong> selection.
+This makes use of the <code>commentLine</code>, <code>commentStart</code>, and <code>commentEnd</code> attributes of the active Language as defined in <a href="../config-files/index.html#keyword-lists-langsxml">langs.xml</a> to define the characters to use for making or clearing line comments (<code>commentLine</code>) and block comments (<code>commentStart</code> and <code>commentEnd</code>):</p>
+<ul>
+<li>The <strong>Single line</strong> comment commands all use the string defined as <code>commentLine</code> as the prefix for each commented line.</li>
+<li>The <strong>Block Comment/Uncomment</strong> commands put the <code>commentStart</code> string before the selected text, and the <code>commentEnd</code> string after the selected text.
+If the <code>commentStart</code> and <code>commentEnd</code> attributes are not defined, the <strong>Block</strong> commands will instead individually prefix each line of the block with the <code>commentLine</code> string.</li>
+<li>Some languages have multiple block comment syntaxes, but Notepad++'s <strong>Comment/Uncomment</strong> commands can only implement one.  You can edit your <code>langs.xml</code> to define the strings that <em>you</em> want to use.</li>
+<li>If your language currently is missing one or more of those attributes in the <code>langs.xml</code>, you can edit <code>langs.xml</code> following the advice in <a href="../config-files/index.html#editing-configuration-files">&ldquo;Editing Configuration Files&rdquo;</a> and add in those attributes for your language; after saving and restarting Notepad++, the <strong>Comment/Uncomment</strong> commands will use the strings you defined.</li>
+</ul>
+</li>
+<li>
+<p><strong>Auto-Completion &gt;</strong> ⇒ submenu with actions that manually trigger <a href="../auto-completion/index.html">auto-completion</a> of function name, word, function parameter, and pathname.  While the automatic completion is affected by <a href="../preferences/index.html#auto-completion"><strong>Preferences &gt; Auto-Completion</strong> settings</a> for setting minimum number of characters, and enabling which of the completions happen automatically, when you manually trigger one of the auto-completion actions through this menu or keyboard shortcut equivalents, completion will happen regardless of those settings (so you can manually trigger when there&rsquo;s fewer characters than the auto-trigger threshold, or you can manually trigger function completion when only word completion is active).</p>
+</li>
+<li>
+<p><strong>EOL Conversion &gt;</strong> ⇒ submenu with actions that convert line endings between Windows (<code>CR LF</code>), Unix (<code>LF</code>), and old Macintosh (<code>CR</code>) values; these operations affect all of the lines of the current file</p>
+<ul>
+<li>If your file has mixed line endings (some <code>CR LF</code> and some <code>LF</code>, for example), you can use this menu to fix it: if the desired line-ending is not greyed out, you can just select it, and any mixed line-endings will be converted to the chosen line ending; if the desired line-ending is greyed out, select one of the other line-endings, then switch back to the desired line-ending selection, and any mixed line-endings will be converted to the final line-ending choice.</li>
+</ul>
+</li>
+<li>
+<p><strong>Blank Operations &gt;</strong> ⇒ submenu with actions that trim or convert spaces and tab characters.</p>
+<ul>
+<li><em>NOTE: All the <strong>Blank Operations</strong> commands will default to doing a global change through the whole document.  Starting in Notepad++ v8.4.9, if there is a single active stream selection, the <strong>Blank Operation</strong> change will only apply to the selected text; if there is a multi-stream selection, then only the last selection added to the multi-stream (the &ldquo;main selection&rdquo;) will be affected; if there is a column-mode selection, no trimming or tab-conversion will occur.</em></li>
+<li><strong>Trim Trailing Space</strong>: removes any space or tab characters occurring at the end of a line, after any non-whitespace characters</li>
+<li><strong>Trim Leading Space</strong>: removes any space or tab characters occurring at the beginning of a line, before any non-whitespace characters</li>
+<li><strong>Trim Leading and Trailing Spaces</strong>: combines the functionalities of <strong>Trim Trailing Space</strong> and <strong>Trim Leading Space</strong> into one command</li>
+<li><strong>EOL to Space</strong>: replaces line-ending characters with a single space character (similar to <strong>Join Lines</strong> functionality, but acts upon the entire file rather than the active selection); note: &ldquo;EOL&rdquo; means &ldquo;End Of Line&rdquo; &ndash; in other words, line-ending characters</li>
+<li><strong>Trim Both and EOL to Space</strong>: performs a combined <strong>Trim Leading and Trailing Spaces</strong> and <strong>EOL to Space</strong> operation (known as <strong>Remove Unnecessary Blank and EOL</strong> before v8.4.9; the newer phrase <strong>Trim Both</strong> is shorthand for <strong>Trim Both Leading and Trailing Spaces</strong>)
+<ul>
+<li>Note about Trim-related commands: the trim occurs for the line of the selection, even if the selection doesn&rsquo;t include those leading and/or trailing spaces.  <em>Example:</em> if the line is some spaces, the text <code>words here</code>, and some more spaces, then even if the selection is just <code>words</code>, the trims will happen on the leading and/or trailing spaces, based on which menu command was chosen.</li>
+</ul>
+</li>
+<li><strong>TAB to Space</strong>: replaces any tab characters with their equivalent number of spaces</li>
+<li><strong>Space to TAB (All)</strong>: consolidates space characters into an equivalent number of tab characters, wherever the spaces occur</li>
+<li><strong>Space to TAB (Leading)</strong>: consolidates space characters into an equivalent number of tab characters, but only where they occur before the first non-whitespace character on a line
+<ul>
+<li>
+<p>Note about TAB-related commands: the &ldquo;equivalent number&rdquo; of spaces (or tab characters) is based on the <a href="../preferences/index.html#language"><strong>Settings &gt; Preferences &gt; Language &gt; Tab Settings &gt; Tab Size</strong></a> for the active language of the current file, and will be enough spaces to take you to the next &ldquo;tab stop&rdquo;.</p>
+<p>If the current language has a tab setting of 4 spaces per tab, then the tab stops are at 1, 5, 9, 13, and so on.</p>
+<p>If you have a tab at column 1, 2, 3, or 4, it will be wide enough so that the next character will be at column 5; and if you convert tabs to spaces, it will replace it with 4, 3, 2, or 1 space (respectively), so that the next character will still be at column 5.</p>
+<p>Similarly, tabs at columns 5, 6, 7, or 8 will be displayed as wide as (or converted to spaces as) 4, 3, 2, or 1 spaces (respectively), so that the next character will be at column 9.</p>
+<p>These examples are shown in the screenshot below, where <a href="../views/index.html#show-symbol"><strong>View &gt; Show Symbol &gt; Whitespace and Tab</strong></a> shows the tabs as an orange arrow (<code>→</code>) and the spaces as an orange middot (<code>·</code>); the left shows it with tab characters; the right shows it with those tabs converted to spaces:</p>
+<p><img src="../images/edit-tab-stops.png" alt="" /></p>
+<p>If you want a specific number of space characters to replace each tab character, instead of the above-described fill-to-tabstop behavior, you should use a replacement operation in Extended or Regular Expression search mode to replace <code>\t</code> with the number of space characters you desire.</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Paste Special &gt;</strong> ⇒ submenu with actions that pastes HTML or RTF, and special versions of copy/cut/paste which handle NULL and other binary characters</p>
+<ul>
+<li>Note: The HTML and RTF actions paste the HTML and RTF source code from the HTML or RTF entries in the Windows Clipboard; it does <em>not</em> apply HTML or RTF formatting to what appears to be plain text in the Notepad++ editor window.</li>
+</ul>
+</li>
+<li>
+<p><strong>On Selection &gt;</strong> ⇒ submenu with actions that use the currently-selected text as a filename or folder to open, or as a term for an internet search.  (Custom commands using the current selection can be added to the <strong>Run</strong> menu, using the <a href="../config-files/index.html#userdefinedcommands"><code>&lt;UserDefinedCommands&gt;</code> section of <code>shortcuts.xml</code></a>.)</p>
+</li>
+<li>
+<p><strong>Multi-Select All &gt;</strong> ⇒ submenu with actions that work with the current selection or word under the <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a></p>
+<ul>
+<li><strong>Ignore Case &amp; Whole Word</strong> ⇒ If nothing is selected, it will determine the current word under the <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a>, and do a Multi-Select which finds all matches which match that string regardless of case, and regardless of whether the other matches are a whole word or not.  If a word or string is selected, it will Multi-Select all the strings which match the current selection.</li>
+<li><strong>Match Case Only</strong> ⇒ If nothing is selected, it will determine the current word under the <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a>, and do a Multi-Select which finds all matches of that word, as long as the case exactly matches.  If a word or substring is selected, it will Multi-Select all the strings which match that selection, paying attention to case.</li>
+<li><strong>Whole Word Only</strong> ⇒ If nothing is selected, it will determine the current word under the <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a>, and do a Multi-Select which finds all whole-word matches, regardless of case.  If a word is selected, it will Multi-Select all the whole-words which match that selection, ignoring case.</li>
+<li><strong>Match Case &amp; Whole Word</strong> ⇒ If nothing is selected, it will determine the current word under the <a href="#caret-and-cursor" title="typing/insertion cursor">caret</a>, and do a Multi-Select which finds all whole-word matches which match that string, including case.  If a word is selected, it will do a Multi-Select which finds all whole-word matches which match that string, including case.</li>
+</ul>
+</li>
+<li>
+<p><strong>Multi-Select Next &gt;</strong> ⇒ submenu with actions that add one more instance to the current multi-select</p>
+<ul>
+<li>Each submenu entry will be analogous to the <strong>Multi-Select All</strong> described above, but will only add a single match to the Multi-Selection (the next to occur after the current selection), rather than all matches.</li>
+</ul>
+</li>
+<li>
+<p><strong>Undo the Latest Added Multi-Select</strong> ⇒ If you have a Multi-Selection active, this command will take out the most-recently added substring.  (For example, if you had the text <code>the quick brown fox jumped over the lazy dog</code> and Multi-Selected <code>quick</code> then <code>dog</code>, then ran this command, your selection would only include <code>quick</code>.)</p>
+</li>
+<li>
+<p><strong>Skip Current &amp; Go to Next Multi-Select</strong> ⇒ If you have text selected, this command will unselect the current string, and Multi-Select the first instance <em>after</em> this one that matches what had been selected.</p>
+</li>
+<li>
+<p><strong>Column Mode&hellip;</strong> ⇒ dialog explaining <a href="./index.html#selection-modes-column-editor">Column Mode</a></p>
+</li>
+<li>
+<p><strong>Column Editor</strong> ⇒ runs the <a href="./index.html#selection-modes-column-editor">Column Editor</a> dialog, described above</p>
+</li>
+<li>
+<p><strong>Character Panel</strong> ⇒ toggles the <a href="#character-panel">Character Panel</a>, described above</p>
+</li>
+<li>
+<p><strong>Clipboard History</strong> ⇒ allows you to re-access recent copy/paste values (double-click a row to paste that value)</p>
+</li>
+<li>
+<p><strong>Set Read-Only</strong> ⇒ toggles Notepad++'s read-only flag on the active file buffer.</p>
+<ul>
+<li>If you click this menu entry once, it will add a checkmark <code>✔</code> to the menu entry, to show that it&rsquo;s currently read-only for Notepad++.  If you click this menu entry when there is already a checkmark <code>✔</code>, the checkmark will be removed and Notepad++ will no longer consider this file read-only.</li>
+<li>The state of this Notepad++ read-only flag is saved in the <a href="../session/index.html">session</a> file, so it will be remembered the next time the session is used.</li>
+<li><em>Note</em>: this toggle does <em>not</em> affect the Windows Operating System&rsquo;s read-only attribute on the file; if Windows has marked this file as read-only, this menu entry will be greyed out and you cannot toggle it by clicking on it.  See the <strong>Clear Read-only Flag</strong> (below) for more on the OS flag.</li>
+</ul>
+</li>
+<li>
+<p><strong>Clear Read-Only Flag</strong> ⇒ clears the Windows Operating System (OS) read-only attribute on a file.</p>
+<ul>
+<li>Once the OS read-only flag has been cleared, this menu option will be greyed out and clicking on it will do nothing.</li>
+<li>You cannot set the OS read-only flag using this menu in Notepad++; it has to be done through the OS (though Notepad++ scripting plugins are able to ask the OS to set the OS read-only flag on the file, like in <a href="https://community.notepad-plus-plus.org/post/67312">this example in the Community Forum</a>).</li>
+<li>If you use the OS to set the flag on a file that is open in Notepad++, and <a href="../preferences/index.html#misc"><strong>Settings &gt; Preferences &gt; MISC &gt; File Status Auto-Detection</strong></a> has been checked, then Notepad++ will notice that it is now a read-only file, and not allow you to edit the file.</li>
+<li>If you use the OS to set the flag on a file that is open in Notepad++, but <a href="../preferences/index.html#misc"><strong>Settings &gt; Preferences &gt; MISC &gt; File Status Auto-Detection</strong></a> has been unchecked, then Notepad++ will <em>not</em> notice that it was changed to read-only by the OS, and will blindly allow you to continue making changes; however, when you try to save and it sees that the file is read-only according to the OS, Notepad++ will notify you that you cannot save, and ask if you&rsquo;d like to launch Notepad++ in Administrator mode to try to make the changes (if you do, the changes you made may be lost).</li>
+<li>The current file&rsquo;s tab will have the &ldquo;locked&rdquo; icon (either the greyed-out disk icon by default, or a padlock icon if <a href="../preferences/index.html#dark-mode">Dark Mode</a> is active or if <a href="../preferences/#general"><strong>Settings &gt; Preferences &gt; General &gt; ☑ Alternate icons</strong></a> has been checked on) whether the Windows OS read-only attribute is set, or the Notepad++ read-only flag has been set, or both.  The &ldquo;locked&rdquo; icon will change to a normal icon once neither the Windows OS read-only attribute nor the Notepad++ read-only flag are set (or equivalently, once both flags are cleared).</li>
+</ul>
+</li>
+</ul>
+<h2 id="other-editing-commands-and-shortcuts">Other Editing Commands and Shortcuts</h2>
+<p>There are also around a hundred editor commands that are accessible from keyboard shortcuts (though not all have a keyboard shortcut assigned by default).  Many of those commands are <em>not</em> in the <strong>Edit</strong> menu (or any other Notepad++ menu).  These commands are listed in the <a href="../preferences/index.html#shortcut-mapper"><strong>Shortcut Mapper</strong></a>&lsquo;s <strong>Scintilla commands</strong> tab, and you can use the <strong>Shortcut Mapper</strong> to edit the assignments (add shortcuts or remove shortcuts) for these commands, whether they currently have a shortcut or not.</p>
+<p>They have somewhat cryptic names, but if you look at the portion of the name to the right of the <code>SCI_</code> prefix, it does give you a hint.  For example, <code>SCI_CUT</code> shows the shortcuts for the traditional Cut command, and <code>SCI_LINECUT</code> will cut the whole current line, rather than just the selection.  The ones that have <code>LINE</code> in the name work on complete lines; if it has <code>CHAR</code> in the name, it works on individual characters; if it has <code>WORD</code> in the name, it works on whole words; and if it has <code>WORDPART</code> in the name, it works on partial words (also called &ldquo;subwords&rdquo;, like <code>MyCoolFunction</code> has the three subwords <code>My</code>, <code>Cool</code>, and <code>Function</code>); if it has <code>PARA</code> in the name, it works on paragraphs (a paragraph ends with two consecutive newlines &ndash; so a blank line between paragraphs);  <code>HOME</code>, <code>END</code>, <code>PAGEUP</code>, and <code>PAGEDOWN</code> correspond to the motions often associated with those keys on your keyboard.  If it has <code>CUT</code>, <code>COPY</code>, <code>PASTE</code>, and <code>SELECT</code> in the name, it indicates a variant of the normal editor actions of cutting, copying, pasting, and selecting text; if it has <kbd>DELETE</kbd> or <code>DEL</code> in the name, it will delete what is indicated in the rest of the name; if it has <code>EXTEND</code> in the name, it &ldquo;extends&rdquo; the selection (adds to the selection; these are usually the <code>Shift+</code>-modified commands for growing the selection).  That should be enough to help you understand the basics of what each of those commands do.</p>
+<p>The Scintilla project, which Notepad++ uses to implement these traditional editor commands, has <a href="https://www.scintilla.org/ScintillaDoc.html">documentation</a> for those  commands: you can look at the <code>SCI_xxxx</code> in the shortcut mapper, then search for that text on <a href="https://www.scintilla.org/ScintillaDoc.html">their ScintillaDoc page</a> to find out more about that command.</p>
+<p>But with so many commands, and the fact that no documentation set is likely to ever explain <em>everything</em> in the way that makes the most sense to you (what makes sense to one user might be really confusing to another), it might be fruitful to play with some of those commands to see for yourself what they do.  (Notepad++ doesn&rsquo;t let you edit text while the <strong>Shortcut Mapper</strong> is open: one possible method of doing this experimentation is to have two instances of Notepad++ running, and have the <strong>Shortcut Mapper</strong> open to the <strong>Scintilla commands</strong> in one instance, and play with using them in the editor in the other Notepad++ instance.)</p>
+<h3 id="context-awareness">Context Awareness</h3>
+<p>Certain keyboard-shortcuts for editing commands are &ldquo;context aware&rdquo;, meaning that they behave differently whether there is an active selection or not.  For example,</p>
+<ul>
+<li><kbd>Tab</kbd> will insert a tab character or spaces (depending on <a href="../preferences/index.html#language">per-language settings</a>) when typing normally, but if you have a selection, it will indent the text by one tab-stop.</li>
+<li><kbd>Shift+Delete</kbd> will cut the current selection, or if there is no selection, it will delete the current line (assuming you have not changed the shortcut <kbd>Shift+DEL</kbd> from <code>SCI_CUT</code> to anything else; if you do, this functionality will <em>not</em> be accessible). (Yes, it cuts to the clipboard if there&rsquo;s a selection, but deletes the line without affecting the clipboard if there is a selection.) (The no-selection variant is new to v8.6.)</li>
+<li><kbd>Ctrl+C</kbd> will copy the current selection, or if there is no selection, it will copy the current line (assuming you have not changed the shortcut <kbd>Ctrl+C</kbd> from <code>SCI_COPY</code> to anything else; if you do, this functionality will <em>not</em> be accessible). (The no-selection variant is new to v8.6.)</li>
+<li><kbd>Ctrl+X</kbd> will cut the current selection, or if there is no selection, it will cut the current line (assuming you have not changed the shortcut <kbd>Ctrl+X</kbd> from <code>SCI_CUT</code> to anything else; if you do, this functionality will <em>not</em> be accessible). (The no-selection variant is new to v8.6.)</li>
+</ul>
+<p>Again, this manual will not enumerate all the context-aware commands.  The ones listed above have been deemed especially useful, or are mentioned because they were added to give Notepad++ behavior that is similar to other popular text editors and coding environments.</p>
+<p>In v8.6.1, you can disable the context-aware &ldquo;line copy / cut / delete&rdquo; feature, by creating the <a href="../config-files/index.html#other-configuration-files">zero-byte config file</a> <code>disableLineCopyCutDelete.xml</code>.  This zero-byte config file was eliminated in v8.6.2, so the feature could not be disabled in that version.  And in v8.6.3, <strong><a href="../preferences/#editing-1">Settings &gt; Preferences &gt; Editing</a> &gt; ☐ Enable Copy/Cut Line without selection</strong> was added to be able to control this behavior using the Preferences dialog.</p>
+<h3 id="drag-and-drop-move-or-copy">Drag-and-Drop Move or Copy</h3>
+<p>A &ldquo;drag-and-drop&rdquo; action on an active selection can be used for moving or copying that selection.</p>
+<p><img src="../images/dragAndDrop.gif" alt="" /></p>
+<ul>
+<li>
+<p>Moving text: Make a selection of the text you wish to move. Left-click on the selection and drag the selected text to its desired new location in the document and release the left mouse button.  During dragging, the mouse cursor will change to a box with a dashed outline to indicate that a move operation will take place when the mouse is released.  If you change your mind and wish to abort the move, simply press the <kbd>Esc</kbd> key while you still have the left-mouse button pressed.  While the dragging is occurring, if you decide you&rsquo;d rather make a copy of the text, simply start pressing the <kbd>Ctrl</kbd> key, and it will be converted into a copy-action as described below.</p>
+</li>
+<li>
+<p>Copying text: Make a selection of the text you wish to copy.  Left-click on the selection and start dragging the selected text to the location where you want the duplicate version of the text to be placed.  At some point after starting the drag operation, start pressing the <kbd>Ctrl</kbd> key.  When you&rsquo;ve reached your desired destination, release the left mouse button and then release the <kbd>Ctrl</kbd> key.  When you start dragging, the mouse cursor will change to a box with a dashed outline; when you add the <kbd>Ctrl</kbd> key, the mouse cursor will add a smaller box with a <code>+</code> sign in it, to indicate that a copy operation will take place when the mouse is released.  If you change your mind and wish to abort the copy, simply press the <kbd>Esc</kbd> key while you still have the left-mouse button pressed.</p>
+</li>
+<li>
+<p><em>Notes:</em></p>
+<ul>
+<li>
+<p>When copying text, it is important that no modifier keys (<kbd>Shift</kbd>, <kbd>Ctrl</kbd>, <kbd>Alt</kbd>, or other region-specific modifiers) are depressed/held when you <em>start</em> dragging the text.  This will initially seem like a move operation, but adding in the <kbd>Ctrl</kbd> key <strong>after</strong> the drag has been started will turn it into a copy (and the mouse cursor will change accordingly).</p>
+</li>
+<li>
+<p>These techniques work well with column-block selections, but with multiple stream selections perhaps less so: the multiple selections will be &ldquo;jammed&rdquo; together with no intervening delimiter at the destination position in the document.  Of course, if the multiple selections were all full lines, they will still be full lines at their destination, so for this specific case the mouse move/copy is judged to work very well.</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="printing">Printing</h2>
+<p><em>The documentation on printing the active document has been moved to <a href="../files/index.html#printing">Working with Files &gt; Printing</a>.</em></p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#caret-and-cursor">Caret and Cursor</a></li>
+        <li><a href="#typing-mode">Typing Mode</a></li>
+        <li><a href="#selection-modes--column-editor">Selection modes &amp; Column Editor</a>
+          <ul>
+            <li><a href="#entering-column-mode">Entering Column Mode</a></li>
+            <li><a href="#leaving-column-mode">Leaving Column Mode</a></li>
+            <li><a href="#editing-in-column-mode">Editing In Column Mode</a></li>
+            <li><a href="#column-editor-dialog">Column Editor Dialog</a></li>
+          </ul>
+        </li>
+        <li><a href="#multi-editing">Multi-Editing</a>
+          <ul>
+            <li><a href="#multi-editing-howto">Multi-Editing HowTo</a>
+              <ul>
+                <li><a href="#step-1">Step 1</a></li>
+                <li><a href="#step-2">Step 2</a></li>
+                <li><a href="#step-3">Step 3</a></li>
+                <li><a href="#step-4">Step 4</a></li>
+                <li><a href="#step-5">Step 5</a></li>
+                <li><a href="#step-6">Step 6</a></li>
+                <li><a href="#step-7">Step 7</a></li>
+                <li><a href="#step-8">Step 8</a></li>
+                <li><a href="#step-9">Step 9</a></li>
+                <li><a href="#step-10">Step 10</a></li>
+                <li><a href="#step-11">Step 11</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#dual-view">Dual View</a></li>
+        <li><a href="#clone-document">Clone Document</a></li>
+        <li><a href="#virtual-space">Virtual Space</a></li>
+        <li><a href="#character-panel">Character Panel</a></li>
+        <li><a href="#change-history">Change History</a></li>
+        <li><a href="#edit-menu">Edit Menu</a></li>
+        <li><a href="#other-editing-commands-and-shortcuts">Other Editing Commands and Shortcuts</a>
+          <ul>
+            <li><a href="#context-awareness">Context Awareness</a></li>
+            <li><a href="#drag-and-drop-move-or-copy">Drag-and-Drop Move or Copy</a></li>
+          </ul>
+        </li>
+        <li><a href="#printing">Printing</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

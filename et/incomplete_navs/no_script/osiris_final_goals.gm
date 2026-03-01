@@ -1,0 +1,18 @@
+global _MG = 
+{
+	CAPPOINT_al = 
+	{
+		GoalType = "CapPoint",
+		MinRadius = 32,
+		Position = Vec3(-1134.147, -220.147, 24.125),
+		TeamAvailability = 4,
+	},
+	CAPPOINT_ax = 
+	{
+		GoalType = "CapPoint",
+		MinRadius = 32,
+		Position = Vec3(1131.056, 230.912, 24.125),
+		TeamAvailability = 2,
+	},
+	Version = 1,
+};

@@ -1,0 +1,299 @@
+/************************************************************************************
+
+With this script you will be able to waypoint a map just by running around it.
+Original idea by Bladen (thanks)
+Modified by [GNU]FeelGood/Nobody
+Contact : et@netrusk.net
+
+You need to give a valid rconpassword before any command
+usage (in console) :
+/rcon bot myautowpon : start autowaypointing
+/rcon bot myautowpoff : stop autowaypointing
+/rcon bot wptwowayconnect : waypoints will be bi-connected
+/rcon bot wponewayconnect : waypoints will be mono-connected
+/rcon bot wpwiderange : waypoints will spaced by 300 and have radius = 70
+/rcon bot wpshortrange : waypoints will spaced by 150 and have radius = 35
+
+Can be used with binds like this in your ET client :
+unbind s
+set ShortWay "rcon bot wpshortrange; echo ^g short range; set WaySize vstr LongWay"
+set LongWay "rcon bot wpwiderange; echo ^g wide range; set WaySize vstr ShortWay"
+set WaySize "vstr ShortWay"
+bind s "vstr WaySize"
+set binds "echo ^cs ^f Cycle Short / Long connexions"
+vstr binds
+unbind TAB
+set AutoWayOn "rcon bot myautowpon; echo ^g Auto waypointing ON; set WayCnx vstr AutoWayOff"
+set AutoWayOff "rcon bot myautowpoff; echo ^g Auto waypointing OFF; set WayCnx vstr AutoWayOn"
+set AutoWay "vstr AutoWayOn"
+bind TAB "vstr AutoWay"
+set bindTAB "echo ^cb ^f Cycle Auto waypointing on / off"
+vstr bindTAB
+unbind b
+set MonoWay "rcon bot wponewayconnect; echo ^g Mono-connect; set WayCnx vstr BiWay"
+set BiWay "rcon bot wptwowayconnect; echo ^g Bi-connect; set WayCnx vstr MonoWay"
+set WayCnx "vstr MonoWay"
+bind b "vstr WayCnx"
+set bindb "echo ^cTAB ^f Cycle monoconnect / biconnect"
+vstr bindb
+unbind h
+set bindh "echo ^ch^f for waypoint binding help"
+set bindhelp "vstr bindTAB;vstr binds;vstr bindb;vstr bindh"
+bind h "vstr bindhelp"
+vstr bindh
+
+Now, when you press :
+TAB : you cycle Autwaypoint ON/ OFF
+s : you cycle Short / Wide connections
+b : you cycle mono / bi connections
+h : help about this binding
+Hope this will help you.
+Greetings to DrEvil, Magik and Bladen for help and technical support
+
+**************************************************************************************/
+
+print("^h ===========================================");
+print("^h  OMNI-BOT autowaypointing script is loaded");
+print("^h ===========================================");
+
+global WPDistance = 150;
+global WPRadius = "35.0";
+global WPConnect = 2;
+global WPBlockage = 0;
+global WPDefaultRadius = "35.0";
+
+global WPReset = function()
+{
+  global iAutoWaypoint = null;
+  tableClear(myWaypoint);
+};
+
+
+global WPAutoConnect = function()
+{
+  if (WPConnect == 2)
+  {
+    ExecCommand("waypoint_biconnect");
+  }
+  else
+  {
+    ExecCommand("waypoint_connect");
+  }
+};
+
+global WPAdd = function()
+{
+  ExecCommand("waypoint_add");
+  //Uncomment the following line if you want to set the radius from script:
+  //ExecCommand("waypoint_setradius " + WPRadius);
+  WPPointBlockage();
+  WPAutoConnect();
+};
+
+global WPInitSession = function()
+{
+  print("Init session : wpviw on + dontshoot + drawblocktests + timelimit 0");
+  ExecCommand("draw_goals off");
+  ExecCommand("waypoint_view on");
+  ExecCommand("dontshoot 1");
+  ExecCommand("drawblocktests 1");
+};
+
+global WPPointBlockage = function()
+{
+  if(WPBlockage == 0)
+  {
+    print("no Blockage");
+  }
+  else
+  {
+    ExecCommand("waypoint_addflag blockwall");
+    if(WPBlockage == 1)
+    {
+      print("WP blockwall");
+      ExecCommand("waypoint_addflag blockwall");
+    }
+    else if(WPBlockage == 2)
+    {
+      print("WP blockbridge");
+      ExecCommand("waypoint_addflag blockbridge");
+    }
+    else if(WPBlockage == 3)
+    {
+      print("WP blockwater");
+      ExecCommand("waypoint_addflag blockwater");
+    }
+  }
+};
+
+Commands["wpdrawwp"] = function(_params)
+{
+  ExecCommand("draw_goals off");
+  ExecCommand("waypoint_view on");
+};
+
+Commands["wpdrawgoals"] = function(_params)
+{
+  ExecCommand("waypoint_view off");
+  ExecCommand("draw_goals on");
+};
+
+Commands["wpdrawnothing"] = function(_params)
+{
+  ExecCommand("waypoint_view off");
+  ExecCommand("draw_goals off");
+};
+
+Commands["myautowpon"] = function(_params)
+{
+  if(myWaypoint == null)
+  {
+    global iAutoWaypoint = 1;
+    print("auto waypointing mode on");
+    global myWaypoint = table();
+    myWaypoint.new = null;
+    myWaypoint.old = null;
+    framecounter = 0;
+    WPInitSession();
+    while(iAutoWaypoint)
+    {
+      sleep(0.3);
+      if(framecounter == 0)
+      {
+        WPAdd();
+      }
+      myWaypoint.new = GetEntPosition(GetGameEntityFromId(0));
+      if(myWaypoint.old)
+      {
+        //print("Distance: ",Distance);
+        Distance = (myWaypoint.new - myWaypoint.old).Length();
+      }
+      else
+      {
+        myWaypoint.old = myWaypoint.new;
+      }
+      if(Distance > WPDistance)
+      {
+        myWaypoint.old = myWaypoint.new;
+        WPAdd();
+        WPAutoConnect();
+      }
+      framecounter += 1;
+    }
+    print("auto waypointing mode off");
+  }
+  else
+  {
+    print("auto waypointing mode already on");
+  }
+};
+
+Commands["myautowpoff"] = function(_params)
+{
+  WPAutoConnect();
+  WPReset();
+};
+
+Commands["wptwowayconnect"] = function(_params)
+{
+  print("WPTwoWayConnect");
+  global WPConnect = 2;
+};
+
+Commands["wponewayconnect"] = function(_params)
+{
+  print("WPTwoWayConnect");
+  global WPConnect = 1;
+};
+
+Commands["wpwiderange"] = function(_params)
+{
+  print("WP wide Range");
+  global WPDistance = 300;
+  global WPRadius = "70.0";
+};
+
+Commands["wpshortrange"] = function(_params)
+{
+  print("WP Short Range");
+  global WPDistance = 150;
+  global WPRadius = "35.0";
+};
+
+Commands["wpnobots"] = function(_params)
+{
+  MinBots(0);
+  MaxBots(0);
+  ExecCommand("kickall");
+};
+
+Commands["wpsomebots"] = function(_params)
+{
+  MinBots(0);
+  MaxBots(20);
+};
+
+Commands["wpblocknone"] = function(_params)
+{
+  print("WP blockage none");
+  global WPBlockage = 0;
+};
+
+Commands["wpblockwall"] = function(_params)
+{
+  print("WP blockage wall");
+  global WPBlockage = 1;
+};
+
+Commands["wpblockbridge"] = function(_params)
+{
+  print("WP blockage bridge");
+  global WPBlockage = 2;
+};
+
+Commands["wpblockwater"] = function(_params)
+{
+  print("WP blockage water");
+  global WPBlockage = 3;
+};
+
+Commands["wpsetblockage"] = function(_params)
+{
+  WPPointBlockage();
+};
+
+Commands["wpjump"] = function(_params)
+{
+  ExecCommand("waypoint_addflag jumplow");
+  ExecCommand("waypoint_addflag jumpgap");
+  ExecCommand("waypoint_addflag sprint");
+};
+
+Commands["wpclimb"] = function(_params)
+{
+  ExecCommand("waypoint_addflag climb");
+  ExecCommand("waypoint_setfacing");
+};
+
+Commands["wpsnipe_mg"] = function(_params)
+{
+  playerEnt = Util.GetPlayerEntity();
+  if(GetEntFlags(playerEnt,ENTFLAG.PRONE))
+  {
+    ExecCommand("waypoint_addflag prone");
+  }
+  ExecCommand("waypoint_addflag mg42");
+  ExecCommand("waypoint_addflag snipe");
+  ExecCommand("waypoint_setfacing");
+};
+
+Commands["wpdefradius"] = function(_params)
+{
+  global WPDefaultRadius = _params[0];
+  print("WPDefaultRadius =", WPDefaultRadius);
+};
+
+Commands["wpsetradius"] = function(_params)
+{
+  ExecCommand("waypoint_setradius " + WPDefaultRadius);
+};

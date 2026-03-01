@@ -1,0 +1,238 @@
+global _MG = 
+{
+	AMMOCAB_first_ammocabinet = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "AMMOCAB",
+		Position = Vec3(2045.000, 765.000, 43.000),
+		Range = 1250,
+		TeamAvailability = 6,
+	},
+	AMMOCAB_first_ammocabinet_1 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "AMMOCAB",
+		Position = Vec3(875.000, 3283.000, 43.000),
+		Range = 1250,
+		TagName = "first_ammocabinet",
+		TeamAvailability = 6,
+	},
+	BUILD_Allied_Command_Post = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "BUILD",
+		Position = Vec3(864.000, 3468.000, 52.000),
+		TagName = "Allied Command Post",
+		TeamAvailability = 4,
+	},
+	CAMP_camp_blue =
+	{
+		AimVectors = 
+		{
+			[0] = Vec3(-0.993, -0.025, -0.115),
+		},
+		GoalType = "CAMP",
+		MaxCampTime = 20,
+		MinCampTime = 10,
+		Position = Vec3(2749.646, 3391.188, 1.125),
+		Radius = 32,
+	},
+	CAMP_camp_blue2 = 
+	{
+		AimVectors = 
+		{
+			[0] = Vec3(-0.065, 0.940, -0.336),
+		},
+		GoalType = "CAMP",
+		MaxCampTime = 20,
+		MinCampTime = 10,
+		Position = Vec3(1877.157, 3359.708, 1.125),
+		Radius = 32,
+	},
+	CAMP_camp_red = 
+	{
+		AimVectors = 
+		{
+			[0] = Vec3(0.987, -0.047, -0.153),
+		},
+		GoalType = "CAMP",
+		MaxCampTime = 20,
+		MinCampTime = 10,
+		Position = Vec3(512.311, 671.537, 1.125),
+		Radius = 32,
+	},
+	CAMP_camp_red2 = 
+	{
+		AimVectors = 
+		{
+			[0] = Vec3(-0.127, -0.964, -0.232),
+		},
+		GoalType = "CAMP",
+		MaxCampTime = 20,
+		MinCampTime = 10,
+		Position = Vec3(1690.080, 683.188, 1.125),
+		Radius = 32,
+	},
+	CAPPOINT_cap_point2 = 
+	{
+		GoalType = "CapPoint",
+		MinRadius = 32,
+		Position = Vec3(865.020, 3488.874, 1.125),
+		TeamAvailability = 4,
+	},
+	FLAG_Axis_Secret_Documents = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "Flag",
+		Position = Vec3(2270.000, 612.000, 37.125),
+		TagName = "Axis Secret Documents",
+		TeamAvailability = 4,
+	},
+	HEALTHCAB_first_healthcabinet = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "HEALTHCAB",
+		Position = Vec3(2156.000, 763.000, 43.000),
+		Range = 1250,
+		TeamAvailability = 6,
+	},
+	HEALTHCAB_first_healthcabinet_1 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "HEALTHCAB",
+		Position = Vec3(764.000, 3285.000, 43.000),
+		Range = 1250,
+		TagName = "first_healthcabinet",
+		TeamAvailability = 6,
+	},
+	MOBILEMG42_blue_mg = 
+	{
+		AimVectors = 
+		{
+			[0] = Vec3(-0.672, -0.674, -0.306),
+		},
+		GoalType = "MOBILEMG42",
+		MaxCampTime = 60,
+		MinCampTime = 30,
+		MinRadius = 32,
+		Position = Vec3(2677.224, 3201.422, 1.125),
+	},
+	MOBILEMG42_red_mg = 
+	{
+		AimVectors = 
+		{
+			[0] = Vec3(0.633, 0.711, -0.305),
+		},
+		GoalType = "MOBILEMG42",
+		MaxCampTime = 60,
+		MinCampTime = 30,
+		MinRadius = 32,
+		Position = Vec3(418.036, 877.992, 1.125),
+	},
+	PLANT_Allied_Command_Post = 
+	{
+		CreateOnLoad = 0,
+		ExplosiveType = 3,
+		GoalType = "PLANT",
+		Position = Vec3(863.000, 3535.500, 52.000),
+		TagName = "Allied Command Post",
+		TeamAvailability = 2,
+	},
+	PLANT_Allied_Command_Post_1 = 
+	{
+		CreateOnLoad = 0,
+		ExplosiveType = 3,
+		GoalType = "PLANT",
+		Position = Vec3(863.000, 3535.500, 52.000),
+		TagName = "Allied Command Post",
+		TeamAvailability = 2,
+	},
+	PLANT_Axis_Safe = 
+	{
+		CreateOnLoad = 0,
+		ExplosiveType = 1,
+		GoalType = "PLANT",
+		Position = Vec3(2252.000, 608.000, 54.000),
+		TagName = "Axis Safe",
+		TeamAvailability = 4,
+	},
+	ROUTE_allied_cp = 
+	{
+		GoalType = "ROUTE",
+		Position = Vec3(2343.588, 3164.914, 1.125),
+		Radius = 125,
+	},
+	ROUTE_allied_cp2 = 
+	{
+		GoalType = "ROUTE",
+		Position = Vec3(831.058, 3439.673, 1.125),
+		Radius = 125,
+	},
+	ROUTE_allied_tp2 = 
+	{
+		GoalType = "ROUTE",
+		Position = Vec3(474.861, 3482.983, 1.125),
+		Radius = 125,
+	},
+	ROUTE_alliestproute = 
+	{
+		GoalType = "ROUTE",
+		Position = Vec3(551.475, 3215.243, 1.125),
+		Radius = 125,
+	},
+	ROUTE_axis_tp = 
+	{
+		GoalType = "ROUTE",
+		Position = Vec3(2421.006, 804.790, 1.125),
+		Radius = 125,
+	},
+	ROUTE_axis_tp2 = 
+	{
+		GoalType = "ROUTE",
+		Position = Vec3(2560.759, 582.776, 1.125),
+		Radius = 125,
+	},
+	ROUTE_chill_time = 
+	{
+		GoalType = "ROUTE",
+		Position = Vec3(2485.856, 2419.461, 1.125),
+		Radius = 125,
+	},
+	ROUTE_tp_route = 
+	{
+		GoalType = "ROUTE",
+		Position = Vec3(1385.214, 2142.724, 1.125),
+		Radius = 125,
+	},
+	SMOKEBOMB_blue_smoke = 
+	{
+		AimVectors = 
+		{
+			[0] = Vec3(-0.965, -0.052, -0.256),
+		},
+		GoalType = "SMOKEBOMB",
+		Position = Vec3(2279.856, 3075.050, 1.125),
+		Radius = 32,
+	},
+	SMOKEBOMB_middle_smoke = 
+	{
+		AimVectors = 
+		{
+			[0] = Vec3(-0.867, 0.376, -0.328),
+		},
+		GoalType = "SMOKEBOMB",
+		Position = Vec3(1420.904, 2115.368, 1.125),
+		Radius = 32,
+	},
+	SMOKEBOMB_red_smoke = 
+	{
+		AimVectors = 
+		{
+			[0] = Vec3(0.931, -0.266, -0.252),
+		},
+		GoalType = "SMOKEBOMB",
+		Position = Vec3(710.337, 1021.611, 1.125),
+		Radius = 32,
+	},
+	Version = 1,
+};

@@ -1,0 +1,355 @@
+/************************************************************************************
+
+ With this script you will be able to waypoint a map just by running around in it.
+
+ Original idea by Bladen, modified by [GNU]FeelGood.
+ Major changes/rewrite for Omni-bot 0.81 by d00d, 7–11 December 2010.
+
+ This script should come with a sample waypointing config that includes key
+ bindings for the most important functions.
+
+************************************************************************************/
+
+
+// Store everything neatly under a global table.
+global AutoTrailWP = table();
+
+// Initialize some variables
+AutoTrailWP.WPConnect = 2; // 2: biconnect, 1: single-connect
+AutoTrailWP.WPDistance = 180; // distance between waypoints in game units
+AutoTrailWP.Flags = table();
+AutoTrailWP.FlagString = "";  // space separated list of flags to set on waypoints
+AutoTrailWP.ConnectCount = 0; // # of wp connections
+AutoTrailWP.WPCount = 0; // # of waypoints
+AutoTrailWP.DoAutoSave = false;
+AutoTrailWP.AutoSaveInterval = 45;
+AutoTrailWP.AutoSaveThreadId = null;
+AutoTrailWP.myWaypoint = table();
+AutoTrailWP.iAutoWaypoint = false;
+AutoTrailWP.TableOfWaypoints = table(); // store auto-added waypoints in a table for future reference
+
+AutoTrailWP.InitSession = function()
+{
+	AutoTrailWP.WPReset();
+	tableClear( AutoTrailWP.TableOfWaypoints );
+};
+
+AutoTrailWP.WPReset = function()
+{
+	AutoTrailWP.iAutoWaypoint = null;
+	if ( AutoTrailWP.myWaypoint )
+		{ tableClear( AutoTrailWP.myWaypoint ); }
+	AutoTrailWP.ConnectCount = 0;
+	AutoTrailWP.WPCount = 0;
+};
+
+AutoTrailWP.WPAutoConnect = function()
+{
+	if ( AutoTrailWP.WPConnect == 1 )
+		{ ExecCommand( "waypoint_connect" ); }
+	else
+		{ ExecCommand( "waypoint_biconnect" ); }
+	AutoTrailWP.ConnectCount += 1;
+	//print( "ConnectCount: " + AutoTrailWP.ConnectCount );
+};
+
+AutoTrailWP.AddFlags = function()
+{
+	if ( AutoTrailWP.FlagString != "" )
+		{ ExecCommand( "waypoint_addflag " + AutoTrailWP.FlagString ); }
+};
+
+AutoTrailWP.WPAdd = function()
+{
+	lastwp = table();
+	lastwp.position = GetEntPosition( GetLocalEntity() );
+	lastwp.guid = Wp.AddWaypoint( lastwp.position, Vector3(0,0,0) );
+	AutoTrailWP.TableOfWaypoints[ tableCount(AutoTrailWP.TableOfWaypoints) ] = lastwp;
+	AutoTrailWP.AddFlags();
+	AutoTrailWP.WPAutoConnect();
+	AutoTrailWP.WPCount += 1;
+};
+
+AutoTrailWP.AutoSaveFunc = function( _interval )
+{
+	while ( AutoTrailWP.DoAutoSave )
+	{
+		sleep( _interval );
+		ExecCommand( "waypoint_save" );
+		EchoToScreen( 1.5, "Waypoints auto-saved every " + _interval + " seconds." );
+	}
+	AutoTrailWP.AutoSaveThreadId = null;
+};
+
+
+/******************************************************************************
+
+	Register some bot commands.
+	Use "/bot wp_autoflags" etc. in the game console.
+
+******************************************************************************/
+
+// Turns auto-waypointing on. Usage: /bot myautowpon in console.
+Commands["myautowpon"] = function()
+{
+	if( AutoTrailWP.myWaypoint == null || tableCount( AutoTrailWP.myWaypoint ) == 0 )
+	{
+		AutoTrailWP.InitSession();
+		AutoTrailWP.iAutoWaypoint = true;
+		AutoTrailWP.myWaypoint = table();
+		framecounter = 0;
+		EchoToScreen( 3, "Auto Waypointing Mode ^2On" );
+		while ( AutoTrailWP.iAutoWaypoint )
+		{
+			yield();
+			if ( framecounter == 0 )
+			{
+				AutoTrailWP.WPAdd();
+			}
+			AutoTrailWP.myWaypoint.new = GetEntPosition( GetLocalEntity() );
+			if ( AutoTrailWP.myWaypoint.old )
+			{
+				Distance = (AutoTrailWP.myWaypoint.new - AutoTrailWP.myWaypoint.old).Length();
+			}
+			else
+			{
+				AutoTrailWP.myWaypoint.old = AutoTrailWP.myWaypoint.new;
+			}
+			if ( Distance > AutoTrailWP.WPDistance )
+			{
+				AutoTrailWP.myWaypoint.old = AutoTrailWP.myWaypoint.new;
+				AutoTrailWP.WPAdd();
+				AutoTrailWP.WPAutoConnect();
+			}
+			framecounter += 1;
+		}
+		AutoTrailWP.WPReset();
+		EchoToScreen( 3, "Auto Waypointing Mode ^1Off" );
+		sleep(3);
+		EchoToScreen( 3, "Don't forget to save!" );
+	}
+	else
+	{
+		print( "auto waypointing mode already on" );
+	}
+};
+
+// Turns auto-waypointing off. Usage: /bot myautowpoff in console.
+Commands["myautowpoff"] = function()
+{
+	if ( AutoTrailWP.ConnectCount != (AutoTrailWP.WPCount * 2 - 2) )
+	{
+		//print( "pending wp connection, triggering AutoConnect one more time");
+		AutoTrailWP.WPAutoConnect();
+	}
+	AutoTrailWP.WPReset();
+};
+
+// Sets any number of flags to be set on auto-added waypoints. Usage: /bot wp_autoflags <flags, space-separated>
+Commands["wp_autoflags"] = function(_params)
+{
+	if ( _params[0] == "none" || _params[0] == "off" || _params[0] == "" || _params[0] == 0 )
+	{
+		EchoToScreen( 2, "No waypoint flags will be auto-added." );
+		tableClear( AutoTrailWP.Flags );
+		AutoTrailWP.FlagString = "";
+		return true;
+	}
+	else if ( typeName( _params[0] ) != "string" )
+	{
+		EchoToScreen( 3, "Usage: ^8/bot wp_autoflags <flags>.\n^7Example: ^8/bot wp_autoflags jump" );
+		print( "^1Usage: ^8/bot wp_autoflags <flags>" );
+		print( "^7Example: ^8/bot wp_autoflags crouch blockwall" );
+		print( "^7Use ^8/bot wp_autoflags 0^7 to clear flags" );
+		return false;
+	}
+	AutoTrailWP.Flags = _params;
+	AutoTrailWP.FlagString = "";
+	foreach ( str in AutoTrailWP.Flags )
+	{
+		AutoTrailWP.FlagString += (str+" ");
+	}
+	EchoToScreen( 1.8, "^7Adding " + AutoTrailWP.FlagString + " flags." );
+	sleep( 2 );
+	EchoToScreen( 2, "^7Use ^8/bot wp_autoflags 0^7 to clear flags." );
+	return true;
+};
+
+// Sets the distance between auto-added waypoints. Usage: /bot wp_dist <number>
+Commands["wp_dist"] = function(_params)
+{
+	if ( typeName( _params[0] ) == "float" )
+		{ AutoTrailWP.WPDistance = _params[0]; }
+	else
+		{ print( "^1Error setting distance!" ); }
+};
+
+// Sets the default waypoint radius. Usage: /bot wp_radius <number>
+Commands["wp_radius"] = function(_params)
+{
+	if ( typeName( _params[0] ) == "float" )
+		{ ExecCommand( "waypoint_setdefaultradius " + _params[0] ); }
+	else
+		{ print( "^1Error setting radius!" ); }
+};
+
+// Determines whether to use bidirectional waypoint connections. Usage: /bot wp_autoconnect <1|2>
+Commands["wp_autoconnect"] = function(_params)
+{
+	if ( _params[0] == 1 || _params[0] == 2 )
+	{
+		AutoTrailWP.WPConnect = _params[0];
+	}
+	else
+	{
+		print( "^1Usage: ^8/bot wp_autoconnect <1|2>" );
+		print( "^71: one-way connections, 2: two-way connections." );
+	}
+};
+
+// Turns auto-save on or off. Usage: /bot wp_autosave <on|off>
+Commands["wp_autosave"] = function(_params)
+{
+	if ( _params[0] == "off" || _params[0] == 0 || _params[0] == false )
+	{
+		AutoTrailWP.DoAutoSave = false;
+		if ( AutoTrailWP.AutoSaveThreadId )
+		{
+			threadKill( AutoTrailWP.AutoSaveThreadId );
+			AutoTrailWP.AutoSaveThreadId = null;
+		}
+		EchoToScreen( 3, "Waypoint auto-save ^1off." );
+		return;
+	}
+	else if ( _params[0] == "on" || _params[0] == 1 || _params[0] == true )
+	{
+		if ( AutoTrailWP.AutoSaveThreadId )
+		{
+			EchoToScreen( 3, "^1Waypoint auto-save is already running!" );
+		}
+		else
+		{
+			AutoTrailWP.DoAutoSave = true;
+			AutoTrailWP.AutoSaveThreadId = thread( AutoTrailWP.AutoSaveFunc, AutoTrailWP.AutoSaveInterval );
+			ExecCommand( "waypoint_save _backup" );
+			EchoToScreen( 2, "Waypoint auto-save is ^2on." );
+			sleep(2);
+			EchoToScreen( 3, "^7Original waypoints saved as \n^8" +  GetMapName() + "_backup.way." );
+			sleep(3);
+			EchoToScreen( 2, "^8/bot wp_autosave 0\n^7 to turn auto-save off." );
+		}
+		return;
+	}
+	else
+	{
+		EchoToScreen( 3, "Usage: ^8/bot wp_autosave off|0|on|1" );
+		print( "^1Usage: ^8/bot wp_autosave off|0|on|1" );
+		return;
+	}
+};
+
+// Delete the last n waypoints.
+// Usage: /bot wp_deletelast <number of waypoints to delete>
+Commands["wp_deletelast"] = function(_params)
+{
+	if ( typeName( _params[0] ) == "float" )
+	{
+		toDelete = ToInt( _params[0] );
+		lastIndex = tableCount(AutoTrailWP.TableOfWaypoints)-1;
+		EchoToScreen( 2, "Deleting last " + toDelete + " auto-added waypoints." );
+
+		for ( i=lastIndex; i>lastIndex-toDelete && i>=0; i-=1 )
+		{
+			Wp.DeleteWaypoint( AutoTrailWP.TableOfWaypoints[i].position );
+			AutoTrailWP.TableOfWaypoints[i] = null;
+		}
+	}
+	/*
+	// Apparently unsafe; seems to crash ET. Commented for now.
+	else if ( _params[0] == "all" )
+	{
+		foreach ( wp in AutoTrailWP.TableOfWaypoints )
+		{
+			Wp.DeleteWaypoint( wp.position );
+		}
+		tableClear( AutoTrailWP.TableOfWaypoints );
+	}
+	*/
+	else
+	{
+		print( "^1Invalid parameter!");
+		print( "Usage: ^8/bot wp_deletelast <number>" );
+	}
+};
+
+// Warps player to first/last waypoint in the table of auto-added waypoints,
+// or last-but-n-th waypoint if n is negative, or n-th if n >= 0.
+Commands["wp_warpto"] = function(_params)
+{
+	if ( _params[0] == "first" || _params[0] == "start" )
+	{
+		str = "wt " + AutoTrailWP.TableOfWaypoints[0].guid;
+		ExecCommand( str );
+	}
+	else if ( _params[0] == "last" || _params[0] == "end" )
+	{
+		str = "wt " + AutoTrailWP.TableOfWaypoints[ tableCount(AutoTrailWP.TableOfWaypoints)-1 ].guid;
+		ExecCommand( str );
+	}
+	else if ( typeName(_params[0]) == "float" )
+	{
+		par = ToInt( _params[0] );
+		if ( par < 0 )
+		{
+			str = "wt " + AutoTrailWP.TableOfWaypoints[ tableCount(AutoTrailWP.TableOfWaypoints)+par ].guid;
+			ExecCommand( str );
+		}
+		else
+		{
+			str = "wt " + AutoTrailWP.TableOfWaypoints[ par ].guid;
+			ExecCommand( str );
+		}
+	}
+	else
+	{
+		print( "^1Invalid parameter!" );
+		print( "Usage: ^8/bot wp_warpto <first|last|number>" );
+	}
+};
+
+
+/******************************************************************************
+
+	Some shorthand aliases for existing commands.
+
+******************************************************************************/
+
+// Adds an Axis testbot.
+Commands["tb1"] = function(_params)
+{
+	ExecCommand( "testbot 1 2" );
+};
+
+// Adds an Allied testbot.
+Commands["tb2"] = function(_params)
+{
+	ExecCommand( "testbot 2 2" );
+};
+
+// Sets waypoint radius.
+Commands["wpr"] = function(_params)
+{
+	ExecCommand( "waypoint_setradius " + _params[0] );
+};
+
+// Adds climb flag.
+Commands["wpafc"] = function()
+{
+	ExecCommand( "waypoint_addflag climb" );
+};
+
+// Adds jumplow flag.
+Commands["wpafjl"] = function()
+{
+	ExecCommand( "waypoint_addflag jumplow" );
+};

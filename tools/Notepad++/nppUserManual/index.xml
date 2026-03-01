@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Introduction on Notepad&#43;&#43; User Manual</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content in Introduction on Notepad&#43;&#43; User Manual</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Getting started</title>
+      <link>http://localhost:1313/docs/getting-started/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/docs/getting-started/</guid>
+      <description>What is Notepad++ Notepad++ is a text editor and source code editor for use under Microsoft Windows. It supports around 80 programming languages with syntax highlighting and code folding. It allows working with multiple open files in a single window, thanks to its tabbed editing interface. Notepad++ is available under GPL and distributed as free software.
+You may visit the Notepad++ website at https://notepad-plus-plus.org/
+Download Notepad++ Download the latest version of Notepad++ from https://notepad-plus-plus.</description>
+    </item>
+    
+    <item>
+      <title>Working with Files</title>
+      <link>http://localhost:1313/docs/files/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/docs/files/</guid>
+      <description>Working with Files A &amp;ldquo;file&amp;rdquo; is the basic unit of what is edited in Notepad++, but that term actually covers multiple related concepts. Primarily, the &amp;ldquo;file&amp;rdquo; is the series of bytes stored on a disk or other storage medium and accessed through your computer&amp;rsquo;s filesystem; and pedantically, if the document you are editing has never been saved to the filesystem, it&amp;rsquo;s not technically a file, though common usage applies that term to unsaved documents as well.</description>
+    </item>
+    
+    <item>
+      <title>Editing</title>
+      <link>http://localhost:1313/docs/editing/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/docs/editing/</guid>
+      <description>Caret and Cursor When editing in Notepad++, the insertion point in the editing window where your text will be typed is called the &amp;ldquo;caret&amp;rdquo;, and is indicated by either a vertical bar or a box around the insertion location, depending on Caret settings. This is separate from the mouse cursor, which is the graphical pointer that moves freely as you move your mouse, not limited to the editing window, and can be used for changing the caret location and for interacting with the rest of the user interface.</description>
+    </item>
+    
+    <item>
+      <title>Searching</title>
+      <link>http://localhost:1313/docs/searching/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/docs/searching/</guid>
+      <description>Search Actions There are multiple methods to search (and replace) text in files. You can also mark search results with a bookmark on their lines, or highlight the textual results themselves. Generating a count of matches is also possible.
+There are three main built-in search mechanisms: the standard (dialog-based) Find / Replace / Find In Files / Mark, the dialog-free Next / Previous search-navigation, and the Incremental Search.
+All keyboard shortcuts mentioned below are the default values, but are configurable in the Shortcut Mapper.</description>
+    </item>
+    
+    <item>
+      <title>Views</title>
+      <link>http://localhost:1313/docs/views/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/docs/views/</guid>
+      <description>The View menu controls the look of Notepad++, including how Notepad++ and the Windows operating system interact, what features and panels are active inside Notepad++, and whether there are one or two Views (visible files) active at the same time.
+Many of the entries in the View menu act as settings or toggles, to show or hide some feature: the feature will be visible when there is a checkmark ✔ next to the menu entry, and it will not be visible if there is no checkmark shown.</description>
+    </item>
+    
+    <item>
+      <title>Sessions, Workspaces, and Projects</title>
+      <link>http://localhost:1313/docs/session/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/docs/session/</guid>
+      <description>Sessions, Workspaces, and Projects There are three built-in &amp;ldquo;multiple file management&amp;rdquo; systems available natively in Notepad++.
+ Sessions = a set of files that can be opened with one action. Folder as Workspace = a tree-based interface to easily access the files in a given Windows directory. Project Panels = a tree-based interface to access related files that aren&amp;rsquo;t necessarily grouped in the same Windows directory structure.  There are also various plugins available that might help manage sessions or workspaces, or serve similar purposes but with a different feature set compared to these built-in features.</description>
+    </item>
+    
+    <item>
+      <title>Function List</title>
+      <link>http://localhost:1313/docs/function-list/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/docs/function-list/</guid>
+      <description>What is Function List The Function List Panel is a zone to display all the functions (or methods) found in the current file. The user can double-click the function name in the Function List Panel to move to that function in the editor. You can customize the Function List to enhance an existing language or to add a currently-unsupported language by following the instructions found below.
+Function List uses a regular-expression (regex) search engine to parse the active file and look for functions (or methods); it displays the results from the regular-expression search in the Function List panel.</description>
+    </item>
+    
+    <item>
+      <title>Auto-Completion</title>
+      <link>http://localhost:1313/docs/auto-completion/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/docs/auto-completion/</guid>
+      <description>What is Auto-completion Notepad++ offers automatic completion of various sorts of text after you have entered an initial substring (or prefix), which can save you having to type all of a long word (and potentially save you mistyping it). For instance, if you&amp;rsquo;re coding in JavaScript and type syn, Notepad++ can present synchronized (a JavaScript keyword) as a suggestion. You accept the suggestion by typing the completion key (see &amp;ldquo;Automatic completion&amp;quot;, below), and the word is completed within your buffer as if you&amp;rsquo;d typed it all out.</description>
+    </item>
+    
+    <item>
+      <title>Syntax Highlighting - Built-in Languages</title>
+      <link>http://localhost:1313/docs/programing-languages/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/docs/programing-languages/</guid>
+      <description>Supported Programming Languages Around 90 Programming Languages are supported by Notepad++:
+            ActionScript Ada ASN.1 ASP Assembly   AutoIt AviSynth BaanC Batch BlitzBasic   C C# C++ CAML CMake   COBOL CoffeeScript Csound CSS D   Diff Erlang ESCRIPT Forth Fortran fixed form   Fortran free form FreeBasic GDScript Go Gui4Cli   Haskell Hollywood HTML ini Inno Setup   Intel HEX Internal Search Java JavaScript json   json5 JSP KiXtart LaTeX Lisp   Lua Makefile MATLAB MMIXAL mssql   NFO Nim Nncrontab NSIS Objective-C   OScript Pascal Perl PHP PostScript   PowerShell Properties file PureBasic Python R   Raku RC REBOL registry Ruby   Rust S-Record Scheme Shell Smalltalk   Spice SQL Swift TCL Tektronix extended HEX   TeX TOML txt2tags TypeScript Verilog   VHDL Visual Basic Visual Prolog XML YAML    For these languages, Notepad++ supports syntax highlighting (customizable), syntax folding, auto-completion (customizable), function list (customizable via PCRE in xml file).</description>
+    </item>
+    
+    <item>
+      <title>Syntax Highlighting - User Defined Languages</title>
+      <link>http://localhost:1313/docs/user-defined-language-system/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/docs/user-defined-language-system/</guid>
+      <description>What are User Defined Languages Notepad++ comes prepackaged with many Language lexers, which apply syntax highlighting to source code or textual data. However, not every possible language or formatting style is available. Enter the User Defined Languages (or &amp;ldquo;UDL&amp;rdquo; for short): the UDL interface allows the user to define rules for formatting normal text, keywords, comments, numbers; to define delimiters (like quotes around strings or parentheses around lists) which will cause text between those delimiters to be formatted; and to define symbols or keywords that can be used to allow folding (on-demand hiding and unhiding of blocks of code or text).</description>
+    </item>
+    
+    <item>
+      <title>UDL &gt; Parser</title>
+      <link>http://localhost:1313/docs/udl/introduction/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/docs/udl/introduction/</guid>
+      <description>Introduction to UDL 2 code parser This section explains what &amp;ldquo;backward&amp;rdquo; and &amp;ldquo;forward&amp;rdquo; search is.
+Users should understand this part before proceeding to read about other UDL 2.1 features.
+Introduction to UDL 1.0 internal logic To understand the UDL 2.1 logic, you will first need to understand the UDL 1.0 logic, even though Notepad++ hasn&amp;rsquo;t used UDL 1.0 in years, because it teaches the basic concepts involved.
+In this picture you can see a set of three keywords.</description>
+    </item>
+    
+    <item>
+      <title>UDL &gt; Default Style</title>
+      <link>http://localhost:1313/docs/udl/default/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/docs/udl/default/</guid>
+      <description>UDL &amp;gt; Default Style This is the simplest option. You can only change styler of default text.
+After you click &amp;ldquo;Styler&amp;rdquo; button, you will see &amp;ldquo;Styler Dialog&amp;rdquo; window.
+Font options did not change from UDL 1.0, you can select fonts used, their size or color, background color, as well as bold, italic and underline options. Nesting options are disabled as default text cannot have nested sub-strings. Generally, if some keyword type does not support nesting, than nesting option in Styler dialog will be grayed out (disabled).</description>
+    </item>
+    
+    <item>
+      <title>UDL &gt; Folding in code</title>
+      <link>http://localhost:1313/docs/udl/folding-in-code/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/docs/udl/folding-in-code/</guid>
+      <description>UDL &amp;gt; Folding in code Folding in code is quite different in UDL 2.1. Instead of two keyword sets (open and close), now we have three keyword sets (open, middle and close). Also, there are two Folding in code groups: one for forward (style1) and one for backward (style2) search.
+Example 1 This is a typical C++ folding definition.
+Curly braces represent folding points in the code and preprocessor is also supported (for this demo not all statements were defined)</description>
+    </item>
+    
+    <item>
+      <title>UDL &gt; Folding in comment</title>
+      <link>http://localhost:1313/docs/udl/folding-in-comment/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/docs/udl/folding-in-comment/</guid>
+      <description>UDL &amp;gt; Folding in comment This keyword set is new in UDL 2.1.
+It allows you to fold anything as long as your language supports comments.
+Let&amp;rsquo;s demonstrate it by using C++ comments.
+Example 1 Note: When selecting keywords that turn comments into folding points, it is important to select unique keywords. Don&amp;rsquo;t use stuff that is part of your source code, that will create unexpected folding points when you comment out parts of your source code.</description>
+    </item>
+    
+    <item>
+      <title>UDL &gt; Keywords</title>
+      <link>http://localhost:1313/docs/udl/keywords/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/docs/udl/keywords/</guid>
+      <description>UDL &amp;gt; Keywords This section describes new options user have when defining keyword lists.
+Number of keyword lists has been expanded to eight (as suggested by Don, if more is needed, please state so in discussion on Notepad++ forum). Functionality is the same as in UDL 1.0. You can set &amp;ldquo;font options&amp;rdquo; (font type, color, size and so on), and you can turn on &amp;ldquo;prefix mode&amp;rdquo;. Prefix mode simply means that anything that starts with your string will be identified as keyword.</description>
+    </item>
+    
+    <item>
+      <title>UDL &gt; Comments</title>
+      <link>http://localhost:1313/docs/udl/comments/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/docs/udl/comments/</guid>
+      <description>UDL &amp;gt; Comments This section describes new options user have when defining comments.
+Comments handling in UDL 2.1 changed significantly.
+Let&amp;rsquo;s start with the most obvious part, the GUI.
+Line comments Line comments now support three set of keywords: open, continue and close.
+UDL2.1 has an option to force line comments to start at the beginning of line.
+When this option is switched on, line comments will be recognized only if they are located at the beginning of line.</description>
+    </item>
+    
+    <item>
+      <title>UDL &gt; Numbers</title>
+      <link>http://localhost:1313/docs/udl/numbers/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/docs/udl/numbers/</guid>
+      <description>UDL &amp;gt; Numbers This section describes new options user have when defining numbers.
+UDL number panel received major update in Notepad++ version 6.3. If you are using version 6.2, please scroll below.
+Number handling is quite different in UDL 2.1 than it was in UDL 1.0 (or UDL 2.0).
+New interface and logical organization of code designed by CChris was used in version 2.0, and user suggestions lead to improvements and extensions in version 2.</description>
+    </item>
+    
+    <item>
+      <title>UDL &gt; Operators</title>
+      <link>http://localhost:1313/docs/udl/operators/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/docs/udl/operators/</guid>
+      <description>UDL &amp;gt; Operators This section gives short explanation of operator options.
+For detailed discussion about &amp;ldquo;forward&amp;rdquo; and &amp;ldquo;backward&amp;rdquo; search, please read section on the UDL Parser.
+Operators are split into two groups: Operators1 and Operators2.
+Operators1 This is a &amp;ldquo;forward&amp;rdquo; search group.
+These operators can be &amp;ldquo;glued&amp;rdquo; to other keywords. You can use it to define operators like:
+! &amp;amp;&amp;amp; &amp;lt;&amp;lt; &amp;gt;&amp;gt; + - _ %In short: these should be special non-alphanumeric characters</description>
+    </item>
+    
+    <item>
+      <title>UDL &gt; Delimiters</title>
+      <link>http://localhost:1313/docs/udl/delimiters/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/docs/udl/delimiters/</guid>
+      <description>UDL &amp;gt; Delimiters This section describes new options users have when defining delimiters.
+Delimiters changed a lot in UDL 2.1.
+The most obvious difference is the GUI, so we&amp;rsquo;ll start with that.
+Just like in case of keywords, number of delimiter lists has been expanded to eight (as suggested by Don), if more is needed, please state so in discussion on Notepad++ forum. And each Delimiter now accepts its own Escape char.</description>
+    </item>
+    
+    <item>
+      <title>Macros - Task Automation</title>
+      <link>http://localhost:1313/docs/macros/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/docs/macros/</guid>
+      <description>Notepad++ is capable of recording some of your actions you perform while editing a document, and replaying those later on to avoid having to repeat that sequence of actions. This is called a macro and can save a great deal of time. Macros can be played once, or multiple times, even as long as is required to run through an entire document. You can save them for later use and assign keystrokes to them for fast access (See Shortcut Mapper).</description>
+    </item>
+    
+    <item>
+      <title>Running External Commands</title>
+      <link>http://localhost:1313/docs/run-menu/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/docs/run-menu/</guid>
+      <description>The Run menu allows you to run arbitrary external commands from inside Notepad++, and to save the commands into new entries in the Run menu and even to assign keyboard shortcuts to those saved commands. Because of the variable syntax (defined in the Configuration Files Details &amp;gt; User Defined Commands section of this manual), you can even use the filename or the current selected text or similar as arguments to the programs.</description>
+    </item>
+    
+    <item>
+      <title>Plugins</title>
+      <link>http://localhost:1313/docs/plugins/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/docs/plugins/</guid>
+      <description>Notepad++ is very extensible using so called plugins. Plugins are small or big additions to Notepad++ to enhance its functionality. Notepad++ comes bundled with a few plugins (when using the installer, you can choose which ones to add), but you can always add your own or remove some. The plugins are located in the Plugins directory in the main Notepad++ installation directory. They are DLL files and simply removing or adding them is enough.</description>
+    </item>
+    
+    <item>
+      <title>Plugin Communication</title>
+      <link>http://localhost:1313/docs/plugin-communication/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/docs/plugin-communication/</guid>
+      <description>Plugin Communication: Messages and Notifications Plugins need to communicate with Notepad++ to get information from it or to instruct it to do some task. This is done by using messages and notifications.
+Message and notifications share a similar interface. Where messages are sent by using Windows SendMessage api, notifications are sent by Notepad++ using WM_NOTIFY messages.
+These same techniques can also be used for editing macros (some of which use messages to control Notepad++), or when using one of the scripting plugins (which effectively make your script a mini-plugin).</description>
+    </item>
+    
+    <item>
+      <title>Command Line Arguments</title>
+      <link>http://localhost:1313/docs/command-prompt/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/docs/command-prompt/</guid>
+      <description>Notepad++ supports various case-sensitive command line arguments to control its startup and affect its behavior.
+Help usage notepad++ [--help] [-multiInst] [-noPlugin][-l&amp;lt;Language&amp;gt;] [-udl=&amp;quot;My UDL Name&amp;quot;][-L&amp;lt;langCode&amp;gt;][-n&amp;lt;line&amp;gt;] [-c&amp;lt;column&amp;gt;] [-p&amp;lt;pos&amp;gt;] [-x&amp;lt;left-pos&amp;gt;] [-y&amp;lt;TopPos&amp;gt;][-monitor] [-nosession] [-notabbar] [-ro] [-systemtray] [-loadingTime][-alwaysOnTop] [-openSession] [-r][-qn=&amp;quot;Easter Egg Name&amp;quot; | -qt=&amp;quot;Text to Type&amp;quot; | -qf=&amp;quot;D:\path to\file&amp;quot;][-qSpeed(1|2|3)] [-quickPrint][-settingsDir=&amp;quot;d:\your settings dir\&amp;quot;] [-openFoldersAsWorkspace][-titleAdd=&amp;quot;additional title bar text&amp;quot;][-pluginMessage=&amp;quot;text for plugin(s)&amp;quot;][filepath] --help: The help message for command line arguments.</description>
+    </item>
+    
+    <item>
+      <title>Preferences</title>
+      <link>http://localhost:1313/docs/preferences/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/docs/preferences/</guid>
+      <description>There are three main dialogs for editing preferences and other user-defined settings: Preferences, Style Configurator and Shortcut Mapper. The Shortcut Mapper is a list of keyboard shortcuts to everything that can have one in Notepad++. Style Configurator allows changing the visual appearance of anything that has a color or a font. The Preferences dialog manages most other user-settings. While there are various aspects in Notepad++ that are not configurable, you may not even notice them.</description>
+    </item>
+    
+    <item>
+      <title>Configuration Files Details</title>
+      <link>http://localhost:1313/docs/config-files/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/docs/config-files/</guid>
+      <description>Configuration Files Notepad++ offers a comprehensive user interface to review or change most of its settings. However, there are some special cases where it is worthwhile to edit the configuration files directly, including:
+ Customizing the Context Menu Editing previously-recorded macros, or crafting new macros manually Adding keywords to a language, because the new language version isn&amp;rsquo;t matched yet  Please note that Notepad++ writes the configuration files when it exits, which is why the Editing Configuration Files section below says that Notepad++ may overwrite your changes.</description>
+    </item>
+    
+    <item>
+      <title>Themes</title>
+      <link>http://localhost:1313/docs/themes/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/docs/themes/</guid>
+      <description>What are Themes Themes are pre-defined sets of formatting rules, which often try to use a consistent color scheme between languages. You may choose your theme using the Preferences &amp;gt; Style Configurator dialog.
+Notepad++ comes packaged with a default theme (called &amp;ldquo;Default (stylers.xml)&amp;quot;) and a number of other themes to start with. You may customize any of those themes using the Style Configurator dialog, or by editing the underlying XML files.</description>
+    </item>
+    
+    <item>
+      <title>Localization - User Interface Translation</title>
+      <link>http://localhost:1313/docs/binary-translation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/docs/binary-translation/</guid>
+      <description>Notepad++ can be &amp;ldquo;localized&amp;rdquo; to your chosen written language, so that it translates the user interface (including menu and command names, and the text in dialogs and buttons). It supports this multi-language functionality by using a localization xml file (based on the official english.xml translation) which maps the various user-interface pieces to the appropriate translation. The Notepad++ localization is chosen through the Settings &amp;gt; Preferences &amp;gt; General &amp;gt; Localization interface.</description>
+    </item>
+    
+    <item>
+      <title>User Interface</title>
+      <link>http://localhost:1313/docs/user-interface/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/docs/user-interface/</guid>
+      <description>Tabs The keyboard shortcuts described in this section are the default Settings &amp;gt; Shortcut Mapper settings; if the Shortcut Mapper has been modified, the keystrokes may be different.
+The MOUSEWHEEL commands described require that the mouse pointer be hovered over the Tab Bar.
+If the description says it will &amp;ldquo;wrap&amp;rdquo;, it means that if you try to go beyond the last tab, it will next go to the first tab; and if you try to go before the first tab, it will next go to the last tab.</description>
+    </item>
+    
+    <item>
+      <title>Upgrading</title>
+      <link>http://localhost:1313/docs/upgrading/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/docs/upgrading/</guid>
+      <description>Notepad++ is an actively maintained piece of software, and new versions come fast. There are basically four ways to keep abreast of changes:
+Auto-Trigger If you used installation package when you originally installed, the Auto Update feature is active by default. Every 15 days auto-updater (WinGUp) will be launched for checking, and you will be notified if a new version is available. You are presented with the option of installing that newer version.</description>
+    </item>
+    
+    <item>
+      <title>Right Click - Edit With Notepad&#43;&#43;</title>
+      <link>http://localhost:1313/docs/shell-extension/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/docs/shell-extension/</guid>
+      <description>Shell Extension Notepad++ installs with a Shell Extension &amp;ndash; a DLL which adds menu commands to the Windows Explorer right-click context menu. If you choose to install it (and the Notepad++ installer does install it), then any file you right-click on will show an entry named “Edit with Notepad++” with the Notepad++ icon.
+Installation Under normal circumstances, the Shell Extension was installed when you installed Notepad++.
+Please note that to install or remove the extension, you most likely need to use Administrator privileges.</description>
+    </item>
+    
+    <item>
+      <title>Ghost Typing</title>
+      <link>http://localhost:1313/docs/ghost-typing/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/docs/ghost-typing/</guid>
+      <description>Ghost typing can be used to launch Notepad++ with an auto-typing text. Use command line arguments -qn, -qt or -qf to trigger it.
+Syntax Main Ghost Typing Modes Use one of these three command-line options to enable the various modes of ghost typing.
+notepad++.exe -qn=&amp;quot;EasterEggName&amp;quot;
+-qn: ghost typing text is derived from a builtin easter egg text.
+EasterEggName: the name of easter egg. Quotes are required if the name contains a space.</description>
+    </item>
+    
+    <item>
+      <title>Other Resources</title>
+      <link>http://localhost:1313/docs/other-resources/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/docs/other-resources/</guid>
+      <description>Restartable App Windows 10 and Windows 11 have a &amp;ldquo;restartable apps&amp;rdquo; feature (Windows Start Button &amp;gt; Settings &amp;gt; Accounts &amp;gt; Sign In Options &amp;gt; Restart Apps) which automatically saves the state of various &amp;ldquo;restartable apps&amp;rdquo; when you log out of Windows then back in. Starting with v8.5.8, Notepad++ is now a &amp;ldquo;restartable app&amp;rdquo; &amp;ndash; so if you log out or reboot with Notepad++ running, and have that Windows setting active, then when you next log in, Notepad++ will reload right where you were.</description>
+    </item>
+    
+    <item>
+      <title>User Manual History</title>
+      <link>http://localhost:1313/docs/history/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/docs/history/</guid>
+      <description>User Manual History Prior to 2019, the Notepad++ &amp;ldquo;manual&amp;rdquo; was a wiki that had been locked to user input since 2015, so it was years out-of-date.
+In the Summer of 2019, Peter Jones spearheaded a team effort to create a new User Manual website tracked in GitHub, allowing collaborative contributions without the vandalism risk posed by a wiki. The first version of https://npp-user-manual.org was released on September 8, 2019, with a description of Notepad++ as of v7.</description>
+    </item>
+    
+    <item>
+      <title>Copyright &amp; License</title>
+      <link>http://localhost:1313/docs/license/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/docs/license/</guid>
+      <description>Copyright Copyright (C) 2020 Don HO &amp;lt;don.h@free.fr&amp;gt;.
+Additional authors include any contributors to the npp-usermanual repository at https://github.com/notepad-plus-plus/npp-usermanual
+Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. A copy of the license is included in the section entitled &amp;ldquo;GNU Free Documentation License&amp;rdquo;.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,2 @@
+To Install - Copy and Paste et_waypointing.gm and wp.cfg 
+In to Wolfenstein - Enemy Territory\etmain

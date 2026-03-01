@@ -1,0 +1,143 @@
+/*
+ * TODO:
+ *	- Something something.
+ */
+
+global Map =
+{
+	CONSTANT_SHOULD_NOT_BE_LISTED = 0,
+
+	variableShouldNotBeListed,
+
+	Navigation =
+	{
+		jump_should_not_be_listed =
+		{
+			navigate = function( _this )
+			{
+			},
+		},
+	},
+
+	Roles =
+	{
+		AXIS = // Team
+		{
+			AllBots = true, // Each bot is considered for a role
+
+			ATTACKER =
+			{
+				voice = "attack",					// Signals voice chat to randomly announce
+				spawnpt = 1,						// Users of this role will choose spawnpt 1
+				numbots = 4,						// Maximum of 4 bots
+				//crucialClass = CLASS.FIELDOPS,	// First bot
+			},
+
+			DEFENDER =
+			{
+				voice = "defend",						// Signals voice chat to randomly announce
+				spawnpt = 2,							// Users of this role will choose spawnpt 2
+				numbots = 4,							// Maximum of 4 bots
+				//crucialClass = CLASS.ENGINEER,		// First bot
+			},
+		},
+	},
+
+	Switches =
+	{
+		elevator_top_switch =
+		{
+			Enabled = true,
+			Priority = 0, // Always set to 0 when using path through
+			WaypointName = "elevator_top_switch",
+			Timeout = 2000,
+			AimPosition = Vec3 (-3506.912, -2645.875, 1038.910), // Use /bot aim_pos to get aim vector. Replaces the unreliable waypoint facing.
+		}
+	},
+
+	Trigger_Table_Should_Be_Listed =
+	{
+		Name = "Trigger_Table_Should_Be_Listed",
+		TriggerOnClass = CLASS.ANYPLAYER,
+		OnEnter = function( ent )
+		{
+		},
+	},
+
+	// This one is caught by the last regex part, no idea why/how...
+	// NonFunctionTable should not be matched by [A-Z]+...
+	NonFunctionTable_ShouldNotBeListed =
+	{
+	},
+
+	TriggerLessFunction = function()
+	{
+	},
+
+	TriggerFunction = function( trigger )
+	{
+	},
+
+	Trigger_Function_With_Underscore = function( trigger )
+	{
+	}
+};
+
+global OnMapLoad = function()
+{
+	// Various syntax coloration tests
+	Blackboard.MakeKey();
+	Wp.IsWaypointViewOn();
+	ETUtil.BuildVehiclePath();
+	Util.FixMoverPos();
+	Util.ExcludeClass();
+	Util.EnableGoal();
+	TEAM;
+	TEAM.AXIS;
+	AXIS;
+	System.NewLine;
+	Zero;
+	ZoomButton;
+
+	b = AABB();
+	v = b.CenterPoint();
+
+	Map.Test();
+
+	Util.MapDebugPrint( "", true );
+};
+
+global OnBotJoin = function( bot )
+{
+};
+
+global InitializeRoutes = function()
+{
+	MapRoutes =
+	{
+		BUILD_Command_Post =
+		{
+		},
+	};
+};
+
+global ClassLevelFunctionLess =
+{
+};
+
+//global CommentedOutClassLevelLine =
+//{
+//};
+
+/*
+global CommentedOutClassLevelBlock =
+{
+};
+*/
+
+global ClassLevelWithFunction =
+{
+	Function = function()
+	{
+	},
+};

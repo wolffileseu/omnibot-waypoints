@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta name="generator" content="Hugo 0.68.3" />
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="What is Function List The Function List Panel is a zone to display all the functions (or methods) found in the current file. The user can double-click the function name in the Function List Panel to move to that function in the editor. You can customize the Function List to enhance an existing language or to add a currently-unsupported language by following the instructions found below.
+Function List uses a regular-expression (regex) search engine to parse the active file and look for functions (or methods); it displays the results from the regular-expression search in the Function List panel.">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="Function List" />
+<meta property="og:description" content="What is Function List The Function List Panel is a zone to display all the functions (or methods) found in the current file. The user can double-click the function name in the Function List Panel to move to that function in the editor. You can customize the Function List to enhance an existing language or to add a currently-unsupported language by following the instructions found below.
+Function List uses a regular-expression (regex) search engine to parse the active file and look for functions (or methods); it displays the results from the regular-expression search in the Function List panel." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="../../docs/function-list/index.html" />
+
+<title>Function List | Notepad&#43;&#43; User Manual</title>
+<link rel="manifest" href="../../manifest.json">
+<link rel="icon" href="../../favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="../../book.min.6e40b5f911dc7f922b4354b4a32e0a00d71dc7ebac6d2334c02aa38eb679f117.css" attr_integ_ignore="sha256-bkC1&#43;RHcf5IrQ1S0oy4KANcdx&#43;usbSM0wCqjjrZ58Rc=">
+<script defer src="../../en.search.min.198a20a5f81cba6044d4b6b4ed8e396ecef5d158d13a4e21936619f0d5a4638a.js" attr_integ_ignore="sha256-GYogpfgcumBE1La07Y45bs710VjROk4hk2YZ8NWkY4o="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a href="../../index.html"><span>Notepad&#43;&#43; User Manual</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" readonly hidden placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/getting-started/index.html" class="">Getting started</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/files/index.html" class="">Working with Files</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/editing/index.html" class="">Editing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/searching/index.html" class="">Searching</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/views/index.html" class="">Views</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/session/index.html" class="">Sessions, Workspaces, and Projects</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/function-list/index.html" class=" active">Function List</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/auto-completion/index.html" class="">Auto-Completion</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/programing-languages/index.html" class="">Syntax Highlighting - Built-in Languages</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/user-defined-language-system/index.html" class="">Syntax Highlighting - User Defined Languages</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/introduction/index.html" class="">UDL &gt; Parser</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/default/index.html" class="">UDL &gt; Default Style</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/folding-in-code/index.html" class="">UDL &gt; Folding in code</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/folding-in-comment/index.html" class="">UDL &gt; Folding in comment</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/keywords/index.html" class="">UDL &gt; Keywords</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/comments/index.html" class="">UDL &gt; Comments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/numbers/index.html" class="">UDL &gt; Numbers</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/operators/index.html" class="">UDL &gt; Operators</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/delimiters/index.html" class="">UDL &gt; Delimiters</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/macros/index.html" class="">Macros - Task Automation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/run-menu/index.html" class="">Running External Commands</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/plugins/index.html" class="">Plugins</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/plugin-communication/index.html" class="">Plugin Communication</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/command-prompt/index.html" class="">Command Line Arguments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/preferences/index.html" class="">Preferences</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/config-files/index.html" class="">Configuration Files Details</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/themes/index.html" class="">Themes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/binary-translation/index.html" class="">Localization - User Interface Translation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/user-interface/index.html" class="">User Interface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/upgrading/index.html" class="">Upgrading</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/shell-extension/index.html" class="">Right Click - Edit With Notepad&#43;&#43;</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/ghost-typing/index.html" class="">Ghost Typing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/other-resources/index.html" class="">Other Resources</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/history/index.html" class="">User Manual History</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/license/index.html" class="">Copyright &amp; License</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="../../svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Function List</strong>
+
+  <label for="toc-control">
+    
+    <img src="../../svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#what-is-function-list">What is Function List</a></li>
+        <li><a href="#how-to-customize-function-list">How to customize Function List</a>
+          <ul>
+            <li><a href="#function-parser">Function parser</a></li>
+            <li><a href="#class-parser">Class parser</a></li>
+            <li><a href="#mixed-parser">Mixed parser</a></li>
+          </ul>
+        </li>
+        <li><a href="#manually-verify-that-your-parser-works-for-you">Manually verify that your parser works for you</a></li>
+        <li><a href="#use-your-own-personal-function-list-definition-for-a-built-in-language">Use your own personal function list definition for a built-in language</a></li>
+        <li><a href="#validating-function-list-definition-files">Validating Function List definition files</a></li>
+        <li><a href="#contribute-your-new-or-enhanced-parser-rule-to-the-notepad-codebase">Contribute your new or enhanced parser rule to the Notepad++ codebase</a>
+          <ul>
+            <li><a href="#unit-tests">Unit tests</a>
+              <ul>
+                <li><a href="#unit-test-file-is-absent">Unit test file is absent</a></li>
+                <li><a href="#unit-test-file-is-present">Unit test file is present</a></li>
+              </ul>
+            </li>
+            <li><a href="#create-and-submit-your-pull-request">Create and Submit your Pull Request</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h2 id="what-is-function-list">What is Function List</h2>
+<p>The Function List Panel is a zone to display all the functions (or methods) found in the current file. The user can double-click the function name in the Function List Panel to move to that function in the editor. You can customize the Function List to enhance an existing language or to add a currently-unsupported language by following the instructions found below.</p>
+<p>Function List uses a regular-expression (regex) search engine to parse the active file and look for functions (or methods); it displays the results from the regular-expression search in the Function List panel.  It is designed to be as generic as possible, and allows users to modify the way to search, or to add new parsers for any programming language.</p>
+<p>In order to make Function List work for your language, you should modify (or add) the XML file of the languge. The XML files for different languages can be found in <code>%APPDATA%\notepad++\functionList</code>; if you use the portable (zip) package, then it will instead be in the <code>functionList</code> folder located in Notepad++ installation directory.  The <code>overrideMap.xml</code> file (in that same folder as the language XML file) is used to map the name of the language to the XML file that defines the Function List rule for that language, as described in the <a href="../config-files/index.html#function-list">function list config files</a> section of the manual.   (For plain text files, you can have a function list definition in <code>functionList\normal.xml</code>.)</p>
+<h2 id="how-to-customize-function-list">How to customize Function List</h2>
+<p>To customize the Function List, you need to edit the XML file for the language you are defining.  This section describes the structure and requirements for each XML element.</p>
+<p>The <code>&lt;parser&gt;</code> node accepts the three attributes:</p>
+<ul>
+<li><code>id</code>: Unique ID for this parser.</li>
+<li><code>displayName</code>: Reserved for future use.</li>
+<li><code>comment</code>: Optional. You can make a regular expression in this attribute in order to identify comment zones. The identified zones will be ignored by search, so that it will not find commented-out functions.</li>
+</ul>
+<p>There are 3 kinds of parsers: function parser, class parser, and mixed parser.</p>
+<ul>
+<li>Define a function parser if the language has only functions to parse (for example C).
+<ul>
+<li>A function parser contains only a <code>&lt;function&gt;</code> node.</li>
+</ul>
+</li>
+<li>Define a class parser if the language has functions &ldquo;defined&rdquo; in a class, but no function defined outside of a class (for example Java).
+<ul>
+<li>A class parser contains only a <code>&lt;classRange&gt;</code> node.</li>
+</ul>
+</li>
+<li>Define a mixed parser if you have function &ldquo;defined&rdquo; both inside and ouside of a class in a file (for example C++).
+<ul>
+<li>A mixed parser contains both<code>&lt;function&gt;</code> and <code>&lt;classRange&gt;</code> nodes.</li>
+</ul>
+</li>
+</ul>
+<p><em>Notes on regular expressions for parsers</em>:</p>
+<p>The function list regular expressions follow the same syntax spelled out in the docs on <a href="../searching/index.html#regular-expressions">Searching: Regular Expressions</a>, with the following exceptions or clarifications:</p>
+<ul>
+<li>The parser does not accept <strong>regular expression look behind operations</strong> in the expressions.</li>
+<li>The parser can only search for function names, it will not do <strong>regular expression replacement or modification</strong> (so you cannot add text to the matching names, or remove text from the middle; to remove text from the beginning or the end, use <code>\K</code> to reset the match, or use <strong>look ahead operations</strong>)</li>
+<li>You <em>may</em> use the <code>(?x)</code> modifier to allow additional whitespace and <code>#</code>-prefixed comments in your regular expression, as described in the docs on <a href="../searching/index.html#search-modifiers">regex search modifiers</a></li>
+<li>The parser defaults to <code>. matches newline</code> being turned on (the equivalent of <code>(?s)</code> inside a regex).  If you want <code>.</code> to <em>not</em> match newlines, please include <code>(?-s)</code> in your FunctionList definition regular expressions.</li>
+</ul>
+<p>Because the Function List parser uses a subset of the same regular expression syntax that Notepad++ uses for <strong>Search &gt; Find</strong> regular expressions, you can use Notepad++'s search dialog with <strong>Search Mode</strong> set to <strong>☑ Regular Expression</strong> to experiment with the searches.  (If you choose to use some other tool &ndash; like one of the many web-based regex explainers &ndash; to help you debug your expression for your Function List definition, please understand that there are many implementations of regular expressions, and even very similar implementations have subtle differences in behavior.  You would need to find a tool that uses the exact same Boost library version that Notepad++ uses to have their results be identical.  The <a href="../searching/index.html#regular-expressions">Searching: Regular Expressions</a> section should always list the version of the Boost library used by the most recent Notepad++.)</p>
+<h3 id="function-parser">Function parser</h3>
+<p>The <code>&lt;function&gt;</code> node accepts the following attributes and contained elements:</p>
+<ul>
+<li><code>mainExpr</code> (<em>attribute</em>): The regex to get the whole string which contains all the informations you need.</li>
+<li><code>displayMode</code> (<em>attribute</em>): Reserved for future use.</li>
+<li><code>functionName</code> (<em>element</em>): Define one or more regular expressions to get the function name from the result of <code>mainExpr</code> attribute of the <code>function</code> node.
+<ul>
+<li><code>nameExpr</code> (<em>element</em>): Used to match a function name.  Uses the results from the <code>mainExpr</code> above as the input for the <code>nameExpr</code>.
+<ul>
+<li><code>expr</code> (<em>attribute</em>): This is where you define the regular expression to find the function name.</li>
+<li>Note: if there are multiple <code>nameExpr</code> elements inside a <code>functionName</code>, the results of one <code>nameExpr</code> is used as the input for the next <code>nameExpr</code> (in the order they appear in the function list definition) &ndash; they work in series, not parallel.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>className</code> (<em>element</em>): Define one or more regular expressions to get the class name from the result of <code>mainExpr</code>.  (You <em>can</em> have classes, even if it&rsquo;s not a class parser.)
+<ul>
+<li><code>nameExpr</code> (<em>element</em>): Extracts the class name from the results of the <code>mainExpr</code>.
+<ul>
+<li><code>expr</code> (<em>attribute</em>): This is where you define the regular expression to find the class name.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Both <code>functionName</code> and <code>className</code> nodes are optional.  If <code>functionName</code> and <code>className</code> are absent, then the string found by the <code>mainExpr</code> regular expression will be processed as the function name, and the class name won&rsquo;t be used.</p>
+<h3 id="class-parser">Class parser</h3>
+<p>The <code>&lt;classRange&gt;</code> node accepts the following attributes and contained elements:</p>
+<ul>
+<li><code>mainExpr</code> (<em>attribute</em>): The main whole string to search.</li>
+<li><code>displayMode</code> (<em>attribute</em>): Reserved for future use.</li>
+<li><code>openSymbole</code> &amp; <code>closeSymbole</code> (<em>attribute</em>): They are optional. If defined, the parser will determine the zone of this class: It first finds <code>openSymbole</code> from the last character of the string found by the &ldquo;mainExpr&rdquo; attribute; then it determines the end of the class by finding a corresponding <code>closeSymbole</code>.  The algorithm deals with the several levels of nesting. For example: <code>\{\{\{\}\{\}\}\{\}\}</code></li>
+<li><code>className</code> (<em>element</em>): Contains one or more <code>nameExpr</code> nodes for determining class name (from the result of <code>mainExpr</code> searching).</li>
+<li><code>function</code> (<em>element</em>): Finds functions inside the class zone by using the expressions found in the <code>mainExpr</code> attribute and the <code>functionName</code> nodes.
+<ul>
+<li><em>Note</em>: This <code>function</code> node looks similar to the <code>function</code> node in the <strong>Function parser</strong> above, but it <em>is different</em>, and has slightly different contents.</li>
+<li><code>mainExpr</code> (<em>attribute</em>): The regex to get the whole string which contains all the informations you need.</li>
+<li><code>functionName</code> (<em>element</em>): The wrapper for digging into and finding the text for the function name
+<ul>
+<li><code>functionNameExpr</code> (<em>element</em>): The element for the function name of a function inside a class.  Please note that the <strong>Class parser</strong> uses the <code>functionNameExpr</code> element instead of the <code>nameExpr</code> element in the <strong>Function parser</strong>.
+<ul>
+<li><code>expr</code> (<em>attribute</em>): this is where you put the regular expression defines what should match to be used in displaying the function name in the Function List panel.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><em>Please Note</em>: an empty class (one without any functions) will <em>not</em> display in the Function List panel.  Thus, if you have no <code>&lt;function&gt;</code> elements defined in your <code>&lt;classRange&gt;</code> node, you will <em>never</em> see your class.  And if you have a <code>&lt;function&gt;</code> defined, but it doesn&rsquo;t match any functions inside your class, the class will not be displayed in the FunctionList panel.  In the FunctionList panel, the class is a container, and it will never display on its own if there is no function to display inside of it.</p>
+<h3 id="mixed-parser">Mixed parser</h3>
+<p>A mixed parser contains a Class parser (<code>classRange</code> node) and a Function parser (<code>function</code> node).  The Class parser will be applied first to find class zones, then the Function parser will be applied on non-class zones.</p>
+<h2 id="manually-verify-that-your-parser-works-for-you">Manually verify that your parser works for you</h2>
+<p>Once you finish defining your parser, save and name the file as the language name with <code>xml</code> as file extension to the <code>functionList</code> folder in order to make it work with the language you want. (Check <a href="https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/functionList/overrideMap.xml">overrideMap.xml</a> for the naming list of all supported programming languages.)  Then load a file that uses that parser, and make sure it finds all the functions that you expect, in the appropriate classes.</p>
+<h2 id="use-your-own-personal-function-list-definition-for-a-built-in-language">Use your own personal function list definition for a built-in language</h2>
+<p>If you do not like the results of the default Function List parser that ships with Notepad++ for a particular language, feel free to write your parser rule then save with a unique filename (like <code>my_languagename.xml</code>).  (<em>Note</em>: if you edit the existing <code>languagename.xml</code>, the next update may erase your changes.)  Use your <a href="https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/functionList/overrideMap.xml">overrideMap.xml</a> in the functionList directory to override the default mapping of functionList parser rule files, or to add a mapping to new UDL parser rule files, as described in the <a href="../config-files/index.html#function-list">function list config files</a> section of the manual.</p>
+<h2 id="validating-function-list-definition-files">Validating Function List definition files</h2>
+<p>If you are developing a Function List definition file and would like to be able to validate that you have correct XML syntax while you are doing so, you can see the instructions in the <a href="https://community.notepad-plus-plus.org/topic/24136/faq-desk-validating-config-file-xml">Notepad++ Community &ldquo;Validating Config-File XML&rdquo; FAQ</a>.</p>
+<h2 id="contribute-your-new-or-enhanced-parser-rule-to-the-notepad-codebase">Contribute your new or enhanced parser rule to the Notepad++ codebase</h2>
+<p>If you have added or updated the parser definition file for one of Notepad++'s built-in languages, you are welcome to contribute your file to the Notepad++ codebase by creating a &ldquo;Pull Request&rdquo; (also called a &ldquo;PR&rdquo;) on the <a href="https://github.com/notepad-plus-plus/notepad-plus-plus">Notepad++ GitHub page</a>.  (A &ldquo;Pull Request&rdquo; is just the GitHub mechanism for requesting that code you write be added to a project.)</p>
+<p><strong>Please Note</strong>: You only need to create a Pull Request if you want your Function List definition to be bundled as part of the Notepad++ codebase going forward, so that everyone who downloads Notepad++ gets your Function List definition.  If you do not need to contribute your Function List definition to everyone, then you do not need to read anything below this paragraph.</p>
+<ul>
+<li>
+<p>If you created a Function List for your own UDL, you do not need to create a Pull Request using the link above, because user-created UDLs and their Function List definitions are not distributed as part of Notepad++.  You do not need to read any further.</p>
+</li>
+<li>
+<p>If you just edited one of the pre-existing Function List definitions for your own personal use, and you don&rsquo;t want to share it with anyone else, you do not need to create a Pull Request using the link above because you are not sharing it with others.  You do not need to read any further.</p>
+</li>
+<li>
+<p>This Pull Request can be used to update the Function List for a language that already has a Function List definition, but you just want to make it better for everyone; or it can be for a new definition file for one of the builtin lexer languages that does not yet have a function list definition.  If it does not not meet one of these requirements, you do not need to read any further.</p>
+</li>
+</ul>
+<p>If you still want to believe you should be submitting your Function List parser to the Notepad++ codebase at this point, please follow the steps below to create and verify your Unit Tests and then submit the Pull Request.</p>
+<h3 id="unit-tests">Unit tests</h3>
+<p>To avoid creating regressions in the Notepad++ codebase, it is important to run the unit tests before you submit your PR.  This procedure is meant for users who are comfortable with the development environment (forking a repository, running unit tests, creating pull requests, and the like), or who are willing to do the research to learn how to do this. If you do not follow these unit test steps, it is likely that your PR will be rejected and your function list definition will not be distributed with Notepad++.  If you do not know how to do this, or cannot do the research on other sites to learn how, then you are not yet ready to submit your Function List definition to be part of the Notepad++ codebase.</p>
+<p>Here are the steps to run unit tests:</p>
+<ol>
+<li>Create or sync your fork of the Notepad++ repository.</li>
+<li>Copy all XML files from <code>[YOUR_SOURCES_DIR]\notepad-plus-plus\PowerEditor\installer\functionList\</code> to <code>[YOUR_SOURCES_DIR]\notepad-plus-plus\PowerEditor\bin\functionList\</code>.</li>
+<li>Copy all XML files from <code>[YOUR_SOURCES_DIR]\notepad-plus-plus\PowerEditor\installer\filesForTesting\</code> to <code>[YOUR_SOURCES_DIR]\notepad-plus-plus\PowerEditor\bin\functionList\</code>.</li>
+<li>Make sure you copy your modified function-list parser definition (xml file) into <code>[YOUR_SOURCES_DIR]\notepad-plus-plus\PowerEditor\bin\functionList\</code>.</li>
+<li>Open PowerShell, go to <code>[YOUR_SOURCES_DIR]\notepad-plus-plus\PowerEditor\Test\FunctionList\</code> to run <code>.\unitTestLauncher.ps1</code>.</li>
+<li>Once you see &ldquo;All tests are passed.&quot;, you can submit your PR.</li>
+</ol>
+<h4 id="unit-test-file-is-absent">Unit test file is absent</h4>
+<p>It could be that you&rsquo;re creating a new language parser for the Function List, or you&rsquo;re enhancing an existing language parser but the file <code>unitTest</code> doesn&rsquo;t exist. In both cases you should:</p>
+<ol>
+<li>Add the directory with language name in lowercase into <code>[YOUR_SOURCES_DIR]\notepad-plus-plus\PowerEditor\Test\FunctionList\</code>.</li>
+<li>Add your new test file as <code>unitTest</code> into the new added directory.</li>
+<li>Open <code>cmd</code>, go to <code>[YOUR_SOURCES_DIR]\notepad-plus-plus\PowerEditor\Test\FunctionList\</code>, run the command <code>..\..\bin\notepad++.exe -export=functionList -l[langName] .\[langName]\unitTest</code>.</li>
+<li>A file named <code>unitTest.result.json</code> will be generated. Rename it as <code>unitTest.expected.result</code>.</li>
+<li>Run unit tests (check above <a href="#unit-tests">Unit tests</a> section) to make sure your parser rule (xml file) won&rsquo;t cause any regression.</li>
+</ol>
+<h4 id="unit-test-file-is-present">Unit test file is present</h4>
+<p>If you&rsquo;re improving an existing parser, and <code>unitTest</code> is present, then you should <strong>modify the existing unitTest file</strong> or <strong>add a new unitTest file</strong>. If your modification of the parser is for covering few more cases, then you can add these cases into the existing unitTest file. Otherwise if the modification is for covering the other categories and you have to add a lot of functions to test, you can just leave the current unitTest file as it is, and add your new unitTest file.</p>
+<p><strong>- Modify the existing unitTest file</strong></p>
+<ol>
+<li>Run unit tests (check above <a href="#unit-tests">Unit tests</a> section) to make sure your parser rule (xml file) won&rsquo;t cause any regression.</li>
+<li>Modify the file <code>[YOUR_SOURCES_DIR]\notepad-plus-plus\PowerEditor\Test\FunctionList\[langName]\unitTest</code> according your enhancement. Generally, you don&rsquo;t remove content but you add the content in this file.</li>
+<li>Open <code>cmd</code>, go to <code>[YOUR_SOURCES_DIR]\notepad-plus-plus\PowerEditor\Test\FunctionList\</code>, run the command <code>..\..\bin\notepad++.exe -export=functionList -l[langName] .\[langName]\unitTest</code>.</li>
+<li>A file named <code>unitTest.result.json</code> will be generated. Remove <code>unitTest.expected.result</code> and Rename <code>unitTest.result.json</code> to <code>unitTest.expected.result</code>.</li>
+</ol>
+<p><strong>- Add a new unitTest file</strong></p>
+<ol>
+<li>Run unit tests (check above <a href="#unit-tests">Unit tests</a> section) to make sure your parser rule (xml file) won&rsquo;t cause any regression.</li>
+<li>Add a directory into <code>[YOUR_SOURCES_DIR]\notepad-plus-plus\PowerEditor\Test\FunctionList\[langName]\</code>, the name of directory is arbitrary but should be relevant to the category of the test. Name your unit test file as <code>unitTest</code> and copy it into the directory you just created.</li>
+<li>Open <code>cmd</code>, go to <code>[YOUR_SOURCES_DIR]\notepad-plus-plus\PowerEditor\Test\FunctionList\</code>, run the command <code>..\..\bin\notepad++.exe -export=functionList -l[langName] .\[langName]\[yourTestDir2]\unitTest</code>.</li>
+<li>A file named <code>unitTest.result.json</code> will be generated in the created directory <code>[YOUR_SOURCES_DIR]\notepad-plus-plus\PowerEditor\Test\FunctionList\[langName]\[yourTestDir2]\</code>. Rename <code>unitTest.result.json</code> in the created directory  to <code>unitTest.expected.result</code>.</li>
+</ol>
+<h3 id="create-and-submit-your-pull-request">Create and Submit your Pull Request</h3>
+<p>As noted in the <a href="https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/CONTRIBUTING.md">&ldquo;Contributing&rdquo; rules for Notepad++</a>, &ldquo;All Pull Requests &hellip; need to be attached to a issue on GitHub.&rdquo;  So the first step is to create an issue which requests that the function list definition be improved (if it was already there) or added (if it was not yet there); in your issue, be sure to explain that you have the Function List definition ready, and will be submitting a Pull Request.  The second step is to use the GitHub interface to create the Pull Request from your fork into the main repository.  The final step is to wait for and respond to feedback from the developers as needed, until such time as your PR is accepted or rejected.</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#what-is-function-list">What is Function List</a></li>
+        <li><a href="#how-to-customize-function-list">How to customize Function List</a>
+          <ul>
+            <li><a href="#function-parser">Function parser</a></li>
+            <li><a href="#class-parser">Class parser</a></li>
+            <li><a href="#mixed-parser">Mixed parser</a></li>
+          </ul>
+        </li>
+        <li><a href="#manually-verify-that-your-parser-works-for-you">Manually verify that your parser works for you</a></li>
+        <li><a href="#use-your-own-personal-function-list-definition-for-a-built-in-language">Use your own personal function list definition for a built-in language</a></li>
+        <li><a href="#validating-function-list-definition-files">Validating Function List definition files</a></li>
+        <li><a href="#contribute-your-new-or-enhanced-parser-rule-to-the-notepad-codebase">Contribute your new or enhanced parser rule to the Notepad++ codebase</a>
+          <ul>
+            <li><a href="#unit-tests">Unit tests</a>
+              <ul>
+                <li><a href="#unit-test-file-is-absent">Unit test file is absent</a></li>
+                <li><a href="#unit-test-file-is-present">Unit test file is present</a></li>
+              </ul>
+            </li>
+            <li><a href="#create-and-submit-your-pull-request">Create and Submit your Pull Request</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

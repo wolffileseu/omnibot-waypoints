@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta name="generator" content="Hugo 0.68.3" />
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="What are User Defined Languages Notepad&#43;&#43; comes prepackaged with many Language lexers, which apply syntax highlighting to source code or textual data. However, not every possible language or formatting style is available. Enter the User Defined Languages (or &ldquo;UDL&rdquo; for short): the UDL interface allows the user to define rules for formatting normal text, keywords, comments, numbers; to define delimiters (like quotes around strings or parentheses around lists) which will cause text between those delimiters to be formatted; and to define symbols or keywords that can be used to allow folding (on-demand hiding and unhiding of blocks of code or text).">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="Syntax Highlighting - User Defined Languages" />
+<meta property="og:description" content="What are User Defined Languages Notepad&#43;&#43; comes prepackaged with many Language lexers, which apply syntax highlighting to source code or textual data. However, not every possible language or formatting style is available. Enter the User Defined Languages (or &ldquo;UDL&rdquo; for short): the UDL interface allows the user to define rules for formatting normal text, keywords, comments, numbers; to define delimiters (like quotes around strings or parentheses around lists) which will cause text between those delimiters to be formatted; and to define symbols or keywords that can be used to allow folding (on-demand hiding and unhiding of blocks of code or text)." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="../../docs/user-defined-language-system/index.html" />
+
+<title>Syntax Highlighting - User Defined Languages | Notepad&#43;&#43; User Manual</title>
+<link rel="manifest" href="../../manifest.json">
+<link rel="icon" href="../../favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="../../book.min.6e40b5f911dc7f922b4354b4a32e0a00d71dc7ebac6d2334c02aa38eb679f117.css" attr_integ_ignore="sha256-bkC1&#43;RHcf5IrQ1S0oy4KANcdx&#43;usbSM0wCqjjrZ58Rc=">
+<script defer src="../../en.search.min.198a20a5f81cba6044d4b6b4ed8e396ecef5d158d13a4e21936619f0d5a4638a.js" attr_integ_ignore="sha256-GYogpfgcumBE1La07Y45bs710VjROk4hk2YZ8NWkY4o="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a href="../../index.html"><span>Notepad&#43;&#43; User Manual</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" readonly hidden placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/getting-started/index.html" class="">Getting started</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/files/index.html" class="">Working with Files</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/editing/index.html" class="">Editing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/searching/index.html" class="">Searching</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/views/index.html" class="">Views</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/session/index.html" class="">Sessions, Workspaces, and Projects</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/function-list/index.html" class="">Function List</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/auto-completion/index.html" class="">Auto-Completion</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/programing-languages/index.html" class="">Syntax Highlighting - Built-in Languages</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/user-defined-language-system/index.html" class=" active">Syntax Highlighting - User Defined Languages</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/introduction/index.html" class="">UDL &gt; Parser</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/default/index.html" class="">UDL &gt; Default Style</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/folding-in-code/index.html" class="">UDL &gt; Folding in code</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/folding-in-comment/index.html" class="">UDL &gt; Folding in comment</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/keywords/index.html" class="">UDL &gt; Keywords</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/comments/index.html" class="">UDL &gt; Comments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/numbers/index.html" class="">UDL &gt; Numbers</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/operators/index.html" class="">UDL &gt; Operators</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/delimiters/index.html" class="">UDL &gt; Delimiters</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/macros/index.html" class="">Macros - Task Automation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/run-menu/index.html" class="">Running External Commands</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/plugins/index.html" class="">Plugins</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/plugin-communication/index.html" class="">Plugin Communication</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/command-prompt/index.html" class="">Command Line Arguments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/preferences/index.html" class="">Preferences</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/config-files/index.html" class="">Configuration Files Details</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/themes/index.html" class="">Themes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/binary-translation/index.html" class="">Localization - User Interface Translation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/user-interface/index.html" class="">User Interface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/upgrading/index.html" class="">Upgrading</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/shell-extension/index.html" class="">Right Click - Edit With Notepad&#43;&#43;</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/ghost-typing/index.html" class="">Ghost Typing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/other-resources/index.html" class="">Other Resources</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/history/index.html" class="">User Manual History</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/license/index.html" class="">Copyright &amp; License</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="../../svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Syntax Highlighting - User Defined Languages</strong>
+
+  <label for="toc-control">
+    
+    <img src="../../svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#what-are-user-defined-languages">What are User Defined Languages</a></li>
+        <li><a href="#udl-dialog-box-or-window">UDL Dialog Box or Window</a>
+          <ul>
+            <li><a href="#udl-configuration-tabs">UDL Configuration Tabs</a>
+              <ul>
+                <li><a href="#unicode-support">Unicode Support</a></li>
+              </ul>
+            </li>
+            <li><a href="#udl-styler">UDL Styler</a></li>
+          </ul>
+        </li>
+        <li><a href="#naming-and-saving">Naming and Saving</a></li>
+        <li><a href="#udl-file-locations">UDL File Locations</a>
+          <ul>
+            <li><a href="#keeping-udl-files-separate">Keeping UDL Files Separate</a></li>
+          </ul>
+        </li>
+        <li><a href="#udl-and-themes">UDL and Themes</a></li>
+        <li><a href="#import-a-udl">Import a UDL</a>
+          <ul>
+            <li><a href="#user-defined-languages-collection">User Defined Languages Collection</a></li>
+          </ul>
+        </li>
+        <li><a href="#udl-configuration-file-contents">UDL Configuration File Contents</a>
+          <ul>
+            <li><a href="#validating-user-defined-language-defintion-files">Validating User Defined Language defintion files</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h2 id="what-are-user-defined-languages">What are User Defined Languages</h2>
+<p>Notepad++ comes prepackaged with many Language lexers, which apply syntax highlighting to source code or textual data.  However, not every possible language or formatting style is available.  Enter the <strong>U</strong>ser <strong>D</strong>efined <strong>L</strong>anguages (or &ldquo;UDL&rdquo; for short): the UDL interface allows the user to define rules for formatting normal text, keywords, comments, numbers; to define delimiters (like quotes around strings or parentheses around lists) which will cause text between those delimiters to be formatted; and to define symbols or keywords that can be used to allow folding (on-demand hiding and unhiding of blocks of code or text).</p>
+<h2 id="udl-dialog-box-or-window">UDL Dialog Box or Window</h2>
+<p>The <strong>Languages</strong> menu on the menu-bar includes the list of built-in languages, and below those are a separator followed by <strong>Define Your Language&hellip;</strong> and a list of any UDL that have been already defined.</p>
+<p>Using <strong>Languages &gt; Define Your Language&hellip;</strong> will bring up a dialog box (which can be docked as a pane in the Notepad++ Window, or can be a floating dialog box).</p>
+<p>The main pulldowns and buttons are available, whichever configuration tab is active:</p>
+<ul>
+<li><img src="../images/udl-main.png" alt="" /></li>
+<li><strong>User Language</strong> pulldown lists all the existing UDL will allow you to select the UDL you would like to edit or examine.  There is a special entry for the default UDL, called <strong>User Defined Language</strong> here (though it shows up in the Notepad++ <strong>Languages</strong> menu as <strong>User-Defined</strong>), which can be used as a template for other UDL.</li>
+<li><strong>Create new&hellip;</strong> will copy the default <strong>User Defined Language</strong> stylings and rules to a new name.</li>
+<li><strong>Save as&hellip;</strong> will copy the currently-selected UDL, with all its stylings and rules, to a new name.
+<ul>
+<li>Please note: <a href="#naming-and-saving">Naming your UDL is required</a>, either using <strong>Create new&hellip;</strong> or <strong>Save as&hellip;</strong>.  Any changes made to the default <strong>User Language: <code>User Defined Language</code></strong> entry will be lost when you exit Notepad++.</li>
+</ul>
+</li>
+<li><strong>Import&hellip;</strong> will <a href="#import-a-udl">import</a> a UDL XML file into your current instance (<a href="#import-a-udl">see below</a>).</li>
+<li><strong>Export&hellip;</strong> will save a UDL XML file to a location of your choosing; you can then share this with others, so that they can <a href="#import-a-udl">import</a> your UDL for their own use.</li>
+<li><strong>Dock</strong> or <strong>Undock</strong> will toggle whether the UDL dialog is a standalone dialog, or docked in the Notepad++ window.</li>
+<li><strong>☐ Ignore Case</strong> will make the various keywords ignore case while matching.</li>
+<li><strong>☐ Transparency</strong> (when not docked) will make the dialog box semi-transparent; the slider bar changes from virtually invisible (all the way to the left) to mostly opaque (all the way to the right); if you want it completely opaque (no transparency), uncheck the box.</li>
+</ul>
+<p>When a UDL other than the default <strong>User Defined Language</strong> is selected in the pulldown, the following will also be available:</p>
+<ul>
+<li><img src="../images/udl-named.png" alt="" /></li>
+<li><strong>Rename</strong> will rename the currently-selected UDL.</li>
+<li><strong>Remove</strong> will delete the currently-selected UDL.</li>
+<li><strong>Ext.: ____</strong> will accept a list of zero or more extensions (without the period).  Files that match these extensions will be interpreted as belonging to the currently-selected UDL, and will be styled appropriately.  These extensions override the default extensions for pre-defined <strong>Languages</strong>, so if your UDL&rsquo;s extension conflicts with another language&rsquo;s extension, the UDL will take priority.  For example <strong>Ext.: <code>md mkdn</code></strong> will associate <code>file.mkdn</code> or <code>something.md</code> with your selected UDL.</li>
+</ul>
+<h3 id="udl-configuration-tabs">UDL Configuration Tabs</h3>
+<p>The &ldquo;Details&rdquo; links throughout this section will give additional information on how each of the fields in the UDL dialog will affect the syntax highlighting.  You should start with the <a href="../udl/introduction/index.html">Details: Parsing</a> to find out more on the order that UDL parsing occurs</p>
+<ul>
+<li>
+<p>The <strong>Folder &amp; Default</strong> tab allows setting the default style, setting up keywords (or characters) that will allow code folding, and setting up styles for those keywords.  The <strong>Open</strong>, <strong>Middle</strong>, and <strong>Close</strong> boxes under each folding-type define the triggers for the start, middle, and end of folding.  For example, with <code>if</code>, <code>else</code>, and <code>endif</code>, it will define fold regions so that you can fold from <code>if</code> to <code>else</code>, from <code>else</code> to <code>endif</code>, and (assuming there is no <code>else</code> clause) from <code>if</code> to <code>endif</code>.  <strong>Folding in comment</strong> allows comments to include folding; <strong>Folding in code 1 style</strong> allows the triggers to be touching something else (so with a trigger of <code>{</code>, it will match <code>if{</code> or <code>if {</code>), whereas <strong>Folding in code 2 style</strong> requires there be whitespace around the trigger (so <code>if{</code> would <em>not</em> match an <strong>Open</strong>-trigger of <code>{</code>).</p>
+<ul>
+<li><a href="../udl/default/index.html">⇒ Details: Default Style</a></li>
+<li><a href="../udl/folding-in-code/index.html">⇒ Details: Folding in Code</a></li>
+<li><a href="../udl/folding-in-comment/index.html">⇒ Details: Folding in Comment</a></li>
+</ul>
+</li>
+<li>
+<p>The <strong>Keywords List</strong> tab allows defining eight (8) different groups of keywords, so you can style different groups of words differently (like built-in functions vs. flow control keywords).  Separate each keyword by a space (and that means that spaces are not allowed in keywords unless you put quotes around the phrase).  If <strong>☐ Prefix Mode</strong> is checked for a given group, that means that it will match anything that <em>starts</em> with your string (so a keyword of <code>for</code> would match <code>for</code>, <code>forth</code>, and <code>format</code> if that option is checked).</p>
+<p>As a point of interest, you shouldn&rsquo;t have a given keyword in more than one keyword-group <em>or</em> folder-group.  If you want <code>if</code>/<code>else</code>/<code>endif</code> to cause block-folding, do not also put them in one of your keyword-groups.</p>
+<ul>
+<li><a href="../udl/keywords/index.html">⇒ Details: Keywords</a></li>
+</ul>
+</li>
+<li>
+<p>The <strong>Comment &amp; Number</strong> tab allows setting styles for comments and for numbers.</p>
+<ul>
+<li><strong>Line Comment Position</strong> allows you to decide whether &ldquo;line comments&rdquo; can start anywhere on the line, must start at the beginning, or can start anywhere on the line as long as it&rsquo;s only whitespace before the comment.</li>
+<li><strong>☐ Allow folding of comments</strong> will allow comments to be foldable.</li>
+<li><strong>Comment line style</strong> defines the style  for &ldquo;line comments&rdquo; &ndash; comments that proceed from the opening-trigger to the end of the line.</li>
+<li><strong>Comment style</strong> defines the style for multiline-comments.
+<ul>
+<li><a href="../udl/comments/index.html">⇒ Details: Comments</a></li>
+</ul>
+</li>
+<li><strong>Number style</strong> defines the style for numbers.  The various <strong>Prefix</strong>es, <strong>Suffix</strong>es, and <strong>Extra</strong>s allow you to define extra numeric representations (useful for hexadecimal, binary, octal and similar representations, as well as for defining currency as a number).  The <strong>Range</strong> allows you to define a syntax for ranges, so that two numbers with a listed symbol in between will still be treated as a number.  (However, there may be conflicts if the <strong>Range</strong> setting matches one from <strong>Operators &amp; Delimiters</strong>)
+<ul>
+<li><a href="../udl/numbers/index.html">⇒ Details: Numbers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>The <strong>Operators &amp; Delimiters</strong> tab allows setting styles for operators and for delimiter pairs</p>
+<ul>
+<li><strong>Operators 1</strong> and <strong>Operators 2</strong> define two groups of operators (usually math and math-like operators).  The first defines operators that will be matched even if they are touching other characters (allowing <code>1+2</code>), whereas the second defines operators that must contain spaces to be recognized (like <code>1 + 2</code>).
+<ul>
+<li><a href="../udl/operators/index.html">⇒ Details: Operators</a></li>
+</ul>
+</li>
+<li>The various <strong>Delimiter</strong> styles are pairs of <strong>Open</strong> and <strong>Close</strong> characters, where those characters and whatever comes between them will be styled per the rules defined for that entry.  This is useful for styling strings, parenthesized parameter lists, bracketed expressions, and anything else where it can have a .  The <strong>Escape</strong> entry allows defining a way of &ldquo;escaping&rdquo; the character so that the delimiter pair is not prematurely closed (such as <code>&quot;</code> / <code>\</code> / <code>&quot;</code> allowing <code>&quot;this \&quot; is an embedded quote character inside a string, escaped by the backslash&quot;</code>).
+<ul>
+<li><a href="../udl/delimiters/index.html">⇒ Details: Delimiters</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="unicode-support">Unicode Support</h4>
+<p>The UDL interface and underlying lexer was designed in the early days of Notepad++, before good Unicode support was implemented, so the User Defined Language system does not fully support Unicode characters beyond what&rsquo;s available in the current ANSI codepage (255 characters).  Unicode can be used in some locations, like the keywords and the Numbers-style Extras 1; but many other places, like Operators &amp; Delimiters, or Comments, or Folding, do not work with characters beyond codepoint 255.  If Unicode characters in your operators or delimiters is a requirement for you, you should consider using an existing plugin (such as a scripting plugin or <a href="https://github.com/Ekopalypse/EnhanceAnyLexer/">EnhanceAnyLexer</a>) to add <em>additional</em> text highlighting based on the active language, or write your own plugin to add highlighting in any way you choose.  (Also, if you have the coding skills necessary to update Notepad++'s codebase to allow UDL to use Unicode, without causing any regressions, you might consider submitting a PR, as it could close <a href="https://github.com/notepad-plus-plus/notepad-plus-plus/issues/6014" title="#6014">multiple</a> <a href="https://github.com/notepad-plus-plus/notepad-plus-plus/issues/8562" title="#8562">open</a> <a href="https://github.com/notepad-plus-plus/notepad-plus-plus/issues/12161" title="#12161">issues</a>.)</p>
+<h3 id="udl-styler">UDL Styler</h3>
+<p>Each of the categories of keywords, folding, operators, comments, and the like have a <strong>Styler</strong> button, which pops up the <strong>Styler Dialog</strong> for editing the font, color, and nesting properties of that category.</p>
+<ul>
+<li>Font Options: this section sets the font and colors
+<ul>
+<li><code>Name</code>: Sets a particular font for this style.  If left blank, this style will inherit from the UDL&rsquo;s <strong>Folder &amp; Default &gt; Default Style</strong>.  If <strong>Folder &amp; Default &gt; Default Style</strong> is not set, the UDL will inherit from your active theme&rsquo;s <strong>Global Style &gt; Default Style</strong>.</li>
+<li><code>Size</code>: Sets the font size for this style.  If left blank, this style will inherit from the UDL&rsquo;s <strong>Folder &amp; Default &gt; Default Style</strong>.  If <strong>Folder &amp; Default &gt; Default Style</strong> is not set, the UDL will inherit from the active theme&rsquo;s <strong>Global Style &gt; Default Style</strong>.</li>
+<li><code>☐ Bold</code>, <code>☐ Italic</code>, <code>☐ Underline</code>: Sets the extra decoration for this style.  The checkmark indicates that the decoration will be active.</li>
+<li><code>Foreground color</code>, <code>Background color</code>: Sets the foreground and background color for text that uses this style.
+<ul>
+<li>Left click on the color to bring up the standard color guide, and clicking <strong>More Colours</strong> from there will bring up the full Windows Color Picker dialog</li>
+<li>If you right click on the color, it will toggle diagonal stripes through the color box.  If those stripes are there, this still will not set its own color, and instead inherit from the UDL&rsquo;s <strong>Folder &amp; Default &gt; Default Style</strong>.  (The UDL&rsquo;s Default Style will inherit from the active theme&rsquo;s <strong>Global Style &gt; Default Style</strong> if it has the stripes.)</li>
+<li><code>☐ Transparent</code>: If you toggle this checkmark under each of the colors, it will mark the diagonal stripes just like a right click for that color (and a right click on the color box will toggle this checkmark), and carries the same meaning, where this color will inherit from the UDL&rsquo;s Default Style, or the UDL Default Style will inherit from the theme&rsquo;s Default Style.  (Checkmark added in v8.1.9.1.)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Nesting Options: For the comment styles and delimiter styles, you can control &ldquo;nesting&rdquo;.
+<ul>
+<li>Nesting indicates what can be &ldquo;contained within&rdquo; the active style.  Since delimiters and comments define a range of text that&rsquo;s inside, normally <em>everything</em> inside that will be colored according to the delimiter&rsquo;s style.  However, if you checkmark Nesting for a given category of delimiters, keywords, comments, or numbers, it means that the category selected will get the color defined by that category&rsquo;s style, rather than being colored like the rest of the category it&rsquo;s contained within.</li>
+<li>That may be confusing.  Here is an example: Your UDL sets numbers to have a red foreground, and sets the Delimiter 1 = Open:<code>(</code> / Close:<code>)</code> to have a green foreground.  Normally, this would mean that numbers between parentheses, like <code>(5)</code> would be green, because they are inside the Delimiter 1 pair.  But if Delimiter 1&rsquo;s style has a checkmark for <code>☑ Numbers</code>, then any numbers between the parentheses will be red, while the parentheses themselves (and other text between the parentheses) will be green.</li>
+<li>You can have as many or as few of the categories set for nesting in each of the delimiter and comment styles.</li>
+<li>You cannot enable nesting &ldquo;inside&rdquo; keywords, operators, or folding categories, because you cannot have another piece of text &ldquo;inside&rdquo; of a keyword or operator or folding word or symbol.
+<ul>
+<li>One might argue that the folding categories do have an &ldquo;inside&rdquo;, between the folding words or symbols.  However, only the folding words or symbols themselves get the style applied; the text between folding words or symbols takes on the UDL&rsquo;s default or whatever other style category applies.  Thinking of it another way, folding categories essentially always have nesting enabled for all the categories, because any of the categories will be styled when found inside a folding range.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="naming-and-saving">Naming and Saving</h2>
+<p>If you use the GUI to create a new User Defined Language using <strong>Language &gt; User Defined Languages &gt; Define My Language&hellip;</strong>, you <em>must</em> use the <strong>Create new&hellip;</strong> or <strong>Save as&hellip;</strong> button to give it a name. If you leave it with the default <code>User Defined Language</code> from the original <strong>User language:</strong> pulldown menu, when you exit Notepad++, Notepad++ will forget all your changes.</p>
+<p>If you select a different UDL from the <strong>User language:</strong> pulldown, any changes you make to that UDL will automatically be saved when you exit Notepad++; once you have a name for a UDL, you no longer need to use the <strong>Save as&hellip;</strong> button (and in fact, using that button again will create a duplicate UDL with a new name).</p>
+<p>When you use <strong>Create new&hellip;</strong> or <strong>Save as&hellip;</strong>, it will save it in the <code>userDefineLang.xml</code>, as described in more detail in <a href="#udl-file-locations">UDL File Locations</a>.  If you want it to reside in a separate file instead of the default file, follow the instructions in <a href="#keeping-udl-files-separate">Keeping UDL Files Separate</a>.</p>
+<p>Summary:</p>
+<table>
+<thead>
+<tr>
+<th>Screenshot</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="../images/udl-main.png" alt="" /></td>
+<td>Changes made to this UDL will <em>not</em> be present the next time you run Notepad++, because it&rsquo;s the default <code>User Defined Language</code> UDL, which is never saved.</td>
+</tr>
+<tr>
+<td><img src="../images/udl-named.png" alt="" /></td>
+<td>Changes made to this UDL <em>will</em> be present the next time you run Notepad++, because it&rsquo;s been named <code>MyLanguageName</code>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="udl-file-locations">UDL File Locations</h2>
+<p>If you created or imported a UDL using the <strong>User Defined Languages</strong> dialog inside Notepad++, they will be in the <code>userDefineLang.xml</code> file.  This single file often holds multiple UDL definitions.</p>
+<ol>
+<li><code>%AppData%\Notepad++\userDefineLang.xml</code>: This is the default location for most Notepad++ installations.</li>
+<li><code>&lt;notepad++_directory&gt;\userDefineLang.xml</code>: This is the location for portable versions, or if you turned on &ldquo;local configuration mode&rdquo; (or unchecked <code>Use %AppData%</code>) during the installation.  <code>&lt;notepad++_directory&gt;</code> refers to whatever folder the <code>notepad++.exe</code> application executable is located.</li>
+<li><code>&lt;alternate_directory&gt;\userDefineLang.xml</code>: This is the location when using Cloud Configuration or <code>-settingsDir</code> option, as described in the <a href="../config-files/index.html#configuration-files-location">Config Files Location</a>.  <code>&lt;alternate_directory&gt;</code> refers to whatever directory you set the alternate configuration to use.</li>
+</ol>
+<p>Individual UDL files can also be stored in one of the <code>userDefineLangs\</code> subfolders (listed below).  Each XML file in the <code>userDefineLangs\</code> folder is used to define one or more UDL.  (The default UDL definitions that ship with Notepad++ for Markdown highlighting are stored in that directory.)</p>
+<ol>
+<li><code>%AppData%\Notepad++\userDefineLangs\</code>: This is the default location for most Notepad++ installations.</li>
+<li><code>&lt;notepad++_directory&gt;\userDefineLangs\</code>: This is the location for portable versions, or if you turned on &ldquo;local configuration mode&rdquo; (or unchecked <code>Use %AppData%</code>) during the installation.  <code>&lt;notepad++_directory&gt;</code> refers to whatever folder the <code>notepad++.exe</code> application executable is located.</li>
+<li><code>&lt;alternate_directory&gt;\userDefineLangs\</code>: This is the location when using Cloud Configuration or <code>-settingsDir</code> option, as described in the <a href="../config-files/index.html#configuration-files-location">Config Files Location</a>.  <code>&lt;alternate_directory&gt;</code> refers to whatever directory you set the alternate configuration to use.</li>
+</ol>
+<h3 id="keeping-udl-files-separate">Keeping UDL Files Separate</h3>
+<p>As mentioned, Notepad++ will default to using the <code>userDefineLang.xml</code> file to hold all created or imported UDL.  If you prefer to make use of the <code>userDefineLangs\</code> subfolder instead, you can use the following sequence from the UDL dialog:</p>
+<ol>
+<li>Use <strong>Create New</strong> (or <strong>Save As</strong>), and give it a name (<code>MyName</code> in this example).
+<ul>
+<li>If you want to move an existing UDL from <code>userDefineLang.xml</code> to a separate file, instead of creating a new one, pick that existing UDL from the pulldown instead of using <strong>Create New</strong> or <strong>SaveAs</strong>.</li>
+</ul>
+</li>
+<li>Use <strong>Export</strong>, and save to <code>...\userDefineLangs\MyName.xml</code> (where <code>...</code> is based on your active <a href="#udl-file-locations">UDL File Location</a>).</li>
+<li>Use <strong>Remove</strong> to delete the current copy of <code>MyName</code> from the UDL dialog.
+<ul>
+<li>If you skip this step, you will have two copies of the same UDL name in step 5, which would be problematic.</li>
+</ul>
+</li>
+<li>Exit Notepad++ and restart.</li>
+<li><strong>Language &gt; MyName</strong> will exist.</li>
+<li>To continue to define your language, go to <strong>Language &gt; User Defined Language &gt; Define Your Language</strong> and pick <code>MyName</code> from the pulldown, then edit the UDL settings to match your desired behavior.</li>
+</ol>
+<h2 id="udl-and-themes">UDL and Themes</h2>
+<p>The User Defined Languages are (mostly) <em>not</em> affected by your <a href="../preferences/index.html#style-configurator">active theme</a>.  This means that if you change theme (including going to <a href="../preferences/#dark-mode">Dark Mode</a> which changes the theme to <code>DarkModeDefault</code>), you might have to edit your UDL colors to be readable.  The UDL doesn&rsquo;t override most of the settings in the <a href="../preferences/#global-styles">Style Configurator&rsquo;s &ldquo;Global Styles&rdquo;</a> settings for the active theme, so some of the settings might make your UDL colors hard to read:</p>
+<ul>
+<li>the UDL overrides the foreground color for text, and the background color for text (if transparency is not activated); however, the UDL does <em>not</em> override the background color for spaces or the blank space that fills the unused portions of the editor view, so if your UDL default background does not match the theme&rsquo;s default background, the UDL-based document may look strange</li>
+<li>the UDL does not override the <strong>Selected text colour</strong> or <strong>current line background</strong>, so if your UDL&rsquo;s colors do not provide good contrast with these settings from the theme, selected text will be hard to read</li>
+</ul>
+<p>Since you can set the colors of a UDL to whatever you want, you can manually make it match your theme.  In all, it is best to set the UDL&rsquo;s <strong>Folder &amp; Default &gt; Default Style</strong> to match the foreground and background colors of your active theme, which should balance well with the other of the theme&rsquo;s Global Styles settings.  Further, setting keywords groups and numbers and comments and operators to match the settings for the keywords, numbers, and comments of the other languages that you use in your active theme will help make UDL files fit the active theme better.</p>
+<p>If you don&rsquo;t want to override the foreground and/or background text color for some parts of your UDL, activate transparency for those styles. This allows you to create an UDL that works for multiple themes. For example, activate transparency for background and foreground color of your UDL default style,  then activate transparency for background color of your keywords too, and select a foreground color for your keywords that works for multiple themes.</p>
+<p>If you want to define multiple UDL using the same basic color scheme as your active theme, you can start by setting the colors of the default <strong>User Defined Language</strong>, then <strong>Create New</strong> for each UDL that you want to match that scheme, customizing the rules for each new UDL.  (As soon as you exit Notepad++, the changes to the default UDL will be lost, but all the themes that you created from that will keep the colors they inherited.)</p>
+<h2 id="import-a-udl">Import a UDL</h2>
+<p>The internet has plenty of Notepad++ UDL xml files.  Once you have the XML, you can then import it into your Notepad++, so that you can use that UDL yourself.  There are two main ways to do this:</p>
+<ol>
+<li>
+<p>Copy the XML into the <a href="#udl-file-locations">appropriate <code>userDefineLangs</code> subfolder</a>. Exit all instances of Notepad++ and reload, then the new UDL will be available.</p>
+</li>
+<li>
+<p>Use the <strong>Import&hellip;</strong> button, navigate to the source XML, and the UDL will be immediately available.</p>
+</li>
+</ol>
+<p>The differences between those two methods are when the UDL will be available to Notepad++, and which config file will hold that UDL, per <a href="#udl-file-locations">UDL File Locations</a>.</p>
+<h3 id="user-defined-languages-collection">User Defined Languages Collection</h3>
+<p>Throughout the history of Notepad++, many UDL files have been created by Notepad++ users and made publicly available.  There is once again a centralized <a href="https://github.com/notepad-plus-plus/userDefinedLanguages">User Defined Languages Collection</a>.</p>
+<p><a href="https://github.com/notepad-plus-plus/userDefinedLanguages">https://github.com/notepad-plus-plus/userDefinedLanguages</a></p>
+<p>This central Collection is a convenient location for UDL-users to find new UDL files, and for UDL-authors to share their UDL files with the whole Notepad++ community.  The Collection includes instructions for how to use the files, as well as how to submit new UDL to the Collection &ndash; but essentially, if you download them into the <code>userDefineLangs\</code> subfolder, as described in <a href="#import-a-udl">Import a UDL</a>, and restart Notepad++, you will have access to that UDL.</p>
+<h2 id="udl-configuration-file-contents">UDL Configuration File Contents</h2>
+<p>It is intended that UDL are edited using the GUI dialog boxes.  However, if you are the type of user who likes to configure Notepad++ through the configuration files, it is possible.  Please see the <a href="https://npp-user-manual.org/docs/config-files/#editing-configuration-files">Configuration Files Details</a> for a description of the sequence for properly editing any of the config files, including the UDL definition files.</p>
+<p>Most of the settings in the UDL definition files correspond directly to the names seen in the <strong>User Defined Languages</strong> dialog box, or the <strong>Styler</strong> sub-dialog.  The <code>&lt;KeywordLists&gt;</code> section defines the keywords or symbols for each highlighting category.  The <code>&lt;Styles&gt;</code> section defines the text styling (color, font, weight, and decoration) for each highlighting category.  The <code>&lt;WordsStyle&gt;</code> <code>fontStyle</code> attribute encodes the setting of the <strong>Bold</strong>, <strong>Italic</strong>, and <strong>Underline</strong> checkboxes from the <strong>Styler</strong> dialog, using the sum of <strong>Italic</strong>=1, <strong>Bold</strong>=2, and <strong>Underline</strong>=4 (so something with all three checkboxes set would have <code>fontStyle=&quot;7&quot;</code>).  The <code>nesting</code> attribute similarly encodes the various nesting checkboxes from the <strong>Styler</strong> dialog with a sum of the values below, and indicate which styles will nest properly inside the active style:</p>
+<table>
+<thead>
+<tr>
+<th>Checkbox</th>
+<th align="right">Value</th>
+<th></th>
+<th>Checkbox</th>
+<th align="right">Value</th>
+<th></th>
+<th>Checkbox</th>
+<th align="right">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Delimiter 1</td>
+<td align="right">1</td>
+<td></td>
+<td>Keyword 1</td>
+<td align="right">1024</td>
+<td></td>
+<td>Comment</td>
+<td align="right">256</td>
+</tr>
+<tr>
+<td>Delimiter 2</td>
+<td align="right">2</td>
+<td></td>
+<td>Keyword 2</td>
+<td align="right">2048</td>
+<td></td>
+<td>Comment Line</td>
+<td align="right">512</td>
+</tr>
+<tr>
+<td>Delimiter 3</td>
+<td align="right">4</td>
+<td></td>
+<td>Keyword 3</td>
+<td align="right">4096</td>
+<td></td>
+<td>Operators 1</td>
+<td align="right">16777216</td>
+</tr>
+<tr>
+<td>Delimiter 4</td>
+<td align="right">8</td>
+<td></td>
+<td>Keyword 4</td>
+<td align="right">8192</td>
+<td></td>
+<td>Operators 2</td>
+<td align="right">33554432</td>
+</tr>
+<tr>
+<td>Delimiter 5</td>
+<td align="right">16</td>
+<td></td>
+<td>Keyword 5</td>
+<td align="right">16384</td>
+<td></td>
+<td>Numbers</td>
+<td align="right">67108864</td>
+</tr>
+<tr>
+<td>Delimiter 6</td>
+<td align="right">32</td>
+<td></td>
+<td>Keyword 6</td>
+<td align="right">32768</td>
+<td></td>
+<td></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>Delimiter 7</td>
+<td align="right">64</td>
+<td></td>
+<td>Keyword 7</td>
+<td align="right">65536</td>
+<td></td>
+<td></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>Delimiter 8</td>
+<td align="right">128</td>
+<td></td>
+<td>Keyword 8</td>
+<td align="right">131072</td>
+<td></td>
+<td></td>
+<td align="right"></td>
+</tr>
+</tbody>
+</table>
+<p>The <code>&lt;WordsStyle&gt;</code> <code>colorStyle</code> attribute decides whether to use the defined colors from <code>fgColor</code> and <code>bgColor</code> attributes, or to use the default color setting (from <strong>Settings &gt; Style Configurator &gt; Global Styles &gt; Default Style</strong>, <em>not</em> from the UDL&rsquo;s default style).  The attribute should be set to one of the following:</p>
+<ul>
+<li>No <code>colorStyle</code> attribute: this style will use both the <code>fgColor</code> and <code>bgColor</code> attributes from this <code>&lt;WordsStyle&gt;</code> item (standard behavior)</li>
+<li>Set <code>colorStyle=&quot;2&quot;</code>: this style will inherit the foreground color from the Default style, and use the <code>bgColor</code> value as the background color (equivalent to right-clicking the foreground color in the UDL styler dialog box)</li>
+<li>Set <code>colorStyle=&quot;1&quot;</code>: this style will inherit the background color from the Default style, and use the <code>fgColor</code> value as the foreground color (equivalent to right-clicking the background color in the UDL styler dialog box)</li>
+<li>Set <code>colorStyle=&quot;0&quot;</code>: this style will inherit both the foreground and background colors from the Default style (equivalent to right-clicking both the foreground and background colors in the UDL styler dialog box)</li>
+</ul>
+<h3 id="validating-user-defined-language-defintion-files">Validating User Defined Language defintion files</h3>
+<p>If you are developing a User Defined Definition by editing the raw XML file (instead of just using the UDL GUI interface) and would like to be able to validate that you have correct XML syntax while you are doing so, you can see the instructions in the <a href="https://community.notepad-plus-plus.org/topic/24136/faq-desk-validating-config-file-xml">Notepad++ Community &ldquo;Validating Config-File XML&rdquo; FAQ</a>.</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#what-are-user-defined-languages">What are User Defined Languages</a></li>
+        <li><a href="#udl-dialog-box-or-window">UDL Dialog Box or Window</a>
+          <ul>
+            <li><a href="#udl-configuration-tabs">UDL Configuration Tabs</a>
+              <ul>
+                <li><a href="#unicode-support">Unicode Support</a></li>
+              </ul>
+            </li>
+            <li><a href="#udl-styler">UDL Styler</a></li>
+          </ul>
+        </li>
+        <li><a href="#naming-and-saving">Naming and Saving</a></li>
+        <li><a href="#udl-file-locations">UDL File Locations</a>
+          <ul>
+            <li><a href="#keeping-udl-files-separate">Keeping UDL Files Separate</a></li>
+          </ul>
+        </li>
+        <li><a href="#udl-and-themes">UDL and Themes</a></li>
+        <li><a href="#import-a-udl">Import a UDL</a>
+          <ul>
+            <li><a href="#user-defined-languages-collection">User Defined Languages Collection</a></li>
+          </ul>
+        </li>
+        <li><a href="#udl-configuration-file-contents">UDL Configuration File Contents</a>
+          <ul>
+            <li><a href="#validating-user-defined-language-defintion-files">Validating User Defined Language defintion files</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

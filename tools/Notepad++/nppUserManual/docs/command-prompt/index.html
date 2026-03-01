@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta name="generator" content="Hugo 0.68.3" />
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Notepad&#43;&#43; supports various case-sensitive command line arguments to control its startup and affect its behavior.
+Help usage notepad&#43;&#43; [--help] [-multiInst] [-noPlugin]
+[-l&lt;Language&gt;] [-udl=&quot;My UDL Name&quot;]
+[-L&lt;langCode&gt;]
+[-n&lt;line&gt;] [-c&lt;column&gt;] [-p&lt;pos&gt;] [-x&lt;left-pos&gt;] [-y&lt;TopPos&gt;]
+[-monitor] [-nosession] [-notabbar] [-ro] [-systemtray] [-loadingTime]
+[-alwaysOnTop] [-openSession] [-r]
+[-qn=&quot;Easter Egg Name&quot; | -qt=&quot;Text to Type&quot; | -qf=&quot;D:\path to\file&quot;]
+[-qSpeed(1|2|3)] [-quickPrint]
+[-settingsDir=&quot;d:\your settings dir\&quot;] [-openFoldersAsWorkspace]
+[-titleAdd=&quot;additional title bar text&quot;]
+[-pluginMessage=&quot;text for plugin(s)&quot;]
+[filepath]
+ --help: The help message for command line arguments.">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="Command Line Arguments" />
+<meta property="og:description" content="Notepad&#43;&#43; supports various case-sensitive command line arguments to control its startup and affect its behavior.
+Help usage notepad&#43;&#43; [--help] [-multiInst] [-noPlugin]
+[-l&lt;Language&gt;] [-udl=&quot;My UDL Name&quot;]
+[-L&lt;langCode&gt;]
+[-n&lt;line&gt;] [-c&lt;column&gt;] [-p&lt;pos&gt;] [-x&lt;left-pos&gt;] [-y&lt;TopPos&gt;]
+[-monitor] [-nosession] [-notabbar] [-ro] [-systemtray] [-loadingTime]
+[-alwaysOnTop] [-openSession] [-r]
+[-qn=&quot;Easter Egg Name&quot; | -qt=&quot;Text to Type&quot; | -qf=&quot;D:\path to\file&quot;]
+[-qSpeed(1|2|3)] [-quickPrint]
+[-settingsDir=&quot;d:\your settings dir\&quot;] [-openFoldersAsWorkspace]
+[-titleAdd=&quot;additional title bar text&quot;]
+[-pluginMessage=&quot;text for plugin(s)&quot;]
+[filepath]
+ --help: The help message for command line arguments." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="../../docs/command-prompt/index.html" />
+
+<title>Command Line Arguments | Notepad&#43;&#43; User Manual</title>
+<link rel="manifest" href="../../manifest.json">
+<link rel="icon" href="../../favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="../../book.min.6e40b5f911dc7f922b4354b4a32e0a00d71dc7ebac6d2334c02aa38eb679f117.css" attr_integ_ignore="sha256-bkC1&#43;RHcf5IrQ1S0oy4KANcdx&#43;usbSM0wCqjjrZ58Rc=">
+<script defer src="../../en.search.min.198a20a5f81cba6044d4b6b4ed8e396ecef5d158d13a4e21936619f0d5a4638a.js" attr_integ_ignore="sha256-GYogpfgcumBE1La07Y45bs710VjROk4hk2YZ8NWkY4o="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a href="../../index.html"><span>Notepad&#43;&#43; User Manual</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" readonly hidden placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/getting-started/index.html" class="">Getting started</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/files/index.html" class="">Working with Files</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/editing/index.html" class="">Editing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/searching/index.html" class="">Searching</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/views/index.html" class="">Views</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/session/index.html" class="">Sessions, Workspaces, and Projects</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/function-list/index.html" class="">Function List</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/auto-completion/index.html" class="">Auto-Completion</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/programing-languages/index.html" class="">Syntax Highlighting - Built-in Languages</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/user-defined-language-system/index.html" class="">Syntax Highlighting - User Defined Languages</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/introduction/index.html" class="">UDL &gt; Parser</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/default/index.html" class="">UDL &gt; Default Style</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/folding-in-code/index.html" class="">UDL &gt; Folding in code</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/folding-in-comment/index.html" class="">UDL &gt; Folding in comment</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/keywords/index.html" class="">UDL &gt; Keywords</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/comments/index.html" class="">UDL &gt; Comments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/numbers/index.html" class="">UDL &gt; Numbers</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/operators/index.html" class="">UDL &gt; Operators</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/delimiters/index.html" class="">UDL &gt; Delimiters</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/macros/index.html" class="">Macros - Task Automation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/run-menu/index.html" class="">Running External Commands</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/plugins/index.html" class="">Plugins</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/plugin-communication/index.html" class="">Plugin Communication</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/command-prompt/index.html" class=" active">Command Line Arguments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/preferences/index.html" class="">Preferences</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/config-files/index.html" class="">Configuration Files Details</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/themes/index.html" class="">Themes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/binary-translation/index.html" class="">Localization - User Interface Translation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/user-interface/index.html" class="">User Interface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/upgrading/index.html" class="">Upgrading</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/shell-extension/index.html" class="">Right Click - Edit With Notepad&#43;&#43;</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/ghost-typing/index.html" class="">Ghost Typing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/other-resources/index.html" class="">Other Resources</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/history/index.html" class="">User Manual History</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/license/index.html" class="">Copyright &amp; License</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="../../svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Command Line Arguments</strong>
+
+  <label for="toc-control">
+    
+    <img src="../../svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#help-usage">Help usage</a>
+          <ul>
+            <li><a href="#additional-options">Additional Options</a></li>
+          </ul>
+        </li>
+        <li><a href="#installer-options">Installer Options</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><p>Notepad++ supports various case-sensitive command line arguments
+to control its startup and affect its behavior.</p>
+<h2 id="help-usage">Help usage</h2>
+<pre><code>notepad++ [--help] [-multiInst] [-noPlugin]
+  [-l&lt;Language&gt;] [-udl=&quot;My UDL Name&quot;]
+  [-L&lt;langCode&gt;]
+  [-n&lt;line&gt;] [-c&lt;column&gt;] [-p&lt;pos&gt;] [-x&lt;left-pos&gt;] [-y&lt;TopPos&gt;]
+  [-monitor] [-nosession] [-notabbar] [-ro] [-systemtray] [-loadingTime]
+  [-alwaysOnTop] [-openSession] [-r]
+  [-qn=&quot;Easter Egg Name&quot; | -qt=&quot;Text to Type&quot; | -qf=&quot;D:\path to\file&quot;]
+  [-qSpeed(1|2|3)] [-quickPrint]
+  [-settingsDir=&quot;d:\your settings dir\&quot;] [-openFoldersAsWorkspace]
+  [-titleAdd=&quot;additional title bar text&quot;]
+  [-pluginMessage=&quot;text for plugin(s)&quot;]
+  [filepath]
+</code></pre><ul>
+<li><code>--help</code>: The help message for command line arguments. It will be shown before
+Notepad++'s launch.</li>
+<li><code>-multiInst</code>: Launch another Notepad++ instance, so user can have several
+Notepad++ simultaneously.</li>
+<li><code>-noPlugin</code>: Launch Notepad++ without loading any plugin.</li>
+<li><code>-l</code>: Open file or display ghost typing with syntax highlighting of choice.
+<em>Language</em> is a short identifier string, of which the following are allowed:
+<code>normal</code>, <code>php</code>, <code>c</code>, <code>cpp</code>, <code>cs</code>, <code>objc</code>, <code>d</code>, <code>java</code>, <code>rc</code>, <code>html</code>, <code>xml</code>,
+<code>makefile</code>, <code>pascal</code>, <code>batch</code>, <code>ini</code>, <code>nfo</code>, <code>asp</code>, <code>sql</code>, <code>vb</code>, <code>javascript</code>,
+<code>css</code>, <code>perl</code>, <code>python</code>, <code>lua</code>, <code>tex</code>, <code>cobol</code>, <code>fortran</code>, <code>bash</code>,
+<code>actionscript</code>, <code>nsis</code>, <code>tcl</code>, <code>lisp</code>, <code>scheme</code>, <code>asm</code>, <code>diff</code>, <code>props</code>,
+<code>postscript</code>, <code>ruby</code>, <code>smalltalk</code>, <code>vhdl</code>, <code>kix</code>, <code>autoit</code>, <code>Gui4Cli</code>,
+<code>powershell</code>, <code>caml</code>, <code>ada</code>, <code>verilog</code>, <code>matlab</code>, <code>haskell</code>, <code>inno</code>, <code>cmake</code>, <code>yaml</code>, <code>r</code> and <code>jsp</code>.</li>
+<li><code>-udl=&quot;My UDL Name&quot;</code>: Open file with User Defined Language (UDL) syntax
+highlighting <code>My UDL Name</code> active.  If the UDL name does not conain spaces, the
+quote marks aren&rsquo;t required around the name (like <code>-udl=MyUDL</code>). The UDL name
+should match an existing UDL.  Mutually exclusive with <code>-l</code> (UDL will take priority
+over standard syntax highlighter).  (new to v8.1.2)</li>
+<li><code>-L</code>: Apply indicated localization, <em>langCode</em> maps to the localization file name:
+<details >
+  <summary>show Language Codes</summary>
+  <div class="markdown-inner">
+    <table>
+<thead>
+<tr>
+<th>code</th>
+<th>file</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ab</code>, <code>abk</code></td>
+<td><code>abkhazian.xml</code></td>
+</tr>
+<tr>
+<td><code>af</code></td>
+<td><code>afrikaans.xml</code></td>
+</tr>
+<tr>
+<td><code>an</code></td>
+<td><code>aragonese.xml</code></td>
+</tr>
+<tr>
+<td><code>ar</code>, <code>ar-dz</code>, <code>ar-bh</code>, <code>ar-eg</code>, <code>ar-iq</code>, <code>ar-jo</code>, <code>ar-kw</code>, <code>ar-lb</code>, <code>ar-ly</code>, <code>ar-ma</code>, <code>ar-om</code>, <code>ar-qa</code>, <code>ar-sa</code>, <code>ar-sy</code>, <code>ar-tn</code>, <code>ar-ae</code>, <code>ar-ye</code></td>
+<td><code>arabic.xml</code></td>
+</tr>
+<tr>
+<td><code>az</code></td>
+<td><code>azerbaijani.xml</code></td>
+</tr>
+<tr>
+<td><code>be</code></td>
+<td><code>belarusian.xml</code></td>
+</tr>
+<tr>
+<td><code>bg</code></td>
+<td><code>bulgarian.xml</code></td>
+</tr>
+<tr>
+<td><code>bn</code></td>
+<td><code>bengali.xml</code></td>
+</tr>
+<tr>
+<td><code>br-fr</code></td>
+<td><code>breton.xml</code></td>
+</tr>
+<tr>
+<td><code>bs</code></td>
+<td><code>bosnian.xml</code></td>
+</tr>
+<tr>
+<td><code>ca</code></td>
+<td><code>catalan.xml</code></td>
+</tr>
+<tr>
+<td><code>co</code>, <code>co-fr</code></td>
+<td><code>corsican.xml</code></td>
+</tr>
+<tr>
+<td><code>cs</code></td>
+<td><code>czech.xml</code></td>
+</tr>
+<tr>
+<td><code>cy-gb</code></td>
+<td><code>welsh.xml</code></td>
+</tr>
+<tr>
+<td><code>da</code></td>
+<td><code>danish.xml</code></td>
+</tr>
+<tr>
+<td><code>de</code>, <code>de-at</code>, <code>de-de</code>, <code>de-li</code>, <code>de-lu</code>, <code>de-ch</code></td>
+<td><code>german.xml</code></td>
+</tr>
+<tr>
+<td><code>el</code></td>
+<td><code>greek.xml</code></td>
+</tr>
+<tr>
+<td><code>eo</code></td>
+<td><code>esperanto.xml</code></td>
+</tr>
+<tr>
+<td><code>es-ar</code></td>
+<td><code>spanish_ar.xml</code></td>
+</tr>
+<tr>
+<td><code>es</code>, <code>es-bo</code>, <code>es-cl</code>, <code>es-co</code>, <code>es-cr</code>, <code>es-do</code>, <code>es-ec</code>, <code>es-sv</code>, <code>es-gt</code>, <code>es-hn</code>, <code>es-mx</code>, <code>es-ni</code>, <code>es-pa</code>, <code>es-py</code>, <code>es-pe</code>, <code>es-pr</code>, <code>es-es</code>, <code>es-uy</code>, <code>es-ve</code></td>
+<td><code>spanish.xml</code></td>
+</tr>
+<tr>
+<td><code>et</code></td>
+<td><code>estonian.xml</code></td>
+</tr>
+<tr>
+<td><code>eu</code></td>
+<td><code>basque.xml</code></td>
+</tr>
+<tr>
+<td><code>exy</code></td>
+<td><code>extremaduran.xml</code></td>
+</tr>
+<tr>
+<td><code>fa</code></td>
+<td><code>farsi.xml</code></td>
+</tr>
+<tr>
+<td><code>fi</code></td>
+<td><code>finnish.xml</code></td>
+</tr>
+<tr>
+<td><code>fr</code>, <code>fr-be</code>, <code>fr-ca</code>, <code>fr-fr</code>, <code>fr-lu</code>, <code>fr-mc</code>, <code>fr-ch</code></td>
+<td><code>french.xml</code></td>
+</tr>
+<tr>
+<td><code>fur</code></td>
+<td><code>friulian.xml</code></td>
+</tr>
+<tr>
+<td><code>ga</code></td>
+<td><code>irish.xml</code></td>
+</tr>
+<tr>
+<td><code>gl</code></td>
+<td><code>galician.xml</code></td>
+</tr>
+<tr>
+<td><code>gu</code></td>
+<td><code>gujarati.xml</code></td>
+</tr>
+<tr>
+<td><code>he</code></td>
+<td><code>hebrew.xml</code></td>
+</tr>
+<tr>
+<td><code>hi</code></td>
+<td><code>hindi.xml</code></td>
+</tr>
+<tr>
+<td><code>hr</code></td>
+<td><code>croatian.xml</code></td>
+</tr>
+<tr>
+<td><code>hu</code></td>
+<td><code>hungarian.xml</code></td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>indonesian.xml</code></td>
+</tr>
+<tr>
+<td><code>it</code>, <code>it-ch</code></td>
+<td><code>italian.xml</code></td>
+</tr>
+<tr>
+<td><code>ja</code></td>
+<td><code>japanese.xml</code></td>
+</tr>
+<tr>
+<td><code>ka</code></td>
+<td><code>georgian.xml</code></td>
+</tr>
+<tr>
+<td><code>kab</code></td>
+<td><code>kabyle.xml</code> (spelling fixed to <code>kab</code> in v8.7.5; must use <code>keb</code> instead of <code>kab</code> in v8.7.4 and earlier)</td>
+</tr>
+<tr>
+<td><code>kk</code></td>
+<td><code>kazakh.xml</code></td>
+</tr>
+<tr>
+<td><code>kn</code></td>
+<td><code>kannada.xml</code></td>
+</tr>
+<tr>
+<td><code>ko</code>, <code>ko-kp</code>, <code>ko-kr</code></td>
+<td><code>korean.xml</code></td>
+</tr>
+<tr>
+<td><code>ku</code></td>
+<td><code>kurdish.xml</code></td>
+</tr>
+<tr>
+<td><code>ky</code></td>
+<td><code>kyrgyz.xml</code></td>
+</tr>
+<tr>
+<td><code>lb</code></td>
+<td><code>luxembourgish.xml</code></td>
+</tr>
+<tr>
+<td><code>lij</code></td>
+<td><code>ligurian.xml</code></td>
+</tr>
+<tr>
+<td><code>lt</code></td>
+<td><code>lithuanian.xml</code></td>
+</tr>
+<tr>
+<td><code>lv</code></td>
+<td><code>latvian.xml</code></td>
+</tr>
+<tr>
+<td><code>mk</code></td>
+<td><code>macedonian.xml</code></td>
+</tr>
+<tr>
+<td><code>mn</code></td>
+<td><code>mongolian.xml</code></td>
+</tr>
+<tr>
+<td><code>mr</code></td>
+<td><code>marathi.xml</code></td>
+</tr>
+<tr>
+<td><code>ms</code></td>
+<td><code>malay.xml</code></td>
+</tr>
+<tr>
+<td><code>ne</code>, <code>nep</code></td>
+<td><code>nepali.xml</code></td>
+</tr>
+<tr>
+<td><code>nl</code>, <code>nl-be</code></td>
+<td><code>dutch.xml</code></td>
+</tr>
+<tr>
+<td><code>nn</code></td>
+<td><code>nynorsk.xml</code></td>
+</tr>
+<tr>
+<td><code>no</code>, <code>nb</code></td>
+<td><code>norwegian.xml</code></td>
+</tr>
+<tr>
+<td><code>oc-aranes</code></td>
+<td><code>aranese.xml</code></td>
+</tr>
+<tr>
+<td><code>oc</code></td>
+<td><code>occitan.xml</code></td>
+</tr>
+<tr>
+<td><code>pa</code>, <code>pa-in</code></td>
+<td><code>punjabi.xml</code></td>
+</tr>
+<tr>
+<td><code>pl</code></td>
+<td><code>polish.xml</code></td>
+</tr>
+<tr>
+<td><code>pt-br</code></td>
+<td><code>brazilian_portuguese.xml</code></td>
+</tr>
+<tr>
+<td><code>pt</code>, <code>pt-pt</code></td>
+<td><code>portuguese.xml</code></td>
+</tr>
+<tr>
+<td><code>ro</code>, <code>ro-mo</code></td>
+<td><code>romanian.xml</code></td>
+</tr>
+<tr>
+<td><code>ru</code>, <code>ru-mo</code></td>
+<td><code>russian.xml</code></td>
+</tr>
+<tr>
+<td><code>sc</code></td>
+<td><code>sardinian.xml</code></td>
+</tr>
+<tr>
+<td><code>sgs</code></td>
+<td><code>samogitian.xml</code></td>
+</tr>
+<tr>
+<td><code>si</code></td>
+<td><code>sinhala.xml</code></td>
+</tr>
+<tr>
+<td><code>sk</code></td>
+<td><code>slovak.xml</code></td>
+</tr>
+<tr>
+<td><code>sl</code></td>
+<td><code>slovenian.xml</code></td>
+</tr>
+<tr>
+<td><code>sq</code></td>
+<td><code>albanian.xml</code></td>
+</tr>
+<tr>
+<td><code>sr-cyrl-ba</code>, <code>sr-cyrl-sp</code></td>
+<td><code>serbianCyrillic.xml</code></td>
+</tr>
+<tr>
+<td><code>sr</code></td>
+<td><code>serbian.xml</code></td>
+</tr>
+<tr>
+<td><code>sv</code></td>
+<td><code>swedish.xml</code></td>
+</tr>
+<tr>
+<td><code>ta</code></td>
+<td><code>tamil.xml</code></td>
+</tr>
+<tr>
+<td><code>te</code></td>
+<td><code>telugu.xml</code></td>
+</tr>
+<tr>
+<td><code>tg-cyrl-tj</code></td>
+<td><code>tajikCyrillic.xml</code></td>
+</tr>
+<tr>
+<td><code>th</code></td>
+<td><code>thai.xml</code></td>
+</tr>
+<tr>
+<td><code>tl</code></td>
+<td><code>tagalog.xml</code></td>
+</tr>
+<tr>
+<td><code>tr</code></td>
+<td><code>turkish.xml</code></td>
+</tr>
+<tr>
+<td><code>tt</code></td>
+<td><code>tatar.xml</code></td>
+</tr>
+<tr>
+<td><code>ug-cn</code></td>
+<td><code>uyghur.xml</code></td>
+</tr>
+<tr>
+<td><code>uk</code></td>
+<td><code>ukrainian.xml</code></td>
+</tr>
+<tr>
+<td><code>ur</code>, <code>ur-pk</code></td>
+<td><code>urdu.xml</code></td>
+</tr>
+<tr>
+<td><code>uz-cyrl-uz</code></td>
+<td><code>uzbekCyrillic.xml</code></td>
+</tr>
+<tr>
+<td><code>uz</code></td>
+<td><code>uzbek.xml</code></td>
+</tr>
+<tr>
+<td><code>vec</code></td>
+<td><code>venetian.xml</code></td>
+</tr>
+<tr>
+<td><code>vi</code>, <code>vi-vn</code></td>
+<td><code>vietnamese.xml</code></td>
+</tr>
+<tr>
+<td><code>yue</code></td>
+<td><code>hongKongCantonese.xml</code></td>
+</tr>
+<tr>
+<td><code>zh-tw</code>, <code>zh-hk</code>, <code>zh-sg</code></td>
+<td><code>taiwaneseMandarin.xml</code></td>
+</tr>
+<tr>
+<td><code>zh</code>, <code>zh-cn</code></td>
+<td><code>chineseSimplified.xml</code></td>
+</tr>
+<tr>
+<td><code>zu</code>, <code>zu-za</code></td>
+<td><code>zulu.xml</code></td>
+</tr>
+</tbody>
+</table>
+  </div>
+</details>
+</li>
+<li><code>-n</code>: Scroll to indicated line (<em>LineNumber</em>) on <code>filepath</code>.</li>
+<li><code>-c</code>: Scroll to indicated column (<em>ColumnNumber</em>) on <code>filepath</code>.</li>
+<li><code>-p</code>: Scroll to indicated 0 base position (<em>Position</em>) on <code>filepath</code>.</li>
+<li><code>-x</code>: Move Notepad++ to indicated left side position (<em>LeftPos</em>) on the screen.</li>
+<li><code>-y</code>: Move Notepad++ to indicated top position (<em>TopPos</em>) on the screen.</li>
+<li><code>-monitor</code>: Open file with <a href="../views/index.html#live-file-monitoring">file monitoring</a> enabled.</li>
+<li><code>-nosession</code>: Launch Notepad++ without previous session.</li>
+<li><code>-notabbar</code>: Launch Notepad++ without tabbar.</li>
+<li><code>-ro</code>: Make the <code>filepath</code> read only.</li>
+<li><code>-systemtray</code>: Launch Notepad++ directly in <a href="../user-interface/index.html#system-tray">system tray</a>.</li>
+<li><code>-loadingTime</code>: Display Notepad++ loading time.
+<ul>
+<li>Starting in v8.6.1, it shows millisecond precision using the <code>##:##:##.###</code> (hour:minute:second.millisecond) format.  It separates the loading time into Notepad++ initialization, plugins loading time, session loading time, command-line-parameter parsing time, and the total loading time.</li>
+<li>In v8.6 or earlier, it just showed the total number of seconds for Notepad++ to load, without millisecond precision and without the listing of the times for individual loading stages.</li>
+</ul>
+</li>
+<li><code>-alwaysOnTop</code>: Make Notepad++ always on top.</li>
+<li><code>-openSession</code>: Open a session. <code>filepath</code> must be a session file.</li>
+<li><code>-r</code>: Open files recursively. This argument will be ignored if <code>filepath</code> contain no wildcard character.</li>
+<li><code>-qn=&quot;Easter Egg Name&quot;</code>: Launch <a href="../ghost-typing/index.html">ghost typing</a> to display easter egg via its <em>Easter Egg Name</em>.</li>
+<li><code>-qt=&quot;Text to Type&quot;</code>: Launch <a href="../ghost-typing/index.html">ghost typing</a> to display a text via the given <em>Text to Type</em>.</li>
+<li><code>-qf=&quot;D:\path to\file&quot;</code>: Launch <a href="../ghost-typing/index.html">ghost typing</a> to display a file content via the file path <em>D:\path to\file</em>.</li>
+<li><code>-qSpeed(1|2|3)</code>: <a href="../ghost-typing/index.html">Ghost typing</a> speed. Value from 1 to 3 for slow, fast, and fastest.</li>
+<li><code>-quickPrint</code>: Print the file given as argument <code>filepath</code> then quit Notepad++.</li>
+<li><code>-settingsDir=&quot;d:\your settings dir\&quot;</code>: Override the default settings dir.</li>
+<li><code>-openFoldersAsWorkspace</code>: Any folders listed as arguments will be opened as a workspace, rather than opening all the contained files individually.</li>
+<li><code>-titleAdd=&quot;additional title bar text&quot;</code>: Add a dash and a space and the supplied text to the right side of the application title bar (new to v8.0.0).</li>
+<li><code>-pluginMessage=&quot;text for plugin(s)&quot;</code>: If plugin developers need extra command line arguments, then users can add this option, and the plugin will be <a href="../plugin-communication/index.html#NPPN_CMDLINEPLUGINMSG" title="NPPN_CMDLINEPLUGINMSG">notified</a> that it can parse that string for extra information (new to v8.4.2).</li>
+<li><code>filepath</code>: File or folder name to open (absolute or relative path name).</li>
+</ul>
+<p>The order of the options is not important.  Brackets indicate that the options
+are not required, and are <em>not</em> part of the command-line argument.  The number
+of hyphens is significant, and the options are case sensitive.</p>
+<p>For compatibility, Notepad++ will first try to identify the entire command line
+as a filename, even if it is unquoted. It is however not recommended to do this,
+as you should always quote the filename.</p>
+<p>This help usage list can be accessed inside Notepad++ using the <code>--help</code> command
+line argument, or using the <strong>?</strong>-menu&rsquo;s <strong>Command Line Arguments</strong> entry.</p>
+<h3 id="additional-options">Additional Options</h3>
+<p>There are other Notepad++ command-line options which aren&rsquo;t included in the help
+usage list.  These are intended for advanced usage or other special circumstances.</p>
+<ul>
+<li><code>-notepadStyleCmdline</code>: When you follow the instructions in
+<a href="../other-resources/index.html#notepad-replacement">Other Resources &gt; Notepad Replacement</a>,
+to replace Windows&rsquo; builtin <code>notepad.exe</code> with Notepad++, Windows will try to pass <code>/p</code> or <code>/P</code> as
+a command-line option when you try to print the file from the Explorer Context menu.
+Enabling this option allows Notepad++ to recognize that option, and convert it internally
+to the official <code>-quickPrint</code> option.</li>
+<li><code>-z</code>: Causes Notepad++ to ignore the next command line argument (a single word, or a phrase in quotes). The only intended and
+supported use for this option is for the <a href="../other-resources/index.html#notepad-replacement">Notepad Replacement</a> syntax.</li>
+</ul>
+<h2 id="installer-options">Installer Options</h2>
+<p>The Notepad++ <a href="../getting-started/index.html#install-notepad-using-the-installer">installer executable</a> accepts the <a href="https://nsis.sourceforge.io/Which_command_line_parameters_can_be_used_to_configure_installers">three NSIS command-line options</a>:</p>
+<ul>
+<li><code>/S</code> : Enables silent installation.</li>
+<li><code>/NCRC</code>: Skips the installer&rsquo;s CRC check.</li>
+<li><code>/D=c:\blah</code> or <code>/D=c:\path with spaces\blah</code> : Overrides the default installation directory.
+<ul>
+<li>Do <em>not</em> put quotes around the path, even when there are spaces.</li>
+<li>Because it allows spaces in the path, this option <strong>must</strong> be the last argument on the installer command line, if included.</li>
+</ul>
+</li>
+</ul>
+<p>It also implements additional Notepad++-specific options:</p>
+<ul>
+<li><code>/noUpdater</code>: Disables the N++ inherent automatic updates (it does not install the WinGUP &amp; PluginsAdmin updating components).</li>
+<li><code>/closeRunningNpp</code>: Will (try to) close existing Notepad++ before installing the new version.  (New to v8.6.9.)
+<ul>
+<li>It will first try a &ldquo;nice&rdquo; close request (using <a href="https://learn.microsoft.com/en-us/windows/win32/winmsg/wm-close">WM_CLOSE</a>).</li>
+<li>If the &ldquo;nice&rdquo; request wasn&rsquo;t successful after 5 seconds, it will kill the underlying process.</li>
+<li>If Notepad++ has multiple instances opened, it will close all instances.</li>
+</ul>
+</li>
+<li><code>/runNppAfterSilentInstall</code>: After a silent install, it will automatically run the newly-installed Notepad++. (New to v8.6.9.)
+<ul>
+<li>Only works if <code>/S</code> is also specified.</li>
+</ul>
+</li>
+</ul>
+<p><em>Note</em> : The installer options are case sensitive: <code>/S</code> will do a silent installation, whereas <code>/s</code> will <em>not</em>.</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#help-usage">Help usage</a>
+          <ul>
+            <li><a href="#additional-options">Additional Options</a></li>
+          </ul>
+        </li>
+        <li><a href="#installer-options">Installer Options</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

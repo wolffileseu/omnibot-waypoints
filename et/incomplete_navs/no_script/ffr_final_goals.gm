@@ -1,0 +1,18 @@
+global _MG = 
+{
+	CAPPOINT_allies = 
+	{
+		GoalType = "CapPoint",
+		MinRadius = 32,
+		Position = Vec3(398.767, -1297.469, 17.125),
+		TeamAvailability = 4,
+	},
+	CAPPOINT_axis = 
+	{
+		GoalType = "CapPoint",
+		MinRadius = 32,
+		Position = Vec3(400.474, 899.061, 17.125),
+		TeamAvailability = 2,
+	},
+	Version = 1,
+};

@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta name="generator" content="Hugo 0.68.3" />
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="UDL &gt; Numbers This section describes new options user have when defining numbers.
+UDL number panel received major update in Notepad&#43;&#43; version 6.3. If you are using version 6.2, please scroll below.
+Number handling is quite different in UDL 2.1 than it was in UDL 1.0 (or UDL 2.0).
+New interface and logical organization of code designed by CChris was used in version 2.0, and user suggestions lead to improvements and extensions in version 2.">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="UDL &gt; Numbers" />
+<meta property="og:description" content="UDL &gt; Numbers This section describes new options user have when defining numbers.
+UDL number panel received major update in Notepad&#43;&#43; version 6.3. If you are using version 6.2, please scroll below.
+Number handling is quite different in UDL 2.1 than it was in UDL 1.0 (or UDL 2.0).
+New interface and logical organization of code designed by CChris was used in version 2.0, and user suggestions lead to improvements and extensions in version 2." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="../../../docs/udl/numbers/index.html" />
+
+<title>UDL &gt; Numbers | Notepad&#43;&#43; User Manual</title>
+<link rel="manifest" href="../../../manifest.json">
+<link rel="icon" href="../../../favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="../../../book.min.6e40b5f911dc7f922b4354b4a32e0a00d71dc7ebac6d2334c02aa38eb679f117.css" attr_integ_ignore="sha256-bkC1&#43;RHcf5IrQ1S0oy4KANcdx&#43;usbSM0wCqjjrZ58Rc=">
+<script defer src="../../../en.search.min.198a20a5f81cba6044d4b6b4ed8e396ecef5d158d13a4e21936619f0d5a4638a.js" attr_integ_ignore="sha256-GYogpfgcumBE1La07Y45bs710VjROk4hk2YZ8NWkY4o="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a href="../../../index.html"><span>Notepad&#43;&#43; User Manual</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" readonly hidden placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/getting-started/index.html" class="">Getting started</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/files/index.html" class="">Working with Files</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/editing/index.html" class="">Editing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/searching/index.html" class="">Searching</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/views/index.html" class="">Views</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/session/index.html" class="">Sessions, Workspaces, and Projects</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/function-list/index.html" class="">Function List</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/auto-completion/index.html" class="">Auto-Completion</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/programing-languages/index.html" class="">Syntax Highlighting - Built-in Languages</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/user-defined-language-system/index.html" class="">Syntax Highlighting - User Defined Languages</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/introduction/index.html" class="">UDL &gt; Parser</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/default/index.html" class="">UDL &gt; Default Style</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/folding-in-code/index.html" class="">UDL &gt; Folding in code</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/folding-in-comment/index.html" class="">UDL &gt; Folding in comment</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/keywords/index.html" class="">UDL &gt; Keywords</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/comments/index.html" class="">UDL &gt; Comments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/numbers/index.html" class=" active">UDL &gt; Numbers</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/operators/index.html" class="">UDL &gt; Operators</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/udl/delimiters/index.html" class="">UDL &gt; Delimiters</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/macros/index.html" class="">Macros - Task Automation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/run-menu/index.html" class="">Running External Commands</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/plugins/index.html" class="">Plugins</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/plugin-communication/index.html" class="">Plugin Communication</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/command-prompt/index.html" class="">Command Line Arguments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/preferences/index.html" class="">Preferences</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/config-files/index.html" class="">Configuration Files Details</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/themes/index.html" class="">Themes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/binary-translation/index.html" class="">Localization - User Interface Translation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/user-interface/index.html" class="">User Interface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/upgrading/index.html" class="">Upgrading</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/shell-extension/index.html" class="">Right Click - Edit With Notepad&#43;&#43;</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/ghost-typing/index.html" class="">Ghost Typing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/other-resources/index.html" class="">Other Resources</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/history/index.html" class="">User Manual History</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../../docs/license/index.html" class="">Copyright &amp; License</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="../../../svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>UDL &gt; Numbers</strong>
+
+  <label for="toc-control">
+    
+    <img src="../../../svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#udl-gt-numbers">UDL &gt; Numbers</a>
+      <ul>
+        <li><a href="#decimal-digits">Decimal digits</a></li>
+        <li><a href="#number-prefixes-1">Number prefixes 1</a></li>
+        <li><a href="#number-prefixes-2">Number prefixes 2</a></li>
+        <li><a href="#extra-characters-1">Extra characters 1</a></li>
+        <li><a href="#extra-characters-2">Extra characters 2</a></li>
+        <li><a href="#suffix-characters-1">Suffix characters 1</a></li>
+        <li><a href="#suffix-characters-2">Suffix characters 2</a></li>
+        <li><a href="#range-symbols">Range symbols</a></li>
+        <li><a href="#sum-up">Sum up</a></li>
+        <li><a href="#old-version-udl-20-used-in-notepad-v-62">Old version, UDL 2.0 (used in Notepad++ v 6.2)</a>
+          <ul>
+            <li><a href="#number-prefixes">Number prefixes</a></li>
+            <li><a href="#extra-characters-in-numbers-with-prefix">Extra characters in numbers with prefix</a></li>
+            <li><a href="#optional-sufixes-for-numbers">Optional sufixes for numbers</a></li>
+            <li><a href="#range-symbols-1">Range symbols</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="udl-gt-numbers">UDL &gt; Numbers</h1>
+<p>This section describes new options user have when defining numbers.</p>
+<p><img src="../images/numbers_01.png" alt="Numbers dialog" /></p>
+<p>UDL number panel received major update in Notepad++ version 6.3. If you are using version 6.2, please scroll below.</p>
+<p>Number handling is quite different in UDL 2.1 than it was in UDL 1.0 (or UDL 2.0).<br>
+New interface and logical organization of code designed by CChris was used in version 2.0, and user suggestions lead to improvements and extensions in version 2.1. Let&rsquo;s break it down, feature by feature.</p>
+<h2 id="decimal-digits">Decimal digits</h2>
+<p>Are supported automatically by UDL.</p>
+<pre><code>0123456789
+123
+987
+</code></pre><h2 id="number-prefixes-1">Number prefixes 1</h2>
+<p>Allows to define number prefixes that will be used with <strong>decimal digits only</strong>:</p>
+<pre><code>B1011
+O12345670
+D1234567890
+</code></pre><h2 id="number-prefixes-2">Number prefixes 2</h2>
+<p>Allows to define number prefixes that will be used with decimal digits and <strong>extended with Extras1</strong>:</p>
+<pre><code>0x1234567890ABCDEF
+</code></pre><ul>
+<li>This will be mostly used for hex prefixes.</li>
+<li>Note that even standard C/C++ prefix &ldquo;0x&rdquo; must be defined here, as it is not supported by default.</li>
+</ul>
+<h2 id="extra-characters-1">Extra characters 1</h2>
+<p>If you define &ldquo;0x&rdquo; hex prefix in Number prefixes 2, then add here &ldquo;A B C D E F a b c d e f&rdquo;</p>
+<pre><code>0x1234
+0xABC
+</code></pre><h2 id="extra-characters-2">Extra characters 2</h2>
+<p>These extra characters are used exactly like Extras1 but Extras2 are used in combination with Suffix1. e.g. &ldquo;A B C D E F a b c d e f&rdquo;</p>
+<h2 id="suffix-characters-1">Suffix characters 1</h2>
+<p>Some languages define HEX notifications as a suffix. Let&rsquo;s use &ldquo;&lsquo;H&rdquo; as an example:</p>
+<pre><code>1234567890ABCDEF'H
+ABC'H
+123'H
+</code></pre><h2 id="suffix-characters-2">Suffix characters 2</h2>
+<p>This one works exactly like Prefix1 option, just works from the other end : Let&rsquo;s use &ldquo;B O D&rdquo; as examples:</p>
+<pre><code>1011B
+01234567O
+0123456789D
+</code></pre><p>Or, you can use it for financial records, e.g. <code>100€</code> or <code>200$</code></p>
+<h2 id="range-symbols">Range symbols</h2>
+<p>Sometimes you want to express number ranges:</p>
+<pre><code>100-200
+200::300
+300--&gt;400
+</code></pre><h2 id="sum-up">Sum up</h2>
+<ul>
+<li><strong>Prefix1</strong> and <strong>Suffix2</strong> accept <strong>numbers only</strong></li>
+<li><strong>Prefix2</strong> accepts numbers and <strong>Extras1</strong></li>
+<li><strong>Suffix1</strong> accepts numbers and <strong>Extras2</strong></li>
+</ul>
+<p>Also worth noting is the fact that UDL 2.0 restricts numbers to have just one decimal dot (in UDL 1.0 stuff like <code>1.2.3.4.5.6.7.8.9</code> was treated as a single number).</p>
+<p>UDL 2.1 allows user selection of decimal point character (dot, comma or both).</p>
+<p>That&rsquo;s it with numbers.</p>
+<h2 id="old-version-udl-20-used-in-notepad-v-62">Old version, UDL 2.0 (used in Notepad++ v 6.2)</h2>
+<p><img src="../images/numbers_02.png" alt="Numbers dialog" /></p>
+<p>Note: this section is left here for people stuck with old version, if you use newer version, you can safely ignore this section !!!</p>
+<p>Number handling is quite different in UDL 2.0 than it was in UDL 1.0. New interface and logical organization of code was designed by CChris. I simply adopted his idea without adding anything to it. I had to significantly change the code to integrate it with UDL 2.0, but I closely followed his superb interface. Let&rsquo;s break it down, feature by feature.</p>
+<h3 id="number-prefixes">Number prefixes</h3>
+<p>This will be mostly used for hex prefixes.<br>
+Note that even standard C/C++ prefix &ldquo;0x&rdquo; must be defined here, as it is not supported by default.</p>
+<h3 id="extra-characters-in-numbers-with-prefix">Extra characters in numbers with prefix</h3>
+<p>e.g. If you define &ldquo;0x&rdquo; hex prefix, then add here &ldquo;A B C D E F a b c d e f&rdquo;</p>
+<h3 id="optional-sufixes-for-numbers">Optional sufixes for numbers</h3>
+<p>This one is useful for financial records, e.g. <code>100€</code> or <code>200$</code></p>
+<h3 id="range-symbols-1">Range symbols</h3>
+<p>Sometimes you want to express number ranges:</p>
+<pre><code>100-200
+200::300
+300--&gt;400
+</code></pre><p>Also worth noting is the fact that UDL 2.0 restricts numbers to have just one decimal dot (in UDL 1.0 stuff like <code>1.2.3.4.5.6.7.8.9</code> was treated as a single number).</p>
+<p>User is  restricted to dot character for decimal point. If you need to use comma, please upgrade.</p>
+<p>That&rsquo;s it with numbers. I really think CChris did a great job here, and covered almost anything user might need regarding numbers. If you think something is missing, please state so in discussion on Notepad++ forum.</p>
+<p style="border-top: 1px solid var(--h4-color); font-style: italic; color: var(--h4-color); font-size: smaller;">This
+page of the User Manual is derived and edited from Ivan Radić's <a href="https://github.com/ivan-radic/udl-documentation/">udl-documentation</a>,
+which he has maintained for Notepad++'s UDL 2.1 since 2015, under the
+<a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> license.</p>
+
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#udl-gt-numbers">UDL &gt; Numbers</a>
+      <ul>
+        <li><a href="#decimal-digits">Decimal digits</a></li>
+        <li><a href="#number-prefixes-1">Number prefixes 1</a></li>
+        <li><a href="#number-prefixes-2">Number prefixes 2</a></li>
+        <li><a href="#extra-characters-1">Extra characters 1</a></li>
+        <li><a href="#extra-characters-2">Extra characters 2</a></li>
+        <li><a href="#suffix-characters-1">Suffix characters 1</a></li>
+        <li><a href="#suffix-characters-2">Suffix characters 2</a></li>
+        <li><a href="#range-symbols">Range symbols</a></li>
+        <li><a href="#sum-up">Sum up</a></li>
+        <li><a href="#old-version-udl-20-used-in-notepad-v-62">Old version, UDL 2.0 (used in Notepad++ v 6.2)</a>
+          <ul>
+            <li><a href="#number-prefixes">Number prefixes</a></li>
+            <li><a href="#extra-characters-in-numbers-with-prefix">Extra characters in numbers with prefix</a></li>
+            <li><a href="#optional-sufixes-for-numbers">Optional sufixes for numbers</a></li>
+            <li><a href="#range-symbols-1">Range symbols</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,34 @@
+global _MG = 
+{
+	ESCORT_axis =
+	{
+		GoalType = "ESCORT",
+		MinRadius = 32,
+		Offsets = 
+		{
+			[0] = Vec3(-34.125, 28.278, -11.875),
+			[1] = Vec3(41.519, 27.197, -11.875),
+			[2] = Vec3(34.179, -31.290, -11.875),
+			[3] = Vec3(-34.126, -22.688, -11.875),
+		},
+		Position = Vec3(6092.480, -5304.035, 1.125),
+		TeamAvailability = 2,
+		Vehicle = "MOVER_stiglitz",
+	},
+	ESCORT_allies =
+	{
+		GoalType = "ESCORT",
+		MinRadius = 32,
+		Offsets =
+		{
+			[0] = Vec3(-34.125, 28.278, -11.875),
+			[1] = Vec3(41.519, 27.197, -11.875),
+			[2] = Vec3(34.179, -31.290, -11.875),
+			[3] = Vec3(-34.126, -22.688, -11.875),
+		},
+		Position = Vec3(6092.480, -5304.035, 1.125),
+		TeamAvailability = 4,
+		Vehicle = "MOVER_stiglitz",
+	},
+	Version = 1,
+};

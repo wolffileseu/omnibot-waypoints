@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta name="generator" content="Hugo 0.68.3" />
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Working with Files A &ldquo;file&rdquo; is the basic unit of what is edited in Notepad&#43;&#43;, but that term actually covers multiple related concepts. Primarily, the &ldquo;file&rdquo; is the series of bytes stored on a disk or other storage medium and accessed through your computer&rsquo;s filesystem; and pedantically, if the document you are editing has never been saved to the filesystem, it&rsquo;s not technically a file, though common usage applies that term to unsaved documents as well.">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="Working with Files" />
+<meta property="og:description" content="Working with Files A &ldquo;file&rdquo; is the basic unit of what is edited in Notepad&#43;&#43;, but that term actually covers multiple related concepts. Primarily, the &ldquo;file&rdquo; is the series of bytes stored on a disk or other storage medium and accessed through your computer&rsquo;s filesystem; and pedantically, if the document you are editing has never been saved to the filesystem, it&rsquo;s not technically a file, though common usage applies that term to unsaved documents as well." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="../../docs/files/index.html" />
+
+<title>Working with Files | Notepad&#43;&#43; User Manual</title>
+<link rel="manifest" href="../../manifest.json">
+<link rel="icon" href="../../favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="../../book.min.6e40b5f911dc7f922b4354b4a32e0a00d71dc7ebac6d2334c02aa38eb679f117.css" attr_integ_ignore="sha256-bkC1&#43;RHcf5IrQ1S0oy4KANcdx&#43;usbSM0wCqjjrZ58Rc=">
+<script defer src="../../en.search.min.198a20a5f81cba6044d4b6b4ed8e396ecef5d158d13a4e21936619f0d5a4638a.js" attr_integ_ignore="sha256-GYogpfgcumBE1La07Y45bs710VjROk4hk2YZ8NWkY4o="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a href="../../index.html"><span>Notepad&#43;&#43; User Manual</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" readonly hidden placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/getting-started/index.html" class="">Getting started</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/files/index.html" class=" active">Working with Files</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/editing/index.html" class="">Editing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/searching/index.html" class="">Searching</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/views/index.html" class="">Views</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/session/index.html" class="">Sessions, Workspaces, and Projects</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/function-list/index.html" class="">Function List</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/auto-completion/index.html" class="">Auto-Completion</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/programing-languages/index.html" class="">Syntax Highlighting - Built-in Languages</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/user-defined-language-system/index.html" class="">Syntax Highlighting - User Defined Languages</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/introduction/index.html" class="">UDL &gt; Parser</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/default/index.html" class="">UDL &gt; Default Style</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/folding-in-code/index.html" class="">UDL &gt; Folding in code</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/folding-in-comment/index.html" class="">UDL &gt; Folding in comment</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/keywords/index.html" class="">UDL &gt; Keywords</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/comments/index.html" class="">UDL &gt; Comments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/numbers/index.html" class="">UDL &gt; Numbers</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/operators/index.html" class="">UDL &gt; Operators</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/udl/delimiters/index.html" class="">UDL &gt; Delimiters</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/macros/index.html" class="">Macros - Task Automation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/run-menu/index.html" class="">Running External Commands</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/plugins/index.html" class="">Plugins</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/plugin-communication/index.html" class="">Plugin Communication</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/command-prompt/index.html" class="">Command Line Arguments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/preferences/index.html" class="">Preferences</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/config-files/index.html" class="">Configuration Files Details</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/themes/index.html" class="">Themes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/binary-translation/index.html" class="">Localization - User Interface Translation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/user-interface/index.html" class="">User Interface</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/upgrading/index.html" class="">Upgrading</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/shell-extension/index.html" class="">Right Click - Edit With Notepad&#43;&#43;</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/ghost-typing/index.html" class="">Ghost Typing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/other-resources/index.html" class="">Other Resources</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/history/index.html" class="">User Manual History</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="../../docs/license/index.html" class="">Copyright &amp; License</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="../../svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Working with Files</strong>
+
+  <label for="toc-control">
+    
+    <img src="../../svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#working-with-files">Working with Files</a>
+      <ul>
+        <li><a href="#file-menu">File Menu</a>
+          <ul>
+            <li><a href="#file-type-filters">File-Type Filters</a></li>
+          </ul>
+        </li>
+        <li><a href="#printing">Printing</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="working-with-files">Working with Files</h1>
+<p>A &ldquo;file&rdquo; is the basic unit of what is edited in Notepad++, but that term actually covers multiple related concepts.  Primarily, the &ldquo;file&rdquo; is the series of bytes stored on a disk or other storage medium and accessed through your computer&rsquo;s filesystem; and pedantically, if the document you are editing has never been saved to the filesystem, it&rsquo;s not technically a file, though common usage applies that term to unsaved documents as well.  The &ldquo;document&rdquo; refers to the text being edited, whether it&rsquo;s a new, unsaved document, or whether it&rsquo;s a document that&rsquo;s been previously saved as a file on the filesystem.  And finally, in Notepad++, each document is presented in a <a href="../other-resources/index.html#tabs">Tab</a> in one of the two <a href="../views/">Views</a> of the Notepad++ user interface, which are the graphical containers which Notepad++ uses to manipulate files and other documents, though many users think of the user interface element as the &ldquo;file&rdquo; as well.</p>
+<h2 id="file-menu">File Menu</h2>
+<p>The <strong>File</strong> menu contains many of the normal file-operation actions found in most applications.  Notepad++ also includes other custom actions which are useful to understand.</p>
+<ul>
+<li><strong>New</strong>: Creates a new document, and displays that empty document in a Tab in the active View.</li>
+<li><strong>Open</strong>: Opens an existing file from the filesystem, and displays that document in a Tab in the active View.</li>
+<li><strong>Open Containing Folder &gt;</strong>:
+<ul>
+<li><strong>Explorer</strong>: Opens an instance of the Windows Explorer, starting in the folder (also known as the &ldquo;directory&rdquo;) which contains the active file.</li>
+<li><strong>cmd</strong>: Opens an instance of Windows&rsquo; <code>cmd.exe</code>, starting in the folder which contains the active file.</li>
+<li><strong>Folder as Workspace</strong>: Opens the active file&rsquo;s folder in Notepad++'s <a href="../session/index.html#folder-as-workspace">Folder as Workspace</a> panel.</li>
+</ul>
+</li>
+<li><strong>Open in Default Viewer</strong>: This will make use of the Windows &ldquo;filetype association&rdquo; for the active file (based on the file extension).
+<ul>
+<li>It does the equivalent of double-clicking on a file in Windows Explorer.</li>
+<li>If the document has never been saved as a file, this action will be grayed out and the menu entry cannot be used.</li>
+<li>If the filetype has no associated default action in Windows, this action will be grayed out and the menu entry cannot be used.</li>
+<li>If the filetype is associated with Notepad++, and would thus just re-open the file in Notepad++, this action will be grayed out and the menu entry cannot be used.</li>
+</ul>
+</li>
+<li><strong>Open Folder as Workspace</strong>: Opens the active file&rsquo;s folder in Notepad++'s <a href="../session/index.html#folder-as-workspace">Folder as Workspace</a> panel.</li>
+<li><strong>Reload from Disk</strong>: This will re-read the bytes of the file from the filesystem, replacing the current contents of the documented being edited with the last-saved version (and thus losing any changes that might have been made in Notepad++).
+<ul>
+<li>If you have <a href="../preferences/index.html#misc"><strong>Settings &gt; Preferences &gt; MISC &gt; File Status Auto-detection</strong></a> turned on, you Notepad++ can automatically run the equivalent of this command for you, without you having to use this menu entry.</li>
+<li>Any <a href="../searching/index.html#manipulating-bookmarks">bookmarks</a> or <a href="../searching/#marking-with-a-color-style-and-highlighting">token styling</a> that you previously had set will be cleared.</li>
+<li>Any <a href="../editing/index.html#change-history">change history</a> recorded for the file will be reset, and the file will appear with no change-history margin colors.</li>
+</ul>
+</li>
+<li><strong>Save</strong>: Saves the current document to the filesystem using the same filename.
+<ul>
+<li>If the document does not currently have a file associated with it, this action will be grayed out and the menu entry cannot be used.  Use <strong>File &gt; Save As</strong> instead.</li>
+</ul>
+</li>
+<li><strong>Save As</strong>: Saves the current document to the filesystem, prompting for the new filename to use.
+<ul>
+<li>If the document had previously been saved to a file, this will create as new copy of the file, and Notepad++ will continue working with the document associated with the new file, leaving the old file with the contents that were last saved.</li>
+</ul>
+</li>
+<li><strong>Save a Copy As</strong>: Saves the current document to the filesystem, prompting for the new filename to use.
+<ul>
+<li>The new file will be saved, but Notepad++ will continue to work with the document associated with the original filename.  So this action effectively creates a backup of the file, but allows you to continue working with the previous file, whereas <strong>Save As</strong> uses the original as the backup and allows you to keep working with the new file.</li>
+<li>Normally during execution of this command, the new file created is not opened into a Notepad++ editing tab. To open the new file as part of the process, hold down the <kbd>Shift</kbd> key while pressing the <strong>Save</strong> button in the <strong>Save As</strong> dialog.</li>
+</ul>
+</li>
+<li><strong>Save All</strong>: Saves all documents that are currently open in either of Notepad++'s two Views.</li>
+<li><strong>Rename</strong>: Prompts for a new name to give to the current document.
+<ul>
+<li>If the document is associated with a file, Notepad++ will open a standard Windows dialog to save the file under a new name on the filesystem, and the old filename will no longer exist.</li>
+<li>If the document is a new, unsaved document, it will change the name displayed in the Tab for the current document.  If you later do a <strong>Save As</strong>, it will use that as the default suggested name in the <strong>Save As</strong> dialog.</li>
+</ul>
+</li>
+<li><strong>Close</strong>: Closes the active document, prompting to save if it has been modified since it was opened or created.</li>
+<li><strong>Close All</strong>: Closes all the documents that are open in the current instance of Notepad++, prompting to save if one or more files has been modified since they were opened or created.
+<ul>
+<li>In the prompt dialog, <strong>Yes</strong> will save the file, <strong>No</strong> will close it without saving (you will <em>lose</em> any changes), <strong>Cancel</strong> will stop Notepad++ from closing all the files.</li>
+<li>If there are multiple files that you are prompted for, you will also get <strong>Yes to All</strong> to save all changed files, and <strong>No to All</strong> to lose changes from all changed files.</li>
+</ul>
+</li>
+<li><strong>Close Multiple Documents &gt;</strong>:
+<ul>
+<li><strong>Close All but Active Document</strong>: Closes all open documents, except the document that is actively being edited.</li>
+<li><strong>Close All but Pinned Documents</strong>: Closes all open documents, unless their tab has been pinned.</li>
+<li><strong>Close All to the Left</strong>: Closes all the open documents that are to the left of the active document on the current View&rsquo;s tab bar.</li>
+<li><strong>Close All to the Right</strong>: Closes all the open documents that are to the right of the active document on the current View&rsquo;s tab bar.</li>
+<li><strong>Close All Unchanged</strong>: Closes all open documents that have not been edited since they were last opened or created.</li>
+</ul>
+</li>
+<li><strong>Move to Recycle Bin</strong>: Closes the active document, and moves the underlying file to the Windows Recycle Bin.  If the document has no underlying file, this action will be grayed out and the menu entry cannot be used.</li>
+<li><strong>Load Session&hellip;</strong>: Loads all the files from a saved <a href="../session/index.html#sessions">Session file</a>.</li>
+<li><strong>Save Session&hellip;</strong>: Saves the current session (list of opened files) to a <a href="../session/index.html#sessions">Session file</a>.</li>
+<li><strong>Print</strong>: Opens a <strong>Print</strong> dialog to print the file, as described in the <a href="#printing">Printing</a> section.</li>
+<li><strong>Print Now</strong>: Prints the active file without showing the <strong>Print</strong> dialog, using the default printer and other default settings of the <strong>Print</strong> dialog.</li>
+<li><strong>Recent Files &gt;</strong>: The list of recently-closed files that Notepad++ has edited.
+<ul>
+<li>If [<strong>Settings &gt; Preferences &gt; Recent Files History</strong>] is set to use a sub-menu, the recent files will be in that sub-menu, otherwise they will be in the main <strong>File</strong> menu.</li>
+<li>Clicking on a file entry will open that file.</li>
+<li><strong>Restore Recent Closed File</strong>: Opens the file that was most recently closed, which is at the top of the list of Recent Files.</li>
+<li><strong>Open All Recent Files</strong>: Opens all the files from the list.</li>
+<li><strong>Empty Recent Files List</strong>: Removes all the files from the Recent Files list.</li>
+</ul>
+</li>
+<li><strong>Exit</strong>: Closes the Notepad++ application.
+<ul>
+<li>If you have <a href=""><strong>Settings &gt; Preferences &gt; Backup</strong></a> <code>☑ Remember current session for next launch</code> checkmarked, Notepad++ will save the current list of files to the session.  The only files that will be remembered for the next launch of Notepad++ will be those files that are currently open in Notepad++.</li>
+<li>If you do not have <a href=""><strong>Settings &gt; Preferences &gt; Backup</strong></a> <code>☐ Enable session snapshot and periodic backup</code> checkmarked, Notepad++ will prompt you whether to save any files that have been changed, following the same rules as <strong>Close All</strong>, described above.  If you do have that setting checkmarked, unsaved documents will also be included in the session file even if they don&rsquo;t have an underlying file.</li>
+</ul>
+</li>
+</ul>
+<h3 id="file-type-filters">File-Type Filters</h3>
+<p>For the <strong>Save As</strong> and similar dialogs, there is a <strong>Save as Type</strong> pulldown field.  For the <strong>Open</strong> dialog (and similar), there is a pulldown file-type field to the right of the <strong>File name</strong> entry.  Those pulldowns serve to filter the list of files in the dialog based on the file type.  The filter&rsquo;s list of file types will include all of the languages in the <a href="../programing-languages/index.html"><strong>Language</strong> menu</a> and the extensions for those types, as defined in the <a href="../preferences/index.html#style-configurator">Style Configurator</a>). Starting in v8.7, the filter will also include the various <a href="../user-defined-language-system/">User Defined Language</a> file types and extensions as well.</p>
+<p>For the <strong>Save As</strong> dialog, the <code>☐ Append extension checkbox</code> described in the <a href="preferences/#preference-toggles-in-other-dialogs">Preference Toggles in Other Dialogs</a> will allow the dialog to automatically add the <em>first</em> extension in the list for the active filter.  If you want a different extension for that type, or if that option is not checkmarked, you can always type the filename with extension to explicitly define the extension you want for the file you are currently saving.  (So normally, doing <strong>Save As</strong> filtered for C++ will automatically add the <code>.cpp</code> extension; but if you want it to be <code>.cxx</code> or <code>.h</code>, you can just type that as part of the <strong>File name</strong> entry rather than letting Notepad++ auto-append the extension.)</p>
+<h2 id="printing">Printing</h2>
+<p>The <strong>File &gt; Print</strong> action will pull up a Windows-standard print dialog, from which you can choose your printer and send your text to the selected printer.  Normally, it will print the whole document, but you can use the print dialog to choose only certain pages; if you have an active selection in the editor, only the selected text will be printed.</p>
+<p>The printing of the text is affected by the <a href="../preferences/index.html#print"><strong>Settings &gt; Preferences &gt; Print</strong></a> settings, where you can decide things like whether or not to include line numbers in the printout, margin widths, extra text to print in the header and/or footer of every page, and the <strong>Colour Options</strong> will determine how your <a href="../preferences/#style-configurator">Style Configurator theme&rsquo;s colors</a> will be propagated to the printed output.  It is up to you as the user to decide which printing settings are best to meet your needs, and will look best on your printed medium of choice.  Please note that with any themes with colored backgrounds, some of those colors will be printed to the background of your printed page unless you choose one of the <strong>Colour Options</strong> that does not print the background color; but with darker themes, which use light text on dark backgrounds, if you <em>don&rsquo;t</em> have it print the background color, then it will be very light text on your white paper.  If you have a printer which allows you to print to PDF, that is a good way to see what the printout will really look like without using the paper and ink (and if you don&rsquo;t have a PDF printer available, your favorite search engine will show you plenty of commercial and freeware PDF printers by searching for something like &ldquo;windows PDF printer&rdquo; or &ldquo;print to PDF&rdquo;).</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#working-with-files">Working with Files</a>
+      <ul>
+        <li><a href="#file-menu">File Menu</a>
+          <ul>
+            <li><a href="#file-type-filters">File-Type Filters</a></li>
+          </ul>
+        </li>
+        <li><a href="#printing">Printing</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

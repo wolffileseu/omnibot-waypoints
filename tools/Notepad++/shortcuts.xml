@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<NotepadPlus>
+    <InternalCommands>
+        <Shortcut id="42014" Ctrl="yes" Alt="no" Shift="no" Key="38" />
+        <Shortcut id="42015" Ctrl="yes" Alt="no" Shift="no" Key="40" />
+        <Shortcut id="50001" Ctrl="yes" Alt="no" Shift="no" Key="74" />
+        <Shortcut id="47008" Ctrl="no" Alt="no" Shift="no" Key="112" />
+        <Shortcut id="47000" Ctrl="no" Alt="no" Shift="yes" Key="112" />
+        <Shortcut id="41003" Ctrl="yes" Alt="no" Shift="no" Key="115" />
+        <Shortcut id="44009" Ctrl="no" Alt="no" Shift="yes" Key="122" />
+        <Shortcut id="41008" Ctrl="no" Alt="no" Shift="no" Key="123" />
+        <Shortcut id="41014" Ctrl="yes" Alt="no" Shift="no" Key="82" />
+        <Shortcut id="43045" Ctrl="no" Alt="no" Shift="no" Key="120" />
+        <Shortcut id="44032" Ctrl="yes" Alt="no" Shift="no" Key="122" />
+        <Shortcut id="44034" Ctrl="no" Alt="no" Shift="no" Key="122" />
+        <Shortcut id="44025" Ctrl="yes" Alt="no" Shift="yes" Key="87" />
+        <Shortcut id="42024" Ctrl="yes" Alt="no" Shift="no" Key="84" />
+        <Shortcut id="42013" Ctrl="no" Alt="no" Shift="no" Key="0" />
+        <Shortcut id="42012" Ctrl="no" Alt="no" Shift="no" Key="0" />
+    </InternalCommands>
+
+    <!--
+    You can organize you Macro menu & Run menu by adding the attribute 'FolderName="My sub-menu name"' to any Macro or Command node.
+    This will place the corresponding node within a "My sub-menu name" sub-menu in the appropriate menu. Please consider the following examples:
+    -->
+    <Macros>
+        <!--
+        <Macro name="aa" Ctrl="no" Alt="no" Shift="no" Key="0">
+            <Action type="1" message="2170" wParam="0" lParam="0" sParam="A" />
+            <Action type="1" message="2170" wParam="0" lParam="0" sParam="A" />
+        </Macro>
+        <Macro name="az" Ctrl="no" Alt="no" Shift="no" Key="0" FolderName="words">
+            <Action type="1" message="2170" wParam="0" lParam="0" sParam="a" />
+            <Action type="1" message="2170" wParam="0" lParam="0" sParam="z" />
+        </Macro>
+            <Macro name="qw" Ctrl="no" Alt="no" Shift="no" Key="0" FolderName="words">
+            <Action type="1" message="2170" wParam="0" lParam="0" sParam="q" />
+            <Action type="1" message="2170" wParam="0" lParam="0" sParam="w" />
+        </Macro>
+        <Macro name="BB" Ctrl="no" Alt="no" Shift="no" Key="0">
+            <Action type="1" message="2170" wParam="0" lParam="0" sParam="B" />
+            <Action type="1" message="2170" wParam="0" lParam="0" sParam="B" />
+        </Macro>
+        <Macro name="Trim Trailing Space and Save" Ctrl="no" Alt="yes" Shift="yes" Key="83" FolderName="func">
+            <Action type="2" message="0" wParam="42024" lParam="0" sParam="" />
+            <Action type="2" message="0" wParam="41006" lParam="0" sParam="" />
+        </Macro>
+        -->
+        <Macro name="Trim Trailing Space and Save" Ctrl="no" Alt="yes" Shift="yes" Key="83">
+            <Action type="2" message="0" wParam="42024" lParam="0" sParam="" />
+            <Action type="2" message="0" wParam="41006" lParam="0" sParam="" />
+        </Macro>
+    </Macros>
+    <UserDefinedCommands>
+        <!--
+        <Command name="Get PHP help" Ctrl="no" Alt="yes" Shift="no" Key="112" FolderName="Help on Internet">https://www.php.net/$(CURRENT_WORD)</Command>
+        <Command name="Wikipedia Search" Ctrl="no" Alt="yes" Shift="no" Key="114" FolderName="Help on Internet">https://en.wikipedia.org/wiki/Special:Search?search=$(CURRENT_WORD)</Command>
+        <Command name="Open selected file path in new instance" Ctrl="no" Alt="yes" Shift="no" Key="117">$(NPP_FULL_FILE_PATH) $(CURRENT_WORD) -nosession -multiInst</Command>
+        -->
+        <Command name="Get PHP help" Ctrl="no" Alt="yes" Shift="no" Key="112">https://www.php.net/$(CURRENT_WORD)</Command>
+        <Command name="Google Search" Ctrl="no" Alt="yes" Shift="no" Key="113">https://www.google.com/search?q=$(CURRENT_WORD)</Command>
+        <Command name="Wikipedia Search" Ctrl="no" Alt="yes" Shift="no" Key="114">https://en.wikipedia.org/wiki/Special:Search?search=$(CURRENT_WORD)</Command>
+        <Command name="Open file" Ctrl="no" Alt="yes" Shift="no" Key="116">$(NPP_DIRECTORY)\notepad++.exe $(CURRENT_WORD)</Command>
+        <Command name="Open selected file path in new instance" Ctrl="no" Alt="yes" Shift="no" Key="117">$(NPP_FULL_FILE_PATH) $(CURRENT_WORD) -nosession -multiInst</Command>
+        <Command name="Open current folder in Explorer" Ctrl="no" Alt="no" Shift="no" Key="0">explorer $(CURRENT_DIRECTORY)</Command>
+        <Command name="Open cmd.exe in current folder" Ctrl="no" Alt="no" Shift="no" Key="0">cmd /K cd $(CURRENT_DIRECTORY)</Command>
+        <Command name="Run current file with cmd.exe" Ctrl="no" Alt="no" Shift="no" Key="0">cmd.exe /K &quot;$(FULL_CURRENT_PATH)&quot;</Command>
+        <Command name="Shell execute current file" Ctrl="no" Alt="no" Shift="no" Key="0">&quot;$(FULL_CURRENT_PATH)&quot;</Command>
+        <Command name="gmcompiler" Ctrl="no" Alt="no" Shift="yes" Key="120">&quot;$(NPP_DIRECTORY)\bin\gmcomp.cmd&quot; &quot;$(FULL_CURRENT_PATH)&quot; &quot;$(NPP_DIRECTORY)\bin&quot;</Command>
+        <Command name="Search Omni-bot Wiki" Ctrl="yes" Alt="no" Shift="yes" Key="112">https://mygamingtalk.com/wiki/index.php?search=$(CURRENT_WORD)&amp;title=Special%3ASearch&amp;go=Go</Command>
+    </UserDefinedCommands>
+    <PluginCommands>
+        <PluginCommand moduleName="NppExec.dll" internalID="23" Ctrl="no" Alt="no" Shift="no" Key="0" />
+        <PluginCommand moduleName="NppExec.dll" internalID="25" Ctrl="yes" Alt="no" Shift="no" Key="120" />
+    </PluginCommands>
+    <ScintillaKeys>
+        <ScintKey ScintID="2373" menuCmdID="44033" Ctrl="yes" Alt="no" Shift="no" Key="96" />
+        <ScintKey ScintID="2338" menuCmdID="0" Ctrl="yes" Alt="no" Shift="no" Key="76" />
+        <ScintKey ScintID="2337" menuCmdID="0" Ctrl="yes" Alt="no" Shift="yes" Key="76" />
+        <ScintKey ScintID="2455" menuCmdID="0" Ctrl="yes" Alt="no" Shift="yes" Key="68" />
+        <ScintKey ScintID="2390" menuCmdID="0" Ctrl="yes" Alt="no" Shift="no" Key="188" />
+        <ScintKey ScintID="2391" menuCmdID="0" Ctrl="yes" Alt="no" Shift="yes" Key="188" />
+        <ScintKey ScintID="2392" menuCmdID="0" Ctrl="yes" Alt="no" Shift="no" Key="190" />
+        <ScintKey ScintID="2393" menuCmdID="0" Ctrl="yes" Alt="no" Shift="yes" Key="190" />
+    </ScintillaKeys>
+</NotepadPlus>

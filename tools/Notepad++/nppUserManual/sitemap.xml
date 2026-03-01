@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>http://localhost:1313/docs/getting-started/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/docs/files/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/docs/editing/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/docs/searching/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/docs/views/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/docs/session/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/docs/function-list/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/docs/auto-completion/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/docs/programing-languages/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/docs/user-defined-language-system/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/docs/udl/introduction/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/docs/udl/default/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/docs/udl/folding-in-code/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/docs/udl/folding-in-comment/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/docs/udl/keywords/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/docs/udl/comments/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/docs/udl/numbers/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/docs/udl/operators/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/docs/udl/delimiters/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/docs/macros/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/docs/run-menu/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/docs/plugins/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/docs/plugin-communication/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/docs/command-prompt/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/docs/preferences/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/docs/config-files/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/docs/themes/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/docs/binary-translation/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/docs/user-interface/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/docs/upgrading/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/docs/shell-extension/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/docs/ghost-typing/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/docs/other-resources/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/docs/history/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/docs/license/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/categories/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/docs/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/</loc>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/</loc>
+  </url>
+  
+</urlset>
