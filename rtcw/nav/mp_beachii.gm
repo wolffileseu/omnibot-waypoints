@@ -1,0 +1,152 @@
+//==========================================================================================
+//
+//	mp_beachii.gm
+//
+//	Who	When		What
+//------------------------------------------------------------------------------------------
+//	PuNkR	02 November 2022	Initial Script
+//
+//==========================================================================================
+//
+
+global Map =
+{
+	Debug = 1, // please set to zero before distributing your script
+
+	Sea_Wall_breach_Destroyed = function( trigger )
+	{
+		Util.MapDebugPrint( "Sea_Wall_breach_Destroyed" );
+	},
+
+	Sea_Wall_door_Destroyed = function( trigger )
+	{
+		Util.MapDebugPrint( "Sea_Wall_door_Destroyed" );
+	},
+
+	submarine_Destroyed = function( trigger )
+	{
+		Util.MapDebugPrint( "submarine_Destroyed" );
+	},
+
+	submarine_comm_Destroyed = function( trigger )
+	{
+		Util.MapDebugPrint( "submarine_comm_Destroyed" );
+	},
+
+	War_Documents_Taken = function( trigger )
+	{
+		Util.MapDebugPrint( "War_Documents_Taken" );
+	},
+
+	beach_flag_Axis_Captured = function( trigger )
+	{
+		Util.MapDebugPrint( "beach_flag_Axis_Captured" );
+	},
+
+	beach_flag_Allies_Captured = function( trigger )
+	{
+		Util.MapDebugPrint( "beach_flag_Allies_Captured" );
+	},
+
+};
+
+global OnMapLoad = function()
+{
+	// Register callback functions
+	OnTrigger( "MISSING_STRING", Map.Sea_Wall_breach_Destroyed );
+	OnTrigger( "MISSING_STRING", Map.Sea_Wall_door_Destroyed );
+	OnTrigger( "MISSING_STRING", Map.submarine_Destroyed );
+	OnTrigger( "MISSING_STRING", Map.submarine_comm_Destroyed );
+	OnTrigger( "MISSING_STRING", Map.War_Documents_Taken );
+	OnTrigger( "MISSING_STRING", Map.beach_flag_Axis_Captured );
+	OnTrigger( "MISSING_STRING", Map.beach_flag_Allies_Captured );
+
+	//~Util.DisableGoal( ".*", true ); // all but routes
+	//~SetAvailableMapGoals( TEAM.AXIS, true, "ATTACK_.*" );
+	//~SetAvailableMapGoals( TEAM.ALLIES, true, "ATTACK_.*" );
+
+
+	Util.MapDebugPrint( "Omni-bot map script for " + GetMapName() + " executed." );
+};
+
+global OnBotJoin = function( bot )
+{
+	// Uncomment for shootable breakables
+	//~bot.TargetBreakableDist = 90.0;
+	// Only set MaxViewDistance on maps with limited sight (e.g. fog)
+	//~bot.MaxViewDistance = 2400;
+};
+
+global InitializeRoutes = function()
+{
+	MapRoutes =
+	{
+		EXPLODE_98 =
+		{
+		},
+		PLANT_submarine =
+		{
+		},
+		PLANT_submarine_comm =
+		{
+		},
+		FLAG_War_Documents =
+		{
+		},
+		CHECKPOINT_beach_flag =
+		{
+		},
+		EXPLODE_285 =
+		{
+		},
+		EXPLODE_286 =
+		{
+		},
+		PLANT_Sea_Wall_door =
+		{
+		},
+		PLANT_Sea_Wall_breach =
+		{
+		},
+		EXPLODE_496 =
+		{
+		},
+		MOUNTMG42_506 =
+		{
+		},
+		REPAIRMG42_506 =
+		{
+		},
+		MOUNTMG42_507 =
+		{
+		},
+		REPAIRMG42_507 =
+		{
+		},
+		MOUNTMG42_508 =
+		{
+		},
+		REPAIRMG42_508 =
+		{
+		},
+		MOUNTMG42_509 =
+		{
+		},
+		REPAIRMG42_509 =
+		{
+		},
+		MOUNTMG42_510 =
+		{
+		},
+		REPAIRMG42_510 =
+		{
+		},
+		MOUNTMG42_511 =
+		{
+		},
+		REPAIRMG42_511 =
+		{
+		},
+	};
+	Util.Routes(MapRoutes);
+};

@@ -1,0 +1,98 @@
+//==========================================================================================
+//
+//	wildwest_beach.gm
+//
+//	Who	When		What
+//------------------------------------------------------------------------------------------
+//	PuNkR	18 October 2022	Initial Script
+//
+//==========================================================================================
+//
+
+global Map =
+{
+	Debug = 0, // please set to zero before distributing your script
+
+	Bandits_Gold_Taken = function( trigger )
+	{
+		Util.MapDebugPrint( "Bandits_Gold_Taken" );
+	},
+
+	beach_flag_Axis_Captured = function( trigger )
+	{
+		Util.MapDebugPrint( "beach_flag_Axis_Captured" );
+	},
+
+	beach_flag_Allies_Captured = function( trigger )
+	{
+		Util.MapDebugPrint( "beach_flag_Allies_Captured" );
+	},
+
+};
+
+global OnMapLoad = function()
+{
+	// Register callback functions
+	OnTrigger( "MISSING_STRING", Map.Bandits_Gold_Taken );
+	OnTrigger( "MISSING_STRING", Map.beach_flag_Axis_Captured );
+	OnTrigger( "MISSING_STRING", Map.beach_flag_Allies_Captured );
+
+	//~Util.DisableGoal( ".*", true ); // all but routes
+	//~SetAvailableMapGoals( TEAM.AXIS, true, "ATTACK_.*" );
+	//~SetAvailableMapGoals( TEAM.ALLIES, true, "ATTACK_.*" );
+
+
+	Util.MapDebugPrint( "Omni-bot map script for " + GetMapName() + " executed." );
+};
+
+global OnBotJoin = function( bot )
+{
+	// Uncomment for shootable breakables
+	//~bot.TargetBreakableDist = 90.0;
+	// Only set MaxViewDistance on maps with limited sight (e.g. fog)
+	//~bot.MaxViewDistance = 2400;
+};
+
+global InitializeRoutes = function()
+{
+	MapRoutes =
+	{
+		DEFEND_47 =
+		{
+		},
+		DEFEND_81 =
+		{
+		},
+		DEFEND_82 =
+		{
+		},
+		DEFEND_141 =
+		{
+		},
+		DEFEND_149 =
+		{
+		},
+		DEFEND_223 =
+		{
+		},
+		DEFEND_224 =
+		{
+		},
+		DEFEND_230 =
+		{
+		},
+		FLAG_Bandits_Gold =
+		{
+		},
+		CHECKPOINT_beach_flag =
+		{
+		},
+		MOUNTMG42_54 =
+		{
+		},
+		REPAIRMG42_54 =
+		{
+		},
+	};
+	Util.Routes(MapRoutes);
+};

@@ -1,0 +1,234 @@
+// Omnibot script for Callisto
+
+global Map =
+{
+	Debug = 1, // please set to zero before distributing your script
+
+
+	Wall_and_door_dynamited = 0,
+
+	door_Planted = function( trigger )
+	{
+		Util.MapDebugPrint( "door_Planted_jawohl" );
+		SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_door" );
+	},
+
+	door_Defused = function( trigger )
+	{
+		Util.MapDebugPrint( "door_Defused_jawohl" );
+		SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_door" );
+	},
+
+	door_Destroyed = function( trigger )
+	{
+		Util.MapDebugPrint( "door_Destroyed" );
+		SetAvailableMapGoals( TEAM.ALLIES, true, "CHECKPOINT_beach_flag" );
+		SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_allied_flag_def1" );
+		SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_allied_forward_def1" );
+		SetAvailableMapGoals( TEAM.ALLIES, true, "FLAG_War_Documents" );
+		SetAvailableMapGoals( TEAM.ALLIES, true, "CAPPOINT_drop_docs_here" );
+		
+		SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_docdef1" );
+		SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_docdef2" );
+		SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_docdef3" );
+		SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_docdef4" );
+		SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_docdef5" );
+		SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_docdef6" );
+		
+		Map.Wall_and_door_dynamited += 1;
+		
+		if ( Map.Wall_and_door_dynamited > 1 ) {
+			SetGoalPriority( "FLAG_War_Documents", 1.0 );
+			SetGoalPriority( "CAPPOINT_drop_docs_here", 1.0 );
+			SetGoalPriority( "CHECKPOINT_beach_flag", 0.9 );
+			SetGoalPriority( "DEFEND_allied_flag_def1", 0.9 );
+			SetGoalPriority( "DEFEND_allied_forward_def1", 0.9 );
+		}
+	},
+
+
+	wall_Planted = function( trigger )
+	{
+		Util.MapDebugPrint( "wall_Planted_yeee" );
+		SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_wall" );
+		SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_axis_wall_def1" );
+	},
+
+	wall_Defused = function( trigger )
+	{
+		Util.MapDebugPrint( "wall_Defused_yeee" );
+		SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_wall" );
+	},
+
+	wall_Destroyed = function( trigger )
+	{
+		Util.MapDebugPrint( "wall_Destroyed" );
+		SetAvailableMapGoals( TEAM.ALLIES, true, "CHECKPOINT_beach_flag" );
+		SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_allied_flag_def1" );
+		SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_allied_forward_def1" );
+		SetAvailableMapGoals( TEAM.ALLIES, true, "FLAG_War_Documents" );
+		SetAvailableMapGoals( TEAM.ALLIES, true, "CAPPOINT_drop_docs_here" );
+		
+		SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_docdef1" );
+		SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_docdef2" );
+		SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_docdef3" );
+		SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_docdef4" );
+		SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_docdef5" );
+		SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_docdef6" );
+		
+		Map.Wall_and_door_dynamited += 1;
+		
+		if ( Map.Wall_and_door_dynamited > 1 ) {
+			SetGoalPriority( "FLAG_War_Documents", 1.0 );
+			SetGoalPriority( "CAPPOINT_drop_docs_here", 1,0 );
+			SetGoalPriority( "CHECKPOINT_beach_flag", 0.9 );
+			SetGoalPriority( "DEFEND_allied_flag_def1", 0.9 );
+			SetGoalPriority( "DEFEND_allied_forward_def1", 0.9 );
+		}
+	},
+
+	War_Documents_Taken = function( trigger )
+	{
+		Util.MapDebugPrint( "War_Documents_Taken" );
+		SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_docdef1" );
+		SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_docdef2" );
+		SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_docdef3" );
+		SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_docdef4" );
+		SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_docdef5" );
+		SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_docdef6" );
+	},
+
+	War_Documents_Returned = function( trigger )
+	{
+		Util.MapDebugPrint( "War_Documents_Returned" );
+		SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_docdef1" );
+		SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_docdef2" );
+		SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_docdef3" );
+		SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_docdef4" );
+		SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_docdef5" );
+		SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_docdef6" );
+	},
+
+	beach_flag_Axis_Captured = function( trigger )
+	{
+		Util.MapDebugPrint( "beach_flag_Axis_Captured" );
+	},
+
+	beach_flag_Allies_Captured = function( trigger )
+	{
+		Util.MapDebugPrint( "beach_flag_Allies_Captured" );
+	},
+
+	game_over = function( trigger )
+	{
+		Util.MapDebugPrint( "game_over" );
+		SetAvailableMapGoals( TEAM.ALLIES, false, "CAPPOINT_drop_docs_here" );
+	},
+};
+
+global OnMapLoad = function()
+{
+	// Register callback functions
+	OnTrigger( "Planted at The door.", Map.door_Planted );
+	OnTrigger( "Defused at The door.", Map.door_Defused );
+	OnTrigger( "The door has been dynamited", Map.door_Destroyed );
+	
+	OnTrigger( "Planted at the wall.", Map.wall_Planted );
+	OnTrigger( "Defused at the wall.", Map.wall_Defused );
+	OnTrigger( "The wall has been dynamited", Map.wall_Destroyed );
+	
+	OnTrigger( "Docs on the run", Map.War_Documents_Taken );
+	OnTrigger( "Docs returned", Map.War_Documents_Returned );
+	OnTrigger( "Axis capture the forward spawn", Map.beach_flag_Axis_Captured );
+	OnTrigger( "Allies capture the forward spawn", Map.beach_flag_Allies_Captured );
+	OnTrigger( "Allies delivered the documents to the radio", Map.game_over );
+	
+
+
+	//~Util.DisableGoal( ".*", true ); // all but routes
+	
+	
+	// Goal importance
+	SetGoalPriority( "PLANT_wall", 0.8 );
+	SetGoalPriority( "PLANT_door", 0.9 );
+	
+	SetGoalPriority( "FLAG_War_Documents", 0.1 );
+	SetGoalPriority( "CAPPOINT_drop_docs_here", 0.1 );
+	
+	SetGoalPriority( "CHECKPOINT_beach_flag", 0.1 );
+	
+	SetGoalPriority( "DEFEND_allied_flag_def1", 0.1 );
+	SetGoalPriority( "DEFEND_allied_forward_def1", 0.1 );
+	
+	// Map goals
+	SetAvailableMapGoals( TEAM.AXIS, false, "CHECKPOINT_beach_flag" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CHECKPOINT_beach_flag" );
+	
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_allied_flag_def1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_allied_flag_def1" );
+	
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_allied_forward_def1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_allied_forward_def1" );
+	
+	SetAvailableMapGoals( TEAM.AXIS, false, "FLAG_War_Documents" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "FLAG_War_Documents" );
+	
+	SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_door" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_door" );
+	
+	SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_wall" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_wall" );
+	
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_axis_wall_def1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_axis_wall_def1" );
+	
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_docdef1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_docdef1" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_docdef2" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_docdef2" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_docdef3" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_docdef3" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_docdef4" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_docdef4" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_docdef5" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_docdef5" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_docdef6" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_docdef6" );
+
+	SetAvailableMapGoals( TEAM.AXIS, false, "CAPPOINT_drop_docs_here" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CAPPOINT_drop_docs_here" );
+
+	Util.MapDebugPrint( "Vanilla RTCW omni-bot map script for " + GetMapName() + " executed." );
+};
+
+global OnBotJoin = function( bot )
+{
+	// Uncomment for shootable breakables
+	bot.TargetBreakableDist = 90.0;
+	
+	// Only set MaxViewDistance on maps with limited sight (e.g. fog)
+	//~bot.MaxViewDistance = 2400;
+};
+
+global InitializeRoutes = function()
+{
+	MapRoutes =
+	{
+		FLAG_War_Documents =
+		{
+			ROUTE_at_flag = {},
+			ROUTE_via_flag_right = {},
+			ROUTE_via_water = {},
+		},
+		CHECKPOINT_beach_flag =
+		{
+		},
+		PLANT_door =
+		{
+		},
+		PLANT_wall =
+		{
+		},
+	};
+	Util.Routes(MapRoutes);
+};
