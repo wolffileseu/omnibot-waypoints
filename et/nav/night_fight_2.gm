@@ -1,0 +1,229 @@
+//==========================================================================================
+//
+//	night_fight_2.gm
+//
+//	Who              	When		What
+//------------------------------------------------------------------------------------------
+//	^1W^4OLF ^1E^4NSTEIN	07 July 2019	Initial Script
+//
+//==========================================================================================
+//
+
+global Map =
+{
+	Debug = 1, // please set to zero before distributing your script
+	ShowMovers = false,
+
+	Cannon_Supply_Doors_Dyno = 0,
+	Radio_Bunker_Door_Dyno = 0,
+	main_Cannon_Dyno = 0,
+
+	Radio_Bunker_Door_Built = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+			
+
+		Util.MapDebugPrint( "Radio_Bunker_Door_Built" );
+	},
+
+	Cannon_Supply_Doors_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Cannon_Supply_Doors_Dyno += 1;
+		Util.MapDebugPrint( "Cannon_Supply_Doors_Planted" );
+	},
+
+	Radio_Bunker_Door_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Radio_Bunker_Door_Dyno += 1;
+		Util.MapDebugPrint( "Radio_Bunker_Door_Planted" );
+	},
+
+	main_Cannon_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.main_Cannon_Dyno += 1;
+		Util.MapDebugPrint( "main_Cannon_Planted" );
+	},
+
+	Cannon_Supply_Doors_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Cannon_Supply_Doors_Dyno -= 1;
+		Util.MapDebugPrint( "Cannon_Supply_Doors_Defused" );
+	},
+
+	Radio_Bunker_Door_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Radio_Bunker_Door_Dyno -= 1;
+		Util.MapDebugPrint( "Radio_Bunker_Door_Defused" );
+	},
+
+	main_Cannon_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.main_Cannon_Dyno -= 1;
+		Util.MapDebugPrint( "main_Cannon_Defused" );
+	},
+
+	Cannon_Supply_Doors_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+	SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_Radio_Bunker_Door" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_Main_Cannon_2" );	
+	SetAvailableMapGoals( TEAM.ALLIES, true, "FLAG_War_Documents" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Gate_Assault_1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Gate_Assault_2" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Gate_Assault_3" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Gate_Assault_4" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_Ambush_1" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_Ambush_2" );
+
+		Map.Cannon_Supply_Doors_Dyno = 0;
+
+		Util.MapDebugPrint( "Cannon_Supply_Doors_Destroyed" );
+	},
+
+	Radio_Bunker_Door_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+			
+	SetAvailableMapGoals( TEAM.ALLIES, true, "CAPPOINT_Radio" );
+
+		Map.Radio_Bunker_Door_Dyno = 0;
+
+		Util.MapDebugPrint( "Radio_Bunker_Door_Destroyed" );
+	},
+
+	main_Cannon_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+			
+	SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_Main_Cannon_2" );		
+
+		Map.main_Cannon_Dyno = 0;
+
+		Util.MapDebugPrint( "main_Cannon_Destroyed" );
+	},
+
+	War_Documents_Taken = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "War_Documents_Taken" );
+	},
+
+	War_Documents_Returned = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "War_Documents_Returned" );
+	},
+
+	War_Documents_Secured = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+			
+	SetAvailableMapGoals( TEAM.ALLIES, false, "FLAG_War_Documents" );	
+
+		Util.MapDebugPrint( "War_Documents_Secured" );
+	},
+
+};
+
+global OnMapLoad = function()
+{
+	if ( TestMapOn )
+		{ Util.AutoTestMap(); }
+
+	// Register callback functions
+	OnTrigger( "The Radio Bunker Door has been constructed!", Map.Radio_Bunker_Door_Built );
+	OnTrigger( "Planted at the MISSING_STRING.", Map.Cannon_Supply_Doors_Planted );
+	OnTrigger( "Planted at the MISSING_STRING.", Map.Radio_Bunker_Door_Planted );
+	OnTrigger( "Planted at the MISSING_STRING.", Map.main_Cannon_Planted );
+	OnTrigger( "Defused at the MISSING_STRING.", Map.Cannon_Supply_Doors_Defused );
+	OnTrigger( "Defused at the MISSING_STRING.", Map.Radio_Bunker_Door_Defused );
+	OnTrigger( "Defused at the MISSING_STRING.", Map.main_Cannon_Defused );
+	OnTrigger( "Allies have breached the Cannon Supply Doors!", Map.Cannon_Supply_Doors_Destroyed );
+	OnTrigger( "The Radio Bunker Door has been destroyed!", Map.Radio_Bunker_Door_Destroyed );
+	OnTrigger( "Allies have destroyed the Cannon!", Map.main_Cannon_Destroyed );
+	OnTrigger( "Allies have stolen the War Documents!", Map.War_Documents_Taken );
+	OnTrigger( "Axis have returned the War Documents!", Map.War_Documents_Returned );
+	OnTrigger( "Allied team has transmitted the war documents!", Map.War_Documents_Secured );
+	
+	SetAvailableMapGoals( TEAM.ALLIES, false, "FLAG_War_Documents" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_Radio_Bunker_Door" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_main_Cannon" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_Main_Cannon_2" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CAPPOINT_Radio" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Ambush_1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Ambush_2" );
+
+	//~Util.DisableGoal( ".*", true ); // all but routes
+	//~SetAvailableMapGoals( TEAM.AXIS, true, "ATTACK_.*" );
+	//~SetAvailableMapGoals( TEAM.ALLIES, true, "ATTACK_.*" );
+
+	// Max users per goal
+	//Util.SetMaxUsers( 1, "DEFEND_.*" );
+	//Util.SetMaxUsers( 1, "GRENADE_.*" );
+	//Util.SetMaxUsers( 1, "MOUNTMG42_.*" );
+
+	// Camp times
+	SetMapGoalProperties( "MOUNTMG42_.*", {MinCampTime=15, MaxCampTime=90} );
+	SetMapGoalProperties( "MOBILEMG42_.*", {MinCampTime=10, MaxCampTime=60} );
+
+
+	Util.MapDebugPrint( "Omni-bot map script for " + GetMapName() + " executed." );
+};
+
+global OnBotJoin = function( bot )
+{
+	// Uncomment for shootable breakables
+	//~bot.TargetBreakableDist = 90.0;
+	// Only set MaxViewDistance on maps with limited sight (e.g. fog)
+	//~bot.MaxViewDistance = 2400;
+};
+
+global InitializeRoutes = function()
+{
+	MapRoutes =
+	{
+		BUILD_Radio_Bunker_Door =
+		{
+		},
+		PLANT_Cannon_Supply_Doors =
+		{
+		},
+		PLANT_Radio_Bunker_Door =
+		{
+		},
+		PLANT_main_Cannon =
+		{
+		},
+		FLAG_War_Documents =
+		{
+		},
+	};
+	Util.Routes(MapRoutes);
+};

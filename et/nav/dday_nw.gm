@@ -1,0 +1,378 @@
+//==========================================================================================
+//
+//	dday_nw.gm
+//
+//	Who                    	When		What
+//------------------------------------------------------------------------------------------
+//	^1{WeB}^7*^4GA^1NG$^4TA^7*	11 June 2017	Initial Script
+//
+//==========================================================================================
+//
+
+global Map =
+{
+	Debug = 1, // please set to zero before distributing your script
+	ShowMovers = false,
+
+	Assault_Ramp_Dyno = 0,
+	Command_Post_Dyno = 0,
+	Sea_Wall_breach_Dyno = 0,
+	Warroom_Wall_Dyno = 0,
+
+	Assault_Ramp_Built = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "Assault_Ramp_Built" );
+	},
+
+	Command_Post_Built = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "Command_Post_Built" );
+	},
+
+	Truck_Built = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "Truck_Built" );
+	},
+
+	Warroom_Wall_Built = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "Warroom_Wall_Built" );
+	},
+
+	Assault_Ramp_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Assault_Ramp_Dyno += 1;
+		Util.MapDebugPrint( "Assault_Ramp_Planted" );
+	},
+
+	Command_Post_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Command_Post_Dyno += 1;
+		Util.MapDebugPrint( "Command_Post_Planted" );
+	},
+
+	Sea_Wall_breach_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Sea_Wall_breach_Dyno += 1;
+		Util.MapDebugPrint( "Sea_Wall_breach_Planted" );
+	},
+
+	Warroom_Wall_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Warroom_Wall_Dyno += 1;
+		Util.MapDebugPrint( "Warroom_Wall_Planted" );
+	},
+
+	Assault_Ramp_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Assault_Ramp_Dyno -= 1;
+		Util.MapDebugPrint( "Assault_Ramp_Defused" );
+	},
+
+	Command_Post_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Command_Post_Dyno -= 1;
+		Util.MapDebugPrint( "Command_Post_Defused" );
+	},
+
+	Sea_Wall_breach_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Sea_Wall_breach_Dyno -= 1;
+		Util.MapDebugPrint( "Sea_Wall_breach_Defused" );
+	},
+
+	Warroom_Wall_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Warroom_Wall_Dyno -= 1;
+		Util.MapDebugPrint( "Warroom_Wall_Defused" );
+	},
+
+	Assault_Ramp_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Assault_Ramp_Dyno = 0;
+
+		Util.MapDebugPrint( "Assault_Ramp_Destroyed" );
+	},
+
+	Command_Post_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Command_Post_Dyno = 0;
+
+		Util.MapDebugPrint( "Command_Post_Destroyed" );
+	},
+
+	Sea_Wall_breach_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+			
+	SetAvailableMapGoals( TEAM.ALLIES, true, "BUILD_Assault_Ramp" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "CHECKPOINT_forwardbunker_flag" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "FLAG_Tower_Gunparts" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "FLAG_Warroom_Gunparts" );	
+      SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_Warroom_Wall" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_wall_1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_wall_2" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_wall_3" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_wall_4" );
+		Map.Sea_Wall_breach_Dyno = 0;
+
+		Util.MapDebugPrint( "Sea_Wall_breach_Destroyed" );
+	},
+
+	Warroom_Wall_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Warroom_Wall_Dyno = 0;
+
+		Util.MapDebugPrint( "Warroom_Wall_Destroyed" );
+	},
+
+	Tower_Gunparts_Taken = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "Tower_Gunparts_Taken" );
+	},
+
+	Warroom_Gunparts_Taken = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "Warroom_Gunparts_Taken" );
+	},
+
+	Tower_Gunparts_Returned = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "Tower_Gunparts_Returned" );
+	},
+
+	Warroom_Gunparts_Returned = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "Warroom_Gunparts_Returned" );
+	},
+
+	Tower_Gunparts_Secured = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "Tower_Gunparts_Secured" );
+	},
+
+	Warroom_Gunparts_Secured = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "Warroom_Gunparts_Secured" );
+	},
+
+	forwardbunker_flag_Axis_Captured = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "forwardbunker_flag_Axis_Captured" );
+	},
+
+	forwardbunker_flag_Allies_Captured = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+					
+
+		Util.MapDebugPrint( "forwardbunker_flag_Allies_Captured" );
+	},
+
+		Allied_Forces_Escape = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+			
+		SetAvailableMapGoals( TEAM.AXIS, false, "CHECKPOINT_forwardbunker_flag" );	
+		SetAvailableMapGoals( TEAM.ALLIES, true, "ESCORT_truck" );
+		SetAvailableMapGoals( TEAM.ALLIES, true, "BUILD_Truck" );
+		SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_Truck_6" );
+	      SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_Truck_5" );
+		SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_Truck_6" );
+	      SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_Truck_5" );
+		SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Gunparts_1" );
+	      SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Gunparts_2" );
+		SetAvailableMapGoals( TEAM.ALLIES, false, "FLAG_Warroom_Gunparts" );
+            SetAvailableMapGoals( TEAM.ALLIES, false, "FLAG_Tower_Gunparts" );
+		SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_Warroom_Wall" );
+
+		Util.MapDebugPrint( "Allied_Forces_Escape" );
+	},
+};
+
+global OnMapLoad = function()
+{
+	if ( TestMapOn )
+		{ Util.AutoTestMap(); }
+
+	// Register callback functions
+	OnTrigger( "The Assault Ramp has been constructed.", Map.Assault_Ramp_Built );
+	OnTrigger( "The Truck has been repaired!", Map.Truck_Built );
+	OnTrigger( "The Axis have repaired the Warroom Wall breach!", Map.Warroom_Wall_Built );
+	OnTrigger( "Axis have destroyed the Allied Assault Ramp.", Map.Assault_Ramp_Destroyed );
+	OnTrigger( "The Sea Wall has been breached!", Map.Sea_Wall_breach_Destroyed );
+	OnTrigger( "The Allied Forces have breached the Warroom Wall!", Map.Warroom_Wall_Destroyed );
+	OnTrigger( "Allies have stolen the Tower Gunparts!", Map.Tower_Gunparts_Taken );
+	OnTrigger( "Allies have stolen the Warroom Gunparts!", Map.Warroom_Gunparts_Taken );
+	OnTrigger( "Axis have returned the Tower Gunparts!", Map.Tower_Gunparts_Returned );
+	OnTrigger( "Axis have returned the Warroom Gunparts!", Map.Warroom_Gunparts_Returned );
+	OnTrigger( "Axis captured the Forward Bunker!", Map.forwardbunker_flag_Axis_Captured );
+	OnTrigger( "Allies captured the Forward Bunker!", Map.forwardbunker_flag_Allies_Captured );
+	OnTrigger( "Allied Forces are escaping with the Gun Crates!", Map.Allied_Forces_Escape );
+	
+	SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Assault_Ramp" );
+      SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Command_Post" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CHECKPOINT_forwardbunker_flag" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "FLAG_Tower_Gunparts" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "FLAG_Warroom_Gunparts" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_Warroom_Wall" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "MOUNTMG42_619" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "REPAIRMG42_619" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Command_Post" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ESCORT_truck" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Truck_5" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Truck_6" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Truck" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_wall_1" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_wall_2" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_wall_3" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_wall_4" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "BUILD_Warroom_Wall" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "MOUNTMG42_619" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "REPAIRMG42_619" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "BUILD_Command_Post" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_Assault_Ramp" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Truck_5" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Truck_6" );
+	
+	SetGoalPriority("FLAG_Tower_Gunparts", 0.91);
+	SetGoalPriority("FLAG_Warroom_Gunparts", 0.91);
+	SetGoalPriority("CHECKPOINT_forwardbunker_flag", 0.91);
+	SetGoalPriority("BUILD_Assault_Ramp", 0.91);
+	SetGoalPriority("PLANT_Warroom_Wall", 0.91);
+	SetGoalPriority("ESCORT_truck", 0.91);
+
+
+	//~Util.DisableGoal( ".*", true ); // all but routes
+	//~SetAvailableMapGoals( TEAM.AXIS, true, "ATTACK_.*" );
+	//~SetAvailableMapGoals( TEAM.ALLIES, true, "ATTACK_.*" );
+
+	// Max users per goal
+	//Util.SetMaxUsers( 1, "DEFEND_.*" );
+	//Util.SetMaxUsers( 1, "GRENADE_.*" );
+	//Util.SetMaxUsers( 1, "MOUNTMG42_.*" );
+
+	// Camp times
+	SetMapGoalProperties( "MOUNTMG42_.*", {MinCampTime=15, MaxCampTime=90} );
+	SetMapGoalProperties( "MOBILEMG42_.*", {MinCampTime=10, MaxCampTime=60} );
+
+
+	Util.MapDebugPrint( "Omni-bot map script for " + GetMapName() + " executed." );
+};
+
+global OnBotJoin = function( bot )
+{
+	bot.TargetBreakableDist = 90.0;
+	// Only set MaxViewDistance on maps with limited sight (e.g. fog)
+	//~bot.MaxViewDistance = 2400;
+};
+
+global InitializeRoutes = function()
+{
+	MapRoutes =
+	{
+		BUILD_Truck =
+		{
+		},
+		BUILD_Warroom_Wall =
+		{
+		},
+		BUILD_Command_Post =
+		{
+		},
+		BUILD_Assault_Ramp =
+		{
+		},
+		PLANT_Command_Post =
+		{
+		},
+		PLANT_Assault_Ramp =
+		{
+		},
+		PLANT_Warroom_Wall =
+		{
+		},
+		PLANT_Sea_Wall_breach =
+		{
+		},
+		FLAG_Warroom_Gunparts =
+		{
+		},
+		FLAG_Tower_Gunparts =
+		{
+		},
+		CHECKPOINT_forwardbunker_flag =
+		{
+		},
+	};
+	Util.Routes(MapRoutes);
+};

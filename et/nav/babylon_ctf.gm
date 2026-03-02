@@ -1,0 +1,113 @@
+//==========================================================================================
+//
+//	babylon_ctf.gm
+//
+//	Who  	When		What
+//------------------------------------------------------------------------------------------
+//	Pinn	06 March 2025	Initial Script
+//
+//==========================================================================================
+//
+
+global Map =
+{
+	Debug = 0, // please set to zero before distributing your script
+
+	Axis.Command_Post_Built = function( trigger )
+	{
+		SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_Command_Post" );
+		SetAvailableMapGoals( TEAM.AXIS, false, "BUILD_Command_Post" );
+		SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Command_Post" );
+		Util.MapDebugPrint( "Command_Post_Built" );
+	},
+
+	Axis.Command_Post_Destroyed = function( trigger )
+	{
+		SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_Command_Post" );
+		SetAvailableMapGoals( TEAM.ALLIES, true, "BUILD_Command_Post" );
+		SetAvailableMapGoals( TEAM.AXIS, true, "BUILD_Command_Post" );
+		Util.MapDebugPrint( "Command_Post_Destroyed" );
+	},
+	
+	Allied.Command_Post_Built = function( trigger )
+	{
+		SetAvailableMapGoals( TEAM.AXIS, true, "PLANT_Command_Post" );
+		SetAvailableMapGoals( TEAM.AXIS, false, "BUILD_Command_Post" );
+		SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Command_Post" );
+		Util.MapDebugPrint( "Command_Post_Built" );
+	},
+
+	Allied.Command_Post_Destroyed = function( trigger )
+	{
+		SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_Command_Post" );
+		SetAvailableMapGoals( TEAM.ALLIES, true, "BUILD_Command_Post" );
+		SetAvailableMapGoals( TEAM.AXIS, true, "BUILD_Command_Post" );
+		Util.MapDebugPrint( "Command_Post_Destroyed" );
+	},
+
+	win_Axis_Captured = function( trigger )
+	{
+		Util.MapDebugPrint( "win_Axis_Captured" );
+	},
+
+	win_Allies_Captured = function( trigger )
+	{
+		Util.MapDebugPrint( "win_Allies_Captured" );
+	},
+
+};
+
+global OnMapLoad = function()
+{
+	// Register callback functions
+	OnTrigger( "Axis Command Post constructed. Charge speed increased!", Map.Axis.Command_Post_Built );
+	OnTrigger( "Allied team has destroyed the Axis Command Post!", Map.Axis.Command_Post_Destroyed );
+	OnTrigger( "Allied Command Post constructed. Charge speed increased!", Map.Allied.Command_Post_Built );
+	OnTrigger( "Axis team has destroyed the Allied Command Post!", Map.Allied.Command_Post_Destroyed );
+	OnTrigger( "^1Axis ^dKnow how to capture a Flag^2!!!", Map.win_Axis_Captured );
+	OnTrigger( "^4Allies ^dKnow how to capture a Flag^2!!!", Map.win_Allies_Captured );
+
+	~Util.DisableGoal( ".*", true ); // all but routes
+	SetAvailableMapGoals( TEAM.AXIS, true, "CHECKPOINT_win" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "CHECKPOINT_win" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "BUILD_Command_Post" );
+	SetAvailableMapGoals( TEAM.AXIS, true, "BUILD_Command_Post" );
+	
+	SetGoalPriority( "PLANT_Command_Post", 1.5, 0, CLASS.COVERTOPS );
+	SetGoalPriority( "BUILD_Command_Post", 1.5, 0, CLASS.ENGINEER );
+
+	// Max users per goal
+	Util.SetMaxUsers( 1, "PLANT_Command_Post" );
+	Util.SetMaxUsers( 1, "BUILD_Command_Post" );
+
+	// Camp times
+	//SetMapGoalProperties( "MOUNTMG42_.*", {MinCampTime=15, MaxCampTime=90} );
+
+
+	Util.MapDebugPrint( "Omni-bot map script for " + GetMapName() + " executed." );
+};
+
+global OnBotJoin = function( bot )
+{
+	// Uncomment for shootable breakables
+	//~bot.TargetBreakableDist = 90.0;
+	// Only set MaxViewDistance on maps with limited sight (e.g. fog)
+	//~bot.MaxViewDistance = 2400;
+};
+
+global InitializeRoutes = function()
+{
+	MapRoutes =
+	{
+		CHECKPOINT_win =
+		{
+		},
+		BUILD_Command_Post =
+		{
+		},
+		PLANT_Command_Post =
+		{
+		},
+	};
+	Util.Routes(MapRoutes);
+};

@@ -1,0 +1,989 @@
+//==========================================================================================
+// version  9RP May 4, 2025
+//	winterbase_esc.gm
+//
+//	Who                            	When		What
+//------------------------------------------------------------------------------------------
+//	Ets|^1C^2Y^3B^6E^5R^04^1W^2O^3L^6F	18 April 2025	Initial Script
+// nothing fancy just enough for SILKY to test map
+// 
+//==========================================================================================
+//
+
+global Map =
+{
+	Debug = 0, // please set to zero before distributing your script
+
+	Roles =
+	{
+		ALLIES =
+		{
+			AllBots = true, // each bot is considered for a role
+			DEFENDER =
+			{
+				//spawnpt = 2	
+				//numbots = 2,
+				//crucialClass = CLASS.COVERTOPS,
+			},
+            DEFENDER1 =
+			{
+				//spawnpt = 2	
+				//numbots = 2,
+				//crucialClass = CLASS.ENGINEER,
+			},
+            DEFENDER2 =
+			{
+				//spawnpt = 2	
+				//numbots = 2,
+				//crucialClass = CLASS.ENGINEER,
+			},
+
+		},
+
+		AXIS =
+		{
+			AllBots = true, // each bot is considered for a role
+			ATTACKER =
+			{
+				//spawnpt = 2,
+				//numbots = 4,
+				//crucialClass = CLASS.COVERTOPS,
+			},
+			ATTACKER1 =
+			{
+				//spawnpt = 1,
+				//numbots = 2,
+				//crucialClass = CLASS.ENGINEER,
+			},
+			ATTACKER2 =
+			{
+				//spawnpt = 1,
+				//numbots = 2,
+				//crucialClass = CLASS.ENGINEER,
+			},
+		},
+	},
+    
+// Neutral Command Post
+
+
+	CP_Owner = 0,
+	CP_Dyno = 0,
+
+	Set_CP = function(_p) // p = TEAM.ALLIES or TEAM.AXIS or 0 (unbuilt)
+	{
+		switch(_p)
+		{
+			case 0:
+			{
+				Map.CP_Owner = 0;
+				SetAvailableMapGoals( TEAM.ALLIES, 1, "BUILD_Command_Post" );
+				SetAvailableMapGoals( TEAM.ALLIES, 0, "PLANT_Command_Post" );
+				SetAvailableMapGoals( TEAM.AXIS,   1, "BUILD_Command_Post" );
+				SetAvailableMapGoals( TEAM.AXIS,   0, "PLANT_Command_Post" );
+			}
+			case TEAM.ALLIES:
+			{
+				Map.CP_Owner = TEAM.ALLIES;
+				SetAvailableMapGoals( TEAM.ALLIES, 0, "BUILD_Command_Post" );
+				SetAvailableMapGoals( TEAM.ALLIES, 0, "PLANT_Command_Post" );
+				SetAvailableMapGoals( TEAM.AXIS,   1, "PLANT_Command_Post" );
+			}
+			case TEAM.AXIS:
+			{
+				Map.CP_Owner = TEAM.AXIS;
+				SetAvailableMapGoals( TEAM.ALLIES, 0, "BUILD_Command_Post" );
+				SetAvailableMapGoals( TEAM.ALLIES, 1, "PLANT_Command_Post" );
+				SetAvailableMapGoals( TEAM.AXIS,   0, "PLANT_Command_Post" );
+			}
+		}
+		//Util.MapDebugPrint("CP Owner: " + Map.CP_Owner );
+	},
+	Allied_CP_Built = function( trigger )
+	{
+		Map.Set_CP(TEAM.ALLIES);
+		Util.ChangeSpawn( TEAM.ALLIES, 3 );
+		Util.MapDebugPrint( "^6Allied_CP_Built" );
+	},
+	Allied_CP_Destroyed = function( trigger )
+	{
+		Map.CP_Dyno = 0;
+		Map.Set_CP(0);
+		Util.MapDebugPrint( "^6Allied_CP_Destroyed" );
+	},
+	Axis_CP_Built = function( trigger )
+	{
+		Map.Set_CP(TEAM.AXIS);
+		Util.MapDebugPrint( "^6Axis_CP_Built" );
+	},
+	Axis_CP_Destroyed = function( trigger )
+	{
+		Map.CP_Dyno = 0;
+		Map.Set_CP(0);
+		Util.MapDebugPrint( "^6Axis_CP_Destroyed" );
+	},
+	CP_Planted = function( trigger )
+	{
+		Map.CP_Dyno += 1;
+		Util.MapDebugPrint( "^6CP_Planted" );
+	},
+	CP_Defused = function( trigger )
+	{
+		Map.CP_Dyno -= 1;
+		Util.MapDebugPrint( "^6CP_Defused" );
+	},
+
+	Garage_Door_Built = function( trigger )
+	{
+		Util.MapDebugPrint( "^6Garage_Door_Built" );
+	},
+
+	Truck_Barrier_1_Built = function( trigger )
+	{
+		Util.MapDebugPrint( "^6Truck_Barrier_1_Built" );
+	},
+    
+    Truck_Past_Barrier_1 = function( trigger )
+	{
+    
+	SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Truck_Barrier_1" );                 
+		Util.MapDebugPrint( "^6Truck_Past_Barrier_1" );
+	},
+    
+    Truck_Past_Barrier_2 = function( trigger )
+	{
+	SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_outsidecpbuilding" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CALLARTILLERY_outsidecpbuilding" );        
+    SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_barrier2_1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_barrier2_1" ); 
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_barrier2_2" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_barrier2_2" ); 
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_barrier2_3" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_barrier2_3" ); 
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_barrier2_4" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_barrier2_4" );                 
+	SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_barrier2door2" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CALLARTILLERY_barrier2door2" );             
+    SetGoalPriority( "PLANT_cave_rocks", 0.98, TEAM.AXIS, CLASS.ENGINEER );        
+	SetAvailableMapGoals( TEAM.AXIS, true, "ATTACK_endgametryagain_1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ATTACK_endgametryagain_1" );     
+	SetAvailableMapGoals( TEAM.AXIS, true, "ATTACK_endgametryagain_2" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ATTACK_endgametryagain_2" );       
+	SetAvailableMapGoals( TEAM.AXIS, true, "ATTACK_endgametryagain_3" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ATTACK_endgametryagain_3" );     
+	SetAvailableMapGoals( TEAM.AXIS, true, "ATTACK_endgametryagain_4" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ATTACK_endgametryagain_4" );                
+	SetAvailableMapGoals( TEAM.AXIS, true, "ATTACK_endgame_1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ATTACK_endgame_1" );     
+	SetAvailableMapGoals( TEAM.AXIS, true, "ATTACK_endgame_2" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ATTACK_endgame_2" );                  
+    SetAvailableMapGoals( TEAM.AXIS, false, "MOUNTMG42_axissidetowermg42" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "MOUNTMG42_axissidetowermg42" ); 
+    SetGoalPriority( "ESCORT_.*", 0.97, TEAM.AXIS );    
+	SetAvailableMapGoals( TEAM.AXIS, false, "MOUNTMG42_axissidetowermg42_1" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "MOUNTMG42_axissidetowermg42_1" );       
+    SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Truck_Barrier_2" );     
+		Util.MapDebugPrint( "^6Truck_Past_Barrier_2" );
+	},
+    
+    Truck_Past_Garage = function( trigger )
+	{
+	SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_garagedoor" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CALLARTILLERY_garagedoor" );                
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_garagedoor_1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_garagedoor_1" );        
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_garagedoor_2" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_garagedoor_2" );     
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_garagedoor_3" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_garagedoor_3" );     
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_garagedoor_4" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_garagedoor_4" );     
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_garagedoor_5" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_garagedoor_5" );    
+	SetAvailableMapGoals( TEAM.AXIS, true, "MOUNTMG42_412" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "MOUNTMG42_412" );    
+	SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Garage_Door" );          
+		Util.MapDebugPrint( "^6Truck_Past_Garage" );
+	},        
+
+	Truck_Barrier_2_Built = function( trigger )
+	{
+		Util.MapDebugPrint( "^6Truck_Barrier_2_Built" );
+	},
+
+	truck_Built = function( trigger )
+	{
+		Util.MapDebugPrint( "^6truck_Built" );
+	},
+    
+    truck_Damaged = function( trigger )
+	{
+		Util.MapDebugPrint( "^6truck_Damaged" );
+	},
+
+	Garage_Door_Destroyed = function( trigger )
+	{
+		Util.MapDebugPrint( "^6Garage_Door_Destroyed" );
+	},
+
+	Truck_Barrier_1_Destroyed = function( trigger )
+	{
+		Util.MapDebugPrint( "^6Truck_Barrier_1_Destroyed" );
+	},
+
+	Truck_Barrier_2_Destroyed = function( trigger )
+	{
+		Util.MapDebugPrint( "^6Truck_Barrier_2_Destroyed" );
+	},
+
+	cave_rocks_Destroyed = function( trigger )
+	{
+		Util.MapDebugPrint( "^6cave_rocks_Destroyed" );
+	},
+    
+    at_overpass =
+    {
+ 	Name="at_overpass",
+ 	TriggerOnClass = { CLASS.VEHICLE_HVY },
+ 	OnEnter = function(ent)
+ 	{
+	SetAvailableMapGoals( TEAM.AXIS, true, "MOUNTMG42_812" );//axis first MG in the parked truck
+	SetAvailableMapGoals( TEAM.ALLIES, true, "MOUNTMG42_812" ); 
+ 	SetAvailableMapGoals( TEAM.AXIS, true, "MOUNTMG42_828" );//by axis first spawn in the overpass
+	SetAvailableMapGoals( TEAM.ALLIES, true, "MOUNTMG42_828" );            
+	SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_alliedattackbarrier1_1" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "ARTILLERY_S_alliedattackbarrier1_1" );
+    SetGoalPriority( "ARTILLERY_S_alliedattackbarrier1_1", 0.89, TEAM.AXIS ); 
+    SetGoalPriority( "ARTILLERY_S_alliedattackbarrier1_3", 0.89, TEAM.AXIS );         
+	SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_alliedattackbarrier1_2" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "ARTILLERY_S_alliedattackbarrier1_2" );     
+	SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_alliedattackbarrier1_3" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "ARTILLERY_S_alliedattackbarrier1_3" );           
+	SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_atbarrier1" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "ARTILLERY_S_atbarrier1" );     
+	SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_pastbarrier1_a" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "ARTILLERY_S_pastbarrier1_a" );    
+	SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_pastbarrier1_b" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "ARTILLERY_S_pastbarrier1_b" );            
+	SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_truckatbarrier1again_1" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "ARTILLERY_S_truckatbarrier1again_1" );    
+	SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_truckatbarrier1again_2" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "ARTILLERY_S_truckatbarrier1again_2" );        
+	SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_truckatbarrier1again_3" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "ARTILLERY_S_truckatbarrier1again_3" );    
+	SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_alliedattackbarrier1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CALLARTILLERY_alliedattackbarrier1" );   
+	SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_truckatbarrier1" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "CALLARTILLERY_truckatbarrier1" );    
+	SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_truckatbarrier1again" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "CALLARTILLERY_truckatbarrier1again" );    
+ 	SetAvailableMapGoals( TEAM.AXIS, false, "REPAIRMG42_828" );//by axis first spawn in the overpass    
+    SetAvailableMapGoals( TEAM.ALLIES, false, "REPAIRMG42_828" );   
+    SetAvailableMapGoals( TEAM.AXIS, false, "REPAIRMG42_812" );//axis first MG in the parked truck   
+    SetAvailableMapGoals( TEAM.ALLIES, false, "REPAIRMG42_812" );//axis first MG in the parked truck 
+ 		Util.MapDebugPrint(GetEntName(ent) + "^6 at overpass Enter");
+ 	},
+ 	OnExit = function(ent)
+ 	{
+ 	SetAvailableMapGoals( TEAM.AXIS, false, "REPAIRMG42_828" );//axis first spawn in the overpass    
+    SetAvailableMapGoals( TEAM.ALLIES, false, "REPAIRMG42_828" );    
+    SetAvailableMapGoals( TEAM.AXIS, false, "REPAIRMG42_812" );//axis first MG in the parked truck   
+    SetAvailableMapGoals( TEAM.ALLIES, false, "REPAIRMG42_812" );//axis first MG in the parked truck    
+	SetAvailableMapGoals( TEAM.AXIS, true, "AIRSTRIKE_barrier1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "AIRSTRIKE_barrier1" );  
+ 		Util.MapDebugPrint(GetEntName(ent) + "^6 at overpass Exit");
+ 	   },
+	}, 
+    
+    at_barrier_1 =
+    {
+ 	Name="at_barrier_1",
+ 	TriggerOnClass = { CLASS.VEHICLE_HVY },
+ 	OnEnter = function(ent)
+ 	{
+    SetGoalPriority( "PLANT_Truck_Barrier_1", 1.00, TEAM.AXIS, CLASS.ENGINEER );        
+         SetGoalPriority( "AIRSTRIKE_barrier1", 0.90, TEAM.AXIS );    
+ 	SetAvailableMapGoals( TEAM.AXIS, false, "REPAIRMG42_828" );//axis first spawn in the overpass    
+    SetAvailableMapGoals( TEAM.ALLIES, false, "REPAIRMG42_828" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "REPAIRMG42_812" );//axis first MG in the parked truck   
+    SetAvailableMapGoals( TEAM.ALLIES, false, "REPAIRMG42_812" );//axis first MG in the parked truck             
+	SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_axisbarrier1attack1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CALLARTILLERY_axisbarrier1attack1" );
+	SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_axisbarrier1attack2" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CALLARTILLERY_axisbarrier1attack2" );
+	SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_axisbarrier1attack3" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CALLARTILLERY_axisbarrier1attack3" ); 
+	SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_axisbarrier1attack4" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CALLARTILLERY_axisbarrier1attack4" ); 
+ 		Util.MapDebugPrint(GetEntName(ent) + " at_barrier_1 Enter");
+ 	},
+ 	OnExit = function(ent)
+ 	{
+    SetAvailableMapGoals( TEAM.AXIS, false, "REPAIRMG42_812" );//axis first MG in the parked truck   
+    SetAvailableMapGoals( TEAM.ALLIES, false, "REPAIRMG42_812" );//axis first MG in the parked truck 
+ 	SetAvailableMapGoals( TEAM.AXIS, false, "REPAIRMG42_828" );//axis first spawn in the overpass    
+    SetAvailableMapGoals( TEAM.ALLIES, false, "REPAIRMG42_828" );
+ 		Util.MapDebugPrint(GetEntName(ent) + " at_barrier_1 Exit");
+ 	   },
+	},  
+    
+    at_garage_door =
+    {
+ 	Name="at_garage_door",
+ 	TriggerOnClass = { CLASS.VEHICLE_HVY },
+ 	OnEnter = function(ent)
+ 	{
+    SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_garagedoor" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "CALLARTILLERY_garagedoor" );    
+	SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_garagedoor_1" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "ARTILLERY_S_garagedoor_1" );       
+	SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_garagedoor_2" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "ARTILLERY_S_garagedoor_2" );    
+	SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_garagedoor_3" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "ARTILLERY_S_garagedoor_3" );     
+	SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_garagedoor_4" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "ARTILLERY_S_garagedoor_4" );     
+	SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_garagedoor_5" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "ARTILLERY_S_garagedoor_5" );    
+ 		Util.MapDebugPrint(GetEntName(ent) + " at_garage_door Enter");
+ 	},
+ 	OnExit = function(ent)
+ 	{
+
+ 		Util.MapDebugPrint(GetEntName(ent) + " at_garage_door Exit");
+ 	   },
+	}, 
+    
+    at_barrier_2 =
+    {
+ 	Name="at_barrier_2",
+ 	TriggerOnClass = { CLASS.VEHICLE_HVY },
+ 	OnEnter = function(ent)
+ 	{
+    SetGoalPriority( "PLANT_Truck_Barrier_2", 1.00, TEAM.AXIS, CLASS.ENGINEER );
+
+ 		Util.MapDebugPrint(GetEntName(ent) + " at_barrier_2 Enter");
+ 	},
+ 	OnExit = function(ent)
+ 	{
+
+ 		Util.MapDebugPrint(GetEntName(ent) + " at_barrier_2 Exit");
+ 	   },
+	}, 
+    
+    customoutsidegaragebeforebarrier_2 =
+    {
+ 	Name="customoutsidegaragebeforebarrier_2",
+ 	TriggerOnClass = { CLASS.VEHICLE_HVY },
+ 	OnEnter = function(ent)
+ 	{
+
+ 		Util.MapDebugPrint(GetEntName(ent) + " customoutsidegaragebeforebarrier_2 Enter");
+ 	},
+ 	OnExit = function(ent)
+ 	{
+ 	SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_barrier2_.*" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "ARTILLERY_S_barrier2_.*" );                     
+	SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_barrier2door2" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "CALLARTILLERY_barrier2door2" );
+    SetGoalPriority( "CALLARTILLERY_outsidecpbuilding", 0.89, TEAM.AXIS ); 
+	SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_outsidecpbuilding" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "CALLARTILLERY_outsidecpbuilding" );
+	SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_pastbarrier2_.*" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "ARTILLERY_S_pastbarrier2_.*" );
+ 		Util.MapDebugPrint(GetEntName(ent) + " customoutsidegaragebeforebarrier_2 Exit");
+ 	   },
+	},
+    
+    custompastbarrier_1 =
+    {
+ 	Name="custompastbarrier_1",
+ 	TriggerOnClass = { CLASS.VEHICLE_HVY },
+ 	OnEnter = function(ent)
+ 	{
+     
+        
+ 		Util.MapDebugPrint(GetEntName(ent) + " custompastbarrier_1 Enter");
+ 	},
+ 	OnExit = function(ent)
+ 	{
+	SetAvailableMapGoals( TEAM.AXIS, false, "ATTACK_barrier1_1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ATTACK_barrier1_1" ); 
+	SetAvailableMapGoals( TEAM.AXIS, false, "ATTACK_barrier1_2" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ATTACK_barrier1_2" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "ATTACK_barrier1_3" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ATTACK_barrier1_3" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "ATTACK_barrier1_4" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ATTACK_barrier1_4" );        
+    SetGoalPriority( "CALLARTILLERY_garagedoor", 0.89, TEAM.ALLIES );  
+    SetGoalPriority( "ARTILLERY_S_garagedoor_1", 0.89, TEAM.ALLIES ); 
+    SetGoalPriority( "ARTILLERY_S_garagedoor_2", 0.89, TEAM.ALLIES );  
+    SetGoalPriority( "ARTILLERY_S_garagedoor_3", 0.89, TEAM.ALLIES ); 
+    SetGoalPriority( "ARTILLERY_S_garagedoor_4", 0.89, TEAM.ALLIES ); 
+    SetGoalPriority( "ARTILLERY_S_garagedoor_5", 0.89, TEAM.ALLIES );                
+    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_axisbarrier1attack1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CALLARTILLERY_axisbarrier1attack1" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_axisbarrier1attack2" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CALLARTILLERY_axisbarrier1attack2" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_axisbarrier1attack3" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CALLARTILLERY_axisbarrier1attack3" ); 
+	SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_axisbarrier1attack4" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CALLARTILLERY_axisbarrier1attack4" );            
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_alliedattackbarrier1_1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_alliedattackbarrier1_1" );        
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_alliedattackbarrier1_2" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_alliedattackbarrier1_2" );    
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_alliedattackbarrier1_3" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_alliedattackbarrier1_3" );           
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_atbarrier1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_atbarrier1" );     
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_pastbarrier1_a" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_pastbarrier1_a" );     
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_pastbarrier1_b" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_pastbarrier1_b" );             
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_truckatbarrier1again_1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_truckatbarrier1again_1" );   
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_truckatbarrier1again_2" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_truckatbarrier1again_2" );        
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_truckatbarrier1again_3" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_truckatbarrier1again_3" );     
+	SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_alliedattackbarrier1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CALLARTILLERY_alliedattackbarrier1" );    
+	SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_truckatbarrier1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CALLARTILLERY_truckatbarrier1" );    
+	SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_truckatbarrier1again" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CALLARTILLERY_truckatbarrier1again" );     
+	SetAvailableMapGoals( TEAM.AXIS, false, "AIRSTRIKE_barrier1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "AIRSTRIKE_barrier1" );        
+	SetAvailableMapGoals( TEAM.AXIS, false, "MOUNTMG42_812" );//axis first spawn in back of truck
+	SetAvailableMapGoals( TEAM.ALLIES, false, "MOUNTMG42_812" ); 
+ 	SetAvailableMapGoals( TEAM.AXIS, false, "MOUNTMG42_828" );//axis first spawn in the overpass
+	SetAvailableMapGoals( TEAM.ALLIES, false, "MOUNTMG42_828" );     
+    SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_garagedoor" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "CALLARTILLERY_garagedoor" );    
+	SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_garagedoor_1" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "ARTILLERY_S_garagedoor_1" );       
+	SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_garagedoor_2" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "ARTILLERY_S_garagedoor_2" );    
+	SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_garagedoor_3" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "ARTILLERY_S_garagedoor_3" );     
+	SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_garagedoor_4" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "ARTILLERY_S_garagedoor_4" );     
+	SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_garagedoor_5" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "ARTILLERY_S_garagedoor_5" ); 
+ 		Util.MapDebugPrint(GetEntName(ent) + " ^6custompastbarrier_1 Exit");
+ 	   },
+	},                     
+
+    endgame =
+    {
+ 	Name="endgame",
+ 	TriggerOnClass = { CLASS.VEHICLE_HVY },
+ 	OnEnter = function(ent)
+ 	{
+ 	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_barrier2_.*" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_barrier2_.*" );                     
+	SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_barrier2door2" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CALLARTILLERY_barrier2door2" );   
+	SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_outsidecpbuilding" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CALLARTILLERY_outsidecpbuilding" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_pastbarrier2_.*" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_pastbarrier2_.*" );        
+	SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_nukeend_.*" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "ARTILLERY_S_nukeend_.*" );
+	SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_endofmap2" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "CALLARTILLERY_endofmap2" );            
+ 		Util.MapDebugPrint(GetEntName(ent) + " endgame Enter");
+ 	},
+ 	OnExit = function(ent)
+ 	{
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_nukeend_.*" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_nukeend_.*" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_endofmap2" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CALLARTILLERY_endofmap2" );            
+	SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_endofmap_1" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "ARTILLERY_S_endofmap_1" ); 
+	SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_endofmap_2" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "ARTILLERY_S_endofmap_2" );    
+	SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_endofmap_3" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "ARTILLERY_S_endofmap_3" );            
+	SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_endofmap_4" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "ARTILLERY_S_endofmap_4" );       
+	SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_endofmap" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "CALLARTILLERY_endofmap" );        
+	SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_endofmap2" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "CALLARTILLERY_endofmap2" );    
+	SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_endofmap3" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "CALLARTILLERY_endofmap3" );        
+    SetGoalPriority( "CALLARTILLERY_endofmap", 0.99, TEAM.AXIS, CLASS.FIELDOPS );   
+    SetGoalPriority( "CALLARTILLERY_endofmap2", 0.99, TEAM.AXIS, CLASS.FIELDOPS );
+    SetGoalPriority( "CALLARTILLERY_endofmap3", 0.99, TEAM.AXIS, CLASS.FIELDOPS );  
+    SetGoalPriority( "ARTILLERY_S_endofmap_1", 0.99, TEAM.AXIS );    
+    SetGoalPriority( "ARTILLERY_S_endofmap_2", 0.99, TEAM.AXIS ); 
+    SetGoalPriority( "ARTILLERY_S_endofmap_3", 0.99, TEAM.AXIS );    
+    SetGoalPriority( "ARTILLERY_S_endofmap_4", 0.99, TEAM.AXIS );         
+	SetAvailableMapGoals( TEAM.AXIS, true, "CAMP_Engineercamp" );
+    SetGoalPriority( "PLANT_cave_rocks", 0.99, TEAM.AXIS, CLASS.ENGINEER );     
+ 		Util.MapDebugPrint(GetEntName(ent) + " endgame Exit");
+ 	   },
+	}, 
+
+};
+
+global OnMapLoad = function()
+{
+	// Register callback functions
+    // 
+	OnTrigger( "Allied Command Post constructed. Charge speed increased!",  Map.Allied_CP_Built );
+	OnTrigger( "Axis Command Post constructed. Charge speed increased!",    Map.Axis_CP_Built );
+	OnTrigger( "Axis team has destroyed the Allied Command Post!",          Map.Allied_CP_Destroyed );
+	OnTrigger( "Allied team has destroyed the Axis Command Post!",          Map.Axis_CP_Destroyed );
+	OnTrigger( "Planted at the Command Post.",                              Map.CP_Planted  );
+	OnTrigger( "Defused at the Command Post.",                              Map.CP_Defused  );   
+	OnTrigger( "winterbase_esc_truck_past_first_barrier_axis", Map.Truck_Past_Barrier_1 );
+	OnTrigger( "winterbase_esc_truck_past_second_barrier_axis", Map.Truck_Past_Barrier_2 );
+	OnTrigger( "winterbase_esc_truck_past_garage_door_axis", Map.Truck_Past_Garage );            
+	OnTrigger( "winterbase_esc_garagedoor_has_constructed", Map.Garage_Door_Built );
+	OnTrigger( "winterbase_esc_firstbarrier_constructed", Map.Truck_Barrier_1_Built );
+	OnTrigger( "winterbase_esc_secondbarrier_constructed", Map.Truck_Barrier_2_Built );
+	OnTrigger( "winterbase_esc_truck_repaired_axis", Map.truck_Built );
+	OnTrigger( "winterbase_esc_truck_damaged_axis", Map.truck_Damaged );    
+	OnTrigger( "winterbase_esc_garagedoor_destroyed", Map.Garage_Door_Destroyed );
+	OnTrigger( "winterbase_esc_firstbarrier_destroyed", Map.Truck_Barrier_1_Destroyed );
+	OnTrigger( "winterbase_esc_secondbarrier_destroyed", Map.Truck_Barrier_2_Destroyed );
+	OnTrigger( "winterbase_esc_cave_rocks", Map.cave_rocks_Destroyed );
+    
+//Custom Triggers    
+at_barrier_2 = OnTriggerRegion(AABB(-6912.461,8109.650,353.189,-6766.793,8427.043,427.895), Map.at_barrier_2);//4
+at_garage_door = OnTriggerRegion(AABB(-3423.054,7486.522,157.407,-3026.758,7815.062,235.125), Map.at_garage_door);//3
+at_barrier_1 = OnTriggerRegion(AABB(176.672,5097.632,33.125,589.973,5306.265,107.125), Map.at_barrier_1);//2
+at_overpass = OnTriggerRegion(AABB(222.487,2790.054,-190.875,971.901,2944.875,-93.273), Map.at_overpass);  //1 truck location 
+custompastbarrier_1 = OnTriggerRegion(AABB(-1634.055,6411.989,33.125,-778.817,6800.944,181.146), Map.custompastbarrier_1);
+customoutsidegaragebeforebarrier_2 = OnTriggerRegion(AABB(-6069.161,5733.812,161.125,-5758.245,6556.872,310.616), Map.customoutsidegaragebeforebarrier_2);
+endgame = OnTriggerRegion(AABB(-10314.781,7467.072,545.125,-9817.323,7696.750,629.177), Map.endgame);
+
+//Goal Availabilaty and other settings    
+	SetAvailableMapGoals( TEAM.AXIS, true, "ATTACK_barrier1_1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ATTACK_barrier1_1" ); 
+	SetAvailableMapGoals( TEAM.AXIS, true, "ATTACK_barrier1_2" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ATTACK_barrier1_2" );
+	SetAvailableMapGoals( TEAM.AXIS, true, "ATTACK_barrier1_3" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ATTACK_barrier1_3" );
+	SetAvailableMapGoals( TEAM.AXIS, true, "ATTACK_barrier1_4" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ATTACK_barrier1_4" );                
+	SetAvailableMapGoals( TEAM.AXIS, false, "MOUNTMG42_412" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "MOUNTMG42_412" ); 
+	SetAvailableMapGoals( TEAM.AXIS, false, "MOUNTMG42_812" );//at overpass in parked truck
+	SetAvailableMapGoals( TEAM.ALLIES, false, "MOUNTMG42_812" );     
+ 	SetAvailableMapGoals( TEAM.AXIS, false, "MOUNTMG42_828" );//by axis first spawn MG in the overpass
+	SetAvailableMapGoals( TEAM.ALLIES, false, "MOUNTMG42_828" ); 
+	SetAvailableMapGoals( TEAM.AXIS, false, "MOUNTMG42_808" );//in a passage way TURNED OFF
+	SetAvailableMapGoals( TEAM.ALLIES, false, "MOUNTMG42_808" );   
+ 	SetAvailableMapGoals( TEAM.AXIS, false, "REPAIRMG42_828" );//by axis first spawn in the overpass  
+    SetAvailableMapGoals( TEAM.ALLIES, false, "REPAIRMG42_828" );           
+	SetAvailableMapGoals( TEAM.AXIS, false, "MOUNTMG42_axissidetowermg42" );//allied last spawn ground mounted mg42
+	SetAvailableMapGoals( TEAM.ALLIES, false, "MOUNTMG42_axissidetowermg42" );    
+	SetAvailableMapGoals( TEAM.AXIS, false, "MOUNTMG42_axissidetowermg42_1" );//allied last spawn TOWER mounted mg42
+	SetAvailableMapGoals( TEAM.ALLIES, false, "MOUNTMG42_axissidetowermg42_1" );
+    
+//Artillery & Airstrikes     
+    
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_alliedattackbarrier1_1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_alliedattackbarrier1_1" );        
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_alliedattackbarrier1_2" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_alliedattackbarrier1_2" );    
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_alliedattackbarrier1_3" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_alliedattackbarrier1_3" );            
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_atbarrier1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_atbarrier1" );     
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_pastbarrier1_a" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_pastbarrier1_a" );    
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_pastbarrier1_b" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_pastbarrier1_b" );             
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_truckatbarrier1again_1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_truckatbarrier1again_1" );   
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_truckatbarrier1again_2" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_truckatbarrier1again_2" );        
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_truckatbarrier1again_3" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_truckatbarrier1again_3" );    
+	SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_alliedattackbarrier1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CALLARTILLERY_alliedattackbarrier1" );    
+	SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_truckatbarrier1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CALLARTILLERY_truckatbarrier1" );    
+	SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_truckatbarrier1again" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CALLARTILLERY_truckatbarrier1again" );    
+	SetAvailableMapGoals( TEAM.AXIS, false, "AIRSTRIKE_barrier1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "AIRSTRIKE_barrier1" );                                                      
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_garagedoor_1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_garagedoor_1" );        
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_garagedoor_2" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_garagedoor_2" );     
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_garagedoor_3" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_garagedoor_3" );    
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_garagedoor_4" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_garagedoor_4" );     
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_garagedoor_5" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_garagedoor_5" );         
+	SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_garagedoor" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CALLARTILLERY_garagedoor" );     
+	SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_axisbarrier1attack1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CALLARTILLERY_axisbarrier1attack1" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_axisbarrier1attack2" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CALLARTILLERY_axisbarrier1attack2" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_axisbarrier1attack3" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CALLARTILLERY_axisbarrier1attack3" ); 
+	SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_axisbarrier1attack4" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CALLARTILLERY_axisbarrier1attack4" );       
+ 	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_barrier2_.*" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_barrier2_.*" );                     
+	SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_barrier2door2" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CALLARTILLERY_barrier2door2" );   
+	SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_outsidecpbuilding" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CALLARTILLERY_outsidecpbuilding" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_pastbarrier2_.*" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_pastbarrier2_.*" );     
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_nukeend_.*" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_nukeend_.*" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_endofmap2" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CALLARTILLERY_endofmap2" );        
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_endofmap_1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_endofmap_1" ); 
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_endofmap_2" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_endofmap_2" );     
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_endofmap_3" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_endofmap_3" );             
+	SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_endofmap_4" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ARTILLERY_S_endofmap_4" );       
+	SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_endofmap" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CALLARTILLERY_endofmap" );             
+	SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_endofmap3" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CALLARTILLERY_endofmap3" );              
+	SetAvailableMapGoals( TEAM.AXIS, false, "ATTACK_endgame_1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ATTACK_endgame_1" );    
+	SetAvailableMapGoals( TEAM.AXIS, false, "ATTACK_endgame_2" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ATTACK_endgame_2" );    
+	SetAvailableMapGoals( TEAM.AXIS, false, "ATTACK_endgametryagain_1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ATTACK_endgametryagain_1" );    
+	SetAvailableMapGoals( TEAM.AXIS, false, "ATTACK_endgametryagain_2" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ATTACK_endgametryagain_2" );      
+	SetAvailableMapGoals( TEAM.AXIS, false, "ATTACK_endgametryagain_3" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ATTACK_endgametryagain_3" );    
+	SetAvailableMapGoals( TEAM.AXIS, false, "ATTACK_endgametryagain_4" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ATTACK_endgametryagain_4" );         
+	SetAvailableMapGoals( TEAM.AXIS, false, "CAMP_Engineercamp" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CAMP_Engineercamp" );
+    
+//Priority
+    SetGoalPriority( "BUILD_Command_Post", 0.95, TEAM.AXIS );    
+    SetGoalPriority( "PLANT_Command_Post", 0.99, TEAM.AXIS );                                  
+    SetGoalPriority( "ESCORT_.*", 0.88, TEAM.AXIS );
+    SetGoalPriority( "BUILD_Garage_Door", 0.98, TEAM.ALLIES, CLASS.ENGINEER );
+    SetGoalPriority( "BUILD_Truck_Barrier_2", 0.97, TEAM.ALLIES, CLASS.ENGINEER );
+    SetGoalPriority( "BUILD_Truck_Barrier_1", 0.99, TEAM.ALLIES, CLASS.ENGINEER );
+    SetGoalPriority( "BUILD_Truck", 0.99, TEAM.AXIS, CLASS.ENGINEER );
+    SetGoalPriority( "PLANT_cave_rocks", 0.95, TEAM.AXIS, CLASS.ENGINEER );    
+    SetGoalPriority( "PLANT_Garage_Door", 0.97, TEAM.AXIS, CLASS.ENGINEER );
+    SetGoalPriority( "PLANT_Truck_Barrier_2", 0.96, TEAM.AXIS, CLASS.ENGINEER );
+    SetGoalPriority( "PLANT_Truck_Barrier_1", 0.99, TEAM.AXIS, CLASS.ENGINEER );
+    SetGoalPriority( "ATTACK_endgame_1", 0.79, TEAM.AXIS );     
+    SetGoalPriority( "ATTACK_endgame_2", 0.79, TEAM.AXIS);    
+    //SetGoalPriority( "ATTACK_endgame_1", 0.75, TEAM.AXIS );
+    //SetGoalPriority( "ATTACK_endgame_2", 0.75, TEAM.AXIS );        
+    SetGoalPriority( "CAMP_Engineercamp", 0.99, TEAM.AXIS, CLASS.FIELDOPS );
+    SetGoalPriority( "ATTACK_endgametryagain_1", 0.79, TEAM.AXIS );  
+    SetGoalPriority( "ATTACK_endgametryagain_2", 0.79, TEAM.AXIS ); 
+    SetGoalPriority( "ATTACK_endgametryagain_3", 0.79, TEAM.AXIS );  
+    SetGoalPriority( "ATTACK_endgametryagain_4", 0.79, TEAM.AXIS );  
+              
+//Random Plant Garage Door    
+ Util.AddUseWp("PLANT_Garage_Door", "plantgaragedoor1");// Antenna is the waypoint name
+ Util.AddUseWp("PLANT_Garage_Door", "plantgaragedoor2");// Antenna is the waypoint name 
+ Util.AddUseWp("PLANT_Garage_Door", "plantgaragedoor3");// Antenna is the waypoint name
+ Util.AddUseWp("PLANT_Garage_Door", "plantgaragedoor4");// Antenna is the waypoint name
+ Util.AddUseWp("PLANT_Garage_Door", "plantgaragedoor5");// Antenna is the waypoint name
+ Util.AddUseWp("PLANT_Garage_Door", "plantgaragedoor6");// Antenna is the waypoint name 
+
+//Random Plant Barrier 1
+ Util.AddUseWp("PLANT_Truck_Barrier_1", "barrier1plant1");// Antenna is the waypoint name
+ Util.AddUseWp("PLANT_Truck_Barrier_1", "barrier1plant2");// Antenna is the waypoint name
+ Util.AddUseWp("PLANT_Truck_Barrier_1", "barrier1plant3");// Antenna is the waypoint name
+ Util.AddUseWp("PLANT_Truck_Barrier_1", "barrier1plant4");// Antenna is the waypoint name
+ Util.AddUseWp("PLANT_Truck_Barrier_1", "barrier1plant5");// Antenna is the waypoint name 
+ Util.AddUseWp("PLANT_Truck_Barrier_1", "barrier1plant6");// Antenna is the waypoint name  
+
+//Random Plant Barrier 2   
+ Util.AddUseWp("PLANT_Truck_Barrier_2", "barrier2plant1");// Antenna is the waypoint name 
+ Util.AddUseWp("PLANT_Truck_Barrier_2", "barrier2plant2");// Antenna is the waypoint name 
+ Util.AddUseWp("PLANT_Truck_Barrier_2", "barrier2plant3");// Antenna is the waypoint name 
+ Util.AddUseWp("PLANT_Truck_Barrier_2", "barrier2plant4");// Antenna is the waypoint name 
+ Util.AddUseWp("PLANT_Truck_Barrier_2", "barrier2plant5");// Antenna is the waypoint name 
+ Util.AddUseWp("PLANT_Truck_Barrier_2", "barrier2plant6");// Antenna is the waypoint name 
+ Util.AddUseWp("PLANT_Truck_Barrier_2", "barrier2plant7");// Antenna is the waypoint name 
+ Util.AddUseWp("PLANT_Truck_Barrier_2", "barrier2plant8");// Antenna is the waypoint name 
+ Util.AddUseWp("PLANT_Truck_Barrier_2", "barrier2plant9");// Antenna is the waypoint name 
+ Util.AddUseWp("PLANT_Truck_Barrier_2", "barrier2plant10");// Antenna is the waypoint name
+
+//Random Plant Cave Rocks    
+ Util.AddUseWp("PLANT_cave_rocks", "cave1");// Antenna is the waypoint name
+ Util.AddUseWp("PLANT_cave_rocks", "cave2");// Antenna is the waypoint name  
+ Util.AddUseWp("PLANT_cave_rocks", "cave3");// Antenna is the waypoint name
+ Util.AddUseWp("PLANT_cave_rocks", "cave4");// Antenna is the waypoint name 
+  
+	// Max users per goal
+	//Util.SetMaxUsers( 1, "MOUNTMG42_.*" );
+	Util.LimitToClass( "PLANT_Command_Post", 1, 5 );
+	Util.LimitToClass( "PLANT_Command_Post", 2, 5 );
+    
+	Util.ExcludeClass( "MOUNTMG42_.*", 1, 3 );
+	Util.ExcludeClass( "MOUNTMG42_.*", 2, 3 );
+    
+   	//Util.ExcludeClass( "ATTACK_endgame_1", 1, 3 ); 
+   	//Util.ExcludeClass( "ATTACK_endgame_2", 1, 3 );       
+    
+    Util.SetMaxUsers( 2, "BUILD_Truck_Barrier_1" );
+    Util.SetMaxUsers( 2, "BUILD_Truck_Barrier_2" );
+    Util.SetMaxUsers( 2, "BUILD_Garage_Door" );        
+    
+	Util.SetMaxUsers( 1, "PLANT_Command_Post" ); 
+    Util.SetMaxUsers( 1, "BUILD_Command_Post" ); 
+        
+	// Camp times
+	//SetMapGoalProperties( "MOUNTMG42_.*", {MinCampTime=15, MaxCampTime=90} );
+
+
+	Util.MapDebugPrint( "^3Omni-bot map script ^2version^69 ^1Random^2Plant ^5Created by ^1C ^04 ^1W ^3for " + GetMapName() + " executed." );
+	print( "^3Omni-bot map script ^2version^9 ^1Random^2Plant ^5Created by ^1C ^04 ^1W ^3For the map: ^7" + GetMapName() );
+	
+	Util.BotChat( 0, "say", "^3Omni-bot map script ^2version^69 ^1Random^2Plant ^5Created by ^1C ^04 ^1W ^3For the map: ^7" + GetMapName(), 1 );
+};
+
+global OnBotJoin = function( bot )
+{
+	// Uncomment for shootable breakables
+	//~bot.TargetBreakableDist = 90.0;
+	// Only set MaxViewDistance on maps with limited sight (e.g. fog)
+	//~bot.MaxViewDistance = 2400;
+};
+
+global InitializeRoutes = function()
+{
+	MapRoutes =
+	{
+        ATTACK_endgame_1 =
+		{
+            ROUTE_attackendgame_4 = 
+            {
+             ROUTE_attackendgame_3 = 
+             {
+                ROUTE_attackendgame_2 = 
+                {
+                    ROUTE_attackendgame_1 = {},
+                },
+             },   
+            },
+		},
+        ATTACK_endgametryagain_1 =
+		{
+            ROUTE_attackendgame_4 = 
+            {
+             ROUTE_attackendgame_3 = 
+             {
+                ROUTE_attackendgame_2 = 
+                {
+                    ROUTE_attackendgame_1 = {},
+                },
+             },   
+            },
+		},
+        ATTACK_endgametryagain_2 =
+		{
+            ROUTE_attackendgame_4 = 
+            {
+             ROUTE_attackendgame_3 = 
+             {
+                ROUTE_attackendgame_2 = 
+                {
+                    ROUTE_attackendgame_1 = {},
+                },
+             },   
+            },
+		},
+        ATTACK_endgametryagain_3 =
+		{
+            ROUTE_attackendgame_4 = 
+            {
+             ROUTE_attackendgame_3 = 
+             {
+                ROUTE_attackendgame_2 = 
+                {
+                    ROUTE_attackendgame_1 = {},
+                },
+             },   
+            },
+		},
+        ATTACK_endgametryagain_4 =
+		{
+            ROUTE_attackendgame_4 = 
+            {
+             ROUTE_attackendgame_3 = 
+             {
+                ROUTE_attackendgame_2 = 
+                {
+                    ROUTE_attackendgame_1 = {},
+                },
+             },   
+            },
+		}, 
+        CAMP_Engineercamp =
+		{
+            ROUTE_attackendgame_4 = 
+            {
+             ROUTE_attackendgame_3 = 
+             {
+                ROUTE_attackendgame_2 = 
+                {
+                    ROUTE_attackendgame_1 = {},
+                },
+             },   
+            },
+		},                                       
+		ATTACK_endgame_2 =
+		{
+            ROUTE_attackendgame_4 = 
+            {
+                ROUTE_attackcaveatendgame_7 = 
+                {
+                    ROUTE_attackcaveatendgame_6 = 
+                    {
+                        ROUTE_attackcaveatendgame_5 = 
+                        {
+                            ROUTE_attackcaveatendgame_4 = 
+                            {
+                                ROUTE_attackcaveatendgame_3 = 
+                                {
+                                    ROUTE_attackcaveatendgame_2 = 
+                                    {
+                                        ROUTE_attackcaveatendgame_1 = {},
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+            },            
+		},
+        BUILD_truck =
+		{
+		},
+        ATTACK_barrier1_1 = 
+        {
+            ROUTE_axisfirstspawn4_blue_red = 
+            {
+                ROUTE_green_2 = 
+                {
+                    ROUTE_green_1 = {},
+                }, 
+                Weight=2,              
+                ROUTE_attackbarrier1_red_2 = 
+                {   
+                    ROUTE_attackbarrier1_red_1 = {},
+                },
+                Weight=3,
+                ROUTE_attackbarrier1_blue_2 = 
+                {   
+                    ROUTE_attackbarrier1_blue_1 = {},
+                },
+            },
+        },        
+        ATTACK_barrier1_2 = 
+        {
+            ROUTE_axisfirstspawn4_blue_red = 
+            {
+                ROUTE_green_2 = 
+                {
+                    ROUTE_green_1 = {},
+                }, 
+                Weight=3,               
+                ROUTE_attackbarrier1_red_2 = 
+                {   
+                    ROUTE_attackbarrier1_red_1 = {},
+                },
+                Weight=2,
+                ROUTE_attackbarrier1_blue_2 = 
+                {   
+                    ROUTE_attackbarrier1_blue_1 = {},
+                },
+            },
+        },       
+        ATTACK_barrier1_3 = 
+        {
+            ROUTE_axisfirstspawn4_blue_red = 
+            {
+                ROUTE_green_2 = 
+                {
+                    ROUTE_green_1 = {},
+                },
+                Weight=2,
+                ROUTE_attackbarrier1_red_2 = 
+                {   
+                    ROUTE_attackbarrier1_red_1 = {},
+                },
+                Weight=3,
+                ROUTE_attackbarrier1_blue_2 = 
+                {   
+                    ROUTE_attackbarrier1_blue_1 = {},
+                },
+            },
+        },        
+        ATTACK_barrier1_4 = 
+        {
+            ROUTE_axisfirstspawn4_blue_red = 
+            {
+                ROUTE_green_2 = 
+                {
+                    ROUTE_green_1 = {},
+                }, 
+                Weight=3,               
+                ROUTE_attackbarrier1_red_2 = 
+                {   
+                    ROUTE_attackbarrier1_red_1 = {},
+                },
+                Weight=2,
+                ROUTE_attackbarrier1_blue_2 = 
+                {   
+                    ROUTE_attackbarrier1_blue_1 = {},
+                },
+            },
+        },
+		PLANT_Truck_Barrier_1 =
+        {
+            ROUTE_axisfirstspawn4_blue_red = 
+            {
+                ROUTE_green_2 = 
+                {
+                    ROUTE_green_1 = {},
+                },
+                Weight=2,
+                ROUTE_attackbarrier1_red_2 = 
+                {   
+                    ROUTE_attackbarrier1_red_1 = {},
+                },
+                Weight=3,
+                ROUTE_attackbarrier1_blue_2 = 
+                {   
+                    ROUTE_attackbarrier1_blue_1 = {},
+                },
+            },
+        },
+		BUILD_Truck_Barrier_2 =
+		{
+		},
+		BUILD_Garage_Door =
+		{
+		},
+		BUILD_Command_Post =
+		{
+		},
+	};
+	Util.Routes(MapRoutes);
+};

@@ -1,0 +1,499 @@
+//==========================================================================================
+//
+//	hillytop_b4.gm
+//
+//	Who                    	When		What
+//------------------------------------------------------------------------------------------
+//	^1{WeB}^7*^4GA^1NG$^4TA^7*	27 September 2017	Initial Script
+//
+//==========================================================================================
+//
+
+global Map =
+{
+	Debug = 1, // please set to zero before distributing your script
+	ShowMovers = false,
+
+	Allied_Basement_Access_Dyno = 0,
+	Allied_MG_Dyno = 0,
+	Allied_Wall_Dyno = 0,
+	Allied_bunker_backdoor_Dyno = 0,
+	Axis_Basement_Access_Dyno = 0,
+	Axis_Bunker_Backdoor_Dyno = 0,
+	Axis_MG_Dyno = 0,
+	Axis_Wall_Dyno = 0,
+	Command_Post_Dyno = 0,
+
+	Allied_MG_Built = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "Allied_MG_Built" );
+	},
+
+	Axis_MG_Built = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "Axis_MG_Built" );
+	},
+
+	Command_Post_Built = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "Command_Post_Built" );
+	},
+
+	Allied_Basement_Access_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Allied_Basement_Access_Dyno += 1;
+		Util.MapDebugPrint( "Allied_Basement_Access_Planted" );
+	},
+
+	Allied_MG_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Allied_MG_Dyno += 1;
+		Util.MapDebugPrint( "Allied_MG_Planted" );
+	},
+
+	Allied_Wall_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Allied_Wall_Dyno += 1;
+		Util.MapDebugPrint( "Allied_Wall_Planted" );
+	},
+
+	Allied_bunker_backdoor_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Allied_bunker_backdoor_Dyno += 1;
+		Util.MapDebugPrint( "Allied_bunker_backdoor_Planted" );
+	},
+
+	Axis_Basement_Access_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Axis_Basement_Access_Dyno += 1;
+		Util.MapDebugPrint( "Axis_Basement_Access_Planted" );
+	},
+
+	Axis_Bunker_Backdoor_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Axis_Bunker_Backdoor_Dyno += 1;
+		Util.MapDebugPrint( "Axis_Bunker_Backdoor_Planted" );
+	},
+
+	Axis_MG_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Axis_MG_Dyno += 1;
+		Util.MapDebugPrint( "Axis_MG_Planted" );
+	},
+
+	Axis_Wall_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Axis_Wall_Dyno += 1;
+		Util.MapDebugPrint( "Axis_Wall_Planted" );
+	},
+
+	Command_Post_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Command_Post_Dyno += 1;
+		Util.MapDebugPrint( "Command_Post_Planted" );
+	},
+
+	Allied_Basement_Access_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Allied_Basement_Access_Dyno -= 1;
+		Util.MapDebugPrint( "Allied_Basement_Access_Defused" );
+	},
+
+	Allied_MG_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Allied_MG_Dyno -= 1;
+		Util.MapDebugPrint( "Allied_MG_Defused" );
+	},
+
+	Allied_Wall_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Allied_Wall_Dyno -= 1;
+		Util.MapDebugPrint( "Allied_Wall_Defused" );
+	},
+
+	Allied_bunker_backdoor_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Allied_bunker_backdoor_Dyno -= 1;
+		Util.MapDebugPrint( "Allied_bunker_backdoor_Defused" );
+	},
+
+	Axis_Basement_Access_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Axis_Basement_Access_Dyno -= 1;
+		Util.MapDebugPrint( "Axis_Basement_Access_Defused" );
+	},
+
+	Axis_Bunker_Backdoor_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Axis_Bunker_Backdoor_Dyno -= 1;
+		Util.MapDebugPrint( "Axis_Bunker_Backdoor_Defused" );
+	},
+
+	Axis_MG_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Axis_MG_Dyno -= 1;
+		Util.MapDebugPrint( "Axis_MG_Defused" );
+	},
+
+	Axis_Wall_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Axis_Wall_Dyno -= 1;
+		Util.MapDebugPrint( "Axis_Wall_Defused" );
+	},
+
+	Command_Post_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Command_Post_Dyno -= 1;
+		Util.MapDebugPrint( "Command_Post_Defused" );
+	},
+
+	Allied_Basement_Access_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Allied_Basement_Access_Dyno = 0;
+
+		Util.MapDebugPrint( "Allied_Basement_Access_Destroyed" );
+	},
+
+	Allied_MG_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Allied_MG_Dyno = 0;
+
+		Util.MapDebugPrint( "Allied_MG_Destroyed" );
+	},
+
+	Allied_Wall_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Allied_Wall_Dyno = 0;
+
+		Util.MapDebugPrint( "Allied_Wall_Destroyed" );
+	},
+	
+		Allied_Wall_New_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+			
+		SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_Allied_Wall_New" );	
+
+		Map.Allied_Wall_Dyno = 0;
+
+		Util.MapDebugPrint( "Allied_Wall_New_Destroyed" );
+	},
+
+	Allied_bunker_backdoor_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Allied_bunker_backdoor_Dyno = 0;
+
+		Util.MapDebugPrint( "Allied_bunker_backdoor_Destroyed" );
+	},
+
+	Axis_Basement_Access_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Axis_Basement_Access_Dyno = 0;
+
+		Util.MapDebugPrint( "Axis_Basement_Access_Destroyed" );
+	},
+
+	Axis_Bunker_Backdoor_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Axis_Bunker_Backdoor_Dyno = 0;
+
+		Util.MapDebugPrint( "Axis_Bunker_Backdoor_Destroyed" );
+	},
+
+	Axis_MG_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Axis_MG_Dyno = 0;
+
+		Util.MapDebugPrint( "Axis_MG_Destroyed" );
+	},
+
+	Axis_Wall_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Axis_Wall_Dyno = 0;
+
+		Util.MapDebugPrint( "Axis_Wall_Destroyed" );
+	},
+	
+		Axis_Wall_New_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+			
+		SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_Axis_Wall_New" );	
+
+		Map.Axis_Wall_Dyno = 0;
+
+		Util.MapDebugPrint( "Axis_Wall_New_Destroyed" );
+	},
+
+	Command_Post_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Command_Post_Dyno = 0;
+
+		Util.MapDebugPrint( "Command_Post_Destroyed" );
+	},
+
+	allies_gold_crate_Taken = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "allies_gold_crate_Taken" );
+	},
+
+	axis_gold_crate_Taken = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "axis_gold_crate_Taken" );
+	},
+
+	allies_gold_crate_Returned = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "allies_gold_crate_Returned" );
+	},
+
+	axis_gold_crate_Returned = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "axis_gold_crate_Returned" );
+	},
+
+	allies_gold_crate_Secured = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "allies_gold_crate_Secured" );
+	},
+
+	axis_gold_crate_Secured = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "axis_gold_crate_Secured" );
+	},
+
+};
+
+global OnMapLoad = function()
+{
+	if ( TestMapOn )
+		{ Util.AutoTestMap(); }
+
+	// Register callback functions
+	OnTrigger( "Allied MG nest constructed!", Map.Allied_MG_Built );
+	OnTrigger( "Axis MG nest constructed!", Map.Axis_MG_Built );
+	OnTrigger( "MISSING_STRING", Map.Command_Post_Built );
+	OnTrigger( "Planted at the MISSING_STRING.", Map.Allied_Basement_Access_Planted );
+	OnTrigger( "Planted at the MISSING_STRING.", Map.Allied_MG_Planted );
+	OnTrigger( "Planted at the MISSING_STRING.", Map.Allied_Wall_Planted );
+	OnTrigger( "Planted at the MISSING_STRING.", Map.Allied_bunker_backdoor_Planted );
+	OnTrigger( "Planted at the MISSING_STRING.", Map.Axis_Basement_Access_Planted );
+	OnTrigger( "Planted at the MISSING_STRING.", Map.Axis_Bunker_Backdoor_Planted );
+	OnTrigger( "Planted at the MISSING_STRING.", Map.Axis_MG_Planted );
+	OnTrigger( "Planted at the MISSING_STRING.", Map.Axis_Wall_Planted );
+	OnTrigger( "Planted at the MISSING_STRING.", Map.Command_Post_Planted );
+	OnTrigger( "Defused at the MISSING_STRING.", Map.Allied_Basement_Access_Defused );
+	OnTrigger( "Defused at the MISSING_STRING.", Map.Allied_MG_Defused );
+	OnTrigger( "Defused at the MISSING_STRING.", Map.Allied_Wall_Defused );
+	OnTrigger( "Defused at the MISSING_STRING.", Map.Allied_bunker_backdoor_Defused );
+	OnTrigger( "Defused at the MISSING_STRING.", Map.Axis_Basement_Access_Defused );
+	OnTrigger( "Defused at the MISSING_STRING.", Map.Axis_Bunker_Backdoor_Defused );
+	OnTrigger( "Defused at the MISSING_STRING.", Map.Axis_MG_Defused );
+	OnTrigger( "Defused at the MISSING_STRING.", Map.Axis_Wall_Defused );
+	OnTrigger( "Defused at the MISSING_STRING.", Map.Command_Post_Defused );
+	OnTrigger( "Axis forces has breached through the basement walkway!", Map.Allied_Basement_Access_Destroyed );
+	OnTrigger( "Axis team has destroyed the Allied MG nest!", Map.Allied_MG_Destroyed );
+	OnTrigger( "Axis forces has broken into the Allied bunker!", Map.Allied_Wall_Destroyed );
+	OnTrigger( "Axis forces has broken into the Allied bunker!", Map.Allied_Wall_New_Destroyed );
+	OnTrigger( "Axis forces has breached the backdoor wall!", Map.Allied_bunker_backdoor_Destroyed );
+	OnTrigger( "Allied forces has breached through the basement walkway!", Map.Axis_Basement_Access_Destroyed );
+	OnTrigger( "Allied forces has breached the backdoor wall", Map.Axis_Bunker_Backdoor_Destroyed );
+	OnTrigger( "Allied team has destroyed the Axis MG nest!", Map.Axis_MG_Destroyed );
+	OnTrigger( "Allied forces has broken into the Axis bunker!", Map.Axis_Wall_Destroyed );
+	OnTrigger( "Allied forces has broken into the Axis bunker!", Map.Axis_Wall_New_Destroyed );
+	OnTrigger( "MISSING_STRING", Map.Command_Post_Destroyed );
+	OnTrigger( "MISSING_STRING", Map.allies_gold_crate_Taken );
+	OnTrigger( "MISSING_STRING", Map.axis_gold_crate_Taken );
+	OnTrigger( "MISSING_STRING", Map.allies_gold_crate_Returned );
+	OnTrigger( "MISSING_STRING", Map.axis_gold_crate_Returned );
+	OnTrigger( "MISSING_STRING", Map.allies_gold_crate_Secured );
+	OnTrigger( "MISSING_STRING", Map.axis_gold_crate_Secured );
+	
+	SetAvailableMapGoals( TEAM.AXIS, false, "MOUNTMG42_273" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "REPAIRMG42_273" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "MOUNTMG42_273" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "REPAIRMG42_273" );
+
+	//~Util.DisableGoal( ".*", true ); // all but routes
+	//~SetAvailableMapGoals( TEAM.AXIS, true, "ATTACK_.*" );
+	//~SetAvailableMapGoals( TEAM.ALLIES, true, "ATTACK_.*" );
+
+	// Max users per goal
+	//Util.SetMaxUsers( 1, "DEFEND_.*" );
+	//Util.SetMaxUsers( 1, "GRENADE_.*" );
+	//Util.SetMaxUsers( 1, "MOUNTMG42_.*" );
+
+	// Camp times
+	SetMapGoalProperties( "MOUNTMG42_.*", {MinCampTime=15, MaxCampTime=90} );
+	SetMapGoalProperties( "MOBILEMG42_.*", {MinCampTime=10, MaxCampTime=60} );
+
+
+	Util.MapDebugPrint( "Omni-bot map script for " + GetMapName() + " executed." );
+};
+
+global OnBotJoin = function( bot )
+{
+	bot.TargetBreakableDist = 90.0;
+	// Only set MaxViewDistance on maps with limited sight (e.g. fog)
+	//~bot.MaxViewDistance = 2400;
+};
+
+global InitializeRoutes = function()
+{
+	MapRoutes =
+	{
+		BUILD_Allied_MG =
+		{
+		},
+		BUILD_Command_Post =
+		{
+		},
+		BUILD_Axis_MG =
+		{
+		},
+		PLANT_Axis_MG =
+		{
+		},
+		PLANT_Allied_MG =
+		{
+		},
+		PLANT_Axis_Bunker_Backdoor =
+		{
+		},
+		PLANT_Command_Post =
+		{
+		},
+		PLANT_Axis_Wall =
+		{
+		},
+		PLANT_Axis_Basement_Access =
+		{
+		},
+		PLANT_Allied_bunker_backdoor =
+		{
+		},
+		PLANT_Allied_Basement_Access =
+		{
+		},
+		PLANT_Allied_Wall =
+		{
+		},
+		FLAG_axis_gold_crate =
+		{
+		},
+		FLAG_allies_gold_crate =
+		{
+		},
+	};
+	Util.Routes(MapRoutes);
+};

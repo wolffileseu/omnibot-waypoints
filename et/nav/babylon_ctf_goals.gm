@@ -1,0 +1,59 @@
+global _MG = 
+{
+	AMMOCAB_garage_ammo_cabinet1 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "AMMOCAB",
+		Position = Vec3(1120.000, -486.000, -10.000),
+		Range = 1250,
+		TeamAvailability = 6,
+	},
+	AMMOCAB_garage_ammo_cabinet3 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "AMMOCAB",
+		Position = Vec3(-1126.000, 944.000, -26.000),
+		Range = 1250,
+		TeamAvailability = 6,
+	},
+	BUILD_Command_Post = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "BUILD",
+		Position = Vec3(766.000, 1104.000, 116.000),
+		TagName = "Command Post",
+		TeamAvailability = 6,
+	},
+	CHECKPOINT_win = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "CHECKPOINT",
+		Position = Vec3(160.000, 160.000, 86.000),
+	},
+	HEALTHCAB_garage_health_cabinet1 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "HEALTHCAB",
+		Position = Vec3(1184.000, -486.000, -10.000),
+		Range = 1250,
+		TeamAvailability = 6,
+	},
+	HEALTHCAB_garage_health_cabinet3 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "HEALTHCAB",
+		Position = Vec3(-1126.000, 880.000, -26.000),
+		Range = 1250,
+		TeamAvailability = 6,
+	},
+	PLANT_Command_Post = 
+	{
+		CreateOnLoad = 0,
+		ExplosiveType = 3,
+		GoalType = "PLANT",
+		Position = Vec3(763.000, 1133.500, 116.000),
+		TagName = "Command Post",
+		TeamAvailability = 6,
+	},
+	Version = 1,
+};

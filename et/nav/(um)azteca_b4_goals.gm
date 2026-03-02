@@ -1,0 +1,539 @@
+global _MG = 
+{
+	AMMOCAB_105 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "AMMOCAB",
+		Name = "AMMOCAB_105",
+		Position = Vec3(4776.000, 616.000, 464.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+		Version = 1,
+	},
+	AMMOCAB_120 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "AMMOCAB",
+		Name = "AMMOCAB_120",
+		Position = Vec3(2368.000, 3840.000, 144.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+		Version = 1,
+	},
+	AMMOCAB_122 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "AMMOCAB",
+		Name = "AMMOCAB_122",
+		Position = Vec3(-3984.000, -824.000, 96.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+		Version = 1,
+	},
+	AMMOCAB_125 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "AMMOCAB",
+		Name = "AMMOCAB_125",
+		Position = Vec3(-528.000, 1320.000, -224.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+		Version = 1,
+	},
+	AMMOCAB_127 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "AMMOCAB",
+		Name = "AMMOCAB_127",
+		Position = Vec3(32.000, -3528.000, -224.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+		Version = 1,
+	},
+	AMMOCAB_130 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "AMMOCAB",
+		Name = "AMMOCAB_130",
+		Position = Vec3(3072.000, -2240.000, -224.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+		Version = 1,
+	},
+	AMMOCAB_131 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "AMMOCAB",
+		Name = "AMMOCAB_131",
+		Position = Vec3(3072.000, -2240.000, -224.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+		Version = 1,
+	},
+	AMMOCAB_132 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "AMMOCAB",
+		Name = "AMMOCAB_132",
+		Position = Vec3(4776.000, 616.000, 464.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+		Version = 1,
+	},
+	AMMOCAB_135 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "AMMOCAB",
+		Name = "AMMOCAB_135",
+		Position = Vec3(-4776.000, 552.000, 464.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+		Version = 1,
+	},
+	AMMOCAB_138 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "AMMOCAB",
+		Name = "AMMOCAB_138",
+		Position = Vec3(-32.000, 3592.000, 1536.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+		Version = 1,
+	},
+	AMMOCAB_144 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "AMMOCAB",
+		Name = "AMMOCAB_144",
+		Position = Vec3(32.000, -3528.000, -224.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+		Version = 1,
+	},
+	AMMOCAB_269 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "AMMOCAB",
+		Position = Vec3(2368.000, 3840.000, 144.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+	},
+	AMMOCAB_316 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "AMMOCAB",
+		Name = "AMMOCAB_316",
+		Position = Vec3(-528.000, 1320.000, -224.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+		Version = 1,
+	},
+	AMMOCAB_47 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "AMMOCAB",
+		Position = Vec3(-4776.000, 552.000, 464.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+	},
+	AMMOCAB_470 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "AMMOCAB",
+		Name = "AMMOCAB_470",
+		Position = Vec3(-3984.000, -824.000, 96.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+		Version = 1,
+	},
+	AMMOCAB_499 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "AMMOCAB",
+		Position = Vec3(-32.000, 3592.000, 1536.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+	},
+	AMMOCAB_634 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "AMMOCAB",
+		Position = Vec3(3072.000, -2240.000, -224.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+	},
+	AMMOCAB_654 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "AMMOCAB",
+		Position = Vec3(32.000, -3528.000, -224.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+	},
+	AMMOCAB_670 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "AMMOCAB",
+		Position = Vec3(-528.000, 1320.000, -224.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+	},
+	AMMOCAB_700 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "AMMOCAB",
+		Position = Vec3(-3984.000, -824.000, 96.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+	},
+	AMMOCAB_735 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "AMMOCAB",
+		Position = Vec3(4776.000, 616.000, 464.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+	},
+	CAPPOINT_AztecA = 
+	{
+		GoalType = "CapPoint",
+		MinRadius = 32,
+		Position = Vec3(5087.802, -1650.126, -254.875),
+		TagName = "Aztec",
+	},
+	CAPPOINT_Duality = 
+	{
+		GoalType = "CapPoint",
+		MinRadius = 32,
+		Position = Vec3(-4471.884, 3451.579, -254.875),
+	},
+	CAPPOINT_Inca = 
+	{
+		GoalType = "CapPoint",
+		MinRadius = 32,
+		Position = Vec3(3495.296, 3955.800, 113.221),
+	},
+	CAPPOINT_Maya = 
+	{
+		GoalType = "CapPoint",
+		MinRadius = 32,
+		Position = Vec3(4699.989, 3258.595, -254.875),
+	},
+	CAPPOINT_Serenity = 
+	{
+		GoalType = "CapPoint",
+		MinRadius = 32,
+		Position = Vec3(-3857.706, -2221.874, -254.875),
+	},
+	CAPPOINT_Skull = 
+	{
+		GoalType = "CapPoint",
+		MinRadius = 32,
+		Position = Vec3(3870.578, -3661.874, -254.875),
+	},
+	CAPPOINT_Stool = 
+	{
+		GoalType = "CapPoint",
+		MinRadius = 32,
+		Position = Vec3(-1503.125, 2229.875, -254.863),
+	},
+	CAPPOINT_T_Inca = 
+	{
+		GoalType = "CapPoint",
+		MinRadius = 32,
+		Position = Vec3(-5104.625, -2398.594, 257.125),
+	},
+	FLAG_azteca_key = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "Flag",
+		Position = Vec3(-3744.000, -3168.000, -234.875),
+		TeamAvailability = 2,
+	},
+	FLAG_duality_key = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "Flag",
+		Position = Vec3(4976.000, -616.000, -234.875),
+		TeamAvailability = 2,
+	},
+	FLAG_inca_key = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "Flag",
+		Position = Vec3(1848.000, -832.000, -234.875),
+		TeamAvailability = 2,
+	},
+	FLAG_maya_key = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "Flag",
+		Position = Vec3(-1128.000, 600.000, 453.125),
+		TeamAvailability = 4,
+	},
+	FLAG_serenity_key = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "Flag",
+		Position = Vec3(0.000, -1384.000, 629.125),
+		TeamAvailability = 2,
+	},
+	FLAG_skull_key = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "Flag",
+		Position = Vec3(-1400.000, 3272.000, -234.875),
+		TeamAvailability = 4,
+	},
+	FLAG_stool_key = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "Flag",
+		Position = Vec3(5648.000, 3368.000, -234.875),
+		TeamAvailability = 4,
+	},
+	FLAG_t_inca_key = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "Flag",
+		Position = Vec3(1848.000, -704.000, -234.875),
+		TeamAvailability = 4,
+	},
+	HEALTHCAB_105 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "HEALTHCAB",
+		Name = "HEALTHCAB_105",
+		Position = Vec3(4776.000, 552.000, 464.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+		Version = 1,
+	},
+	HEALTHCAB_121 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "HEALTHCAB",
+		Name = "HEALTHCAB_121",
+		Position = Vec3(2432.000, 3840.000, 144.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+		Version = 1,
+	},
+	HEALTHCAB_124 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "HEALTHCAB",
+		Name = "HEALTHCAB_124",
+		Position = Vec3(-3920.000, -824.000, 96.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+		Version = 1,
+	},
+	HEALTHCAB_126 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "HEALTHCAB",
+		Name = "HEALTHCAB_126",
+		Position = Vec3(-528.000, 1384.000, -224.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+		Version = 1,
+	},
+	HEALTHCAB_129 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "HEALTHCAB",
+		Name = "HEALTHCAB_129",
+		Position = Vec3(-32.000, -3528.000, -224.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+		Version = 1,
+	},
+	HEALTHCAB_131 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "HEALTHCAB",
+		Name = "HEALTHCAB_131",
+		Position = Vec3(3008.000, -2240.000, -224.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+		Version = 1,
+	},
+	HEALTHCAB_134 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "HEALTHCAB",
+		Name = "HEALTHCAB_134",
+		Position = Vec3(4776.000, 552.000, 464.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+		Version = 1,
+	},
+	HEALTHCAB_137 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "HEALTHCAB",
+		Name = "HEALTHCAB_137",
+		Position = Vec3(-4776.000, 616.000, 464.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+		Version = 1,
+	},
+	HEALTHCAB_140 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "HEALTHCAB",
+		Name = "HEALTHCAB_140",
+		Position = Vec3(32.000, 3592.000, 1536.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+		Version = 1,
+	},
+	HEALTHCAB_144 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "HEALTHCAB",
+		Name = "HEALTHCAB_144",
+		Position = Vec3(-32.000, -3528.000, -224.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+		Version = 1,
+	},
+	HEALTHCAB_23 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "HEALTHCAB",
+		Name = "HEALTHCAB_23",
+		Position = Vec3(-3920.000, -824.000, 96.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+		Version = 1,
+	},
+	HEALTHCAB_269 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "HEALTHCAB",
+		Position = Vec3(2432.000, 3840.000, 144.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+	},
+	HEALTHCAB_316 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "HEALTHCAB",
+		Name = "HEALTHCAB_316",
+		Position = Vec3(-528.000, 1384.000, -224.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+		Version = 1,
+	},
+	HEALTHCAB_47 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "HEALTHCAB",
+		Position = Vec3(-4776.000, 616.000, 464.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+	},
+	HEALTHCAB_499 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "HEALTHCAB",
+		Name = "HEALTHCAB_499",
+		Position = Vec3(32.000, 3592.000, 1536.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+		Version = 1,
+	},
+	HEALTHCAB_633 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "HEALTHCAB",
+		Position = Vec3(3008.000, -2240.000, -224.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+	},
+	HEALTHCAB_655 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "HEALTHCAB",
+		Position = Vec3(-32.000, -3528.000, -224.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+	},
+	HEALTHCAB_669 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "HEALTHCAB",
+		Position = Vec3(-528.000, 1384.000, -224.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+	},
+	HEALTHCAB_678 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "HEALTHCAB",
+		Position = Vec3(32.000, 3592.000, 1536.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+	},
+	HEALTHCAB_701 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "HEALTHCAB",
+		Position = Vec3(-3920.000, -824.000, 96.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+	},
+	HEALTHCAB_735 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "HEALTHCAB",
+		Position = Vec3(4776.000, 552.000, 464.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+	},
+	Version = 1,
+};
