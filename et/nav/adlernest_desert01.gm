@@ -1,0 +1,225 @@
+//==========================================================================================
+//
+//	adlernest_desert01.gm
+//
+//	Who          	When		What
+//------------------------------------------------------------------------------------------
+//	^8'^0StoerFaktoR	09 February 2011	Initial Script
+//
+//==========================================================================================
+//
+
+global Map =
+{
+	Debug = 1,
+	ShowMovers = false,
+
+	Allied_CP_Dyno = 0,
+	Bridge_Dyno = 0,
+	Door_controls_Dyno = 0,
+	wall_Dyno = 0,
+
+	Allied_CP_Built = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "Allied_CP_Built" );
+	},
+
+	Bridge_Built = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "Bridge_Built" );
+	},
+
+	Allied_CP_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Allied_CP_Dyno += 1;
+		Util.MapDebugPrint( "Allied_CP_Planted" );
+	},
+
+	Bridge_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Bridge_Dyno += 1;
+		Util.MapDebugPrint( "Bridge_Planted" );
+	},
+
+	Door_controls_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Door_controls_Dyno += 1;
+		Util.MapDebugPrint( "Door_controls_Planted" );
+	},
+
+	wall_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.wall_Dyno += 1;
+		Util.MapDebugPrint( "wall_Planted" );
+	},
+
+	Allied_CP_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Allied_CP_Dyno -= 1;
+		Util.MapDebugPrint( "Allied_CP_Defused" );
+	},
+
+	Bridge_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Bridge_Dyno -= 1;
+		Util.MapDebugPrint( "Bridge_Defused" );
+	},
+
+	Door_controls_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Door_controls_Dyno -= 1;
+		Util.MapDebugPrint( "Door_controls_Defused" );
+	},
+
+	wall_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.wall_Dyno -= 1;
+		Util.MapDebugPrint( "wall_Defused" );
+	},
+
+	Allied_CP_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "Allied_CP_Destroyed" );
+	},
+
+	Bridge_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "Bridge_Destroyed" );
+	},
+
+	Door_controls_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Door_controls_Dyno = 0;
+
+		Util.MapDebugPrint( "Door_controls_Destroyed" );
+	},
+
+	wall_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "wall_Destroyed" );
+	},
+
+	documents_Taken = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "documents_Taken" );
+	},
+
+	documents_Returned = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "documents_Returned" );
+	},
+
+	documents_Secured = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "documents_Secured" );
+	},
+
+};
+
+global OnMapLoad = function()
+{
+	if ( TestMapOn )
+		{ Util.AutoTestMap(); }
+
+	// Register callback functions
+	OnTrigger( "MISSING_STRING", Map.Allied_CP_Built );
+	OnTrigger( "MISSING_STRING", Map.Bridge_Built );
+	OnTrigger( "Planted at the MISSING_STRING.", Map.Allied_CP_Planted );
+	OnTrigger( "Planted at the MISSING_STRING.", Map.Bridge_Planted );
+	OnTrigger( "Planted at the MISSING_STRING.", Map.Door_controls_Planted );
+	OnTrigger( "Planted at the MISSING_STRING.", Map.wall_Planted );
+	OnTrigger( "Defused at the MISSING_STRING.", Map.Allied_CP_Defused );
+	OnTrigger( "Defused at the MISSING_STRING.", Map.Bridge_Defused );
+	OnTrigger( "Defused at the MISSING_STRING.", Map.Door_controls_Defused );
+	OnTrigger( "Defused at the MISSING_STRING.", Map.wall_Defused );
+	OnTrigger( "MISSING_STRING", Map.Allied_CP_Destroyed );
+	OnTrigger( "MISSING_STRING", Map.Bridge_Destroyed );
+	OnTrigger( "MISSING_STRING", Map.Door_controls_Destroyed );
+	OnTrigger( "MISSING_STRING", Map.wall_Destroyed );
+	OnTrigger( "MISSING_STRING", Map.documents_Taken );
+	OnTrigger( "MISSING_STRING", Map.documents_Returned );
+	OnTrigger( "MISSING_STRING", Map.documents_Secured );
+
+	//~Util.DisableGoal( ".*", true ); // all but routes
+	//~SetAvailableMapGoals( TEAM.AXIS, true, "ATTACK_.*" );
+	//~SetAvailableMapGoals( TEAM.ALLIES, true, "ATTACK_.*" );
+
+	// Max users per goal
+	Util.SetMaxUsers( 1, "ATTACK_.*" );
+	Util.SetMaxUsers( 1, "DEFEND_.*" );
+	Util.SetMaxUsers( 1, "GRENADE_.*" );
+	Util.SetMaxUsers( 1, "SNIPE_.*" );
+	Util.SetMaxUsers( 1, "MOUNTMG42_.*" );
+	Util.SetMaxUsers( 1, "MOBILEMG42_.*" );
+	Util.SetMaxUsers( 1, "MOBILEMORTAR_.*" );
+	Util.SetMaxUsers( 1, "AIRSTRIKE_.*" );
+	Util.SetMaxUsers( 1, "CALLARTILLERY_.*" );
+
+	// Camp times
+	SetMapGoalProperties( "MOUNTMG42_.*", {MinCampTime=15, MaxCampTime=90} );
+	SetMapGoalProperties( "MOBILEMG42_.*", {MinCampTime=10, MaxCampTime=60} );
+
+	if ( Map.Debug > 1 )
+		{ Util.ShowActiveGoals(); }
+
+	print( "Omni-bot map script for " + GetMapName() + " executed." );
+};
+
+global OnBotJoin = function( bot )
+{
+	// Uncomment for shootable breakables
+	//~bot.TargetBreakableDist = 90.0;
+	// Only set MaxViewDistance on maps with limited sight (e.g. fog)
+	//~bot.MaxViewDistance = 2400;
+};

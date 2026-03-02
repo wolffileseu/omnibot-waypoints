@@ -1,0 +1,1494 @@
+global MAX_SECONDSPAWN_BOTS = 3; //number of bots to spawn at checkpoint closest to bridge limit 6
+global CURRENT_SECONDSPAWN_BOTS = 0; //current number of bots spawning at above
+
+global Map =
+	{////Bot Enable / Disable section////////
+	/////Change these to { false, } to disable or { true,} to enable, 
+	//***NO CAPS!=lowercase with the comma no brackets***//
+	EnableElevator1 = true, //elevator close to church 
+	EnableElevator2 = true, //palace elevator 
+	EnableRightTram = true, //right tram, looking down from top & behind trams
+	EnableLeftTram = true, //Left tram, looking down from top & behind trams
+	EnableGarage1 = true, //garage by first elevator
+	EnableGarage2 = false, //garage between the first elevator and ammo/healt cabs
+	EnableGarage3 = true, //garage by second elevator
+	EnablePtBoat = true, //Bot boat riding
+	///================group section==================///
+	EnableAllElevators = true, //setting this to false will disable both elevators!
+	EnableAllTrams = true, //setting this to false will disable both trams!
+	EnableAllGarages = true, //setting this to false will disable all the garage doors!
+	EnableLadders = true, //all ladders, bots will still try to use but not with the scrips here
+	EnableSwitches = true, //setting this to false will disable both elevators, both trams, and the garage doors!
+	/////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////start code///////////////
+
+///VARS
+	//elevators
+	elevator_position = 2,//at bottom
+	elevator_activator = 2, // value will match when not in use, reducing cpu hit
+	elevator_2_position = 2,//at bottom
+	elevator_2_activator = 2, // value will match when not in use, reducing cpu hitactivator = 2, // value will match when not in use, reducing cpu hit
+	elevator_team = 0,//no team 1 = axis, 2 = allies
+	elevator_2_team = 0,//no team 1 = axis, 2 = allies
+	//garages
+	garage_1_position = 1,//1 = closed, 2 = open
+	garage_2_position = 1,//1 = closed, 2 = open
+	garage_3_position = 1,//1 = closed, 2 = open
+	gates_destroyed = 0, //objective handeling 
+	defences_built = 0, //objective handeling 0-not built 1-built
+	flag_team = 0,//flag tracker 0-axis 1-allies
+//tables
+	Vehicle =
+	{
+		patrol_boat =
+        {
+             LimitTeam = (1<<TEAM.AXIS),
+             LimitClass = (1<<CLASS.SOLDIER),
+             GoalName = "MAP_VEHICLE_tank",
+             SeatRadius = 90,
+             RidePosition =
+             {
+                  Vector3(88,-36,36),
+                  Vector3(88,36,36),
+				  Vector3(88,0,-56),
+             },
+             BoardPosition =
+             {
+                  Vector3(-204,0,-56),
+                  Vector3(-96,92,-56),
+				  Vector3(-96,-92,-56),
+             },
+ 
+             Riders = table(),
+        },
+    },
+	
+bp_Switches = //script table for switches
+	{	
+		garage_1 =
+		{
+			WaypointName = "garage_1",
+			LimitTeam = 0,
+			LimitClass = (1<<CLASS.SOLDIER) | 
+						(1<<CLASS.FIELDOPS) |
+						(1<<CLASS.MEDIC),
+			LimitDistance = 500,
+		},
+		garage_2 =
+		{
+			WaypointName = "garage_2",
+			LimitTeam = 0,
+			LimitClass = (1<<CLASS.SOLDIER) | 
+						(1<<CLASS.FIELDOPS) |
+						(1<<CLASS.MEDIC),
+			LimitDistance = 500,
+		},
+		garage_3 =
+		{
+			WaypointName = "garage_3",
+			LimitTeam = 0,
+			LimitClass = (1<<CLASS.SOLDIER) | 
+						(1<<CLASS.FIELDOPS) |
+						(1<<CLASS.MEDIC),
+			LimitDistance = 500,
+		},
+		palace_flag =
+		{
+			WaypointName = "palace_flag",
+			LimitTeam = 0,
+			LimitDistance = 900,
+		},
+		elevator_switch_top =
+		{
+			WaypointName = "elevator_switch_top",
+			LimitTeam = 0,
+			LimitDistance = 900,
+		},
+		elevator_switch_bottom =
+		{
+			WaypointName = "elevator_switch_bottom",
+			LimitTeam = 0,
+			LimitDistance = 900,
+		},
+		elevator_top =
+		{
+			WaypointName = "elevator_top",
+			LimitTeam = 0,
+			LimitDistance = 900,
+			UseDelay = 3,
+		},
+		elevator_bottom =
+		{
+			WaypointName = "elevator_bottom",
+			LimitTeam = 0,
+			LimitDistance = 900,
+			UseDelay = 3,
+		},
+		///elevator 2
+		elevator_2_switch_top =
+		{
+			WaypointName = "elevator_2_switch_top",
+			LimitTeam = 0,
+			LimitDistance = 700,
+		},
+		elevator_2_switch_bottom =
+		{
+			WaypointName = "elevator_2_switch_bottom",
+			LimitTeam = 0,
+			LimitDistance = 900,
+		},
+		elevator_2_top =
+		{
+			WaypointName = "elevator_2_top",
+			LimitTeam = 0,
+			LimitDistance = 700,
+			UseDelay = 3,
+		},
+		elevator_2_bottom =
+		{
+			WaypointName = "elevator_2_bottom",
+			LimitTeam = 0,
+			LimitDistance = 900,
+			UseDelay = 3,
+		},
+		tram_r_top =
+		{
+			WaypointName = "tram_r_top",
+			LimitTeam = 0,
+			LimitDistance = 100,
+		},
+		tram_r_switch_top =
+		{
+			WaypointName = "tram_r_switch_top",
+			LimitTeam = 0,
+			LimitDistance = 100,
+		},
+		tram_r_bottom =
+		{
+			WaypointName = "tram_r_bottom",
+			LimitTeam = 0,
+			LimitDistance = 200,
+			UseDelay = 3,
+		},
+		tram_r_switch_bottom =
+		{
+			WaypointName = "tram_r_switch_bottom",
+			LimitTeam = 0,
+			LimitDistance = 100,
+			UseDelay = 3,
+		},
+		tram_l_top =
+		{
+			WaypointName = "tram_l_top",
+			LimitTeam = 0,
+			LimitDistance = 200,
+			UseDelay = 3,
+		},
+		tram_l_switch_top =
+		{
+			WaypointName = "tram_l_switch_top",
+			LimitTeam = 0,
+			LimitDistance = 100,
+		},
+		tram_l_bottom =
+		{
+			WaypointName = "tram_l_bottom",
+			LimitTeam = 0,
+			LimitDistance = 200,
+			UseDelay = 3,
+		},
+		tram_l_switch_bottom =
+		{
+			WaypointName = "tram_l_switch_bottom",
+			LimitTeam = 0,
+			LimitDistance = 100,
+		},	
+	},
+	
+bp_Ladders =  //script table for ladders
+	{
+		Ladder_1 = //bottom sewer near elevator 1
+		{
+		TopWaypointName  = "ladder_top_1",
+		BottomWaypointName  = "ladder_bottom_1",
+		},
+		Ladder_2 = //top sewer near elevator 1
+		{
+		TopWaypointName  = "ladder_top_2",
+		BottomWaypointName  = "ladder_bottom_2",
+		},
+		Ladder_5 = //top sewer near elevator 2
+		 {
+		TopWaypointName  = "ladder_top_5",
+		BottomWaypointName  = "ladder_bottom_5",
+		},
+		Ladder_6 = //bottom sewer near elevator 2
+		{
+		TopWaypointName  = "ladder_top_6",
+		BottomWaypointName  = "ladder_bottom_6",
+		},
+		/*Ladder_7 = //tunnel sewer entrance
+		{
+		TopWaypointName  = "ladder_top_7",
+		BottomWaypointName  = "ladder_bottom_7",
+		},	*/	
+		Ladder_8 = //chirch tower
+		{
+		TopWaypointName  = "ladder_top_8",
+		BottomWaypointName  = "ladder_bottom_8",
+		},
+		Ladder_10 = //bridge ladders
+		{
+		TopWaypointName  = "ladder_top_10",
+		BottomWaypointName  = "ladder_bottom_10",
+		},
+		/*Ladder_11 = 
+		{
+		TopWaypointName  = "ladder_top_11",
+		BottomWaypointName  = "ladder_bottom_11",
+		},*/
+		Ladder_12 =
+		{
+		TopWaypointName  = "ladder_top_12",
+		BottomWaypointName  = "ladder_bottom_12",
+		},
+		/*Ladder_13 = //chirch tower
+		{
+		TopWaypointName  = "ladder_top_13",
+		BottomWaypointName  = "ladder_bottom_13",
+		},*/
+	},	
+	//trigger functions	
+	//elevator 1 control
+	Axis_Own_Elevator = function( trigger )
+	{	
+		signal("elevator_1_built");//signal to unblock
+		Map.elevator_team = 1;
+		//print("Axis_Own_Elevator"); //debug
+	},
+	Allies_Own_Elevator = function( trigger )
+	{
+		signal("elevator_1_built");//signal to unblock
+		Map.elevator_team = 2;//no team 1 = axis, 2 = allies
+		//print("Allies_Own_Elevator"); //debug
+		
+    },
+	Nither_Own_Elevator = function( trigger )
+	{	
+		Map.elevator_team = 0;
+		signal("elevator_1_activated"); //unblock
+		//print("Neither_Own_Elevator"); //debug
+    },
+	//elevator used
+	Elevator_Activated = function( trigger )
+	{
+		signal("elevator_1_activated");
+		//print("Elevator_1_Activated"); //debug
+	},	
+	//elevator 2 control
+	Axis_Own_Elevator_2 = function( trigger )
+	{
+		signal("elevator_2_built");//signal to unblock
+		Map.elevator_2_team = 1;
+		//print("Axis_Own_Elevator_2"); //debug
+	},
+	Allies_Own_Elevator_2 = function( trigger )
+	{
+		signal("elevator_2_built");//signal to unblock
+		Map.elevator_2_team = 2;//no team 1 = axis, 2 = allies
+		//print("Allies_Own_Elevator_2"); //debug
+    },
+	Nither_Own_Elevator_2 = function( trigger )
+	{
+		signal("elevator_2_activated"); //unblock
+		Map.elevator_2_team = 0;
+		//print("Neither_Own_Elevator_2"); //debug
+    },
+	//elevator 2 used
+	Elevator_2_Activated = function( trigger )
+	{
+		signal("elevator_2_activated");
+		//print("Elevator_2_Activated"); //debug
+	},
+	//Trams
+	Right_Tram_Activated = function( trigger )
+	{
+			signal("Activate_Right_Tram");//signal to unblock
+			//print("Right_Tram_Activated"); //debug
+	},
+	Left_Tram_Activated = function( trigger )
+	{
+			signal("Activate_Left_Tram");//signal to unblock
+			//print("Left_Tram_Activated"); //debug
+	},
+	//garage doors
+	Trigger_garage_1 = function( trigger )
+	{
+		if (Map.EnableSwitches && Map.EnableAllGarages && Map.EnableGarage1)		
+		{
+			Map.bp_Switches.garage_1.LimitTeam = 0;
+			closed = TestTraceFunc("garage_1_block_0", "garage_1_block_1", 2.5);
+			sleep(3);
+			if(!closed)//door is open after moving
+			{	
+				Map.bp_Switches.garage_1.LimitTeam = (1<<TEAM.ALLIES);
+				Map.garage_1_position = 2;	
+			}
+			else if (closed)//door is closed after moving
+			{
+				Map.bp_Switches.garage_1.LimitTeam = (1<<TEAM.AXIS);
+				Map.garage_1_position = 1;
+			}
+		}
+	//print("Trigger_garage_1");
+	},
+	Trigger_garage_2 = function( trigger )
+	{
+		if (Map.EnableSwitches && Map.EnableAllGarages && Map.EnableGarage2)
+		{
+			Map.bp_Switches.garage_2.LimitTeam = 0;
+			closed = TestTraceFunc("garage_2_block_0", "garage_2_block_1", 2.5);
+			sleep(3);
+			if(!closed)//door is open after moving
+			{
+				Map.bp_Switches.garage_2.LimitTeam = (1<<TEAM.ALLIES);
+				Map.garage_2_position = 2;
+			}
+			else if (closed)//door closed after moving
+			{
+				Map.bp_Switches.garage_2.LimitTeam = (1<<TEAM.AXIS);
+				Map.garage_2_position = 1;
+			}
+		}
+		//print("Trigger_garage_2");
+	},
+	Trigger_garage_3 = function( trigger )
+	{
+		if (Map.EnableSwitches && Map.EnableAllGarages && Map.EnableGarage3)
+		{
+			Map.bp_Switches.garage_3.LimitTeam = 0;
+			closed = TestTraceFunc("garage_3_block_0", "garage_3_block_1", 2.5);
+			sleep(3);
+			if(!closed)//door is open after moving
+			{
+				Map.bp_Switches.garage_3.LimitTeam = (1<<TEAM.AXIS);
+				Map.garage_3_position = 2;
+			}
+			else if (closed)//door is closed after moving
+			{
+				Map.bp_Switches.garage_3.LimitTeam = (1<<TEAM.ALLIES);
+				Map.garage_3_position = 1;
+			}
+		}
+		//print("Trigger_garage_3");
+	},
+	///sewer gates
+	East_Gate_Destroyed = function( trigger )
+	{
+		Wp.SetWaypointFlag("east_gate_block_0", "closed", true);
+		Wp.SetWaypointFlag("east_gate_block_1", "closed", true);
+		Map.gates_destroyed = Map.gates_destroyed + 1;
+		if ((Map.gates_destroyed > 1) || (Map.defences_built == 0))
+		{
+			SetAvailableMapGoals( TEAM.ALLIES, true, "MAP_DYNAMITE_TARGET_bridge.*");
+		}
+		else
+		{
+			SetAvailableMapGoals( TEAM.ALLIES, false, "MAP_DYNAMITE_TARGET_bridge.*");
+		}
+		//print("East_Gate_Destroyed");
+	},
+		
+	West_Gate_Destroyed = function( trigger )
+	{
+		Wp.SetWaypointFlag("west_gate_block_0", "closed", true);
+		Wp.SetWaypointFlag("west_gate_block_1", "closed", true);
+		Map.gates_destroyed = Map.gates_destroyed + 1;
+		if ((Map.gates_destroyed > 1) || (Map.defences_built == 0))
+		{
+			SetAvailableMapGoals( TEAM.ALLIES, true, "MAP_DYNAMITE_TARGET_bridge.*");
+		}
+		else
+		{
+			SetAvailableMapGoals( TEAM.ALLIES, false, "MAP_DYNAMITE_TARGET_bridge.*");
+		}
+		//print("West_Gate_Destroyed");
+	},
+		
+	South_Gate_Destroyed = function( trigger )
+	{
+		Wp.SetWaypointFlag("south_gate_block_0", "closed", true);
+		Wp.SetWaypointFlag("south_gate_block_1", "closed", true);
+		Map.gates_destroyed = Map.gates_destroyed + 1;
+		if ((Map.gates_destroyed > 1) || (Map.defences_built == 0))
+		{
+			SetAvailableMapGoals( TEAM.ALLIES, true, "MAP_DYNAMITE_TARGET_bridge.*");
+		}
+		else
+		{
+			SetAvailableMapGoals( TEAM.ALLIES, false, "MAP_DYNAMITE_TARGET_bridge.*");
+		}
+		//print("South_Gate_Destroyed");
+	},
+	//Bridge defences
+	Bridge_Defences_Built = function( trigger )
+	{
+		Wp.SetWaypointFlag("bridge_defences_door_0", "team1", true);
+		Wp.SetWaypointFlag("bridge_defences_door_1", "team1", true);
+		Map.defences_built = 1;
+		if (Map.gates_destroyed < 2)
+		{
+		SetAvailableMapGoals( TEAM.ALLIES, false, "MAP_DYNAMITE_TARGET_bridge.*");
+		}
+		//print("Bridge_Defences_Built");
+	},
+	Bridge_Defences_Destroyed = function( trigger )
+	{
+		Wp.SetWaypointFlag("bridge_defences_door_0", "team1", false);
+		Wp.SetWaypointFlag("bridge_defences_door_1", "team1", false);
+		Map.defences_built = 0;
+		SetAvailableMapGoals( TEAM.ALLIES, true, "MAP_DYNAMITE_TARGET_bridge.*");
+		//print("Bridge_Defences_Destroyed");
+	},
+	///bridge objective
+	East_Bridge_Destroyed = function( trigger )
+	{
+	Wp.SetWaypointFlag("bridge_east_jump_0", "jumplow", true);
+	Wp.SetWaypointFlag("bridge_east_jump_1", "jumplow", true);
+	Wp.SetWaypointFlag("bridge_east_jump_2", "jumplow", true);
+	Wp.SetWaypointFlag("bridge_east_jump_3", "jumplow", true);
+	Wp.SetWaypointFlag("bridge_east_jump_4", "jumplow", true);
+	Wp.SetWaypointFlag("bridge_east_blocker_0", "closed", true);
+	Wp.SetWaypointFlag("bridge_east_blocker_1", "closed", true);
+	},
+	
+	West_Bridge_Destroyed = function( trigger )
+	{
+	Wp.SetWaypointFlag("bridge_west_jump_0", "jumplow", true);
+	Wp.SetWaypointFlag("bridge_west_jump_1", "jumplow", true);
+	Wp.SetWaypointFlag("bridge_west_jump_2", "jumplow", true);
+	Wp.SetWaypointFlag("bridge_west_jump_3", "jumplow", true);
+	Wp.SetWaypointFlag("bridge_west_jump_4", "jumplow", true);
+	Wp.SetWaypointFlag("bridge_west_jump_5", "jumplow", true);
+	Wp.SetWaypointFlag("bridge_west_jump_6", "jumplow", true);
+	Wp.SetWaypointFlag("bridge_west_jump_0", "jumplow", true);
+	Wp.SetWaypointFlag("bridge_west_blocker_0", "closed", true);
+	Wp.SetWaypointFlag("bridge_west_blocker_1", "closed", true);
+	},
+	
+	///forward flag
+	Allies_Capture_Flag = function( trigger )
+    {
+	//Allies Goals
+		///palace flag capture///////////////////////
+	//attack goals
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ATTACK_axis.*");
+	SetAvailableMapGoals( TEAM.ALLIES, true, "ATTACK_allies_bridge.*");
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ATTACK_allies_palace.*");
+	//defend goals
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_axis.*");
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_allies_palace.*");
+	SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_allies_bridge.*");
+	//Engy goals
+	if ((Map.gates_destroyed > 1) || (Map.defences_built == 0))
+	{
+		SetAvailableMapGoals( TEAM.ALLIES, true, "MAP_DYNAMITE_TARGET_bridge.*");
+	}
+	else
+	{
+		SetAvailableMapGoals( TEAM.ALLIES, false, "MAP_DYNAMITE_TARGET_bridge.*");
+	}
+	SetAvailableMapGoals( TEAM.ALLIES, true, "MAP_DYNAMITE_TARGET_gate.*");
+	SetAvailableMapGoals( TEAM.ALLIES, false, "MAP_CONSTRUCTION_generator_allied");
+	SetAvailableMapGoals( TEAM.ALLIES, false, "MAP_DYNAMITE_TARGET_generator_axis");
+	SetAvailableMapGoals( TEAM.ALLIES, true, "MAP_CONSTRUCTION_generator_2_allied");
+	SetAvailableMapGoals( TEAM.ALLIES, true, "MAP_DYNAMITE_TARGET_generator_2_axis");
+	SetAvailableMapGoals( TEAM.ALLIES, true, "MAP_CONSTRUCTION_defences_bridge");
+	//Arty goals
+	SetAvailableMapGoals( TEAM.ALLIES, false, "MAP_ARTY_SPOT_axis.*");
+	//SetAvailableMapGoals( TEAM.ALLIES, false, "MAP_ARTY_TARGET_D_axis.*");
+	SetAvailableMapGoals( TEAM.ALLIES, false, "MAP_ARTY_SPOT_allies_palace.*");
+	SetAvailableMapGoals( TEAM.ALLIES, true, "MAP_ARTY_SPOT_allies_bridge.*");
+	//snipe goals
+	SetAvailableMapGoals( TEAM.ALLIES, false, "MAP_SNIPER_SPOT_axis.*");
+	SetAvailableMapGoals( TEAM.ALLIES, false, "MAP_SNIPER_SPOT_allies_palace.*");
+	SetAvailableMapGoals( TEAM.ALLIES, true, "MAP_SNIPER_SPOT_allies_bridge.*");
+    //general
+	SetAvailableMapGoals( TEAM.ALLIES, true, "MAP_MOUNTABLE_MG42.*");
+	///Axis goals
+	//attack goals
+	SetAvailableMapGoals( TEAM.AXIS, false, "ATTACK_axis_palace.*");
+	SetAvailableMapGoals( TEAM.AXIS, false, "ATTACK_allies.*");
+	SetAvailableMapGoals( TEAM.AXIS, true, "ATTACK_axis_bridge.*");
+	//defend goals
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_axis_palace.*");
+	SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_axis_bridge.*");
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_allies.*");
+	//Engy goals
+	SetAvailableMapGoals( TEAM.ALLIES, false, "MAP_CONSTRUCTION_generator_axis");
+	SetAvailableMapGoals( TEAM.ALLIES, false, "MAP_DYNAMITE_TARGET_generator_aallied");
+	SetAvailableMapGoals( TEAM.ALLIES, true, "MAP_CONSTRUCTION_generator_2_axis");
+	SetAvailableMapGoals( TEAM.ALLIES, true, "MAP_DYNAMITE_TARGET_generator_2_allied");
+	//Arty goals
+	SetAvailableMapGoals( TEAM.AXIS, false, "MAP_ARTY_SPOT_axis_palace.*");
+	SetAvailableMapGoals( TEAM.AXIS, true, "MAP_ARTY_SPOT_axis_bridge.*");
+	SetAvailableMapGoals( TEAM.AXIS, false, "MAP_ARTY_SPOT_allies.*");
+	//snipe goals
+	SetAvailableMapGoals( TEAM.AXIS, false, "MAP_SNIPER_SPOT_axis_palace.*");
+	SetAvailableMapGoals( TEAM.AXIS, true, "MAP_SNIPER_SPOT_axis_bridge.*");
+	SetAvailableMapGoals( TEAM.AXIS, false, "MAP_SNIPER_SPOT_allies.*");
+	//general
+	SetAvailableMapGoals( TEAM.AXIS, true, "MAP_MOUNTABLE_MG42.*");
+	Util.ResetGoals();
+	
+	//capture Waypoints 
+		Wp.SetWaypointFlag("team_capture_0", "team2", true);
+		Wp.SetWaypointFlag("team_capture_0", "team1", false);
+		Wp.SetWaypointFlag("team_capture_1", "team2", true);
+		Wp.SetWaypointFlag("team_capture_1", "team1", false);
+		Wp.SetWaypointFlag("team_capture_2", "team2", true);
+		Wp.SetWaypointFlag("team_capture_2", "team1", false);
+		Wp.SetWaypointFlag("team_capture_3", "team2", true);
+		Wp.SetWaypointFlag("team_capture_3", "team1", false);
+		Wp.SetWaypointFlag("team_capture_4", "team2", true);
+		Wp.SetWaypointFlag("team_capture_4", "team1", false);
+		Wp.SetWaypointFlag("team_capture_5", "team2", true);
+		Wp.SetWaypointFlag("team_capture_5", "team1", false);
+		//conditionals
+		if (Map.EnableSwitches)
+		{
+			if(Map.EnableAllGarages)
+			{
+				if(Map.EnableGarage1)
+				{
+					Map.bp_Switches.garage_1.LimitTeam = 0;//shift focus
+				}
+				if(Map.EnableGarage2)
+				{
+					Map.bp_Switches.garage_2.LimitTeam = 0;//shift focus
+				}
+				if(Map.EnableGarage3)
+				{
+					if (Map.garage_3_position == 1)//door closed
+					{
+						Map.bp_Switches.garage_3.LimitTeam = (1<<TEAM.ALLIES);
+					}
+					else if (Map.garage_3_position == 2)//door open
+					{
+						Map.bp_Switches.garage_3.LimitTeam = (1<<TEAM.AXIS);
+					}
+				}
+			}
+			Map.bp_Switches.palace_flag.LimitTeam = (1<<TEAM.AXIS);
+		}	
+		if(EnablePtBoat)
+		{
+		Map.FocusOnVehicle = 0;
+		}
+	Map.flag_team = 1;
+	ChangeTo2ndSpawn();
+	//print("Allies_Capture_Flag");
+	},//end Allies capture
+
+	Axis_Capture_Flag = function( trigger )
+    {
+	//Allies Goals
+		///palace flag capture///////////////////////
+	//attack goals
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ATTACK_axis.*");
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ATTACK_allies_bridge.*");
+	SetAvailableMapGoals( TEAM.ALLIES, true, "ATTACK_allies_palace.*");
+	//defend goals
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_axis.*");
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_allies_palace.*");
+	//Engy goals
+	SetAvailableMapGoals( TEAM.ALLIES, false, "MAP_DYNAMITE_TARGET_bridge.*");
+	SetAvailableMapGoals( TEAM.ALLIES, false, "MAP_DYNAMITE_TARGET_gate.*");
+	SetAvailableMapGoals( TEAM.ALLIES, true, "MAP_CONSTRUCTION_generator_allied");
+	SetAvailableMapGoals( TEAM.ALLIES, true, "MAP_DYNAMITE_TARGET_generator_axis");
+	SetAvailableMapGoals( TEAM.ALLIES, false, "MAP_CONSTRUCTION_generator_2_allied");
+	SetAvailableMapGoals( TEAM.ALLIES, false, "MAP_DYNAMITE_TARGET_generator_2_axis");
+	SetAvailableMapGoals( TEAM.ALLIES, false, "MAP_CONSTRUCTION_defences_bridge");
+	//Arty goals
+	SetAvailableMapGoals( TEAM.ALLIES, false, "MAP_ARTY_SPOT_axis.*");
+	SetAvailableMapGoals( TEAM.ALLIES, true, "MAP_ARTY_SPOT_allies_palace.*");
+	SetAvailableMapGoals( TEAM.ALLIES, false, "MAP_ARTY_SPOT_allies_bridge.*");
+	//snipe goals
+	SetAvailableMapGoals( TEAM.ALLIES, false, "MAP_SNIPER_SPOT_axis.*");
+	SetAvailableMapGoals( TEAM.ALLIES, true, "MAP_SNIPER_SPOT_allies_palace.*");
+	SetAvailableMapGoals( TEAM.ALLIES, false, "MAP_SNIPER_SPOT_allies_bridge.*");
+	//general
+	SetAvailableMapGoals( TEAM.ALLIES, false, "MAP_MOUNTABLE.*");
+	///Axis goals/////////////////
+	//attack goals
+	SetAvailableMapGoals( TEAM.AXIS, true, "ATTACK_axis_palace.*");
+	SetAvailableMapGoals( TEAM.AXIS, false, "ATTACK_allies.*");
+	SetAvailableMapGoals( TEAM.AXIS, false, "ATTACK_axis_bridge.*");
+	//defend goals
+	SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_axis_palace.*");
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_axis_bridge.*");
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_allies.*");
+	//Engy goals
+	SetAvailableMapGoals( TEAM.ALLIES, false, "MAP_CONSTRUCTION_generator_axis");
+	SetAvailableMapGoals( TEAM.ALLIES, false, "MAP_DYNAMITE_TARGET_generator_allied");
+	SetAvailableMapGoals( TEAM.ALLIES, true, "MAP_CONSTRUCTION_generator_2_axis");
+	SetAvailableMapGoals( TEAM.ALLIES, true, "MAP_DYNAMITE_TARGET_generator_2_allied");
+	//Arty goals
+	SetAvailableMapGoals( TEAM.AXIS, true, "MAP_ARTY_SPOT_axis_palace.*");
+	SetAvailableMapGoals( TEAM.AXIS, false, "MAP_ARTY_SPOT_axis_bridge.*");
+	SetAvailableMapGoals( TEAM.AXIS, false, "MAP_ARTY_SPOT_allies.*");
+	//snipe goals
+	SetAvailableMapGoals( TEAM.AXIS, true, "MAP_SNIPER_SPOT_axis_palace.*");
+	SetAvailableMapGoals( TEAM.AXIS, false, "MAP_SNIPER_SPOT_axis_bridge.*");
+	SetAvailableMapGoals( TEAM.AXIS, false, "MAP_SNIPER_SPOT_allies.*");
+	//general
+	SetAvailableMapGoals( TEAM.ALLIES, false, "MAP_MOUNTABLE_MG42.*");
+	Util.ResetGoals();
+	
+	//capture Waypoints
+		Wp.SetWaypointFlag("team_capture_0", "team1", true);
+		Wp.SetWaypointFlag("team_capture_0", "team2", false);
+		Wp.SetWaypointFlag("team_capture_1", "team1", true);
+		Wp.SetWaypointFlag("team_capture_1", "team2", false);
+		Wp.SetWaypointFlag("team_capture_2", "team1", true);
+		Wp.SetWaypointFlag("team_capture_2", "team2", false);
+		Wp.SetWaypointFlag("team_capture_3", "team1", true);
+		Wp.SetWaypointFlag("team_capture_3", "team2", false);
+		Wp.SetWaypointFlag("team_capture_4", "team1", true);
+		Wp.SetWaypointFlag("team_capture_4", "team2", false);
+		Wp.SetWaypointFlag("team_capture_5", "team1", true);
+		Wp.SetWaypointFlag("team_capture_5", "team2", false);
+	//conditionals
+		if (Map.EnableSwitches)
+		{
+			if(Map.EnableAllGarages)
+			{
+				if(Map.EnableGarage1)
+				{
+					if (Map.garage_1_position == 1)//door closed
+					{
+						Map.bp_Switches.garage_1.LimitTeam = (1<<TEAM.AXIS);
+					}
+					else if (Map.garage_1_position == 2)//door open
+					{
+						Map.bp_Switches.garage_1.LimitTeam = (1<<TEAM.ALLIES);
+					}
+				}
+				if(Map.EnableGarage2)
+				{
+					if (Map.garage_2_position == 1)//door closed
+					{
+						Map.bp_Switches.garage_2.LimitTeam = (1<<TEAM.AXIS);
+					}
+					else if (Map.garage_2_position == 2)//door open
+					{
+						Map.bp_Switches.garage_2.LimitTeam = (1<<TEAM.ALLIES);
+					}
+				}
+				if(Map.EnableGarage1)
+				{				
+				Map.bp_Switches.garage_3.LimitTeam = 0;//shift focus
+				}
+			}
+		Map.bp_Switches.palace_flag.LimitTeam = (1<<TEAM.ALLIES);
+		}
+	Map.flag_team = 0;
+	Map.FocusOnVehicle = -1;
+	//print("Axis_Capture_Flag");
+	ChangeTo1stSpawn();	
+	},//end Axis capture
+};//end global map
+
+global OnMapLoad = function()
+{
+	//triger functions
+	//flag
+	//print("start map load");
+	OnTrigger("The Allies have captured the Forward Bunker!", Map.Allies_Capture_Flag);
+ 	OnTrigger("The Axis have captured the Forward Bunker!", Map.Axis_Capture_Flag);
+	//elevator 1
+	OnTrigger("The Axis have repaired the First Elevator Generator!", Map.Axis_Own_Elevator);
+	OnTrigger("The Allies have repaired the First Elevator Generator!", Map.Allies_Own_Elevator);
+	OnTrigger("The First Elevator Generator has been Dammaged!", Map.Nither_Own_Elevator);
+	OnTrigger("elevator", Map.Elevator_Activated);
+	//elevator 2
+	OnTrigger("The Axis have repaired the Second Elevator Generator!", Map.Axis_Own_Elevator_2);
+	OnTrigger("The Allies have repaired the Second Elevator Generator!", Map.Allies_Own_Elevator_2);
+	OnTrigger("The Second Elevator Generator has been Dammaged!", Map.Nither_Own_Elevator_2);
+	OnTrigger("elevator_2", Map.Elevator_2_Activated);
+	//Trams
+	OnTrigger("tram_r", Map.Right_Tram_Activated);
+	OnTrigger("tram_l", Map.Left_Tram_Activated);
+	//sewer gates///
+	OnTrigger("The Allies have destroyed the East Sewer Gate!", Map.East_Gate_Destroyed);
+	OnTrigger("The Allies have destroyed the West Sewer Gate!", Map.West_Gate_Destroyed);
+	OnTrigger("The Allies have destroyed the South Sewer Gate!", Map.South_Gate_Destroyed);
+	//garage doors
+	OnTrigger("g_door_l", Map.Trigger_garage_1);
+	OnTrigger("g_door_l1", Map.Trigger_garage_2);
+	OnTrigger("g_door_l2", Map.Trigger_garage_3);
+	//bridge defences
+	OnTrigger("The Axis have Built the Bridge Defences!", Map.Bridge_Defences_Built);
+	OnTrigger("The Allies have destroyed the Bridge Defences!", Map.Bridge_Defences_Destroyed);
+	//bridge objectives
+	OnTrigger("The Allies have destroyed the East Bridge Support!", Map.East_Bridge_Destroyed);
+	OnTrigger("The Allies have destroyed the West Bridge Support!", Map.West_Bridge_Destroyed);
+	//print("end onTriggers");
+  //start waypoints
+  //bridge jump waypoints
+	Wp.SetWaypointFlag("bridge_east_jump_0", "jumplow", false);
+	Wp.SetWaypointFlag("bridge_east_jump_1", "jumplow", false);
+	Wp.SetWaypointFlag("bridge_east_jump_2", "jumplow", false);
+	Wp.SetWaypointFlag("bridge_east_jump_3", "jumplow", false);
+	Wp.SetWaypointFlag("bridge_east_jump_4", "jumplow", false);
+	Wp.SetWaypointFlag("bridge_west_jump_0", "jumplow", false);
+	Wp.SetWaypointFlag("bridge_west_jump_1", "jumplow", false);
+	Wp.SetWaypointFlag("bridge_west_jump_2", "jumplow", false);
+	Wp.SetWaypointFlag("bridge_west_jump_3", "jumplow", false);
+	Wp.SetWaypointFlag("bridge_west_jump_4", "jumplow", false);
+	Wp.SetWaypointFlag("bridge_west_jump_5", "jumplow", false);
+	Wp.SetWaypointFlag("bridge_west_jump_6", "jumplow", false);
+	Wp.SetWaypointFlag("bridge_west_jump_0", "jumplow", false);
+	//unblocked paths at start\\
+	Wp.SetWaypointFlag("bridge_west_blocker_0", "closed", false);
+	Wp.SetWaypointFlag("bridge_west_blocker_1", "closed", false);
+	Wp.SetWaypointFlag("bridge_east_blocker_0", "closed", false);
+	Wp.SetWaypointFlag("bridge_east_blocker_1", "closed", false);
+	Wp.SetWaypointFlag("east_gate_block_0", "closed", false);
+	Wp.SetWaypointFlag("east_gate_block_1", "closed", false);
+	Wp.SetWaypointFlag("west_gate_block_0", "closed", false);
+	Wp.SetWaypointFlag("west_gate_block_1", "closed", false);
+	Wp.SetWaypointFlag("south_gate_block_0", "closed", false);
+	Wp.SetWaypointFlag("south_gate_block_1", "closed", false);
+	Wp.SetWaypointFlag("bridge_defences_door_0", "team1", false);
+	Wp.SetWaypointFlag("bridge_defences_door_1", "team1", false);
+	//blocked paths at start
+	Wp.SetWaypointFlag("elevator_middle_1", "closed", true);
+	Wp.SetWaypointFlag("elevator_middle_2", "closed", true);
+	Wp.SetWaypointFlag("elevator_2_middle_1", "closed", true);
+	Wp.SetWaypointFlag("elevator_2_middle_2", "closed", true);
+	Wp.SetWaypointFlag("elevator_top", "closed", true);
+	Wp.SetWaypointFlag("elevator_2_top", "closed", true);
+	////////////////////////////////////////////////
+	//testing for allies at elevator 1/////////////
+	//Wp.SetWaypointFlag("test_0", "closed", true);
+	//Wp.SetWaypointFlag("test_1", "closed", true);
+	Wp.SetWaypointFlag("test_0", "closed", false);
+	Wp.SetWaypointFlag("test_1", "closed", false);	
+	////////////////////////////////////////////////
+	//print("end waypoints");
+	//Utils
+	Util.SetMaxUsersInProgress( 1, "MAP_MOUNTABLE_MG42_.*" );
+	Util.ResetGoals();
+	///map goal tables
+	if (Map.EnableSwitches)
+	{
+		Map.UpdateSwitchData ();
+		//print("end switchs");
+	}
+	if (Map.EnableLadders)
+	{
+		Wp.SetWaypointFlag("ladder_block", "closed", false);
+		Map.UpdateLaddersData ();
+		//print("end ladders");
+	}
+	else
+	{
+		Wp.SetWaypointFlag("ladder_block", "closed", true); //block the ladder in chirch tower/ covert-opps bots will get stuck here otherwise
+	}
+	//threads
+	if (Map.EnableSwitches && Map.EnableElevator1 && Map.EnableAllElevators)
+	{
+		thread(Map.Watch_Elevator_1);
+	}
+	if (Map.EnableSwitches && Map.EnableElevator2 && Map.EnableAllElevators)
+	{
+	thread(Map.Watch_Elevator_2);
+	}
+	if (Map.EnableSwitches && Map.EnableRightTram && Map.EnableAllTrams)
+	{
+		thread(Map.Watch_Right_Tram);	
+	}
+	if (Map.EnableSwitches && Map.EnableLeftTram && Map.EnableAllTrams)
+	{
+		thread(Map.Watch_Left_Tram);
+	}
+	//print("end threads");
+	if (Map.EnableSwitches || Map.EnableLadders)
+	{
+		Map.StartBotThread ();
+	}
+	Map.FocusOnVehicle = -1;
+	ChangeTo1stSpawn();	
+	//print("end map load");
+};
+
+Map.Watch_Elevator_1 = function()
+{	
+// pre: this thread watches the elevator 1 and changes the switchs 
+	stop_bool = false; //true = run this code, false = stop running this code
+	while(true)
+	{
+		if(Map.elevator_team == 0)
+		{	//pre: no team owns this elevator
+			Map.bp_Switches.elevator_bottom.LimitTeam = 0; 
+			Map.bp_Switches.elevator_switch_bottom.LimitTeam = 0;
+			Map.bp_Switches.elevator_top.LimitTeam = 0; 
+			Map.bp_Switches.elevator_switch_top.LimitTeam = 0;
+			Wp.SetWaypointFlag("elevator_top", "closed", true);
+			Wp.SetWaypointFlag("elevator_bottom", "closed", true);
+			//print("elevator_1_Blocked");
+			block("elevator_1_built");//set and then halt
+			//print("elevator_1_unBlocked");
+		}  //post: block execution untill the elevator is built
+		else if(Map.elevator_team == 2 )//no team 1 = axis, 2 = allies
+		{ //pre: the elevator is controled by allies and has been activated
+			top = TestTraceFunc("elevator_top", "elevator_middle_1");
+			middle = TestTraceFunc("elevator_middle_1", "elevator_middle_2");
+			if (top && !middle && !stop_bool)//at top
+			{ //pre: at top
+				stop_bool = true; //ok to run middle code
+				Map.elevator_position = 1;//set elevator to top position.
+				Map.bp_Switches.elevator_switch_bottom.LimitTeam = (1<<TEAM.ALLIES); //switch to raise elevator
+				Wp.SetWaypointFlag("elevator_top", "closed", false);
+				Wp.SetWaypointFlag("elevator_bottom", "closed", true);
+				//print("top_1_Allies, blocked");
+				block("elevator_1_activated");//set and then halt
+				//print("top_1_Allies, unBlocked");
+			} //post: moving in the middle
+			else if(!top && !middle && !stop_bool)//at bottom
+			{ //pre: at bottom
+				stop_bool = true; //ok to run middle code
+				Map.elevator_position = 2;
+				Map.bp_Switches.elevator_bottom.LimitTeam = (1<<TEAM.ALLIES);
+				Wp.SetWaypointFlag("elevator_top", "closed", true);
+				Wp.SetWaypointFlag("elevator_bottom", "closed", false);
+				//print("bottom_1_Allies, blocked");
+				block("elevator_1_activated");//set and then halt
+				//print("bottom_1_Allies, unBlocked");
+			} //post: moving in the middle
+			else if (stop_bool)
+			{ //pre: moving in the middle
+				stop_bool = false; //ok to run top or bottom code
+				Map.elevator_position = 0;
+				Map.bp_Switches.elevator_bottom.LimitTeam = 0; 
+				Map.bp_Switches.elevator_switch_bottom.LimitTeam = 0;
+				Wp.SetWaypointFlag("elevator_2_top", "closed", true);
+				Wp.SetWaypointFlag("elevator_2_bottom", "closed", false);	
+				//print("moving allies");
+			} //post: at the top or the bottom
+		}
+		else if(Map.elevator_team == 1 )//no team 1 = axis, 2 = allies
+		{ //pre: the elevator is controled by axis and has been activated
+			top = TestTraceFunc("elevator_top", "elevator_middle_1");
+			middle = TestTraceFunc("elevator_middle_1", "elevator_middle_2");
+			if (top && !middle && !stop_bool)
+			{ //pre: at top
+				stop_bool = true; //ok to run middle code
+				Map.elevator_position = 1;//set elevator to top position.
+				Map.bp_Switches.elevator_top.LimitTeam = (1<<TEAM.AXIS); //switch to raise elevator
+				Wp.SetWaypointFlag("elevator_top", "closed", false);
+				Wp.SetWaypointFlag("elevator_bottom", "closed", true);
+				//print("top_1_Axis, blocked");
+				block("elevator_1_activated");//set and then halt
+				//print("top_1_Axis, unBlocked");
+			} //post: moving in the middle
+			else if(!top && !middle && !stop_bool)
+			{ //pre: at bottom
+				stop_bool = true; //ok to run middle code
+				Map.elevator_position = 2;
+				Map.bp_Switches.elevator_switch_top.LimitTeam = (1<<TEAM.AXIS);
+				Wp.SetWaypointFlag("elevator_top", "closed", true);
+				Wp.SetWaypointFlag("elevator_bottom", "closed", false);
+				//print("bottom_1_Axis, blocked");
+				block("elevator_1_activated");//set and then halt
+				//print("bottom_1_Axis, unBlocked");
+			} //post: moving in the middle
+			else if (stop_bool)
+			{ //pre: moving in the middle
+				stop_bool = false; //ok to run top or bottom code
+				Map.elevator_position = 0;
+				Map.bp_Switches.elevator_top.LimitTeam = 0; 
+				Map.bp_Switches.elevator_switch_top.LimitTeam = 0;
+				Wp.SetWaypointFlag("elevator_2_top", "closed", true);
+				Wp.SetWaypointFlag("elevator_2_bottom", "closed", false);
+				//print("moving axis");
+			} //post: at the top or the bottom
+		}	
+	sleep(0.25);
+	}
+};		
+		
+Map.Watch_Elevator_2 = function()
+{
+	//pre: this thread watches the elevator 2 and changes the switchs 
+	stop_bool = false; //true = run this code, false = stop running this code
+	while(true)
+	{ 
+		if(Map.elevator_2_team == 0) 
+		{ //pre: no team owns this elevator
+			Map.bp_Switches.elevator_2_bottom.LimitTeam = 0; 
+			Map.bp_Switches.elevator_2_switch_bottom.LimitTeam = 0;
+			Map.bp_Switches.elevator_2_top.LimitTeam = 0; 
+			Map.bp_Switches.elevator_2_switch_top.LimitTeam = 0;
+			Wp.SetWaypointFlag("elevator_2_top", "closed", true);
+			Wp.SetWaypointFlag("elevator_2_bottom", "closed", true);
+			//print("elevator_2_Blocked");
+			block("elevator_2_built");//set and then halt
+			//print("elevator_2_unBlocked");
+		} //post: block execution untill the elevator is built
+		else if(Map.elevator_2_team == 2)//no team 1 = axis, 2 = allies
+		{ //pre: the elevator is controled by allies and has been activated
+			top = TestTraceFunc("elevator_2_top", "elevator_2_middle_1");
+			middle = TestTraceFunc("elevator_2_middle_1", "elevator_2_middle_2");
+			if (top && !middle && !stop_bool) 
+			{ //pre: at top
+				stop_bool = true; //ok to run code
+				Map.elevator_2_position = 1;//set elevator to bottom position.
+				Map.bp_Switches.elevator_2_top.LimitTeam = (1<<TEAM.ALLIES); //switch to raise elevator
+				Wp.SetWaypointFlag("elevator_2_top", "closed", false);
+				Wp.SetWaypointFlag("elevator_2_bottom", "closed", true);
+				//print("top_2_Allies, blocked");
+				block("elevator_2_activated");//set and then halt
+				//print("top_2_Allies, unBlocked");
+			} //post: moving in the middle
+			else if(!top && !middle && !stop_bool)
+			{ //pre: at bottom
+				stop_bool = true;
+				Map.elevator_2_position = 2;
+				Map.bp_Switches.elevator_2_switch_top.LimitTeam = (1<<TEAM.ALLIES);
+				Wp.SetWaypointFlag("elevator_2_top", "closed", true);
+				Wp.SetWaypointFlag("elevator_2_bottom", "closed", false);
+				//print("bottom_2_Allies, blocked");
+				block("elevator_2_activated");//set and then halt
+				//print("bottom_2_Allies, unBlocked");
+			} //post: moving in the middle
+			else if (stop_bool)
+			{  //pre: moving in the middle
+				stop_bool = false; //stop running this code only needs to run 1 time
+				Map.elevator_2_position = 0;
+				Map.bp_Switches.elevator_2_top.LimitTeam = 0; 
+				Map.bp_Switches.elevator_2_switch_top.LimitTeam = 0;
+				Wp.SetWaypointFlag("elevator_2_top", "closed", true);
+				Wp.SetWaypointFlag("elevator_2_bottom", "closed", true);		
+				sleep(1); //timing issue
+				//print("moving_2_Allies");
+			} //post: at the top or the bottom
+		}
+		else if(Map.elevator_2_team == 1 )//no team 1 = axis, 2 = allies
+		{ //pre: the elevator is controled by axis and has been activated
+			top = TestTraceFunc("elevator_2_top", "elevator_2_middle_1");
+			middle = TestTraceFunc("elevator_2_middle_1", "elevator_2_middle_2");
+			if (top && !middle && !stop_bool)
+			{ //pre: at top
+				stop_bool = true;
+				Map.elevator_2_position = 1;//set elevator to bottom position.
+				Map.bp_Switches.elevator_2_switch_bottom.LimitTeam = (1<<TEAM.AXIS); //switch to raise elevator
+				Wp.SetWaypointFlag("elevator_2_top", "closed", false);
+				Wp.SetWaypointFlag("elevator_2_bottom", "closed", true);
+				//print("top_2_Axis, blocked");
+				block("elevator_2_activated");//set and then halt
+				//print("top_2_Axis, unBlocked");
+			} //post: moving in the middle
+			else if(!top && !middle && !stop_bool)
+			{ //pre: at bottom
+				stop_bool = true; //ok to run middle code
+				Map.elevator_2_position = 2;
+				Map.bp_Switches.elevator_2_bottom.LimitTeam = (1<<TEAM.AXIS);
+				Wp.SetWaypointFlag("elevator_2_top", "closed", true);
+				Wp.SetWaypointFlag("elevator_2_bottom", "closed", false);
+				//print("bottom_2_Axis, blocked");
+				block("elevator_2_activated");//set and then halt
+				//print("bottom_2_Axis, unBlocked");
+			} //post: moving in the middle
+			else if (stop_bool) 
+			{ //pre: moving in the middle
+				stop_bool = false; //ok to run top or bottom code
+				Map.elevator_2_position = 0;
+				Map.bp_Switches.elevator_2_bottom.LimitTeam = 0; 
+				Map.bp_Switches.elevator_2_switch_bottom.LimitTeam = 0;
+				Wp.SetWaypointFlag("elevator_2_top", "closed", true);
+				Wp.SetWaypointFlag("elevator_2_bottom", "closed", true); 
+				//print("moving_2_Axis");
+				sleep(1); //timing issue
+			} //post: at the top or the bottom
+		}
+		sleep(0.25);
+	}
+};
+
+Map.Watch_Right_Tram = function()
+{
+//print("starting Right_Tram thread");	
+block_bool = true; //true = blocked, false = not blocked
+stop_bool = false; //true = run, false = dont run
+	while(true)
+	{
+	//this thread watches the right tram and changes the switchs 	
+		top = TestTraceFunc("tram_r_top", "tram_r_block_top");
+		bottom = TestTraceFunc("tram_r_bottom", "tram_r_block_bottom");
+		if (top && !stop_bool)
+		{ //pre: vehical is at the top
+			stop_bool = true; //ok to run moving code now
+			Map.bp_Switches.tram_r_switch_bottom.LimitTeam = (1<<TEAM.AXIS);
+			Map.bp_Switches.tram_r_top.LimitTeam = (1<<TEAM.ALLIES);
+			if (!block_bool) //has the vehical moved?
+			{
+				//print("Right Tram blocked top");
+				block("Activate_Right_Tram"); //block thread untill activated
+				block_bool = true; //was just blocked dont block tell after move
+				//print("Right Tram unblocked top");
+			} //post: block execution untill used
+		} //post: vehical is moving in the middle
+		else if (bottom && !stop_bool)//at bottom going up
+		{ //pre: vehical is at the top
+			stop_bool = true; //ok to run moving code now
+			Map.bp_Switches.tram_r_bottom.LimitTeam = (1<<TEAM.AXIS);
+			Map.bp_Switches.tram_r_switch_top.LimitTeam = (1<<TEAM.ALLIES);
+			if (!block_bool) //has the vehical moved?
+			{
+				//print("Right Tram blocked bottom");
+				block("Activate_Right_Tram"); //block thread untill activated
+				block_bool = true; //was just blocked dont block tell after move
+				//print("Right Tram unblocked bottom");
+			} //post: block execution untill used
+		} //post: vehical is moving in the middle
+		else if (stop_bool)
+		{ //pre: this runs if vehical is not at top or bottom ie. moving in the middle
+			stop_bool = false; //ok to run top/bottom code
+			block_bool = false; //now its ok to block
+			Map.bp_Switches.tram_r_switch_bottom.LimitTeam = 0;
+			Map.bp_Switches.tram_r_bottom.LimitTeam = 0;
+			Map.bp_Switches.tram_r_switch_top.LimitTeam = 0;
+			Map.bp_Switches.tram_r_top.LimitTeam = 0;
+			//print("Right_Tram Moving");
+			sleep(1); //timing issue on up
+		}//post: vehical is at the top or the bottom	
+		sleep(0.25);
+	}
+};
+
+Map.Watch_Left_Tram = function()
+{
+//print("starting Left_Tram thread");	
+block_bool = true; //true = blocked, false = not blocked
+stop_bool = false; //true = run, false = dont run
+	while(true)
+	{
+	//this thread watches the left tram and changes the switchs & is basicly a copy of the above one execpt for waypoint names 	
+		top = TestTraceFunc("tram_l_top", "tram_l_block_top");
+		bottom = TestTraceFunc("tram_l_bottom", "tram_l_block_bottom");
+		if (top && !stop_bool)
+		{ //pre: vehical is at the top
+			stop_bool = true; //ok to run moving code now
+			Map.bp_Switches.tram_l_switch_bottom.LimitTeam = (1<<TEAM.AXIS);
+			Map.bp_Switches.tram_l_top.LimitTeam = (1<<TEAM.ALLIES);
+			if (!block_bool) //has the vehical moved?
+			{
+				//print("Left Tram blocked top");
+				block("Activate_Left_Tram"); //block thread untill activated
+				block_bool = true; //was just blocked dont block tell after move
+				//print("Left Tram unblocked top");
+			} //post: block execution untill used
+		} //post: vehical is moving in the middle
+		else if (bottom && !stop_bool)
+		{ //pre: vehical is at the bottom
+			stop_bool = true; //ok to run moving code now
+			Map.bp_Switches.tram_l_bottom.LimitTeam = (1<<TEAM.AXIS);
+			Map.bp_Switches.tram_l_switch_top.LimitTeam = (1<<TEAM.ALLIES);
+			if (!block_bool) //has the vehical moved?
+			{
+				//print("Left Tram blocked bottom");
+				block("Activate_Left_Tram"); //block thread untill activated
+				block_bool = true; //was just blocked dont block tell after move
+				//print("Left Tram unblocked bottom");
+			} //post: block execution untill used
+		} //post: vehical is moving in the middle
+		else if (stop_bool)
+		{ //pre: this runs if vehical is not at top or bottom ie. moving in the middle
+			stop_bool = false; //ok to run top/bottom code now
+			block_bool = false; //now its ok to block
+			Map.bp_Switches.tram_l_switch_bottom.LimitTeam = 0;
+			Map.bp_Switches.tram_l_bottom.LimitTeam = 0;
+			Map.bp_Switches.tram_l_switch_top.LimitTeam = 0;
+			Map.bp_Switches.tram_l_top.LimitTeam = 0;
+			//print("Left_Tram Moving");
+			sleep(1); //timing issue on up
+		} //post: vehical is at the top or the bottom
+		sleep(0.25);
+	}
+};
+
+Map.StartBotThread = function()
+{
+	//print("Map.StartBotThread"); 
+	foreach ( Id and bot in BotTable )
+	{
+	//--------create threads after map loads-------------//
+	if( bot.WaypointThreadId )
+	{
+	//print ( "Killing Thread: ", bot.WaypointThread );
+	threadKill( bot.WaypointThread );
+	}
+	bot.WaypointThreadId = bot:thread(Map.WatchForbp_Switches);
+	//print("Creating Thread: ", bot.WaypointThreadId);
+	}
+};
+
+Map.UpdateSwitchData = function()
+{
+//print( "Switches_Updating");
+	foreach ( i and bp_SwitchTable in Map.bp_Switches )
+	{
+		bp_SwitchTable.Waypoint = table();
+		if( Wp.GetWaypointByName( bp_SwitchTable.WaypointName, bp_SwitchTable.Waypoint ) )
+		{
+			//print( "switch Data Suceeded, Waypoint:", bp_SwitchTable.WaypointName );
+		}
+		else
+		{
+			//print( "Error: switch Data Failed, Waypoint:", bp_SwitchTable.WaypointName );
+		}
+		if (bp_SwitchTable.LimitClass == null)//no setting all classes as default
+		{	
+		bp_SwitchTable.LimitClass = (1<<CLASS.SOLDIER) | 
+			(1<<CLASS.COVERTOPS) | 
+			(1<<CLASS.FIELDOPS) |
+			(1<<CLASS.ENGINEER) |
+			(1<<CLASS.MEDIC);
+			//print("defualt classes set");
+		}
+		if (bp_SwitchTable.UseDelay == null)
+		{
+			bp_SwitchTable.UseDelay = 0; //no value set a default value
+			//print("defualt delay set");
+		}
+		
+	}
+};
+
+
+Map.UpdateLaddersData = function()
+{
+//print( "Ladders_Updating");
+	foreach ( i and bp_LaddersTable in Map.bp_Ladders )
+	{
+		bp_LaddersTable.TopWaypoint = table();
+		bp_LaddersTable.BottomWaypoint = table();
+		if( Wp.GetWaypointByName( bp_LaddersTable.TopWaypointName, bp_LaddersTable.TopWaypoint ) )
+		{
+			//print( "ladder Data Suceeded, Waypoint:", bp_LaddersTable.TopWaypointName );
+		}
+		else
+		{
+			//print( "Error: ladder Data Failed, Waypoint:", bp_LaddersTable.TopWaypointName );
+		}
+		if( (Wp.GetWaypointByName( bp_LaddersTable.BottomWaypointName, bp_LaddersTable.BottomWaypoint) ) )
+		{
+			//print( "ladder Data Suceeded, Waypoint:", bp_LaddersTable.BottomWaypointName );
+		}
+		else
+		{
+			//print( "Error: ladder Data Failed, Waypoint:", bp_LaddersTable.BottomWaypointName );
+		}
+	}
+};
+
+global OnBotLeave = function( bot)
+{
+	//////print("Killing Thread: ", bot.WaypointThreadId);
+	//threadKill(bot.WaypointThreadId);
+};
+
+global OnBotJoin = function( bot )
+{
+	//general Goal prioritys
+	bot.SetGoalProperty("MOUNT_MG42", "Bias", 0.5);
+	bot.SetGoalProperty("GET_HEALTH", "Bias", 0.5);
+	bot.SetGoalProperty("HEALTH_CABINET", "Bias", 0.5);
+	bot.MaxViewDistance = 2048;//fog distance
+	bot.TargetBreakableDist = 150.0;
+	if( bot.WaypointThreadId )
+	{
+	//print ( "Killing Thread: ", bot.WaypointThreadId );
+	threadKill( bot.WaypointThreadId );
+	}
+	if (Map.EnableSwitches || Map.EnableLadders)
+	{
+		bot.WaypointThreadId = bot:thread(Map.WatchForbp_Switches);
+		//print("Creating Thread: ", bot.WaypointThreadId);
+	}
+	team = bot.GetTeam();	
+	my_class = bot.GetClass();
+	if (team == TEAM.AXIS)
+	{
+		if (Map.flag_team == 1 && CURRENT_SECONDSPAWN_BOTS < 3)//allies own flag
+		{
+			bot.ChangeSpawnPoint(4);
+            CURRENT_SECONDSPAWN_BOTS += 1;
+		}
+		else if (Map.flag_team == 0)//axis own flag
+		{
+		bot.ChangeSpawnPoint(2);
+		}
+		/*if ( my_class == CLASS.SOLDIER )
+		{
+		}
+	
+		if ( my_class == CLASS.MEDIC )
+		{
+		}*/
+	
+		if ( my_class == CLASS.ENGINEER )
+		{
+			bot.SetGoalProperty("DEFEND", "Bias", 0.0);
+			bot.SetGoalProperty("ATTACK", "Bias", 0.0);
+			bot.SetGoalProperty( "BUILD_CONSTRUCTION", "IgnoreTargets", true );
+			//SetAvailableMapGoals( "MAP_CONSTRUCTION_defences_bridge", "Bias", 1.0);
+			bot.SetGoalProperty("MOUNT_MG42", "Bias", 0.0);
+		}
+	
+		/*if ( my_class == CLASS.FIELDOPS )
+		{
+		}*/
+	
+		if ( my_class == CLASS.COVERTOPS )
+		{
+			bot.SetGoalProperty("DEFEND", "Bias", 0.0);
+			bot.SetGoalProperty("ATTACK", "Bias", 0.0);
+			bot.SetGoalProperty("MOUNT_MG42", "Bias", 0.0);
+		}
+		
+	}
+	else if (team == TEAM.ALLIES)
+	{
+	//engy goal prioritys
+	bot.SetGoalProperty("MAP_DYNAMITE_TARGET_bridge.*", "Bias", 1.5);
+	bot.SetGoalProperty("MAP_DYNAMITE_TARGET_defences_bridge", "Bias", 1.5);
+	bot.SetGoalProperty("MAP_DYNAMITE_TARGET_gate.*", "Bias", 0.7);
+		/*if ( my_class == CLASS.SOLDIER )
+		{
+		}
+	
+		if ( my_class == CLASS.MEDIC )
+		{
+		}*/
+	
+		if ( my_class == CLASS.ENGINEER )
+		{
+			bot.SetGoalProperty("DEFEND", "Bias", 0.0);
+			bot.SetGoalProperty("ATTACK", "Bias", 0.0);
+			bot.SetGoalProperty( "BUILD_CONSTRUCTION", "IgnoreTargets", true );
+			bot.SetGoalProperty("MOUNT_MG42", "Bias", 0.0);
+		}
+	
+		/*if ( my_class == CLASS.FIELDOPS )
+		{	
+		}*/
+	
+		if ( my_class == CLASS.COVERTOPS )
+		{
+			bot.SetGoalProperty("DEFEND", "Bias", 0.0);
+			bot.SetGoalProperty("ATTACK", "Bias", 0.0);
+			bot.SetGoalProperty("MOUNT_MG42", "Bias", 0.0);
+		}
+	
+	}
+};
+
+global TestTraceFunc = function (a, b, c, botID)
+//reusable func for testing tracelines
+//is the path blocked, closed = true, open = false return
+//a = waypoint1, b = waypoint2, c = delay in seconds
+{
+//////print(a, b);
+	start = Util.GetWpNamePosition( a );//vector3
+	end = Util.GetWpNamePosition( b );//vector3
+	if (c == null)
+	{
+		delay = 0;
+	}
+	else
+	{
+		delay = c;
+	}
+	if ( botID == null)
+	{
+		botID = 0;
+	}
+//////print(start, end);
+	//////print("delay", delay);
+	sleep(delay);
+	tr = TraceLine(start, end, null, TRACE.SHOT, botID, false); 
+	if(tr.fraction < 1)
+    {
+		//////print("Closed");
+		//DrawDebugLine(start, end, COLOR.RED, 2);
+		return true;
+    }
+    else
+    {
+		//////print("Open");
+		//DrawDebugLine(start, end, COLOR.GREEN, 2);
+		return false;
+    } 
+};
+
+global ChangeTo1stSpawn = function ()
+{
+foreach ( Id and bot in BotTable )//change axis to palace
+	{
+		if ( bot.GetTeam() == TEAM.AXIS )
+		{
+			if (Map.flag_team == 0)//axis own the palace
+			{
+			bot.ChangeSpawnPoint(2);
+			}
+		}
+	}
+};
+
+global ChangeTo2ndSpawn = function ()
+{
+    CURRENT_SECONDSPAWN_BOTS = 0;
+    foreach (gameId and bot in BotTable)
+    {
+        if (bot && bot.GetTeam() == TEAM.AXIS &&
+            RandInt(0,10) > 5)
+        {
+            bot.ChangeSpawnPoint(4);
+            CURRENT_SECONDSPAWN_BOTS += 1;
+            //print("Axis spawn point changed to 4!");
+        }
+
+        if (CURRENT_SECONDSPAWN_BOTS >= MAX_SECONDSPAWN_BOTS)
+        {
+            break;
+        }
+    }
+};
+
+Map.WatchForbp_Switches = function ()
+  {
+	//////print("working"); //debug function/thread call
+	while (true)//loop always
+	{
+		if(this.scriptgoal == null)
+		{
+			//////print(this.WaypointThreadId); //debug check for runaway threads
+			if (Map.EnableSwitches)
+			{
+				foreach ( i and bp_SwitchTable in Map.bp_Switches ) //start switches
+				{		
+					myTeamMask = (1<<this.GetTeam());
+					myClassMask = (1<<this.GetClass());
+					if ((myTeamMask & bp_SwitchTable.LimitTeam) && (myClassMask & bp_SwitchTable.LimitClass))//is this switch for my team and class?
+					{
+						wp_LimitD = bp_SwitchTable.LimitDistance;
+						wp_position = bp_SwitchTable.Waypoint.position;
+						if ((this.DistanceTo(wp_position) < wp_LimitD) && (myTeamMask & bp_SwitchTable.LimitTeam))
+						{
+							//print("start", bp_SwitchTable.WaypointName);
+							wp_radius = bp_SwitchTable.Waypoint.radius;
+							wp_facing = bp_SwitchTable.Waypoint.facing;
+							this.SetScriptControlled(true);
+							this.scriptgoal = "bp_Switch";	
+							//////print(bp_SwitchTable.WaypointName, wp_facing, wp_radius);
+							this.GoTo( wp_position, wp_facing );
+							if( block(EVENT.GOAL_SUCCESS, EVENT.GOAL_FAILED) == EVENT.GOAL_SUCCESS )	
+							{						
+								my_delay = bp_SwitchTable.UseDelay;//in seconds
+								//////print("unblocked", my_delay);
+								use_count = 0;
+								while ((this.DistanceTo(wp_position) < 100) && (myTeamMask & bp_SwitchTable.LimitTeam) && (use_count < 10))
+								{
+									//////print("inner loop");
+									this.SetScriptControlledWeapons(true);
+									this.MoveTowards( wp_position, wp_radius );
+									this.SetDesiredFacing(wp_facing);
+									if (this.TurnToFacing(wp_facing))
+									{
+										sleep(my_delay);
+										my_delay = 0;
+										this.PressButton( BTN.USE );
+										use_count = use_count + 1;
+										//////print("pressbutton");
+									}
+									else
+									{
+									this.TurnToFacing(wp_facing);
+									}
+									sleep(0.5);								
+								}
+							}
+							this.SetScriptControlled(false);
+							this.SetScriptControlledWeapons(false);
+							signal("script_goal_done"); //signal to unblock
+							this.scriptgoal = null; //cancel the goal
+							//print("end switch"); //debug
+						}	
+					}
+				}//end switches 
+			}
+			if (Map.EnableLadders)
+			{
+				foreach ( i and bp_LaddersTable in Map.bp_Ladders ) //start Ladders
+				{	
+					toppos = bp_LaddersTable.TopWaypoint.position;
+					bottompos = bp_LaddersTable.BottomWaypoint.position;
+					botID = this.GetGameId();
+					//////print(botID);
+					run_bool = false;
+					blocked = true;
+					if (this.DistanceTo(toppos) < 70)
+					{
+						blocked = TestTraceFunc(bp_LaddersTable.TopWaypointName, bp_LaddersTable.BottomWaypointName, 0, botID); //error checking for bot pileups
+						my_Facing = bp_LaddersTable.TopWaypoint.facing;
+						run_bool = true;
+						////print("at top start", bp_LaddersTable.TopWaypointName);
+					}
+					else if (this.DistanceTo(bottompos) < 70)
+					{
+						blocked = TestTraceFunc(bp_LaddersTable.TopWaypointName, bp_LaddersTable.BottomWaypointName, 0, botID); //error checking for bot pileups
+						my_Facing = bp_LaddersTable.BottomWaypoint.facing;
+						run_bool = true;
+						////print("at bottom start", bp_LaddersTable.BottomWaypointName);
+					}
+					if (!blocked && run_bool)
+					{
+						this.scriptgoal = "bp_Ladder"; //set this script goal
+						ladder_length = (toppos - bottompos).Length(); //ladder length
+						wait_delay = (ladder_length + 320) / 160; //wait based on ladder length + 320 / climb speed						
+						Adjustment_count = 0;
+						this.SetScriptControlled(true); //take control of bot movement
+						this.SetScriptControlledWeapons(true); //take control of bot weapons
+						this.TurnToFacing(my_Facing); //set facing to waypoints
+						this.HoldButton(BTN.FORWARD, wait_delay);//move bot forward
+						while(Adjustment_count < 5)
+						{
+							this.TurnToFacing(my_Facing); //adjust facing
+							this.SetDesiredFacing(my_Facing); //adjust facing
+							Adjustment_count = Adjustment_count + 1; //add to adjust count
+							sleep(wait_delay * 0.20); //wait 1/5 of total time to climb ladder
+						}
+						this.SetScriptControlled(false);
+						this.SetScriptControlledWeapons(false);
+						signal("script_goal_done"); //signal to unblock
+						this.scriptgoal = null; //cancel the goal
+						//print("end ladder"); //debug
+					}				
+					//////print("fail on blocked ladder"); //debug		
+				}//end ladders	
+			}
+		} 
+		else //end scipt goal check
+		{
+        // someone is controlling the bot, so rather than sleep and loop, lets block
+        block("script_goal_done");
+		} 
+		sleep (0.1);
+	} //end while(True) loop
+ };
+
+/////////end code//////////
+//////Budapest map and scripts by Glas$hadow

@@ -1,0 +1,71 @@
+global Map =
+{
+	Ammo_Cabinet_first_ammocabinet = "AMMO_CABINET_first_ammocabinet",
+	Ammo_Cabinet_first_ammocabinet = "AMMO_CABINET_first_ammocabinet",
+	Ammo_Cabinet_first_ammocabinet = "AMMO_CABINET_first_ammocabinet",
+	Ammo_Cabinet_first_ammocabinet = "AMMO_CABINET_first_ammocabinet",
+	Health_Cabinet_first_healthcabinet = "HEALTH_CABINET_first_healthcabinet",
+	Health_Cabinet_first_healthcabinet = "HEALTH_CABINET_first_healthcabinet",
+	Health_Cabinet_first_healthcabinet = "HEALTH_CABINET_first_healthcabinet",
+	Health_Cabinet_first_healthcabinet = "HEALTH_CABINET_first_healthcabinet",
+	Destroy_gun = "MAP_DYNAMITE_TARGET_gun",
+	Mount_290 = "MAP_MOUNTABLE_MG42_290",
+	Mount_289 = "MAP_MOUNTABLE_MG42_289",
+	Repair_289 = "MAP_REPAIR_MG42_289",
+	Repair_290 = "MAP_REPAIR_MG42_290",
+
+	gun_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		print( "gun_Destroyed" );
+	},
+
+//~ 	Allies_Capture_Flag = function( trigger )
+//~ 	{
+//~ 		if ( TestMapOn )
+//~ 			{ ETUtil.AutoTestMap(); }
+//~ 
+//~ 		print( "Allies_Capture_Flag" );
+//~ 	},
+
+//~ 	Axis_Capture_Flag = function( trigger )
+//~ 	{
+//~ 		if ( TestMapOn )
+//~ 			{ ETUtil.AutoTestMap(); }
+//~ 
+//~ 		print( "Axis_Capture_Flag" );
+//~ 	},
+};
+
+global OnMapLoad = function()
+{
+	SetAvailableMapGoals( TEAM.ALLIES, false, "HEALTH_CABINET_.*" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "HEALTH_CABINET_.*" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "AMMO_CABINET_.*" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "AMMO_CABINET_.*" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "MAP_MOUNTABLE_.*" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "MAP_MOUNTABLE_.*" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "MAP_REPAIR_.*" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "MAP_REPAIR_.*" );
+
+	if ( TestMapOn )
+		{ ETUtil.AutoTestMap(); }
+
+	OnTrigger( "MISSING_STRING", Map.gun_Destroyed );
+//~ 	OnTrigger( "MISSING_STRING", Map.Allies_Capture_Flag );
+//~ 	OnTrigger( "MISSING_STRING", Map.Axis_Capture_Flag );
+
+	//~SetAvailableMapGoals( TEAM.ALLIES, false, ".*" );
+	//~SetAvailableMapGoals( TEAM.AXIS, false, ".*" );
+
+	print( "OnMapLoad" );
+};
+
+// Uncomment for shootable breakables
+
+global OnBotJoin = function( bot )
+{
+	//~ bot.TargetBreakableDist = 300.0;
+};

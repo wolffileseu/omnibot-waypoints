@@ -1,0 +1,105 @@
+global Map =
+{
+	Ammo_Cabinet_first_ammocabinet = "AMMO_CABINET_first_ammocabinet",
+	Ammo_Cabinet_first_ammocabinet = "AMMO_CABINET_first_ammocabinet",
+	Health_Cabinet_first_healthcabinet = "HEALTH_CABINET_first_healthcabinet",
+	Health_Cabinet_first_healthcabinet = "HEALTH_CABINET_first_healthcabinet",
+	Build_axis_cp_open = "MAP_CONSTRUCTION_axis_cp_open",
+	Build_allied_cp_open = "MAP_CONSTRUCTION_allied_cp_open",
+	Destroy_gate = "MAP_DYNAMITE_TARGET_gate",
+	Destroy_allied_cp_open = "MAP_DYNAMITE_TARGET_allied_cp_open",
+	Destroy_axis_cp_open = "MAP_DYNAMITE_TARGET_axis_cp_open",
+	Flag_scr_AXIS_GOLD = "MAP_FLAG_scr_AXIS_GOLD",
+	Cappoint_106 = "MAP_CAPPOINT_106",
+
+	axis_cp_open_Built = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		print( "axis_cp_open_Built" );
+	},
+
+	allied_cp_open_Built = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		print( "allied_cp_open_Built" );
+	},
+
+	gate_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		print( "gate_Destroyed" );
+	},
+
+	allied_cp_open_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		print( "allied_cp_open_Destroyed" );
+	},
+
+	axis_cp_open_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		print( "axis_cp_open_Destroyed" );
+	},
+
+//~ 	Allies_Capture_Flag = function( trigger )
+//~ 	{
+//~ 		if ( TestMapOn )
+//~ 			{ ETUtil.AutoTestMap(); }
+//~ 
+//~ 		print( "Allies_Capture_Flag" );
+//~ 	},
+
+//~ 	Axis_Capture_Flag = function( trigger )
+//~ 	{
+//~ 		if ( TestMapOn )
+//~ 			{ ETUtil.AutoTestMap(); }
+//~ 
+//~ 		print( "Axis_Capture_Flag" );
+//~ 	},
+};
+
+global OnMapLoad = function()
+{
+	if ( TestMapOn )
+		{ ETUtil.AutoTestMap(); }
+	SetAvailableMapGoals( TEAM.ALLIES, false, "HEALTH_CABINET_.*" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "HEALTH_CABINET_.*" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "AMMO_CABINET_.*" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "AMMO_CABINET_.*" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "MAP_CONSTRUCTION_allied_cp_open" );
+	SetAvailableMapGoals( TEAM.AXIS, true, "MAP_CONSTRUCTION_axis_cp_open" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "MAP_DYNAMITE_TARGET_axis_cp_open" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "MAP_DYNAMITE_TARGET_allied_cp_open" );
+
+
+	OnTrigger( "MISSING_STRING", Map.axis_cp_open_Built );
+	OnTrigger( "MISSING_STRING", Map.allied_cp_open_Built );
+	OnTrigger( "MISSING_STRING", Map.axis_cp_open_Destroyed );
+	OnTrigger( "MISSING_STRING", Map.allied_cp_open_Destroyed );
+	OnTrigger( "MISSING_STRING", Map.gate_Destroyed );
+//~ 	OnTrigger( "MISSING_STRING", Map.Allies_Capture_Flag );
+//~ 	OnTrigger( "MISSING_STRING", Map.Axis_Capture_Flag );
+
+	//~SetAvailableMapGoals( TEAM.ALLIES, false, ".*" );
+	//~SetAvailableMapGoals( TEAM.AXIS, false, ".*" );
+
+	print( "OnMapLoad" );
+};
+
+// Uncomment for shootable breakables
+
+global OnBotJoin = function( bot )
+{
+	//~ bot.TargetBreakableDist = 300.0;
+};

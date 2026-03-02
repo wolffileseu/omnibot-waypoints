@@ -1,0 +1,116 @@
+global _MG = 
+{
+	CAMP_waiting1 = 
+	{
+		AimVectors = 
+		{
+			[0] = Vec3(-0.455, -0.890, 0.014),
+			[1] = Vec3(-0.934, -0.355, 0.031),
+		},
+		CreateOnLoad = 1,
+		GoalType = "CAMP",
+		GroupName = "",
+		MaxCampTime = 20,
+		MinCampTime = 10,
+		MinRadius = 32,
+		Name = "CAMP_waiting1",
+		Orientation = Vec3(2.669, 0.014, -0.000),
+		Position = Vec3(1419.303, 858.562, 1.125),
+		Radius = 32,
+		SerialNum = 72,
+		Stance = "crouch",
+		TagName = "waiting1",
+		TeamAvailability = 30,
+		Version = 1,
+		Weapons = 
+		{
+		},
+	},
+	CAMP_waiting2 = 
+	{
+		AimVectors = 
+		{
+			[0] = Vec3(0.407, 0.912, 0.051),
+			[1] = Vec3(0.924, 0.381, 0.019),
+		},
+		CreateOnLoad = 1,
+		GoalType = "CAMP",
+		GroupName = "",
+		MaxCampTime = 20,
+		MinCampTime = 10,
+		MinRadius = 32,
+		Name = "CAMP_waiting2",
+		Orientation = Vec3(-0.419, 0.051, -0.000),
+		Position = Vec3(-1419.929, -878.260, 1.125),
+		Radius = 32,
+		SerialNum = 74,
+		Stance = "crouch",
+		TagName = "waiting2",
+		TeamAvailability = 30,
+		Version = 1,
+		Weapons = 
+		{
+		},
+	},
+	CAPPOINT_allies_capture = 
+	{
+		CreateOnLoad = 1,
+		GoalType = "CapPoint",
+		GroupName = "",
+		MinRadius = 32,
+		Name = "CAPPOINT_allies_capture",
+		Orientation = Vec3(-1.783, -0.238, -0.000),
+		Position = Vec3(5.124, -1914.217, 321.757),
+		Radius = 0,
+		SerialNum = 70,
+		TagName = "allies_capture",
+		TeamAvailability = 4,
+		Version = 1,
+	},
+	CAPPOINT_axis_capture = 
+	{
+		CreateOnLoad = 1,
+		GoalType = "CapPoint",
+		GroupName = "",
+		MinRadius = 32,
+		Name = "CAPPOINT_axis_capture",
+		Orientation = Vec3(1.572, -0.218, -0.000),
+		Position = Vec3(-10.531, 1920.043, 340.908),
+		Radius = 0,
+		SerialNum = 68,
+		TagName = "axis_capture",
+		TeamAvailability = 2,
+		Version = 1,
+	},
+	FLAG_allied_flag = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "Flag",
+		GroupName = "",
+		MinRadius = 0,
+		Name = "FLAG_allied_flag",
+		Orientation = Vec3(-1.571, -0.000, 0.000),
+		Position = Vec3(0.000, -1924.000, 293.125),
+		Radius = 0,
+		SerialNum = 38,
+		TagName = "allied_flag",
+		TeamAvailability = 2,
+		Version = 1,
+	},
+	FLAG_axis_flag = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "Flag",
+		GroupName = "",
+		MinRadius = 0,
+		Name = "FLAG_axis_flag",
+		Orientation = Vec3(1.571, -0.000, 0.000),
+		Position = Vec3(0.000, 1920.000, 293.125),
+		Radius = 0,
+		SerialNum = 36,
+		TagName = "axis_flag",
+		TeamAvailability = 4,
+		Version = 1,
+	},
+	Version = 1,
+};

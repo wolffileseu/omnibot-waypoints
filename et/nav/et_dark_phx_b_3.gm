@@ -1,0 +1,601 @@
+//==========================================================================================
+//
+//	et_dark_phx_b_3.gm
+//
+//	Who                    	When		What
+//------------------------------------------------------------------------------------------
+//	^1{WeB}^7*^4GA^1NG$^4TA^7*	15 June 2016	Initial Script
+//
+//==========================================================================================
+//
+
+global Map =
+{
+	Debug = 1, // please set to zero before distributing your script
+	ShowMovers = false,
+
+	Allied_Assault_Ramp_Dyno = 0,
+	Axis_Watchtower_MG_Nest_Dyno = 0,
+	Crypt_Floor_Dyno = 0,
+	Heinrichs_Tomb_Dyno = 0,
+	Main_Crypt_Access_Dyno = 0,
+	Portable_Radar_Dyno = 0,
+	West_Crypt_Access_Dyno = 0,
+
+	Allied_Assault_Ramp_Built = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "Allied_Assault_Ramp_Built" );
+	},
+	
+		Allied_CP_2_Built = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+			
+		SetAvailableMapGoals( TEAM.ALLIES, true, "SWITCH_Call_Air_Raid" );
+		
+
+		Util.MapDebugPrint( "Allied_CP_2_Built" );
+	},
+
+	Axis_Watchtower_MG_Nest_Built = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "Axis_Watchtower_MG_Nest_Built" );
+	},
+
+	Portable_Radar_Built = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+			
+		SetAvailableMapGoals( TEAM.ALLIES, true, "BUILD_Allied_CP_2" );	
+		SetAvailableMapGoals( TEAM.AXIS, true, "PLANT_Portable_Radar" );
+
+		Util.MapDebugPrint( "Portable_Radar_Built" );
+	},
+
+	Tank_Built = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "Tank_Built" );
+	},
+
+	Tank_Barrier_Built = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+			
+		SetAvailableMapGoals( TEAM.AXIS, true, "PLANT_Assault_Ramp_2" );	
+
+		Util.MapDebugPrint( "Tank_Barrier_Built" );
+	},
+
+	Allied_Assault_Ramp_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Allied_Assault_Ramp_Dyno += 1;
+		Util.MapDebugPrint( "Allied_Assault_Ramp_Planted" );
+	},
+
+	Axis_Watchtower_MG_Nest_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Axis_Watchtower_MG_Nest_Dyno += 1;
+		Util.MapDebugPrint( "Axis_Watchtower_MG_Nest_Planted" );
+	},
+
+	Crypt_Floor_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Crypt_Floor_Dyno += 1;
+		Util.MapDebugPrint( "Crypt_Floor_Planted" );
+	},
+
+	Heinrichs_Tomb_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Heinrichs_Tomb_Dyno += 1;
+		Util.MapDebugPrint( "Heinrichs_Tomb_Planted" );
+	},
+
+	Main_Crypt_Access_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Main_Crypt_Access_Dyno += 1;
+		Util.MapDebugPrint( "Main_Crypt_Access_Planted" );
+	},
+
+	Portable_Radar_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Portable_Radar_Dyno += 1;
+		Util.MapDebugPrint( "Portable_Radar_Planted" );
+	},
+
+	West_Crypt_Access_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.West_Crypt_Access_Dyno += 1;
+		Util.MapDebugPrint( "West_Crypt_Access_Planted" );
+	},
+
+	Allied_Assault_Ramp_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Allied_Assault_Ramp_Dyno -= 1;
+		Util.MapDebugPrint( "Allied_Assault_Ramp_Defused" );
+	},
+
+	Axis_Watchtower_MG_Nest_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Axis_Watchtower_MG_Nest_Dyno -= 1;
+		Util.MapDebugPrint( "Axis_Watchtower_MG_Nest_Defused" );
+	},
+
+	Crypt_Floor_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Crypt_Floor_Dyno -= 1;
+		Util.MapDebugPrint( "Crypt_Floor_Defused" );
+	},
+
+	Heinrichs_Tomb_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Heinrichs_Tomb_Dyno -= 1;
+		Util.MapDebugPrint( "Heinrichs_Tomb_Defused" );
+	},
+
+	Main_Crypt_Access_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Main_Crypt_Access_Dyno -= 1;
+		Util.MapDebugPrint( "Main_Crypt_Access_Defused" );
+	},
+
+	Portable_Radar_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Portable_Radar_Dyno -= 1;
+		Util.MapDebugPrint( "Portable_Radar_Defused" );
+	},
+
+	West_Crypt_Access_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.West_Crypt_Access_Dyno -= 1;
+		Util.MapDebugPrint( "West_Crypt_Access_Defused" );
+	},
+
+	Allied_Assault_Ramp_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "Allied_Assault_Ramp_Destroyed" );
+	},
+
+	Axis_Watchtower_MG_Nest_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Axis_Watchtower_MG_Nest_Dyno = 0;
+
+		Util.MapDebugPrint( "Axis_Watchtower_MG_Nest_Destroyed" );
+	},
+
+	Crypt_Floor_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_Heinrichs_Tomb" );	
+			
+		Map.Crypt_Floor_Dyno = 0;
+
+		Util.MapDebugPrint( "Crypt_Floor_Destroyed" );
+	},
+
+	Heinrichs_Tomb_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "Heinrichs_Tomb_Destroyed" );
+	},
+
+	Main_Crypt_Access_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+			
+		
+
+		Map.Main_Crypt_Access_Dyno = 0;
+
+		Util.MapDebugPrint( "Main_Crypt_Access_Destroyed" );
+	},
+
+	Portable_Radar_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Portable_Radar_Dyno = 0;
+
+		Util.MapDebugPrint( "Portable_Radar_Destroyed" );
+	},
+
+	West_Crypt_Access_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+			
+		SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_Crypt_Floor" );		
+
+		Map.West_Crypt_Access_Dyno = 0;
+
+		Util.MapDebugPrint( "West_Crypt_Access_Destroyed" );
+	},
+	
+	Tank_Stolen = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+			
+			
+		//selfkill for change spawnpoint
+		ETUtil.SuicideSpawn( TEAM.AXIS, 0 );	
+			
+		SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_Tank_Barrier" );	
+		SetAvailableMapGoals( TEAM.ALLIES, true, "BUILD_Allied_Assault_Ramp" );	
+		SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_Tank_Barrier_5" );
+	      SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_Tank_Barrier_6" );
+	      SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_Tank_Barrier_7" );
+	      SetAvailableMapGoals( TEAM.AXIS, true, "BUILD_Tank_Barrier" );
+		SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_Tank_Barrier_1" );
+	      SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_Tank_Barrier_2" );
+	      SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_Tank_Barrier_3" );
+	      SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_Tank_Barrier_4" );
+		SetAvailableMapGoals( TEAM.AXIS, true, "PLANT_Assault_Ramp_2" );
+		SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_tank_7" );
+	      SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_tank_8" );
+	      SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_tank_9" );
+	      SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_tank_10" );
+	      SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_tank_1" );
+	      SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_tank_2" );
+	      SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_tank_3" );
+	      SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_tank_4" );
+	      SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_tank_5" );
+	      SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_tank_6" );
+		
+
+		Util.MapDebugPrint( "Tank_Stolen" );
+	},
+	
+		Crypt_Gate_Open = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+			
+		SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_Tomb_1" );
+	      SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_Tomb_2" );
+	      SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_Tomb_3" );
+	      SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_Tomb_4" );
+	      SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_Tomb_5" );
+	      SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_Tomb_6" );
+	      SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_Tomb_7" );
+	      SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_Tomb_8" );
+	      SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_Tomb_9" );
+	      SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_Tomb_10" );
+		SetAvailableMapGoals( TEAM.ALLIES, false, "ESCORT_tank" );
+		SetAvailableMapGoals( TEAM.ALLIES, false, "MOUNT_tank" );
+		SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Tank" );
+		SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_CP_1" );
+	      SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_CP_2" );
+	      SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_CP_3" );
+		SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Allied_CP_2" );
+		SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_Main_Crypt_Access" );
+		SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_West_Crypt_Access" );
+	      SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_CP_4" );
+	      SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_CP_5" );
+	      SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_CP_6" );
+	      SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_CP_7" );
+	      SetAvailableMapGoals( TEAM.AXIS, false, "ESCORT_tank" );
+		SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_Allied_CP_2" );
+		
+
+		Util.MapDebugPrint( "Crypt_Gate_Open" );
+	},
+	
+		Bridge_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+		
+		SetAvailableMapGoals( TEAM.AXIS, true, "BUILD_Axis_Bridge" );
+		SetAvailableMapGoals( TEAM.AXIS, false, "SWITCH_Call_Air_Raid" );	
+		SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_Portable_Radar" );
+		SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Portable_Radar" );
+
+		Util.MapDebugPrint( "Bridge_Destroyed" );
+	},
+	
+		Tank_Passed_Old_House = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		SetAvailableMapGoals( TEAM.ALLIES, true, "BUILD_Portable_Radar" );
+		SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_CP_1" );
+	      SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_CP_2" );
+	      SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_CP_3" );
+	      SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_CP_4" );
+	      SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_CP_5" );
+	      SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_CP_6" );
+	      SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_CP_7" );
+		SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Allied_Assault_Ramp" );
+		SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Tank_Barrier_5" );
+	      SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Tank_Barrier_6" );
+	      SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Tank_Barrier_7" );
+		SetAvailableMapGoals( TEAM.AXIS, false, "BUILD_Axis_Watchtower_MG_Nest" );
+	      SetAvailableMapGoals( TEAM.AXIS, false, "BUILD_Tank_Barrier" );
+		SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Tank_Barrier_1" );
+	      SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Tank_Barrier_2" );
+	      SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Tank_Barrier_3" );
+	      SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Tank_Barrier_4" );
+		SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_Assault_Ramp_2" );
+	      
+		Util.MapDebugPrint( "Tank_Passed_Old_House" );
+	},
+	
+		Transmission_Sent = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+		
+		SetAvailableMapGoals( TEAM.ALLIES, false, "SWITCH_Call_Air_Raid" );	
+		SetAvailableMapGoals( TEAM.AXIS, true, "SWITCH_Call_Air_Raid" );
+
+		Util.MapDebugPrint( "Transmission_Sent" );
+	},
+	
+		Transmission_Interrupted= function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+		
+		SetAvailableMapGoals( TEAM.AXIS, false, "SWITCH_Call_Air_Raid" );
+		SetAvailableMapGoals( TEAM.ALLIES, true, "SWITCH_Call_Air_Raid" );	
+
+		Util.MapDebugPrint( "Transmission_Interrupted" );
+	},
+	
+		Transmission_Finished = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+		
+		SetAvailableMapGoals( TEAM.ALLIES, false, "SWITCH_Call_Air_Raid" );
+		
+
+		Util.MapDebugPrint( "Transmission_Finished" );
+	},
+	
+      	Bridge_Ramp_Constructed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+		
+		SetAvailableMapGoals( TEAM.AXIS, false, "SWITCH_Call_Air_Raid" );
+		
+
+		Util.MapDebugPrint( "Bridge_Ramp_Constructed" );
+	},
+	
+	      Bridge_Ramp_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+		
+		SetAvailableMapGoals( TEAM.AXIS, false, "BUILD_Axis_Bridge" );
+		
+
+		Util.MapDebugPrint( "Bridge_Ramp_Destroyed" );
+	},
+
+
+};
+
+global OnMapLoad = function()
+{
+	if ( TestMapOn )
+		{ Util.AutoTestMap(); }
+
+	// Register callback functions
+	OnTrigger( "The Allied Assault Ramp has been constructed.", Map.Allied_Assault_Ramp_Built );
+	OnTrigger( "The Axis Bridge Ramp has been constructed.", Map.Bridge_Ramp_Constructed );
+	OnTrigger( "The Axis Watchtower MG Nest has been constructed.", Map.Axis_Watchtower_MG_Nest_Built );
+	OnTrigger( "The Allied has repaired the Portable Radar.", Map.Portable_Radar_Built );
+	OnTrigger( "The Tank has been repaired!", Map.Tank_Built );
+	OnTrigger( "Allied Command Post constructed. Charge speed increased!", Map.Allied_CP_2_Built );
+	OnTrigger( "Allied team has stolen the Tank!", Map.Tank_Stolen );
+	OnTrigger( "Tank Barrier has been constructed.", Map.Tank_Barrier_Built );
+	OnTrigger( "Axis have destroyed the Allied Assault Ramp.", Map.Allied_Assault_Ramp_Destroyed );
+	OnTrigger( "The Axis Watchtower MG Nest has been destroyed.", Map.Axis_Watchtower_MG_Nest_Destroyed );
+	OnTrigger( "Allies have opened the Crypt Wall!", Map.Crypt_Floor_Destroyed );
+	OnTrigger( "Allies destroyed the Heinrich's Tomb!", Map.Heinrichs_Tomb_Destroyed );
+	OnTrigger( "Allies have opened the Crypt Access!", Map.Main_Crypt_Access_Destroyed );
+	OnTrigger( "Axis has destroyed the Allied Portable Radar.", Map.Portable_Radar_Destroyed );
+	OnTrigger( "Allies have opened the West Crypt Access!", Map.West_Crypt_Access_Destroyed );
+	OnTrigger( "Allied have destroyed the Axis Bridge Ramp.", Map.Bridge_Ramp_Destroyed );
+	OnTrigger( "Allied team has opened the Crypt Gate!", Map.Crypt_Gate_Open );
+	OnTrigger( "Allied Air Support has destroyed the Bridge!", Map.Bridge_Destroyed );
+	OnTrigger( "The Tank has passed the Old Destroyed House!", Map.Tank_Passed_Old_House );
+	OnTrigger( "^1The Allies are sending the Bridge coordinates in 35 seconds...", Map.Transmission_Sent );
+	OnTrigger( "^1Trasmission interrupted!", Map.Transmission_Sent );
+	OnTrigger( "^7Trasmission completed! Air Raid will destroy the Bridge in 15 seconds...", Map.Transmission_Finished );
+	
+	SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Allied_Assault_Ramp" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Allied_CP_2" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Portable_Radar" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_Tank_Barrier" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_Main_Crypt_Access" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_Heinrichs_Tomb" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_Crypt_Floor" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_West_Crypt_Access" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "SWITCH_Call_Air_Raid" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "BUILD_Tank" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "ESCORT_tank" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_tank_7" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_tank_8" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_tank_9" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_tank_10" );
+	SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_tank_1" );
+	SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_tank_2" );
+	SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_tank_3" );
+	SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_tank_4" );
+	SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_tank_5" );
+	SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_tank_6" );
+	SetAvailableMapGoals( TEAM.AXIS, true, "ESCORT_tank" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "BUILD_Axis_Watchtower_MG_Nest" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "BUILD_Tank_Barrier" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "BUILD_Axis_Bridge" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Tank_Barrier_1" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Tank_Barrier_2" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Tank_Barrier_3" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Tank_Barrier_4" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_Portable_Radar" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Tank_Barrier_5" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Tank_Barrier_6" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Tank_Barrier_7" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_CP_1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_CP_2" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_CP_3" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_CP_4" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_CP_5" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_CP_6" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_CP_7" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_Allied_Assault_Ramp" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_Assault_Ramp_2" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_Allied_CP_2" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Tomb_1" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Tomb_2" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Tomb_3" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Tomb_4" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Tomb_5" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Tomb_6" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Tomb_7" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Tomb_8" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Tomb_9" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Tomb_10" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "SWITCH_Call_Air_Raid" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "SWITCH_Call_Air_Raid" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Portable_Radar" );
+
+	//~Util.DisableGoal( ".*", true ); // all but routes
+	//~SetAvailableMapGoals( TEAM.AXIS, true, "ATTACK_.*" );
+	//~SetAvailableMapGoals( TEAM.ALLIES, true, "ATTACK_.*" );
+
+	// Max users per goal
+	//Util.SetMaxUsers( 1, "DEFEND_.*" );
+	//Util.SetMaxUsers( 1, "GRENADE_.*" );
+	//Util.SetMaxUsers( 1, "MOUNTMG42_.*" );
+
+	// Camp times
+	SetMapGoalProperties( "MOUNTMG42_.*", {MinCampTime=15, MaxCampTime=90} );
+	SetMapGoalProperties( "MOBILEMG42_.*", {MinCampTime=10, MaxCampTime=60} );
+
+
+	Util.MapDebugPrint( "Omni-bot map script for " + GetMapName() + " executed." );
+};
+
+global OnBotJoin = function( bot )
+{
+	// Uncomment for shootable breakables
+	//~bot.TargetBreakableDist = 90.0;
+	// Only set MaxViewDistance on maps with limited sight (e.g. fog)
+	//~bot.MaxViewDistance = 2400;
+};
+
+global InitializeRoutes = function()
+{
+	MapRoutes =
+	{
+		BUILD_Tank_Barrier =
+		{
+		},
+		BUILD_Axis_Watchtower_MG_Nest =
+		{
+		},
+		BUILD_Allied_Assault_Ramp =
+		{
+		},
+		BUILD_Portable_Radar =
+		{
+		},
+		BUILD_Tank =
+		{
+		},
+		PLANT_Heinrichs_Tomb =
+		{
+		},
+		PLANT_Allied_Assault_Ramp =
+		{
+		},
+		PLANT_Axis_Watchtower_MG_Nest =
+		{
+		},
+		PLANT_Portable_Radar =
+		{
+		},
+		PLANT_West_Crypt_Access =
+		{
+		},
+		PLANT_Main_Crypt_Access =
+		{
+		},
+		PLANT_Crypt_Floor =
+		{
+		},
+	};
+	Util.Routes(MapRoutes);
+};

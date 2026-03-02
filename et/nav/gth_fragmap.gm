@@ -1,0 +1,140 @@
+//==========================================================================================
+//
+//	gth_fragmap_b4.gm
+//
+//	Who          	When		What
+//------------------------------------------------------------------------------------------
+//	#gTh*.MaNgO	28 December 2011	Initial Script
+//
+//==========================================================================================
+//
+
+global Map =
+{
+	Debug = 0,
+	ShowMovers = false,
+
+	Wooden_Barrier_Dyno = 0,
+	Wooden_Barrier_1_Dyno = 0,
+
+	Wooden_Barrier_Built = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "Wooden_Barrier_Built" );
+	},
+
+	Wooden_Barrier_1_Built = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "Wooden_Barrier_1_Built" );
+	},
+
+	Wooden_Barrier_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Wooden_Barrier_Dyno += 1;
+		Util.MapDebugPrint( "Wooden_Barrier_Planted" );
+	},
+
+	Wooden_Barrier_1_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Wooden_Barrier_1_Dyno += 1;
+		Util.MapDebugPrint( "Wooden_Barrier_1_Planted" );
+	},
+
+	Wooden_Barrier_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Wooden_Barrier_Dyno -= 1;
+		Util.MapDebugPrint( "Wooden_Barrier_Defused" );
+	},
+
+	Wooden_Barrier_1_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Wooden_Barrier_1_Dyno -= 1;
+		Util.MapDebugPrint( "Wooden_Barrier_1_Defused" );
+	},
+
+	Wooden_Barrier_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Wooden_Barrier_Dyno = 0;
+
+		Util.MapDebugPrint( "Wooden_Barrier_Destroyed" );
+	},
+
+	Wooden_Barrier_1_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Wooden_Barrier_1_Dyno = 0;
+
+		Util.MapDebugPrint( "Wooden_Barrier_1_Destroyed" );
+	},
+
+};
+
+global OnMapLoad = function()
+{
+	if ( TestMapOn )
+		{ Util.AutoTestMap(); }
+
+	// Register callback functions
+	OnTrigger( "MISSING_STRING", Map.Wooden_Barrier_Built );
+	OnTrigger( "MISSING_STRING", Map.Wooden_Barrier_1_Built );
+	OnTrigger( "Planted at the MISSING_STRING.", Map.Wooden_Barrier_Planted );
+	OnTrigger( "Planted at the MISSING_STRING.", Map.Wooden_Barrier_1_Planted );
+	OnTrigger( "Defused at the MISSING_STRING.", Map.Wooden_Barrier_Defused );
+	OnTrigger( "Defused at the MISSING_STRING.", Map.Wooden_Barrier_1_Defused );
+	OnTrigger( "MISSING_STRING", Map.Wooden_Barrier_Destroyed );
+	OnTrigger( "MISSING_STRING", Map.Wooden_Barrier_1_Destroyed );
+
+	//~Util.DisableGoal( ".*", true ); // all but routes
+	//~SetAvailableMapGoals( TEAM.AXIS, true, "ATTACK_.*" );
+	//~SetAvailableMapGoals( TEAM.ALLIES, true, "ATTACK_.*" );
+
+	// Max users per goal
+	Util.SetMaxUsers( 1, "ATTACK_.*" );
+	Util.SetMaxUsers( 1, "DEFEND_.*" );
+	Util.SetMaxUsers( 1, "GRENADE_.*" );
+	Util.SetMaxUsers( 1, "SNIPE_.*" );
+	Util.SetMaxUsers( 1, "MOUNTMG42_.*" );
+	Util.SetMaxUsers( 1, "MOBILEMG42_.*" );
+	Util.SetMaxUsers( 1, "MOBILEMORTAR_.*" );
+	Util.SetMaxUsers( 1, "AIRSTRIKE_.*" );
+	Util.SetMaxUsers( 1, "CALLARTILLERY_.*" );
+
+	// Camp times
+	SetMapGoalProperties( "MOUNTMG42_.*", {MinCampTime=15, MaxCampTime=90} );
+	SetMapGoalProperties( "MOBILEMG42_.*", {MinCampTime=10, MaxCampTime=60} );
+
+	if ( Map.Debug > 1 )
+		{ Util.ShowActiveGoals(); }
+
+	print( "Omni-bot map script for " + GetMapName() + " executed." );
+};
+
+global OnBotJoin = function( bot )
+{
+	// Uncomment for shootable breakables
+	//~bot.TargetBreakableDist = 90.0;
+	// Only set MaxViewDistance on maps with limited sight (e.g. fog)
+	//~bot.MaxViewDistance = 2400;
+};

@@ -1,0 +1,274 @@
+//==========================================================================================
+//
+//	drh_adlernest.gm
+//
+//	Who              	When		What
+//------------------------------------------------------------------------------------------
+//	^1W^4OLF ^1E^4NSTEIN	18 February 2019	Initial Script
+//    ^1W^4OLF ^1E^4NSTEIN    11 March 2019        Modified
+//==========================================================================================
+//
+
+global Map =
+{
+	Debug = 1, // please set to zero before distributing your script
+	ShowMovers = false,
+
+	Allied_CP_Dyno = 0,
+	Door_controls_Dyno = 0,
+
+	Allied_CP_Built = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "Allied_CP_Built" );
+	},
+
+	Allied_CP_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Allied_CP_Dyno += 1;
+		Util.MapDebugPrint( "Allied_CP_Planted" );
+	},
+
+	Door_controls_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Door_controls_Dyno += 1;
+		Util.MapDebugPrint( "Door_controls_Planted" );
+	},
+
+	Allied_CP_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Allied_CP_Dyno -= 1;
+		Util.MapDebugPrint( "Allied_CP_Defused" );
+	},
+
+	Door_controls_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Door_controls_Dyno -= 1;
+		Util.MapDebugPrint( "Door_controls_Defused" );
+	},
+
+	Allied_CP_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Allied_CP_Dyno = 0;
+
+		Util.MapDebugPrint( "Allied_CP_Destroyed" );
+	},
+
+	Door_controls_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+			
+		SetAvailableMapGoals( TEAM.ALLIES, true, "CAPPOINT_transmitter" );
+	      SetAvailableMapGoals( TEAM.ALLIES, true, "FLAG_documents" );
+		SetAvailableMapGoals( TEAM.ALLIES, true, "BUILD_Allied_CP" );
+		SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Door_controls_1" );
+	      SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Door_controls_2" );
+	      SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Door_controls_3" );
+	      SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Door_controls_4" );
+	      SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Door_controls_5" );
+	      SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Door_controls_6" );
+	      SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Door_controls_7" );
+	      SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Door_controls_8" );
+	      SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Door_controls_9" );
+	      SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Door_controls_10" );
+		SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_Docs_1" );
+	      SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_Docs_2" );
+	      SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_Docs_3" );
+	      SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_Docs_4" );
+	      SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_Docs_5" );	
+
+		Map.Door_controls_Dyno = 0;
+
+		Util.MapDebugPrint( "Door_controls_Destroyed" );
+	},
+
+	documents_Taken = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+			
+		SetAvailableMapGoals( TEAM.ALLIES, true, "SWITCH_main_blast_door" );	
+		SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_Transmitter_1" );
+	      SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_Transmitter_2" );
+	      SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_Transmitter_3" );
+	      SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_Transmitter_5" );
+		SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Docs_1" );
+	      SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Docs_2" );
+	      SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Docs_3" );
+	      SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Docs_4" );
+	      SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Docs_5" );
+		SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_Transmitter_1" );
+	      SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_Transmitter_2" );
+	      SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_Transmitter_3" );
+	      SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_Transmitter_5" );
+
+		Util.MapDebugPrint( "documents_Taken" );
+	},
+
+	documents_Returned = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+			
+		SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Transmitter_1" );
+	      SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Transmitter_2" );
+	      SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Transmitter_3" );
+	      SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Transmitter_5" );
+	      SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_Docs_1" );
+	      SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_Docs_2" );
+	      SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_Docs_3" );
+	      SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_Docs_4" );
+	      SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_Docs_5" );	
+		SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Transmitter_1" );
+	      SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Transmitter_2" );
+	      SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Transmitter_3" );
+	      SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Transmitter_5" );
+
+		Util.MapDebugPrint( "documents_Returned" );
+	},
+
+	documents_Secured = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "documents_Secured" );
+	},
+	
+	Door_Open = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+			
+		SetAvailableMapGoals( TEAM.ALLIES, false, "SWITCH_main_blast_door" );
+		SetAvailableMapGoals( TEAM.AXIS, true, "SWITCH_main_blast_door" );
+
+		Util.MapDebugPrint( "Door_Open" );
+	},
+	
+	Door_Close = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+			
+		SetAvailableMapGoals( TEAM.ALLIES, true, "SWITCH_main_blast_door" );
+		SetAvailableMapGoals( TEAM.AXIS, false, "SWITCH_main_blast_door" );
+
+		Util.MapDebugPrint( "Door_Close" );
+	},
+	
+
+};
+
+global OnMapLoad = function()
+{
+	if ( TestMapOn )
+		{ Util.AutoTestMap(); }
+
+	// Register callback functions
+	OnTrigger( "Allied Command Post constructed. Charge speed increased!", Map.Allied_CP_Built );
+	OnTrigger( "Planted at the MISSING_STRING.", Map.Allied_CP_Planted );
+	OnTrigger( "Planted at the MISSING_STRING.", Map.Door_controls_Planted );
+	OnTrigger( "Defused at the MISSING_STRING.", Map.Allied_CP_Defused );
+	OnTrigger( "Defused at the MISSING_STRING.", Map.Door_controls_Defused );
+	OnTrigger( "Axis team has destroyed the Allied Command Post!", Map.Allied_CP_Destroyed );
+	OnTrigger( "The Doors are opening!!", Map.Door_controls_Destroyed );
+	OnTrigger( "Allies have stolen the documents!", Map.documents_Taken );
+	OnTrigger( "Axis have returned the documents!", Map.documents_Returned );
+	OnTrigger( "Allied team has transmitted the documents!", Map.documents_Secured );
+	OnTrigger( "Main blast door opening!", Map.Door_Open );
+	OnTrigger( "Main blast door closing!", Map.Door_Close );
+	
+	SetAvailableMapGoals( TEAM.ALLIES, false, "SWITCH_main_blast_door" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Allied_CP" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Transmitter_1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Transmitter_2" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Transmitter_3" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Transmitter_5" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CAPPOINT_transmitter" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "FLAG_documents" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "SWITCH_main_blast_door" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Docs_1" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Docs_2" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Docs_3" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Docs_4" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Docs_5" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Transmitter_1" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Transmitter_2" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Transmitter_3" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Transmitter_5" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_Door_controls" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_Door_controls_1" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_Door_controls_2" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_Door_controls_3" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_Door_controls_4" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_Door_controls_5" );
+	SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_Door_controls_6" );
+	SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_Door_controls_7" );
+	SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_Door_controls_8" );
+	SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_Door_controls_9" );
+	SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_Door_controls_10" );
+	
+
+	//~Util.DisableGoal( ".*", true ); // all but routes
+	//~SetAvailableMapGoals( TEAM.AXIS, true, "ATTACK_.*" );
+	//~SetAvailableMapGoals( TEAM.ALLIES, true, "ATTACK_.*" );
+
+	// Max users per goal
+	//Util.SetMaxUsers( 1, "DEFEND_.*" );
+	//Util.SetMaxUsers( 1, "GRENADE_.*" );
+	//Util.SetMaxUsers( 1, "MOUNTMG42_.*" );
+
+	// Camp times
+	SetMapGoalProperties( "MOUNTMG42_.*", {MinCampTime=15, MaxCampTime=90} );
+	SetMapGoalProperties( "MOBILEMG42_.*", {MinCampTime=10, MaxCampTime=60} );
+
+
+	Util.MapDebugPrint( "Omni-bot map script for " + GetMapName() + " executed." );
+};
+
+global OnBotJoin = function( bot )
+{
+	bot.TargetBreakableDist = 90.0;
+	
+	// Only set MaxViewDistance on maps with limited sight (e.g. fog)
+	//~bot.MaxViewDistance = 2400;
+};
+
+global InitializeRoutes = function()
+{
+	MapRoutes =
+	{
+		BUILD_Allied_CP =
+		{
+		},
+		PLANT_Allied_CP =
+		{
+		},
+		PLANT_Door_controls =
+		{
+		},
+		FLAG_documents =
+		{
+		},
+	};
+	Util.Routes(MapRoutes);
+};

@@ -1,0 +1,123 @@
+global Map =
+{
+	Ammo_Cabinet_ammo_cabinet_3 = "AMMO_CABINET_ammo_cabinet_3",
+	Ammo_Cabinet_ammo_cabinet_1 = "AMMO_CABINET_ammo_cabinet_1",
+	Ammo_Cabinet_ammo_cabinet_2 = "AMMO_CABINET_ammo_cabinet_2",
+	Checkpoint_allied_bunker_flag = "CHECKPOINT_allied_bunker_flag",
+	Health_Cabinet_health_cabinet_3 = "HEALTH_CABINET_health_cabinet_3",
+	Health_Cabinet_health_cabinet_2 = "HEALTH_CABINET_health_cabinet_2",
+	Health_Cabinet_health_cabinet_1 = "HEALTH_CABINET_health_cabinet_1",
+	Build_tower = "MAP_CONSTRUCTION_tower",
+	Build_axis_compost_built = "MAP_CONSTRUCTION_axis_compost_built",
+	Build_allied_compost_built = "MAP_CONSTRUCTION_allied_compost_built",
+	Destroy_allied_obj2 = "MAP_DYNAMITE_TARGET_allied_obj2",
+	Destroy_allied_compost_built = "MAP_DYNAMITE_TARGET_allied_compost_built",
+	Destroy_tower = "MAP_DYNAMITE_TARGET_tower",
+	Destroy_allied_obj3 = "MAP_DYNAMITE_TARGET_allied_obj3",
+	Mount_391 = "MAP_MOUNTABLE_MG42_391",
+	Mount_313 = "MAP_MOUNTABLE_MG42_313",
+	Repair_313 = "MAP_REPAIR_MG42_313",
+	Repair_391 = "MAP_REPAIR_MG42_391",
+	Flag_allied_obj4 = "MAP_FLAG_allied_obj4",
+	Cappoint_Rocket = "MAP_CAPPOINT_Rocket",
+
+	axis_compost_built_Built = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		print( "axis_compost_built_Built" );
+	},
+
+	allied_compost_built_Built = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		print( "allied_compost_built_Built" );
+	},
+
+	tower_Built = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		print( "tower_Built" );
+	},
+
+	allied_obj3_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		print( "allied_obj3_Destroyed" );
+	},
+
+	tower_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		print( "tower_Destroyed" );
+	},
+
+	allied_obj2_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		print( "allied_obj2_Destroyed" );
+	},
+
+	allied_compost_built_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		print( "allied_compost_built_Destroyed" );
+	},
+
+//~ 	Allies_Capture_Flag = function( trigger )
+//~ 	{
+//~ 		if ( TestMapOn )
+//~ 			{ ETUtil.AutoTestMap(); }
+//~ 
+//~ 		print( "Allies_Capture_Flag" );
+//~ 	},
+
+//~ 	Axis_Capture_Flag = function( trigger )
+//~ 	{
+//~ 		if ( TestMapOn )
+//~ 			{ ETUtil.AutoTestMap(); }
+//~ 
+//~ 		print( "Axis_Capture_Flag" );
+//~ 	},
+};
+
+global OnMapLoad = function()
+{
+	if ( TestMapOn )
+		{ ETUtil.AutoTestMap(); }
+
+	OnTrigger( "MISSING_STRING", Map.allied_compost_built_Built );
+	OnTrigger( "MISSING_STRING", Map.axis_compost_built_Built );
+	OnTrigger( "MISSING_STRING", Map.tower_Built );
+	OnTrigger( "MISSING_STRING", Map.allied_compost_built_Destroyed );
+	OnTrigger( "MISSING_STRING", Map.allied_obj3_Destroyed );
+	OnTrigger( "MISSING_STRING", Map.tower_Destroyed );
+	OnTrigger( "MISSING_STRING", Map.allied_obj2_Destroyed );
+//~ 	OnTrigger( "MISSING_STRING", Map.Allies_Capture_Flag );
+//~ 	OnTrigger( "MISSING_STRING", Map.Axis_Capture_Flag );
+
+	//~SetAvailableMapGoals( TEAM.ALLIES, false, ".*" );
+	//~SetAvailableMapGoals( TEAM.AXIS, false, ".*" );
+
+	print( "OnMapLoad" );
+};
+
+// Uncomment for shootable breakables
+
+global OnBotJoin = function( bot )
+{
+	//~ bot.TargetBreakableDist = 300.0;
+};

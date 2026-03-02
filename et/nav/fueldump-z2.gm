@@ -1,0 +1,738 @@
+//==========================================================================================
+//
+//	fueldump-z2.gm
+//
+//	Who                    	When		What
+//------------------------------------------------------------------------------------------
+//	^1{WeB}^7*^4GA^1NG$^4TA^7*	09 June 2016	Initial Script
+//
+//==========================================================================================
+//
+
+global Map =
+{
+	Debug = 1, // please set to zero before distributing your script
+	ShowMovers = false,
+
+	Allied_Command_Post_Dyno = 0,
+	Axis_Command_Post_Dyno = 0,
+	Bridge_Dyno = 0,
+	East_Axis_Base_Fortification_Dyno = 0,
+	Foot_Bridge_Dyno = 0,
+	Fuel_Dump_Dyno = 0,
+	Road_MG_Dyno = 0,
+	Side_MG_Dyno = 0,
+	Tunnel_MG_Dyno = 0,
+	West_Axis_Base_Fortification_Dyno = 0,
+
+	Allied_Command_Post_Built = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "Allied_Command_Post_Built" );
+	},
+
+	Axis_Command_Post_Built = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "Axis_Command_Post_Built" );
+	},
+
+	Bridge_Built = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "Bridge_Built" );
+	},
+
+	East_Axis_Base_Fortification_Built = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+			
+			
+		SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_East_Axis_Base_Fortification" );
+	
+
+		Util.MapDebugPrint( "East_Axis_Base_Fortification_Built" );
+	},
+
+	Foot_Bridge_Built = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+				
+
+		Util.MapDebugPrint( "Foot_Bridge_Built" );
+	},
+
+	Road_MG_Built = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "Road_MG_Built" );
+	},
+
+	Side_MG_Built = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "Side_MG_Built" );
+	},
+
+	Tank_Built = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "Tank_Built" );
+	},
+
+	Tunnel_MG_Built = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Util.MapDebugPrint( "Tunnel_MG_Built" );
+	},
+
+	West_Axis_Base_Fortification_Built = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+			
+		
+	      SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_West_Axis_Base_Fortification" );	
+
+		Util.MapDebugPrint( "West_Axis_Base_Fortification_Built" );
+	},
+
+	Allied_Command_Post_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Allied_Command_Post_Dyno += 1;
+		Util.MapDebugPrint( "Allied_Command_Post_Planted" );
+	},
+
+	Axis_Command_Post_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Axis_Command_Post_Dyno += 1;
+		Util.MapDebugPrint( "Axis_Command_Post_Planted" );
+	},
+
+	Bridge_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Bridge_Dyno += 1;
+		Util.MapDebugPrint( "Bridge_Planted" );
+	},
+
+	East_Axis_Base_Fortification_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.East_Axis_Base_Fortification_Dyno += 1;
+		Util.MapDebugPrint( "East_Axis_Base_Fortification_Planted" );
+	},
+
+	Foot_Bridge_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Foot_Bridge_Dyno += 1;
+		Util.MapDebugPrint( "Foot_Bridge_Planted" );
+	},
+
+	Fuel_Dump_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Fuel_Dump_Dyno += 1;
+		Util.MapDebugPrint( "Fuel_Dump_Planted" );
+	},
+
+	Road_MG_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Road_MG_Dyno += 1;
+		Util.MapDebugPrint( "Road_MG_Planted" );
+	},
+
+	Side_MG_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Side_MG_Dyno += 1;
+		Util.MapDebugPrint( "Side_MG_Planted" );
+	},
+
+	Tunnel_MG_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Tunnel_MG_Dyno += 1;
+		Util.MapDebugPrint( "Tunnel_MG_Planted" );
+	},
+
+	West_Axis_Base_Fortification_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.West_Axis_Base_Fortification_Dyno += 1;
+		Util.MapDebugPrint( "West_Axis_Base_Fortification_Planted" );
+	},
+
+	Allied_Command_Post_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Allied_Command_Post_Dyno -= 1;
+		Util.MapDebugPrint( "Allied_Command_Post_Defused" );
+	},
+
+	Axis_Command_Post_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Axis_Command_Post_Dyno -= 1;
+		Util.MapDebugPrint( "Axis_Command_Post_Defused" );
+	},
+
+	Bridge_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Bridge_Dyno -= 1;
+		Util.MapDebugPrint( "Bridge_Defused" );
+	},
+
+	East_Axis_Base_Fortification_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.East_Axis_Base_Fortification_Dyno -= 1;
+		Util.MapDebugPrint( "East_Axis_Base_Fortification_Defused" );
+	},
+
+	Foot_Bridge_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Foot_Bridge_Dyno -= 1;
+		Util.MapDebugPrint( "Foot_Bridge_Defused" );
+	},
+
+	Fuel_Dump_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Fuel_Dump_Dyno -= 1;
+		Util.MapDebugPrint( "Fuel_Dump_Defused" );
+	},
+
+	Road_MG_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Road_MG_Dyno -= 1;
+		Util.MapDebugPrint( "Road_MG_Defused" );
+	},
+
+	Side_MG_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Side_MG_Dyno -= 1;
+		Util.MapDebugPrint( "Side_MG_Defused" );
+	},
+
+	Tunnel_MG_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Tunnel_MG_Dyno -= 1;
+		Util.MapDebugPrint( "Tunnel_MG_Defused" );
+	},
+
+	West_Axis_Base_Fortification_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.West_Axis_Base_Fortification_Dyno -= 1;
+		Util.MapDebugPrint( "West_Axis_Base_Fortification_Defused" );
+	},
+
+	Allied_Command_Post_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Allied_Command_Post_Dyno = 0;
+
+		Util.MapDebugPrint( "Allied_Command_Post_Destroyed" );
+	},
+
+	Axis_Command_Post_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Axis_Command_Post_Dyno = 0;
+
+		Util.MapDebugPrint( "Axis_Command_Post_Destroyed" );
+	},
+
+	Bridge_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Bridge_Dyno = 0;
+
+		Util.MapDebugPrint( "Bridge_Destroyed" );
+	},
+
+	East_Axis_Base_Fortification_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.East_Axis_Base_Fortification_Dyno = 0;
+
+		Util.MapDebugPrint( "East_Axis_Base_Fortification_Destroyed" );
+	},
+
+	Foot_Bridge_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Foot_Bridge_Dyno = 0;
+
+		Util.MapDebugPrint( "Foot_Bridge_Destroyed" );
+	},
+
+	Fuel_Dump_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Fuel_Dump_Dyno = 0;
+
+		Util.MapDebugPrint( "Fuel_Dump_Destroyed" );
+	},
+
+	Road_MG_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Road_MG_Dyno = 0;
+
+		Util.MapDebugPrint( "Road_MG_Destroyed" );
+	},
+
+	Side_MG_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Side_MG_Dyno = 0;
+
+		Util.MapDebugPrint( "Side_MG_Destroyed" );
+	},
+
+	Tunnel_MG_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.Tunnel_MG_Dyno = 0;
+
+		Util.MapDebugPrint( "Tunnel_MG_Destroyed" );
+	},
+
+	West_Axis_Base_Fortification_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		Map.West_Axis_Base_Fortification_Dyno = 0;
+
+		Util.MapDebugPrint( "West_Axis_Base_Fortification_Destroyed" );
+	},
+	
+	Tunnel_Grate_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		
+
+		Util.MapDebugPrint( "Tunnel_Grate_Destroyed" );
+	},
+	
+	Tunnel_Doors_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+			
+		SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Tank_Bridge_5" );
+	      SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Tank_Bridge_6" );
+	      SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Tank_Bridge_7" );	
+		SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Foot_Bridge" );
+	      SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Road_MG" );	
+		SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Bridge" );
+		SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_Axis_Command_Post" );
+		SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_Tunnel_MG" );
+		SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_bridge_cons" );
+		SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_arty_bridge_cons1" );
+		SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_arty_bridge_cons2" );
+		SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Tank_Bridge_8" );
+		SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Tank_Bridge_9" );
+		SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Tank_Bridge_10" );
+		SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Tank_Bridge_11" );
+		SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Tank_Bridge_12" );
+		SetAvailableMapGoals( TEAM.AXIS, false, "BUILD_Axis_Command_Post" );
+		SetAvailableMapGoals( TEAM.AXIS, false, "BUILD_Tunnel_MG" );
+		SetAvailableMapGoals( TEAM.AXIS, true, "BUILD_Side_MG" );
+	      SetAvailableMapGoals( TEAM.AXIS, true, "BUILD_West_Axis_Base_Fortification" );
+	      SetAvailableMapGoals( TEAM.AXIS, true, "BUILD_East_Axis_Base_Fortification" );
+		SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_Bridge_Two" );
+		SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_Foot_Bridge" );
+
+
+		
+
+		Util.MapDebugPrint( "Tunnel_Doors_Destroyed" );
+	},
+	
+	Depot_Gates_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+			
+			
+            SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_Fuel_Dump" );
+	      SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_East_Axis_Base_Fortification" );
+       	SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_West_Axis_Base_Fortification" );
+		SetAvailableMapGoals( TEAM.ALLIES, true, "BUILD_Tunnel_MG" );
+		SetAvailableMapGoals( TEAM.ALLIES, true, "BUILD_Allied_Command_Post" );
+		SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_Depot_1" );
+	      SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_Depot_2" );
+	      SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_Depot_3" );
+	      SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_Depot_4" );
+	      SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_Depot_5" );
+		SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_Allied_Command_Post" );
+		SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_Side_MG" );
+		SetAvailableMapGoals( TEAM.AXIS, false, "BUILD_Side_MG" );
+		SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_Axis_Command_Post" );
+		
+
+		Util.MapDebugPrint( "Depot_Gates_Destroyed" );
+	},
+	
+	Depot_Side_Wall_Destroyed = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+	      SetAvailableMapGoals( TEAM.ALLIES, true, "BUILD_Side_MG" );
+		SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_Side_MG" );
+		SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_Depot_6" );
+	      SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_Depot_7" );
+	      SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_Depot_8" );
+		SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Tank" );
+		SetAvailableMapGoals( TEAM.ALLIES, false, "ESCORT_tank" );
+
+		Util.MapDebugPrint( "Depot_Side_Wall_Destroyed" );
+	},
+	
+	Bridge_Reinforced = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		SetAvailableMapGoals( TEAM.ALLIES, true, "BUILD_Foot_Bridge" );
+		SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Tank_Bridge_1" );
+		SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Tank_Bridge_2" );
+		SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Tank_Bridge_3" );
+		SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_Tank_Bridge_5" );
+	      SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_Tank_Bridge_6" );
+	      SetAvailableMapGoals( TEAM.ALLIES, true, "DEFEND_Tank_Bridge_7" );
+
+		Util.MapDebugPrint( "Bridge_ Reinforced" );
+	},
+	
+	Bridge_Damaged = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		
+
+		Util.MapDebugPrint( "Bridge_Damaged" );
+	},
+	
+	East_Defences_Damaged = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+			
+		 
+		SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_East_Axis_Base_Fortification" );
+	  
+		
+
+		Util.MapDebugPrint( "East_Defences_Damaged" );
+	},
+	
+	West_Defences_Damaged = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+			
+			
+	      SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_West_Axis_Base_Fortification" );
+		
+
+		Util.MapDebugPrint( "West_Defences_Damaged" );
+	},
+	
+	Fueldump_Planted = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		SetAvailableMapGoals( TEAM.AXIS, false, "BUILD_West_Axis_Base_Fortification" );
+	      SetAvailableMapGoals( TEAM.AXIS, false, "BUILD_East_Axis_Base_Fortification" );
+		
+
+		Util.MapDebugPrint( "Fueldump_Planted" );
+	},
+	
+	Fuel_Dump_Defused = function( trigger )
+	{
+		if ( TestMap )
+			{ return; }
+
+		SetAvailableMapGoals( TEAM.AXIS, true, "BUILD_West_Axis_Base_Fortification" );
+	      SetAvailableMapGoals( TEAM.AXIS, true, "BUILD_East_Axis_Base_Fortification" );
+		
+
+		Util.MapDebugPrint( "Fuel_Dump_Defused" );
+	},
+
+
+
+
+};
+
+global OnMapLoad = function()
+{
+	if ( TestMapOn )
+		{ Util.AutoTestMap(); }
+
+	// Register callback functions
+	OnTrigger( "Allied Command Post constructed. Charge speed increased!", Map.Allied_Command_Post_Built );
+	OnTrigger( "Axis Command Post constructed. Charge speed increased!", Map.Axis_Command_Post_Built );
+	OnTrigger( "Allied team has constructed the bridge!", Map.Bridge_Built );
+	OnTrigger( "Axis team has constructed the East Axis Base Fortification!", Map.East_Axis_Base_Fortification_Built );
+	OnTrigger( "Allied team has constructed the Foot Bridge!", Map.Foot_Bridge_Built );
+	OnTrigger( "Allied team has constructed the Road MG Nest!", Map.Road_MG_Built );
+	OnTrigger( "Allied team has constructed the Side MG Nest!", Map.Side_MG_Built );
+	OnTrigger( "The Tank has been repaired", Map.Tank_Built );
+	OnTrigger( "Axis team has constructed the Tunnel MG!", Map.Tunnel_MG_Built );
+	OnTrigger( "Axis team has constructed the West Axis Base Fortification!", Map.West_Axis_Base_Fortification_Built );
+	OnTrigger( "Planted at the Allied Command Post.", Map.Allied_Command_Post_Planted );
+	OnTrigger( "Planted at the Axis Command Post.", Map.Axis_Command_Post_Planted );
+	OnTrigger( "Planted at the MISSING_STRING.", Map.Bridge_Planted );
+	OnTrigger( "Planted at the MISSING_STRING.", Map.East_Axis_Base_Fortification_Planted );
+	OnTrigger( "Planted at the MISSING_STRING.", Map.Foot_Bridge_Planted );
+	OnTrigger( "Planted at the Fuel Dump.", Map.Fueldump_Planted );
+	OnTrigger( "Planted at the MISSING_STRING.", Map.Road_MG_Planted );
+	OnTrigger( "Planted at the MISSING_STRING.", Map.Side_MG_Planted );
+	OnTrigger( "Planted at the MISSING_STRING.", Map.Tunnel_MG_Planted );
+	OnTrigger( "Planted at the MISSING_STRING.", Map.West_Axis_Base_Fortification_Planted );
+	OnTrigger( "Defused at the Allied Command Post.", Map.Allied_Command_Post_Defused );
+	OnTrigger( "Defused at the Axis Command Post.", Map.Axis_Command_Post_Defused );
+	OnTrigger( "Defused at the MISSING_STRING.", Map.Bridge_Defused );
+	OnTrigger( "Defused at the MISSING_STRING.", Map.East_Axis_Base_Fortification_Defused );
+	OnTrigger( "Defused at the MISSING_STRING.", Map.Foot_Bridge_Defused );
+	OnTrigger( "Defused at the Fuel Dump.", Map.Fuel_Dump_Defused );
+	OnTrigger( "Defused at the MISSING_STRING.", Map.Road_MG_Defused );
+	OnTrigger( "Defused at the MISSING_STRING.", Map.Side_MG_Defused );
+	OnTrigger( "Defused at the MISSING_STRING.", Map.Tunnel_MG_Defused );
+	OnTrigger( "Defused at the MISSING_STRING.", Map.West_Axis_Base_Fortification_Defused );
+	OnTrigger( "Axis team has destroyed the Allied Command Post!", Map.Allied_Command_Post_Destroyed );
+	OnTrigger( "Allied team has destroyed the Axis Command Post!", Map.Axis_Command_Post_Destroyed );
+	OnTrigger( "Axis team has destroyed the Bridge!", Map.Bridge_Destroyed );
+	OnTrigger( "Allied team has destroyed the East Axis Base Fortification!", Map.East_Axis_Base_Fortification_Destroyed );
+	OnTrigger( "Axis team has destroyed the Foot Bridge!", Map.Foot_Bridge_Destroyed );
+	OnTrigger( "Allied team has destroyed the Axis Fuel Dump!", Map.Fuel_Dump_Destroyed );
+	OnTrigger( "Axis team has destroyed the Road MG Nest!", Map.Road_MG_Destroyed );
+	OnTrigger( "Axis team has destroyed the Side MG Nest!", Map.Side_MG_Destroyed );
+	OnTrigger( "Allied team has destroyed the Tunnel MG!", Map.Tunnel_MG_Destroyed );
+	OnTrigger( "Allied team has destroyed the West Axis Base Fortification!", Map.West_Axis_Base_Fortification_Destroyed );
+	OnTrigger( "Allied team has breached the Tunnel Grate!", Map.Tunnel_Grate_Destroyed );
+	OnTrigger( "Allied team has breached the Tunnel Doors!", Map.Tunnel_Doors_Destroyed );
+	OnTrigger( "Allied team has breached the Depot Gates!", Map.Depot_Gates_Destroyed );
+	OnTrigger( "Allied team has breached the Depot Side Wall!", Map.Depot_Side_Wall_Destroyed );
+	OnTrigger( "Allied team has reinforced the Bridge!", Map.Bridge_Reinforced );
+	OnTrigger( "Axis team has damaged the Bridge!", Map.Bridge_Damaged );
+	OnTrigger( "Allied team has damaged the East Axis Base Fortification!", Map.East_Defences_Damaged );
+	OnTrigger( "Allied team has damaged the West Axis Base Fortification!", Map.West_Defences_Damaged );
+	
+	SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Foot_Bridge" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Road_MG" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Side_MG" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Tank_Bridge_4" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Tank_Bridge_5" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Tank_Bridge_6" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Tank_Bridge_7" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Allied_Command_Post" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_Fuel_Dump" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_East_Axis_Base_Fortification" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_West_Axis_Base_Fortification" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_Tunnel_MG" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_Axis_Command_Post" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_Side_MG" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_Road_MG" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "BUILD_West_Axis_Base_Fortification" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "BUILD_East_Axis_Base_Fortification" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "BUILD_Side_MG" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Depot_1" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Depot_2" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Depot_3" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Depot_4" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_Depot_5" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_Bridge" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Depot_6" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Depot_7" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_Depot_8" );
+	
+	SetGoalPriority("PLANT_Fuel_Dump", 0.91);
+
+	//~Util.DisableGoal( ".*", true ); // all but routes
+	//~SetAvailableMapGoals( TEAM.AXIS, true, "ATTACK_.*" );
+	//~SetAvailableMapGoals( TEAM.ALLIES, true, "ATTACK_.*" );
+
+	// Max users per goal
+	//Util.SetMaxUsers( 1, "DEFEND_.*" );
+	//Util.SetMaxUsers( 1, "GRENADE_.*" );
+	//Util.SetMaxUsers( 1, "MOUNTMG42_.*" );
+
+	// Camp times
+	SetMapGoalProperties( "MOUNTMG42_.*", {MinCampTime=15, MaxCampTime=90} );
+	SetMapGoalProperties( "MOBILEMG42_.*", {MinCampTime=10, MaxCampTime=60} );
+
+
+	Util.MapDebugPrint( "Omni-bot map script for " + GetMapName() + " executed." );
+};
+
+global OnBotJoin = function( bot )
+{
+	// Uncomment for shootable breakables
+	//~bot.TargetBreakableDist = 90.0;
+	// Only set MaxViewDistance on maps with limited sight (e.g. fog)
+	//~bot.MaxViewDistance = 2400;
+};
+
+global InitializeRoutes = function()
+{
+	MapRoutes =
+	{
+		BUILD_Allied_Command_Post =
+		{
+		},
+		BUILD_East_Axis_Base_Fortification =
+		{
+		},
+		BUILD_Tank =
+		{
+		},
+		BUILD_West_Axis_Base_Fortification =
+		{
+		},
+		BUILD_Tunnel_MG =
+		{
+		},
+		BUILD_Road_MG =
+		{
+		},
+		BUILD_Axis_Command_Post =
+		{
+		},
+		BUILD_Foot_Bridge =
+		{
+		},
+		BUILD_Side_MG =
+		{
+		},
+		BUILD_Bridge =
+		{
+		},
+		PLANT_Tunnel_MG =
+		{
+		},
+		PLANT_Side_MG =
+		{
+		},
+		PLANT_Road_MG =
+		{
+		},
+		PLANT_East_Axis_Base_Fortification =
+		{
+		},
+		PLANT_Axis_Command_Post =
+		{
+		},
+		PLANT_Fuel_Dump =
+		{
+		},
+		PLANT_Foot_Bridge =
+		{
+		},
+		PLANT_Bridge =
+		{
+		},
+		PLANT_Allied_Command_Post =
+		{
+		},
+		PLANT_West_Axis_Base_Fortification =
+		{
+		},
+	};
+	Util.Routes(MapRoutes);
+};
