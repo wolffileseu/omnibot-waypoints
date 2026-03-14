@@ -1,0 +1,4065 @@
+//  BETA bot files & map has issues so NOT RECOMENDED for a PUBLIC SERVER
+//==========================================================================================
+//  The Bot files do Work, the Bots Do COMPLETE The Objectives ver .0002d 4TESTING_d BETA 03/14/2026
+//	wolfschanze3.gm
+//
+//	Who   		                    	When		What  	
+//------------------------------------------------------------------------------------------
+//	^1C^2Y^3B^6E^5R^04^1W^2O^3L^6F	06 January 2025	Initial Script
+//  Intended for Silent Mod = SO There ARE TRIPMINES! in silent mod.
+//  ver .0002d 4TESTING_d 01/30/2025 
+//  not having luck with bots spawning in specifically DESIGNATED spawns, axis can not spawn at the village flag spawn but at times axis
+//  *** have spawned at the ruins flag while the flag was an allied flag and the allies spawned there with me as axis spawning there at the same MOMENT.=> YIKES!!
+//  map does not allow planting of landmines. But There ARE TRIPMINES.
+//  The switch for the gate needs to be better controled, this map is incomplete and missing pieces of many different things:
+//  goals, triggers, entities. the gates trigger is not correct and like the train parts there are NO unique trigger strings to meet the needs of the goals.
+//  some mountains are climbable
+//  The map seems very playable in et/omnibot/silent, Tried to test bots on the map in Legacy ET => The map did NOT run-load, tried legacy\silent and map did not run or load.
+//  These Bot files are considered INCOMPLETE
+//  The Bot files do Work, the Bots Do COMPLETE The Objectives. These are beta bot files for a map with issues so I would not recomended it for a public server.
+//  ver .0002d 4TESTING_d BETA 03/14/2026 
+//  If curious - - setting Debug 1 will print to screen all the information of what is
+//  happening in the game\map, visable - dynamite planted and INVISABLE - regional trigger - it prints to screen exactly how many allies are inside the Axis HQ building, etc.
+//  the bots movements are being tracked by many custom regional triggers, So Please make sure Debug is set to zero 0 
+//  to limit the script's resource usage when running on a populated server. Debug 1 will show a huge continual never ending amount of information.
+//==========================================================================================
+//Flag dropped Replacement Part!	DefendingTeam = TEAM.AXIS,
+
+global Map =
+{
+	Debug = 0, // please set to zero before distributing your script
+    
+    DispenseHealthTime = 0.1,//low number makes bot drop health packs
+	DispenseAmmoTime = 0.3,//higher number leaves fieldops ability to call arty
+//Gate Status
+    gateClosed = true, //true - gate is closed at start  
+    gateStatus = 1,
+    gatestatusCounter = 0, //start GATE IS CLOSED - THIS IS A COUNTER  not true or false
+cap1closed = false,
+cap2closed = false,
+AxisCommandPostISBuilt = 1,//built fix build location bots die
+//Map.AlliedMineRampIsBuilt = true,
+//ruinflagisaxis = true, 
+//Parts Status
+//Part1ISDropped = 0,
+//Part2ISDropped = 0,
+//Part1ISSecured = 0,
+//Part2ISSecured = 0,
+//Part1ISReturned = 0,
+//Part2ISReturned = 0,
+DynoTaken = 0,//lol, it should be PartsTaken but i screwed up
+FixedTrain = false,
+AllyInside = 0,
+TrainStolen = false,
+Part1Built = false,
+Part2Built = false,
+
+	DefendingTeam = TEAM.AXIS,
+    Roles =
+	{
+		AXIS =
+		{
+			AllBots = true, // each bot is considered for a role
+			DEFENDER =	
+			{
+				numbots = 3,
+                //spawnpt = 2,
+				crucialClass = CLASS.SOLDIER,
+			},
+			DEFENDER1 =	
+			{
+				numbots = 3,
+                //spawnpt = 1,                
+				crucialClass = CLASS.COVERTOPS,
+			},
+			DEFENDER2 =	
+			{
+				numbots = 3,
+                //spawnpt = 2,
+				crucialClass = CLASS.ENGINEER,
+			},
+            DEFENDER3 =	
+			{
+				numbots = 6,
+                //spawnpt = 2,
+				crucialClass = CLASS.SOLDIER, CLASS.MEDIC, CLASS.ENGINEER, CLASS.FIELDOPS,
+			},
+			ROAMER =	
+			{
+				numbots = 6,
+                //spawnpt = 1,
+				crucialClass = CLASS.COVERTOPS, CLASS.MEDIC, CLASS.ENGINEER, CLASS.FIELDOPS,
+			},
+		},
+		
+		ALLIES =
+		{
+			AllBots = true, // each bot is considered for a role
+			ATTACKER =	
+			{
+				numbots = 5,
+                //spawnpt = 4,
+				crucialClass = CLASS.ENGINEER, CLASS.MEDIC, CLASS.FIELDOPS,
+			},
+			ATTACKER1 =	
+			{
+				numbots = 1,
+                //spawnpt = 3,
+				crucialClass = CLASS.COVERTOPS,
+			},
+			ATTACKER2 =	
+			{
+				numbots = 5,
+                //spawnpt = 3,
+				crucialClass = CLASS.ENGINEER, CLASS.MEDIC, CLASS.FIELDOPS,
+			},
+			ROAMER =	
+			{
+				numbots = 5,
+                //spawnpt = 3,
+				crucialClass = CLASS.ENGINEER, CLASS.COVERTOPS,
+			},
+		},
+	},
+    
+    
+    
+    
+
+    	Switches =
+	{
+		//	/bot waypoint_setproperty paththrough UseSwitch_PT:traingate_switch
+		traingate =
+		{
+			AimPosition = Vec3(-1531.875, 29028.184, 45.578),	// /bot aim_pos
+			Enabled = false,
+			Priority = 0.0,
+			WaypointName = "traingate_switch",
+			LimitBots = 1,
+			Timeout = 2500,
+
+			Wait = function()
+			{
+                
+				return Map.gateClosed;
+                //Map.gateStatus -- 1;
+			},
+		},
+    },    
+
+    //Util.ChangeSpawn(TEAM.AXIS, 9);
+    
+
+    ///Util.ShowEntityInfo: Entity found:gate(662) class:VEHICLE_NODAMAGE, category:STATIC OBSTACLE MOVER 
+    
+    
+    
+//EDIT THIS ALLIED INTRUSION 
+
+	//AllyInside = 0,   
+	//if ( Map.AllyInside > 0 or Map.FixedTrain )
+	//if ( Map.AllyInside == 0 )     
+    
+    
+    
+        
+	intrusion =
+	{
+		Name = "intrusion",
+		TriggerOnClass = CLASS.ANYPLAYER,
+		OnEnter = function(ent)
+		{
+			if( GetEntTeam(ent) == TEAM.ALLIES )
+			{
+                                                             
+				Map.AllyInside += 1;
+                //debugprints
+                //prt1 either cappoint is still open ****
+                //prt2 bot cappoints are closed but parts are unbuilt ****
+                //prt3 if either 1 of the parts are built  ****
+                //prt4 if built and train stolen ****
+                //prt5 has no conditionals
+                //prt6 has no conditionals
+                //prt7 if 0 allies are inside
+                //prt8 allied dies
+
+
+                if (Map.cap1closed || Map.cap2closed)//if either is closed true=run parts not secured
+                //if (!Map.cap1closed || !Map.cap2closed)//if either is still open true=run parts not secured
+                {
+                /*       
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_trainexit_1" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_trainexit_2" );  
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_trainexit_3" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_trainexit_4" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_trainexit_5" );  
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_trainexit_6" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_trainexit_7" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_1" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_2" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_2ndflparts_1" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_1stflparts_1" );
+                SetGoalPriority( "DEFEND_1stflparts_1", .55, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_2ndflparts_1", .75, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_partshouse_1", .75, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_partshouse_2", .77, TEAM.AXIS );
+                SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_D_traxspawn_.*" );      
+                SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_hilltopdef_1" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_rooftop" );
+                */ //SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_spawn_2" );
+                 SetAvailableMapGoals( TEAM.ALLIES, true, "BUILD_Replacement_Part_.*" );                                             
+                SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_village_1" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_ruins_1" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_ruins_2" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_ruins_3" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_village_2" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_ruins_.*" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_village_.*" );      
+                SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_AXISDEFAULT" );   
+                SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_tunnel_.*" );
+                 /*               
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_hilltop_1" ); 
+                SetGoalPriority( "DEFEND_hilltop_1", .75, TEAM.AXIS );    
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_hilltop_2" ); 
+                SetGoalPriority( "DEFEND_hilltop_2", .75, TEAM.AXIS ); 
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_hilltop_3" ); 
+                SetGoalPriority( "DEFEND_hilltop_3", .77, TEAM.AXIS );
+                *///SetGoalPriority( "MOBILEMG42_bridgepathlastdefence", 2.99, TEAM.AXIS );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_roof_1" );        
+	            SetMapGoalProperties( "DEFEND_roof_1", {MinCampTime=150, MaxCampTime=900} );
+                SetGoalPriority( "DEFEND_roof_1", .77, TEAM.AXIS );
+                Util.SetMaxUsers( 1, "DEFEND_roof_1" );       
+                SetGoalRole( "MOBILEMG42_bridgepathlastdefence", ROLE.DEFENDER );//key to defense    
+	            SetAvailableMapGoals( TEAM.AXIS, false, "MOBILEMG42_bridgepathlastdefence" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_village_1" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_village_2" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_village_3" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_village_4" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_village_5" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ruinsarea_.*" );
+                Util.MapDebugPrint( "^6COMPLEX ^INTRUSION ALLIED SOLDIER ^6TRIGGER ^7ENTER prt 1" );//runs 1,5,6 - 5 & 6 irrelevent.
+                }                                 
+                if (Map.cap1closed && Map.cap2closed)//if both are closed //removed else = both parts secured unbuilt
+                {
+                    SetAvailableMapGoals( TEAM.ALLIES, true, "BUILD_Replacement_Part_1");
+                        SetAvailableMapGoals( TEAM.ALLIES, true, "BUILD_Replacement_Part_2");    
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_partshouse_1" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_partshouse_2" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_2ndflparts_1" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_1stflparts_1" );
+                //SetGoalPriority( "DEFEND_partshouse_1", .50, TEAM.AXIS );
+                //SetGoalPriority( "DEFEND_partshouse_2", .50, TEAM.AXIS );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_1" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_2" );  
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_3" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_4" );            
+                SetAvailableMapGoals( TEAM.AXIS, true, "RIDE_Train" );             
+                SetAvailableMapGoals( TEAM.AXIS, true, "SWITCH_traingate" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "MOVER_train" );
+                SetGoalPriority( "MOBILEMG42_bridgepathlastdefence", 2.99, TEAM.AXIS );
+                SetGoalRole( "MOBILEMG42_bridgepathlastdefence", ROLE.DEFENDER );//key to defense    
+	            SetAvailableMapGoals( TEAM.AXIS, true, "MOBILEMG42_bridgepathlastdefence" );     
+                SetGoalPriority( "SWITCH_traingate", 1.98, TEAM.AXIS );
+                //SetGoalPriority( "RIDE_Train", 0.0, TEAM.AXIS ); 
+                SetGoalPriority( "DEFEND_train_1", .99, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_train_2", .79, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_train_3", .89, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_train_4", .89, TEAM.AXIS );
+                Util.MapDebugPrint( "^6COMPLEX ^INTRUSION ALLIED SOLDIER ^6TRIGGER ^7ENTER prt 2" );
+                }
+                if (Map.Part1Built || Map.Part2Built)//if either 1 of the parts are built//i dont like this one
+                {
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_2ndflparts_1" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_1stflparts_1" );       
+                SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_D_traxspawn_.*" );      
+                SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_hilltopdef_1" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_rooftop" );
+                //SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_spawn_2" );                                              
+                SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_village_1" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_ruins_1" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_ruins_2" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_ruins_3" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_village_2" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_ruins_.*" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_village_.*" );      
+                SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_AXISDEFAULT" );   
+                SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_tunnel_.*" );    
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_hilltop_.*" );   
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_roof_1" );    
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_trainexit_1" );
+                //SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_trainexit_2" );  
+                //SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_trainexit_3" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_trainexit_4" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_trainexit_5" );  
+                //SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_trainexit_6" );
+                //SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_trainexit_7" );    
+                SetGoalPriority( "DEFEND_trainexit_1", .89, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_trainexit_2", .89, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_trainexit_3", .89, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_trainexit_4", .89, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_trainexit_5", .99, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_trainexit_6", .89, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_trainexit_7", .89, TEAM.AXIS );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_partshouse_.*" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_village_.*" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ruinsarea_.*" );
+                //SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_train_.*" );           
+                SetAvailableMapGoals( TEAM.AXIS, true, "RIDE_Train" );             
+                SetGoalPriority( "SWITCH_traingate", 3.99, TEAM.AXIS );
+                SetAvailableMapGoals( TEAM.AXIS, true, "RIDE_Train" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "SWITCH_traingate" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "MOVER_train" );
+                //SetGoalPriority( "MOBILEMG42_bridgepathlastdefence", 2.99, TEAM.AXIS );
+                ClearGoalRole( "MOBILEMG42_bridgepathlastdefence", ROLE.DEFENDER );//key to defense    
+	            SetAvailableMapGoals( TEAM.AXIS, false, "MOBILEMG42_bridgepathlastdefence" );
+                Util.MapDebugPrint( "^6COMPLEX ^INTRUSION ALLIED SOLDIER ^6TRIGGER ^7ENTER prt 3" );
+                }
+        else if ( Map.FixedTrain && Map.TrainStolen)
+                {
+                        SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Replacement_Part_1");
+                            SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Replacement_Part_2");
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_2ndflparts_1" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_1stflparts_1" );       
+                SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_D_traxspawn_.*" );      
+                SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_hilltopdef_1" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_rooftop" );
+                //SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_spawn_2" );                                              
+                SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_village_1" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_ruins_1" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_ruins_2" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_ruins_3" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_village_2" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_ruins_.*" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_village_.*" );      
+                SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_AXISDEFAULT" );   
+                SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_tunnel_.*" );    
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_hilltop_.*" );   
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_roof_1" );    
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_trainexit_1" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_trainexit_2" );  
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_trainexit_3" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_trainexit_4" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_trainexit_5" );  
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_trainexit_6" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_trainexit_7" );    
+                SetGoalPriority( "DEFEND_trainexit_1", .89, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_trainexit_2", .89, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_trainexit_3", .89, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_trainexit_4", .89, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_trainexit_5", .99, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_trainexit_6", .89, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_trainexit_7", .89, TEAM.AXIS );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_partshouse_.*" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_village_.*" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ruinsarea_.*" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_train_.*" );           
+                SetAvailableMapGoals( TEAM.AXIS, true, "RIDE_Train" );             
+                SetGoalPriority( "SWITCH_traingate", 3.99, TEAM.AXIS );
+                SetAvailableMapGoals( TEAM.AXIS, true, "RIDE_Train" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "SWITCH_traingate" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "MOVER_train" );
+                //SetGoalPriority( "MOBILEMG42_bridgepathlastdefence", 2.99, TEAM.AXIS );
+                ClearGoalRole( "MOBILEMG42_bridgepathlastdefence", ROLE.DEFENDER );//key to defense    
+	            SetAvailableMapGoals( TEAM.AXIS, false, "MOBILEMG42_bridgepathlastdefence" ); 
+                Util.MapDebugPrint( "^6COMPLEX ^INTRUSION ALLIED SOLDIER ^6TRIGGER ^7ENTER prt 4" );                    
+                }  
+        else
+                {
+                 Util.MapDebugPrint( "^6COMPLEX  ^INTRUSION ALLIED SOLDIER ^6TRIGGER ^7ENTER prt 5" );   
+                }
+                //Util.BotChat( 1, "say", "^4ALLIES ^5 Have ^1INFILTRATED^3!!! ^5the ^6COMPLEX ALLIED SOLDIER ^7TRIGGER", 1 );
+          		Util.MapDebugPrint( "^6COMPLEX ^INTRUSION ALLIED SOLDIER ^6TRIGGER ^7ENTER prt 6" ); 
+				Util.MapDebugPrint( "Allies inside + 1; Total amount: " + Map.AllyInside );
+                //Util.BotChat( 1, "say", "Total Allies Inside:" + Map.AllyInside, 1 );                
+			}
+		},
+		OnExit = function(ent)
+		{
+			if( GetEntTeam(ent) == TEAM.ALLIES )
+			{
+				Map.AllyInside -= 1;
+				
+				Util.MapDebugPrint( "Allies inside - 1; Total amount: " + Map.AllyInside );
+                if ( Map.AllyInside == 0 )//needs conditionals, never runs
+                {
+                //SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_hilltopdef_1" );
+                //SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_spawnbridgeatstart" );
+                //SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_spawn_2" );    
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_1" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_2" );  
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_3" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_4" );
+                //SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_village_.*" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ruinsarea_.*" );   
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_partshouse_1" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_partshouse_2" );
+                //SetGoalPriority( "DEFEND_partshouse_1", .50, TEAM.AXIS );
+                //SetGoalPriority( "DEFEND_partshouse_2", .50, TEAM.AXIS );
+                //SetGoalPriority( "DEFEND_hilltop_1", .50, TEAM.AXIS );
+                //SetGoalPriority( "DEFEND_hilltop_2", .50, TEAM.AXIS );
+                //SetGoalPriority( "DEFEND_hilltop_3", .50, TEAM.AXIS );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_hilltop_1" ); 
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_hilltop_2" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_hilltop_3" );
+             SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_roof_1" );        
+	SetMapGoalProperties( "DEFEND_roof_1", {MinCampTime=150, MaxCampTime=900} );
+    SetGoalPriority( "DEFEND_roof_1", .50, TEAM.AXIS );
+    Util.SetMaxUsers( 1, "DEFEND_roof_1" );
+                 
+            	//Util.BotChat( 1, "say", "intrusion detector NO ALLIES in ^6COMPLEX", 1 );
+          		Util.MapDebugPrint( "^6intrusion detector TRIGGER ^ICOMPLEX CLEAR ^6EXIT prt 7" );  
+                  }
+               //Util.BotChat( 1, "say", "^2Total Allies inside^3 " + Map.AllyInside, 1 );
+                         	//Util.BotChat( 1, "say", "^3ANOTHER 1 BITES THE DUST, HAY! HAY! HAY! ^6- ^3ANOTHER 1 BITES THE DUST!!", 1 );
+          		Util.MapDebugPrint( "^6intrusion detector ALLIED SOLDIER DIED TRIGGER ^6EXIT prt 8" );  //allied die it runs
+			}
+		},
+	},    
+
+    gatestop = function( trigger )//door status trigger - use for door with trigger string and use with path through switch navigation
+	{  
+    Map.gatestatusCounter += 1;
+
+		if ( Map.gatestatusCounter == 0 || Map.gatestatusCounter >> 1 )//closed
+		{ 
+            Map.gatestatusCounter = 0;//gateisclosed
+            Map.gateClosed = true;
+            SetAvailableMapGoals( TEAM.ALLIES, true, "SWITCH_traingate" );
+            SetAvailableMapGoals( TEAM.AXIS, false, "SWITCH_traingate" );
+            Util.MapDebugPrint( "^elabdoor_1 TUCKER switch ALLIES" );			
+			//Util.MapDebugPrint( "^eOPENING CELEBRATE !!!!POW XLABS DOOR 1 IS OPENING CELEBRATE !!!! OPENING" );
+			    Util.MapDebugPrint( "^eIS CLOSING CLOSING CLOSING = allies switch" );  //correct on what gate is doing
+                Util.BotChat( 1, "say", "^6Bot Files Created By ^1C^2Y^3B^6E^5R^04^1W^2O^3L^6F ^3GATE IS CLOSING", 1 );          
+		}
+		else if (Map.gatestatusCounter == 1) //open
+		{ 
+            Map.gateClosed = false;
+            SetAvailableMapGoals( TEAM.ALLIES, false, "SWITCH_traingate" );
+            SetAvailableMapGoals( TEAM.AXIS, true, "SWITCH_traingate" );
+            SetGoalPriority( "SWITCH_traingate", 3.99, TEAM.AXIS );
+			    //Util.MapDebugPrint( "^1XLABS DOOR 1 IS CLOSING CLOSING CELEBRATE !!!!CLOSING" );
+			Util.MapDebugPrint( "^eOPENING CELEBRATE !!!! OPENING CELEBRATE !!!! OPENING = axis switch" );    //correct on what gate is doing
+            Util.BotChat( 1, "say", "^6Bot Files Created By ^1C^2Y^3B^6E^5R^04^1W^2O^3L^6F ^3GATE IS OPENING", 1 );                	
+			    Util.MapDebugPrint( "^13labdoor_1 switch enabled" );//being used
+               
+		}
+            else
+            {
+            Util.MapDebugPrint( "^1STILL ALL FUCKED UP !!!!!" );//being used  
+            }
+	},
+
+	gatestart = function( trigger )
+	{
+		Util.MapDebugPrint( "^igatestart" );
+	},
+
+	Allied_MG42_Construction_Built = function( trigger )//bad 4 allied its used against them
+	{
+    //SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Allied_MG42_Construction" );
+    //SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_Allied_MG42_Construction" );
+		Util.MapDebugPrint( "^6Allied_MG42_Construction_Built" );
+	},
+
+	Allied_MG42_Construction_1_Built = function( trigger )//bad 4 allied its used against them
+	{
+    //SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Allied_MG42_Construction_1" );
+    //SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_Allied_MG42_Construction_1" );
+		Util.MapDebugPrint( "^6Allied_MG42_Construction_1_Built" );
+	},
+
+	Allied_Mine_Ramp_Built = function( trigger )
+	{
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_1" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_2" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ramppath_1" ); 
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ramppath_2" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ramppath_3" );         
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_dynowall_1" );  
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_dynowall_2" );//key to defense
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_dynowall_3" ); //key to defense     
+    Util.DisableGoal( "DEFEND_ruinsarea_1", true ); // all but routes
+    Util.DisableGoal( "DEFEND_ruinsarea_2", true ); // all but routes
+    Util.DisableGoal( "DEFEND_ruinsarea_3", true ); // all but routes
+    Util.DisableGoal( "DEFEND_ruinsarea_4", true ); // all but routes   
+    SetGoalRole( "PLANT_Allied_Mine_Ramp", ROLE.DEFENDER1 );
+    SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Allied_Mine_Ramp" );
+    
+    ClearGoalRole( "BUILD_Allied_Mine_Ramp", ROLE.ATTACKER );
+    SetAvailableMapGoals( TEAM.AXIS, true, "PLANT_Allied_Mine_Ramp" );
+           //Map.AlliedMineRampIsBuilt = true;
+      
+		Util.MapDebugPrint( "^6Allied_Mine_Ramp_Built" );
+	},
+
+	Axis_Command_Post_Built = function( trigger )//its a howitzer, waypoints need tweaking bots die building it.
+	{
+    SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_Axis_Command_Post" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "BUILD_Axis_Command_Post" );
+        AxisCommandPostISBuilt = 1;
+		Util.MapDebugPrint( "^6Axis_Command_Post_Built" );
+	},
+
+	Axis_MG42_Construction_Built = function( trigger )//needed for defence
+	{
+    SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_Axis_MG42_Construction" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "BUILD_Axis_MG42_Construction" );
+		Util.MapDebugPrint( "^6Axis_MG42_Construction_Built" );
+	},
+
+	Axis_MG42_Construction_1_Built = function( trigger )//needed for defence
+	{
+    SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_Axis_MG42_Construction_1" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "BUILD_Axis_MG42_Construction_1" );
+		Util.MapDebugPrint( "^6Axis_MG42_Construction_1_Built" );
+	},
+
+
+    //not relevent to the stolen part numbers, using cappointclosed instead but these parts can not be destroyed. 
+    //  The anounce trigger for each part is not unique to each part it is generic use the custom triggers.
+       
+    Replacement_Part_1_Built = function( trigger )   
+	{
+    Map.Part1Built = true;
+	SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_Replacement_Part_1" );    
+    SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Replacement_Part_1");
+    SetGoalPriority( "BUILD_Replacement_Part_1", 0.0, TEAM.ALLIES, CLASS.ENGINEER );    
+		Util.MapDebugPrint( "^6Replacement_Part_1_Built" );
+    Util.BotChat( 1, "say", "ALLIES HAVE BUILT Replacement_Part_1", 3 );    
+	},
+
+
+    //not relevent to the stolen part numbers, using cappointclosed instead but these parts can not be destroyed. 
+     //  The anounce trigger for each part is not unique to each part it is generic use the custom triggers.
+       
+       
+   	Replacement_Part_2_Built = function( trigger )    
+    {
+        Map.Part2Built = true;
+    SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_Replacement_Part_2" );
+    SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Replacement_Part_2");
+    SetGoalPriority( "BUILD_Replacement_Part_2", 0.0, TEAM.ALLIES, CLASS.ENGINEER );    
+		Util.MapDebugPrint( "^6Replacement_Part_2_Built" );
+        Util.BotChat( 1, "say", "ALLIES HAVE BUILT Replacement_Part_2", 3 );
+	},
+
+	Allied_MG42_Construction_Destroyed = function( trigger )
+	{
+    //SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Allied_MG42_Construction" );
+    //SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_Allied_MG42_Construction" );
+		Util.MapDebugPrint( "^6Allied_MG42_Construction_Destroyed" );
+	},
+
+	Allied_MG42_Construction_1_Destroyed = function( trigger )
+	{
+    //SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Allied_MG42_Construction_1" );
+    //SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_Allied_MG42_Construction_1" );
+		Util.MapDebugPrint( "^6Allied_MG42_Construction_1_Destroyed" );
+	},
+    
+	Allied_Mine_Ramp_Destroyed = function( trigger )
+	{
+        if ( Map.AllyInside == 0 )
+        {
+            	//Util.BotChat( 1, "say", "^7MineRamp Destroyed NO ALLIES Entered ^6COMPLEX", 1 );
+          		Util.MapDebugPrint( "^6Allied_Mine_Ramp_Destroyed COMPLEX CLEAR" );
+    //SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_partshouse_1" );
+    //SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_partshouse_2" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ramppath_1" ); 
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ramppath_2" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ramppath_3" );         
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_dynowall_1" );  
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_dynowall_2" );//key to defense
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_dynowall_3" ); //key to defense  
+        }
+        else if ( Map.AllyInside >> 0 )
+        {
+            	//Util.BotChat( 1, "say", "MineRamp Destroyed ALLIES ^6HAVE Entered ^7COMPLEX", 1 );
+          		Util.MapDebugPrint( "^6Allied_Mine_Ramp_Destroyed COMPLEX CLEAR" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_1" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_2" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ramppath_1" ); 
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ramppath_2" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ramppath_3" );         
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_dynowall_1" );  
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_dynowall_2" );//key to defense
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_dynowall_3" ); //key to defense  
+        }
+    
+    ClearGoalRole( "PLANT_Allied_Mine_Ramp", ROLE.DEFENDER1 );
+    SetGoalRole( "BUILD_Allied_Mine_Ramp", ROLE.ATTACKER );   
+    SetAvailableMapGoals( TEAM.ALLIES, true, "BUILD_Allied_Mine_Ramp" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_Allied_Mine_Ramp" );
+         //Map.AlliedMineRampIsBuilt = false;
+		Util.MapDebugPrint( "^6Allied_Mine_Ramp_Destroyed" );
+	},
+
+	Axis_Command_Post_Destroyed = function( trigger )
+	{
+    SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_Axis_Command_Post" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "BUILD_Axis_Command_Post" );    
+        AxisCommandPostISBuilt = 0;
+		Util.MapDebugPrint( "^6Axis_Command_Post_Destroyed" );
+	},
+
+	Axis_MG42_Construction_Destroyed = function( trigger )
+	{
+    SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_Axis_MG42_Construction" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "BUILD_Axis_MG42_Construction" );
+		Util.MapDebugPrint( "^6Axis_MG42_Construction_Destroyed" );
+	},
+
+	Axis_MG42_Construction_1_Destroyed = function( trigger )
+	{
+    SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_Axis_MG42_Construction_1" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "BUILD_Axis_MG42_Construction_1" );
+		Util.MapDebugPrint( "^6Axis_MG42_Construction_1_Destroyed" );
+	},
+
+	Replacement_Part_1_Destroyed = function( trigger )
+	{
+		Util.MapDebugPrint( "^6Replacement_Part_1_Destroyed" );
+	},
+
+	Replacement_Part_2_Destroyed = function( trigger )
+	{
+		Util.MapDebugPrint( "^6Replacement_Part_2_Destroyed" );
+	},
+
+	Wall_Crack_Destroyed = function( trigger )
+	{
+        Util.DisableGoal( "DEFEND_ruinsarea_1", true ); // all but routes
+    Util.DisableGoal( "DEFEND_ruinsarea_2", true ); // all but routes
+    Util.DisableGoal( "DEFEND_ruinsarea_3", true ); // all but routes
+    Util.DisableGoal( "DEFEND_ruinsarea_4", true ); // all but routes    
+	SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_Wall_Crack" );
+    ClearGoalRole( "PLANT_Wall_Crack", ROLE.ATTACKER );
+                    if ( Map.AllyInside == 0 )
+                {
+                 Util.MapDebugPrint( "^6Ally inside = 0" );   
+                }
+            else
+            {
+                
+            }
+		Util.MapDebugPrint( "^6Wall_Crack_Destroyed" );
+	},
+
+	Replacement_Part_Taken = function( trigger )//secondfloorparts
+	{
+        Util.DisableGoal( "DEFEND_ruinsarea_1", true ); // all but routes
+    Util.DisableGoal( "DEFEND_ruinsarea_2", true ); // all but routes
+    Util.DisableGoal( "DEFEND_ruinsarea_3", true ); // all but routes
+    Util.DisableGoal( "DEFEND_ruinsarea_4", true ); // all but routes    
+		Util.MapDebugPrint( "^6Replacement_Part_Taken" );
+	},
+
+	Replacement_Part_GENERIC_Taken = function( trigger )//firstfloorparts
+	{
+         SetGoalPriority( "CALLARTILLERY_rooftop", 1.85, TEAM.AXIS );               
+           SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_rooftop" );
+           SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_D_traxspawn_.*" ); 
+                SetGoalPriority( "ARTILLERY_D_traxspawn_4", 1.90, TEAM.AXIS );
+        SetGoalPriority( "ARTILLERY_D_traxspawn_5", 1.90, TEAM.AXIS );
+        SetGoalPriority( "ARTILLERY_D_traxspawn_6", 1.90, TEAM.AXIS );
+        Map.DynoTaken += 1;
+        Util.DisableGoal( "DEFEND_ruinsarea_1", true ); // all but routes
+    Util.DisableGoal( "DEFEND_ruinsarea_2", true ); // all but routes
+    Util.DisableGoal( "DEFEND_ruinsarea_3", true ); // all but routes
+    Util.DisableGoal( "DEFEND_ruinsarea_4", true ); // all but routes    
+		Util.MapDebugPrint( "^6Replacement_Part_GENERIC_Taken" );
+	},
+
+	Replacement_Part_Returned = function( trigger )
+	{
+		Util.MapDebugPrint( "^6Replacement_Part_Returned" );
+	},
+
+	Replacement_Part_GENERIC_Returned = function( trigger )
+	{
+        Map.DynoTaken -= 1;
+        SetGoalPriority( "CALLARTILLERY_rooftop", .90, TEAM.AXIS );
+                SetGoalPriority( "ARTILLERY_D_traxspawn_4", .90, TEAM.AXIS );
+        SetGoalPriority( "ARTILLERY_D_traxspawn_5", .90, TEAM.AXIS );
+        SetGoalPriority( "ARTILLERY_D_traxspawn_6", .90, TEAM.AXIS );
+		Util.MapDebugPrint( "^6Replacement_Part_1_Returned" );
+	},
+    
+    Replacement_Part_GENERIC_Dropped = function( trigger )
+	{
+    SetAvailableMapGoals( TEAM.AXIS, true, "FLAGRETURN_Replacement_Part_dropped");
+        Util.SetMaxUsers( 1, "FLAGRETURN_Replacement_Part_dropped" );
+    SetGoalPriority( "FLAGRETURN_Replacement_Part_dropped", .90, TEAM.AXIS );
+
+    
+		Util.MapDebugPrint( "^IReplacement_Part_GENERIC_Dropped" );
+	},
+    
+    Replacement_Part_1_Dropped = function( trigger )
+	{
+		Util.MapDebugPrint( "^6Replacement_Part_dropped" );
+	},
+
+    Replacement_Part_2_Dropped = function( trigger )
+	{
+		Util.MapDebugPrint( "^6Replacement_Part_dropped" );
+	},
+
+	Replacement_Part_Secured = function( trigger )//Using cappointclosed parts triggers are not unique, same trigger both parts
+	{
+        SetAvailableMapGoals( TEAM.ALLIES, true, "BUILD_Replacement_Part_.*" );
+		Util.MapDebugPrint( "^6Replacement_Part_Secured" );
+	},
+
+	Replacement_Part_1_Secured = function( trigger )//Using cappointclosed parts triggers are not unique, same trigger both parts
+	{
+        SetAvailableMapGoals( TEAM.ALLIES, true, "BUILD_Replacement_Part_.*" );
+		Util.MapDebugPrint( "^6Replacement_Part_1_Secured" );
+	},
+
+	ruinflag_Axis_Captured = function( trigger )
+	{
+/*
+        if (map.alliedcaptureruinflagonce == true)
+        {
+    SetAvailableMapGoals( TEAM.ALLIES, false, "CHECKPOINT_vllgflag" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "CHECKPOINT_vllgflag" );   
+        }
+    else
+    {
+    SetAvailableMapGoals( TEAM.ALLIES, true, "CHECKPOINT_ruinflag" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "CHECKPOINT_ruinflag" );   
+    }
+*/   
+    //SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_village_.*" );
+    ClearGoalRole( "CHECKPOINT_ruinflag", ROLE.DEFENDER1 );//key to defense
+    SetAvailableMapGoals( TEAM.ALLIES, true, "CHECKPOINT_ruinflag" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "CHECKPOINT_ruinflag" );
+                if ( Map.AllyInside == 0 )
+        {
+            	//Util.BotChat( 1, "say", "NO ALLIES in ^6COMPLEX", 1 );
+          		Util.MapDebugPrint( "^6ruinflag_Axis_Captured ^3COMPLEX CLEAR" );  
+        } 
+   // Map.ruinflagisaxis = true;
+		Util.MapDebugPrint( "^6ruinflag_Axis_Captured" );
+	},
+	ruinflag_Allies_Captured = function( trigger )
+	{
+
+/* 
+    if (map.alliedcaptureruinflagonce == true)
+        {
+    SetAvailableMapGoals( TEAM.ALLIES, false, "CHECKPOINT_vllgflag" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "CHECKPOINT_vllgflag" );   
+        }
+    SetGoalPriority( "DEFEND_ramppath_1", .74, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_ramppath_2", .74, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_ramppath_3", .74, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_dynowall_1", .74, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_dynowall_2", .74, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_dynowall_3", .74, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_partshouse_1", .75, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_partshouse_2", .75, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_hilltop_1", .74, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_hilltop_2", .74, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_2ndflparts_1", .73, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_1stflparts_1", .73, TEAM.AXIS );     
+    SetGoalPriority( "MOBILEMG42_*.*", .75, TEAM.AXIS );
+    SetGoalPriority( "SWITCH_traingate", 0.0, TEAM.AXIS );
+*/ 
+   
+    SetGoalRole( "CHECKPOINT_ruinflag", ROLE.DEFENDER1 );//key to defense
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_village_.*" );           
+    SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_ruins_1" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_ruins_2" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_ruins_3" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_ruins_.*" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_village_.*" );     
+    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_village_1" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_village_2" );       
+    SetAvailableMapGoals( TEAM.ALLIES, false, "CHECKPOINT_ruinflag" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "CHECKPOINT_ruinflag" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "CHECKPOINT_vllgflag" );
+    SetAvailableMapGoals( TEAM.ALLIES, false, "CHECKPOINT_vllgflag" );
+	Util.DisableGoal( "CHECKPOINT_vllgflag", true ); // all but routes
+    Util.MapDebugPrint( "Allies inside - 0; Total amount: " + Map.AllyInside );
+                    if ( Map.AllyInside == 0 )
+        {
+            	//Util.BotChat( 1, "say", "NO ALLIES in ^6COMPLEX", 0 );
+          		Util.MapDebugPrint( "^6ruinflag_Allies_Captured ^7COMPLEX CLEAR" );  
+        }
+       // Map.ruinflagisaxis = false;
+		Util.MapDebugPrint( "^6ruinflag_Allies_Captured" );
+	},
+
+	vllgflag_Axis_Captured = function( trigger )
+	{
+        /*
+    if (map.alliedcaptureruinflagonce == true)
+        {
+    SetAvailableMapGoals( TEAM.ALLIES, false, "CHECKPOINT_vllgflag" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "CHECKPOINT_vllgflag" );   
+        }
+    else
+    {
+    SetAvailableMapGoals( TEAM.ALLIES, true, "CHECKPOINT_vllgflag" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "CHECKPOINT_vllgflag" );    
+    }
+        */
+    SetAvailableMapGoals( TEAM.ALLIES, true, "CHECKPOINT_vllgflag" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "CHECKPOINT_vllgflag" );
+		Util.MapDebugPrint( "^6vllgflag_Axis_Captured" );
+	},
+
+	vllgflag_Allies_Captured = function( trigger )
+	{
+        /*        
+        if (map.alliedcaptureruinflagonce == true)
+        {
+         SetAvailableMapGoals( TEAM.ALLIES, false, "CHECKPOINT_vllgflag" );
+         SetAvailableMapGoals( TEAM.AXIS, false, "CHECKPOINT_vllgflag" );   
+        }
+    else
+    {
+    SetAvailableMapGoals( TEAM.ALLIES, false, "CHECKPOINT_vllgflag" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "CHECKPOINT_vllgflag" );    
+    }
+        */
+    SetAvailableMapGoals( TEAM.ALLIES, false, "CHECKPOINT_vllgflag" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "CHECKPOINT_vllgflag" );        
+		Util.MapDebugPrint( "^6vllgflag_Allies_Captured" );
+	},
+    
+cappoint_1_closed = function( trigger )
+	{
+        Map.DynoTaken -= 1;
+        Map.cap1closed = true;
+    Util.SetMaxUsers( 1, "DEFEND_train_1" );
+    Util.SetMaxUsers( 1, "DEFEND_train_2" );
+    Util.SetMaxUsers( 1, "DEFEND_train_3" );
+    Util.SetMaxUsers( 1, "DEFEND_train_4" );
+    Util.DisableGoal( "DEFEND_1stflparts_1", true ); // all but routes
+    Util.DisableGoal( "DEFEND_2ndflparts_1", true ); // all but routes 
+    Util.DisableGoal( "DEFEND_ruinsarea_.*", true ); // all but routes 
+    Util.DisableGoal( "DEFEND_dynowall_.*", true ); // all but routes
+                
+    SetGoalPriority( "DEFEND_train_1", .89, TEAM.AXIS );//cap1
+    SetGoalPriority( "DEFEND_train_2", .89, TEAM.AXIS );//cap2
+    SetGoalPriority( "DEFEND_train_3", .89, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_4", .89, TEAM.AXIS );
+    
+    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_AXISDEFAULT" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_partshouse_1" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_partshouse_2" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_ruins_1" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_ruins_2" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_ruins_3" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_village_1" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_village_2" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_ruins_.*" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_village_.*" );            
+    SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_stopthetrain" );   
+    SetAvailableMapGoals( TEAM.ALLIES, true, "BUILD_Replacement_Part_.*" );   
+    SetAvailableMapGoals( TEAM.ALLIES, false, "CAPPOINT_replacementpart_2" );
+    
+                        SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_sewer_1" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_sewer_2" );            
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_1" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_2" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_3" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_4" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ramppath_1" ); 
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ramppath_2" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ramppath_3" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_1" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_2" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_village_.*" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ruinsarea_.*" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_rooftop" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_hilltopdef_1" );
+                SetGoalPriority( "CALLARTILLERY_hilltopdef_1", .99, TEAM.AXIS );
+                SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_spawnbridgeatstart" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_spawn_2" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_traxspawn_4S" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_traxspawn_6S" );
+    
+      SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_trainentrance" );   
+  SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_frontofhqbuilding" );  
+ SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_newbridgecallingplace" );
+ SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_mineramppath" );
+Util.BotChat( 1, "say", "^3 PARTS HAVE BEEN SECURED ^6CAPPOINT 1 IS CLOSED", 3 );     
+		Util.MapDebugPrint( "^6cappoint_1_closed" );
+	},
+    
+cappoint_2_closed = function( trigger )
+	{
+        Map.DynoTaken -= 1;
+        Map.cap2closed = true;
+    Util.SetMaxUsers( 1, "DEFEND_train_1" );
+    Util.SetMaxUsers( 1, "DEFEND_train_2" );
+    Util.SetMaxUsers( 1, "DEFEND_train_3" );
+    Util.SetMaxUsers( 1, "DEFEND_train_4" );
+    Util.DisableGoal( "DEFEND_1stflparts_1", true ); // all but routes
+    Util.DisableGoal( "DEFEND_2ndflparts_1", true ); // all but routes 
+    Util.DisableGoal( "DEFEND_ruinsarea_.*", true ); // all but routes 
+    Util.DisableGoal( "DEFEND_dynowall_.*", true ); // all but routes
+                
+    SetGoalPriority( "DEFEND_train_1", .89, TEAM.AXIS );//cap1
+    SetGoalPriority( "DEFEND_train_2", .89, TEAM.AXIS );//cap2
+    SetGoalPriority( "DEFEND_train_3", .89, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_4", .89, TEAM.AXIS );
+    
+    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_AXISDEFAULT" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_partshouse_1" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_partshouse_2" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_ruins_1" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_ruins_2" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_ruins_3" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_village_1" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_village_2" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_ruins_.*" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_village_.*" );            
+    SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_stopthetrain" );   
+    SetAvailableMapGoals( TEAM.ALLIES, true, "BUILD_Replacement_Part_.*" );   
+    SetAvailableMapGoals( TEAM.ALLIES, false, "CAPPOINT_replacementpart_2" );
+    
+                        SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_sewer_1" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_sewer_2" );            
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_1" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_2" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_3" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_4" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ramppath_1" ); 
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ramppath_2" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ramppath_3" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_1" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_2" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_village_.*" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ruinsarea_.*" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_rooftop" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_hilltopdef_1" );
+                SetGoalPriority( "CALLARTILLERY_hilltopdef_1", .99, TEAM.AXIS );
+                SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_spawnbridgeatstart" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_spawn_2" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_traxspawn_4S" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_traxspawn_6S" );
+    
+      SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_trainentrance" );   
+  SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_frontofhqbuilding" );  
+ SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_newbridgecallingplace" );
+ SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_mineramppath" );
+Util.BotChat( 1, "say", "^3 PARTS HAVE BEEN SECURED ^6CAPPOINT 2 IS CLOSED", 3 );    
+		Util.MapDebugPrint( "^6cappoint_2_closed" );
+	},
+    
+    TrainFixed = function( trigger )//
+	{
+    Util.DisableGoal( "MOUNTMG42_610", true );//across from ruins flag
+    Util.DisableGoal( "MOUNTMG42_612", true );//2 mg42 guns enable these at start         
+    //SetGoalPriority( "MOUNTMG42_Axis_MG42_Construction_1", 0.0, TEAM.AXIS );
+   // SetGoalPriority( "MOUNTMG42_Axis_MG42_Construction_1", 0.0, TEAM.AXIS );     
+    SetAvailableMapGoals( TEAM.ALLIES, false, "CAPPOINT_replacementpart_1" );
+    SetAvailableMapGoals( TEAM.ALLIES, false, "CAPPOINT_replacementpart_2" ); 
+    SetAvailableMapGoals( TEAM.AXIS, false, "MOUNTMG42_Axis_MG42_Construction_1" );//key to defense     
+    SetAvailableMapGoals( TEAM.AXIS, false, "MOUNTMG42_Axis_MG42_Construction" );//key to defense
+    Map.FixedTrain = true;
+    Map.cap1closed = true;
+    Map.cap2closed = true;
+    Map.Part1Built = true;
+    Map.Part2Built = true;
+    SetGoalPriority( "DEFEND_train_1", .99, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_2", .79, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_3", .89, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_4", .89, TEAM.AXIS );   
+    SetGoalPriority( "BUILD_Replacement_Part_.*", 0.0, TEAM.ALLIES, CLASS.ENGINEER ); 
+    SetGoalPriority( "RIDE_Train", 0.99, TEAM.ALLIES );
+    SetGoalPriority( "RIDE_Train", 4.99, TEAM.AXIS );
+        SetGoalPriority( "SWITCH_traingate", 0.99, TEAM.ALLIES );
+                SetGoalPriority( "SWITCH_traingate", 3.99, TEAM.AXIS );
+                    	SetAvailableMapGoals( TEAM.AXIS, true, "RIDE_Train" );
+            SetAvailableMapGoals( TEAM.AXIS, true, "SWITCH_traingate" );
+         SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_2ndflparts_1" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_1stflparts_1" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_partshouse_1" );//key to defense
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_partshouse_2" ); //key to defense
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_dynowall_1" );  
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_dynowall_2" );//key to defense
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_dynowall_3" ); //key to defense    
+    SetAvailableMapGoals( TEAM.AXIS, false, "TRIPMINE_yellowredtunnel_.*" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "TRIPMINE_ramptunnel_.*" );        
+    SetAvailableMapGoals( TEAM.AXIS, false, "TRIPMINE_partstrap_.*" ); 
+    SetAvailableMapGoals( TEAM.AXIS, false, "TRIPMINE_partshousebasement_.*" ); 
+    SetAvailableMapGoals( TEAM.AXIS, false, "TRIPMINE_dynowall_.*" ); 
+    SetAvailableMapGoals( TEAM.AXIS, false, "TRIPMINE_2ndflparts_.*" );     
+    SetAvailableMapGoals( TEAM.AXIS, false, "TRIPMINE_1stflparts_.*" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_stopthetrain" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_stopthetrain_.*" );         
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ramppath_1" ); 
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ramppath_2" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ramppath_3" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "TRIPMINE_.*" );     
+    SetAvailableMapGoals( TEAM.AXIS, false, "MOUNTMG42_Allied_MG42_Construction" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "MOUNTMG42_Axis_MG42_Construction" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "MOUNTMG42_Allied_MG42_Construction_1" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "MOUNTMG42_Axis_MG42_Construction_1" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_Allied_Mine_Ramp" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_Allied_MG42_Construction_1" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_Allied_MG42_Construction" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "BUILD_Axis_MG42_Construction" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "BUILD_Axis_MG42_Construction_1" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "MOUNTMG42_483" );
+	SetAvailableMapGoals( TEAM.AXIS, true, "MOUNTMG42_482" );     
+    SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_Replacement_Part_2" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_Replacement_Part_1" );    
+    SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Replacement_Part_2" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Replacement_Part_1" );
+    SetAvailableMapGoals( TEAM.ALLIES, false, "FLAG_Replacement_Part" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "FLAG_Replacement_Part_1" );
+        SetAvailableMapGoals( TEAM.ALLIES, false, "CAPPOINT_replacementpart_1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CAPPOINT_replacementpart_2" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CHECKPOINT_vllgflag" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CHECKPOINT_ruinflag" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "CHECKPOINT_ruinflag" );
+    SetAvailableMapGoals( TEAM.ALLIES, true, "SWITCH_traingate" );
+            
+	SetAvailableMapGoals( TEAM.ALLIES, true, "RIDE_Train" ); 
+  
+    SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_stopthetrain_.*" );
+    Util.DisableGoal( "ARTILLERY_S_tunnel_.*", true );        
+    Util.DisableGoal( "DEFEND_ruinsarea_1", true ); // all but routes
+    Util.DisableGoal( "DEFEND_ruinsarea_2", true ); // all but routes
+    Util.DisableGoal( "DEFEND_ruinsarea_3", true ); // all but routes
+    Util.DisableGoal( "DEFEND_ruinsarea_4", true ); // all but routes
+    Util.DisableGoal( "DEFEND_dynowall_.*", true ); // all but routes
+    Util.DisableGoal( "DEFEND_ramppath__.*", true ); // all but routes
+    Util.DisableGoal( "DEFEND_ramppathtower1", true ); // all but routes 
+    Util.DisableGoal( "DEFEND_sewer_.*", true ); // all but routes
+    Util.DisableGoal( "MOUNTMG42_482", false );
+    Util.DisableGoal( "MOUNTMG42_483", false );
+    Util.BotChat( 1, "say", "^3THE ALLIES HAVE BFIXED THE TRAIN DO NOT LET THEM STEAL IT !!!", 3 );               
+		Util.MapDebugPrint( "^6TrainFixed" );
+	},
+
+gatestart =
+ 	{
+ 		Name="gatestart",
+ 		TriggerOnEntity = GetGoal("MOVER_gate").GetEntity(),
+ 		OnEnter = function(ent)
+ 		{
+ 			Util.MapDebugPrint(GetEntName(ent) + " ^2GATE IS entering");
+    //SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_1" );
+    //SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_2" );            
+    //SetGoalPriority( "SWITCH_traingate", 0.0, TEAM.AXIS );
+    //SetGoalPriority( "RIDE_Train", 0.0, TEAM.AXIS );   
+    //SetAvailableMapGoals( TEAM.AXIS, false, "RIDE_Train" );             
+    //SetAvailableMapGoals( TEAM.AXIS, false, "SWITCH_traingate" );
+    //SetAvailableMapGoals( TEAM.AXIS, false, "MOVER_train" );
+			Util.MapDebugPrint("^2GATE IS CLOSED !!!");
+ 		},
+ 		OnExit = function(ent)
+ 		{
+			Util.MapDebugPrint(GetEntName(ent) + " ^2GATE exited aabb trigger");
+    //SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_train_1" );
+    //SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_train_2" );           
+    //SetGoalPriority( "SWITCH_traingate", 0.99, TEAM.AXIS );
+    //SetGoalPriority( "RIDE_Train", 1.99, TEAM.AXIS );   
+    //SetAvailableMapGoals( TEAM.AXIS, true, "RIDE_Train" );             
+    //SetAvailableMapGoals( TEAM.AXIS, true, "SWITCH_traingate" );
+    //SetAvailableMapGoals( TEAM.AXIS, true, "MOVER_train" );
+    //Map.gateStatus = 0;
+			Util.MapDebugPrint("^2GATE IS OPENING");
+ 		},
+
+	},
+
+trainstop =
+ 	{
+ 		Name="trainstop",
+ 		TriggerOnEntity = GetGoal("MOVER_train").GetEntity(),
+ 		OnEnter = function(ent)
+ 		{
+ 			Util.MapDebugPrint(GetEntName(ent) + " ^6train entering stop");
+            
+    SetGoalPriority( "RIDE_Train", 6.99, TEAM.AXIS );                
+    SetGoalPriority( "SWITCH_traingate", 5.99, TEAM.AXIS );                       
+    SetGoalPriority( "SWITCH_traingate", 0.99, TEAM.ALLIES );
+    
+    SetAvailableMapGoals( TEAM.AXIS, true, "RIDE_Train" );                
+    SetAvailableMapGoals( TEAM.ALLIES, true, "SWITCH_traingate" ); 
+    SetAvailableMapGoals( TEAM.AXIS, true, "SWITCH_traingate" );
+			Util.MapDebugPrint("^6train enter");
+ 		},
+ 		OnExit = function(ent)
+ 		{
+			Util.MapDebugPrint(GetEntName(ent) + " exited aabb trigger");
+			Util.MapDebugPrint("^6train exit");
+ 		},
+
+	},
+
+trainbackendsitting =
+ 	{
+ 		Name="trainbackendsitting",
+ 		TriggerOnEntity = GetGoal("MOVER_train").GetEntity(),
+ 		OnEnter = function(ent)
+ 		{
+ 			Util.MapDebugPrint(GetEntName(ent) + " ^6train trainbackendsitting entering move");
+    /*
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_1" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_2" );  
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_3" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_4" );            
+    SetAvailableMapGoals( TEAM.AXIS, false, "RIDE_Train" );             
+    SetAvailableMapGoals( TEAM.AXIS, false, "SWITCH_traingate" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "MOVER_train" );
+    
+    SetGoalPriority( "SWITCH_traingate", 0.0, TEAM.AXIS );
+    SetGoalPriority( "RIDE_Train", 0.0, TEAM.AXIS ); 
+    SetGoalPriority( "DEFEND_train_1", .99, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_2", .79, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_3", .89, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_4", .89, TEAM.AXIS );
+   */
+			Util.MapDebugPrint("^6train trainbackendsitting enter");
+ 		},
+ 		OnExit = function(ent)
+ 		{
+			Util.MapDebugPrint(GetEntName(ent) + " exited aabb trainbackendsitting trigger");
+    /*
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_train_1" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_train_2" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_train_3" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_train_4" );              
+    SetAvailableMapGoals( TEAM.AXIS, true, "RIDE_Train" );             
+    SetAvailableMapGoals( TEAM.AXIS, true, "SWITCH_traingate" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "MOVER_train" );
+   
+    SetGoalPriority( "SWITCH_traingate", 0.99, TEAM.AXIS );
+    SetGoalPriority( "RIDE_Train", 1.99, TEAM.AXIS );    
+    SetGoalPriority( "DEFEND_train_1", 0.0, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_2", 0.0, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_3", 0.0, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_4", 0.0, TEAM.AXIS );
+  */
+			Util.MapDebugPrint("^6train trainbackendsitting exit");
+ 		},
+
+	},
+
+trainfrontendsitting =
+ 	{
+ 		Name="trainfrontendsitting",
+ 		TriggerOnEntity = GetGoal("MOVER_train").GetEntity(),
+ 		OnEnter = function(ent)
+ 		{
+ 			Util.MapDebugPrint(GetEntName(ent) + " ^6train trainfrontendsitting entering move");
+    /*
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_1" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_2" );  
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_3" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_4" );            
+    SetAvailableMapGoals( TEAM.AXIS, false, "RIDE_Train" );             
+    SetAvailableMapGoals( TEAM.AXIS, false, "SWITCH_traingate" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "MOVER_train" );
+    
+    SetGoalPriority( "SWITCH_traingate", 0.0, TEAM.AXIS );
+    SetGoalPriority( "RIDE_Train", 0.0, TEAM.AXIS ); 
+    SetGoalPriority( "DEFEND_train_1", .99, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_2", .79, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_3", .89, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_4", .89, TEAM.AXIS );
+   */
+			Util.MapDebugPrint("^6train trainfrontendsitting enter");
+ 		},
+ 		OnExit = function(ent)
+ 		{
+			Util.MapDebugPrint(GetEntName(ent) + " exited aabb trigger trainfrontendsitting");
+    /*
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_train_1" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_train_2" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_train_3" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_train_4" );              
+    SetAvailableMapGoals( TEAM.AXIS, true, "RIDE_Train" );             
+    SetAvailableMapGoals( TEAM.AXIS, true, "SWITCH_traingate" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "MOVER_train" );
+   
+    SetGoalPriority( "SWITCH_traingate", 0.99, TEAM.AXIS );
+    SetGoalPriority( "RIDE_Train", 1.99, TEAM.AXIS );    
+    SetGoalPriority( "DEFEND_train_1", 0.0, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_2", 0.0, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_3", 0.0, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_4", 0.0, TEAM.AXIS );
+   */
+			Util.MapDebugPrint("^6train trainfrontendsitting exit");
+ 		},
+
+	},
+    
+trainmove =
+ 	{
+ 		Name="trainmove",
+ 		TriggerOnEntity = GetGoal("MOVER_train").GetEntity(),
+ 		OnEnter = function(ent)
+ 		{
+
+    if ( Map.FixedTrain == false)
+    {
+     /*   
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_1" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_2" );  
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_3" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_4" );            
+    SetAvailableMapGoals( TEAM.AXIS, false, "RIDE_Train" );             
+    SetAvailableMapGoals( TEAM.AXIS, false, "SWITCH_traingate" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "MOVER_train" );
+    
+    SetGoalPriority( "SWITCH_traingate", 0.0, TEAM.AXIS );
+    SetGoalPriority( "RIDE_Train", 0.0, TEAM.AXIS ); 
+    SetGoalPriority( "DEFEND_train_1", .99, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_2", .79, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_3", .89, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_4", .89, TEAM.AXIS );
+    Util.MapDebugPrint("^6trainmove ^3DEFENCE ACTIVE TRAIN RETURNED ^6enter");
+            //Util.BotChat( 1, "say", "^3ALLIES ARE STEALING THE TRAIN !!!!   ^1STOP THEM !!!!!!movetrigger", 3 );  
+            */  
+   }
+   else
+   	{
+        
+        Util.MapDebugPrint("^6trainmove ^3DEFENCE IS O F F !!!! ^6enter");
+    }
+     			Util.MapDebugPrint(GetEntName(ent) + " ^6trainmove entering NOT STOLEN move");	
+                	Util.MapDebugPrint("^6trainmove enter");
+ 		},
+ 		OnExit = function(ent)
+ 		{
+            SetAvailableMapGoals( TEAM.AXIS, false, "RIDE_Train" );
+                SetGoalPriority( "RIDE_Train", 1.99, TEAM.AXIS );
+			Util.MapDebugPrint(GetEntName(ent) + " exited aabb ^6trainmove TRAIN STOLEN trigger");
+    /*
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_train_1" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_train_2" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_train_3" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_train_4" );              
+    SetAvailableMapGoals( TEAM.AXIS, true, "RIDE_Train" );             
+    SetAvailableMapGoals( TEAM.AXIS, true, "SWITCH_traingate" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "MOVER_train" );
+   
+    SetGoalPriority( "SWITCH_traingate", 0.99, TEAM.AXIS );
+    SetGoalPriority( "RIDE_Train", 1.99, TEAM.AXIS );    
+    SetGoalPriority( "DEFEND_train_1", 0.0, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_2", 0.0, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_3", 0.0, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_4", 0.0, TEAM.AXIS );
+  */
+			Util.MapDebugPrint("^6trainmove exit");
+            //Util.BotChat( 1, "say", "^3AXIS ARE RETURNING THE TRAIN !!! STEAL IT !!!movetrigger", 3 );            
+ 		},
+
+	},
+    
+//firstfloorparts =  FLAG_Replacement_Part_1 = Train Parts ? 
+dogshit1 =
+ 	{
+ 		Name="dogshit1",
+ 		TriggerOnClass = CLASS.ANYPLAYER,
+ 		OnEnter = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I Have Picked Up 1st Floor Train Parts Number 1");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^1Do not Allow The Allies To Secure The 1st Floor Number 1 Parts on The Train");
+                        break;
+                    }
+                }
+             
+
+   
+                }
+                     SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_sewer_1" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_sewer_2" );            
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_1" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_2" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_3" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_4" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ramppath_1" ); 
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ramppath_2" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ramppath_3" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_1" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_2" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_village_.*" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ruinsarea_.*" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_rooftop" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_hilltopdef_1" );
+                SetGoalPriority( "CALLARTILLERY_hilltopdef_1", .99, TEAM.AXIS );
+                SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_spawnbridgeatstart" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_spawn_2" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_traxspawn_4S" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_traxspawn_6S" );
+                SetGoalPriority( "DEFEND_train_1", .99, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_train_2", .89, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_train_3", .89, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_train_4", .89, TEAM.AXIS );
+            }
+        /*
+                if(GetEntTeam(ent) == TEAM.ALLIES )
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I am AALIED at ^d 1st Floor Part_1 on my way to ^6KICK YOUR ASS !!!");                         
+                    }
+                }
+                if(GetEntTeam(ent) == TEAM.AXIS )
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^6I am AXIS at ^d 1st Floor Part_1 DEFENDER !!!");                         
+                    }
+                } 
+                */           
+		Util.MapDebugPrint( "^d 1st Floor Part_1 TRIGGER ENTER" );         
+ 			Util.MapDebugPrint(GetEntName(ent) + " ^d 1st Floor Soldier entering");
+			Util.MapDebugPrint("^d 1st Floor Soldier enter");
+ 		},
+ 		OnExit = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I Have Picked Up  1st Floor Train Parts Number 1");                         
+
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^1Do not Allow The Allies To Secure The  1st Floor Number 1 Parts on The Train");
+                        break;
+                    }
+                }
+                if (Map.cap1closed == true)
+                     {
+                    SetAvailableMapGoals( TEAM.ALLIES, false, "CAPPOINT_replacementpart_1" );//need conditionals
+                    SetAvailableMapGoals( TEAM.ALLIES, true, "CAPPOINT_replacementpart_2" );//need conditionals                      
+                     }
+                 else if (Map.cap2closed == true)
+                     {
+                    SetAvailableMapGoals( TEAM.ALLIES, false, "CAPPOINT_replacementpart_2" );//need conditionals
+                    SetAvailableMapGoals( TEAM.ALLIES, true, "CAPPOINT_replacementpart_1" );//need conditionals                      
+                     }
+                 else if (!cap2closed && !cap1closed)
+                     {
+                    SetAvailableMapGoals( TEAM.ALLIES, true, "CAPPOINT_replacementpart_1" );//need conditionals
+                    SetAvailableMapGoals( TEAM.ALLIES, true, "CAPPOINT_replacementpart_2" );//need conditionals                      
+                     }
+                                  else
+                     {
+                    SetAvailableMapGoals( TEAM.ALLIES, false, "CAPPOINT_replacementpart_1" );//need conditionals
+                    SetAvailableMapGoals( TEAM.ALLIES, false, "CAPPOINT_replacementpart_2" );//need conditionals
+                    //SetGoalPriority( "FLAG_Replacement_Part_1", 0.0, TEAM.ALLIES );
+                    //SetGoalPriority( "FLAG_Replacement_Part", 0.0, TEAM.ALLIES );                      
+                     }
+            //SetAvailableMapGoals( TEAM.ALLIES, true, "CAPPOINT_replacementpart_2" );
+            
+    SetGoalPriority( "DEFEND_train_1", .99, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_2", .89, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_3", .89, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_4", .89, TEAM.AXIS );
+    
+    
+                }
+            }
+        if ( Map.AllyInside == 0 )
+        {
+      SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_traxspawn_4S" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_traxspawn_6S" );        
+    //SetGoalPriority( "DEFEND_train_1", .78, TEAM.AXIS );
+    //SetGoalPriority( "DEFEND_train_2", .50, TEAM.AXIS );
+    //SetGoalPriority( "DEFEND_train_3", .50, TEAM.AXIS );
+    //SetGoalPriority( "DEFEND_train_4", .50, TEAM.AXIS );
+            	//Util.BotChat( 1, "say", "NO ALLIES in ^6COMPLEX", 1 );
+          		Util.MapDebugPrint( "^6COMPLEX CLEAR" );  
+        }
+		Util.MapDebugPrint( "^d 1st Floor Train Parts 1 TRIGGER Exit" ); 
+ 		
+        
+
+	},
+    },   
+//secondfloorparts =  FLAG_Replacement_Part = Train Parts 2
+    dogshit2 =
+ 	{
+ 		Name="dogshit2",
+ 		TriggerOnClass = CLASS.ANYPLAYER,
+ 		OnEnter = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                    SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_hilltopdef_1" );
+                    SetGoalPriority( "CALLARTILLERY_hilltopdef_1", .99, TEAM.AXIS );
+                                    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_spawnbridgeatstart" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_spawn_2" );
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I Have Picked Up 2nd Floor Train Parts Number 2");                        
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^1Do not Allow The Allies To Secure The 2nd Floor Number 2 Parts on The Train");
+                        break;
+                    }
+                }      
+                }
+            
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_sewer_1" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_sewer_2" );            
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_1" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_2" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_3" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_4" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ramppath_1" ); 
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ramppath_2" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ramppath_3" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_1" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_2" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_village_.*" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ruinsarea_.*" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_rooftop" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_hilltopdef_1" );
+                SetGoalPriority( "CALLARTILLERY_hilltopdef_1", .99, TEAM.AXIS );
+                SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_spawnbridgeatstart" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_spawn_2" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_traxspawn_4S" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_traxspawn_6S" );
+                SetGoalPriority( "DEFEND_train_1", .99, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_train_2", .89, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_train_3", .89, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_train_4", .89, TEAM.AXIS );
+            /*
+                     SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_sewer_1" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_sewer_2" );            
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_1" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_2" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_3" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_4" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ramppath_1" ); 
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ramppath_2" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ramppath_3" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_1" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_2" );
+                SetGoalPriority( "DEFEND_partshouse_1", .85, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_partshouse_2", .85, TEAM.AXIS );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_village_.*" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ruinsarea_.*" );
+                    SetGoalPriority( "DEFEND_train_1", .99, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_2", .89, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_3", .89, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_4", .89, TEAM.AXIS );
+            */
+            
+            
+            }//this is being used
+        
+        
+        
+        
+        
+        /*
+                if(GetEntTeam(ent) == TEAM.ALLIES )
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I am AALIED at ^b 2nd Floor Train Parts 2 on my way to ^6KICK YOUR ASS !!!");                         
+                    }
+                }
+                if(GetEntTeam(ent) == TEAM.AXIS )
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^6I am AXIS at ^b 2nd Floor Train Parts 2 DEFENDER !!!");                         
+                    }
+                }
+            */
+		Util.MapDebugPrint( "^b 2nd Floor Train Parts 2 TRIGGER ENTER" );         
+   
+ 			Util.MapDebugPrint(GetEntName(ent) + " ^b 2nd Floor train parts 2 entering");
+            
+    SetGoalPriority( "SWITCH_traingate", 0.99, TEAM.ALLIES );            
+    SetAvailableMapGoals( TEAM.ALLIES, false, "SWITCH_traingate" ); 
+    SetAvailableMapGoals( TEAM.AXIS, false, "SWITCH_traingate" );
+			Util.MapDebugPrint("^b 2nd Floor Parts 2 enter");
+ 		},
+ 		OnExit = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I Have Picked Up 2nd Floor Train Parts Number 2");                        
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.ALLIES )
+                    {
+                        bot.SayTeam("^1Do not Allow The Allies To Secure The 2nd Floor Number 2 Parts on The Train");
+                        break;
+                    }
+                }
+                if (Map.cap1closed == true)
+                     {
+                    SetAvailableMapGoals( TEAM.ALLIES, false, "CAPPOINT_replacementpart_1" );//need conditionals
+                    SetAvailableMapGoals( TEAM.ALLIES, true, "CAPPOINT_replacementpart_2" );//need conditionals                      
+                     }
+                 else if (Map.cap2closed == true)
+                     {
+                    SetAvailableMapGoals( TEAM.ALLIES, false, "CAPPOINT_replacementpart_2" );//need conditionals
+                    SetAvailableMapGoals( TEAM.ALLIES, true, "CAPPOINT_replacementpart_1" );//need conditionals                      
+                     }
+                 else if (!cap2closed && !cap1closed)
+                     {
+                    SetAvailableMapGoals( TEAM.ALLIES, true, "CAPPOINT_replacementpart_1" );//need conditionals
+                    SetAvailableMapGoals( TEAM.ALLIES, true, "CAPPOINT_replacementpart_2" );//need conditionals                      
+                     }
+                                  else
+                     {
+                    SetAvailableMapGoals( TEAM.ALLIES, false, "CAPPOINT_replacementpart_1" );//need conditionals
+                    SetAvailableMapGoals( TEAM.ALLIES, false, "CAPPOINT_replacementpart_2" );//need conditionals
+                    //SetGoalPriority( "FLAG_Replacement_Part_1", 0.0, TEAM.ALLIES );
+                    //SetGoalPriority( "FLAG_Replacement_Part", 0.0, TEAM.ALLIES );                      
+                     }
+                 
+    SetGoalPriority( "DEFEND_train_1", .99, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_2", .89, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_3", .89, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_4", .89, TEAM.AXIS );
+    
+                }
+                                            if ( Map.AllyInside == 0 )
+        {
+                //SetGoalPriority( "DEFEND_train_1", .78, TEAM.AXIS );
+    //SetGoalPriority( "DEFEND_train_2", .50, TEAM.AXIS );
+    //SetGoalPriority( "DEFEND_train_3", .50, TEAM.AXIS );
+    //SetGoalPriority( "DEFEND_train_4", .50, TEAM.AXIS );
+                    SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_traxspawn_4S" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_traxspawn_6S" );
+            	//Util.BotChat( 1, "say", "NO ALLIES in ^6COMPLEX", 1 );
+          		Util.MapDebugPrint( "^6COMPLEX CLEAR" );  
+        }
+            }
+		Util.MapDebugPrint( "^b 2nd Floor Parts 2 TRIGGER Exit" ); 
+	    },
+    },
+    
+sewer =
+ 	{
+ 		Name="sewer",
+ 		TriggerOnClass = CLASS.ANYPLAYER,
+ 		OnEnter = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I am on my way to steal Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^1Allies are in the sewer Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_1" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_2" );
+                SetGoalPriority( "DEFEND_partshouse_1", .85, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_partshouse_2", .85, TEAM.AXIS );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_village_.*" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ruinsarea_.*" );
+            }
+            
+        /*
+                if(GetEntTeam(ent) == TEAM.ALLIES )
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I am AALIED at ^jsewer on my way to ^6KICK YOUR ASS !!!");                         
+                    }
+                }
+                if(GetEntTeam(ent) == TEAM.AXIS )
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^6I am AXIS at ^jsewer DEFENDER !!!");                         
+                    }
+                } 
+                */           
+		Util.MapDebugPrint( "^jsewer TRIGGER ENTER" );                 
+ 			Util.MapDebugPrint(GetEntName(ent) + " ^jsewer Soldier entering");           
+			Util.MapDebugPrint("^jsewer Soldier enter");
+ 		},
+ 		OnExit = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I am on my way to steal Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^1Allies are in the sewer Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+                    //if ( Map.AllyInside == 0 )
+                    //{
+            	//Util.BotChat( 1, "say", "ALLIES are Entering ^6COMPLEX using the SEWER", 1 );
+          		Util.MapDebugPrint( "^6COMPLEX not CLEAR" );  
+                    //}
+            }
+		Util.MapDebugPrint( "^jsewer TRIGGER Exit" );  		
+	},
+    },        
+
+rsidetunnelb4wall =
+ 	{
+ 		Name="rsidetunnelb4wall",
+ 		TriggerOnClass = CLASS.ANYPLAYER,
+ 		OnEnter = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I am on my way to steal Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^1rsidetunnelb4wall Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_1" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_2" );
+                SetGoalPriority( "DEFEND_partshouse_1", .85, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_partshouse_2", .85, TEAM.AXIS );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_village_.*" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ruinsarea_.*" );
+            }
+        /*
+                if(GetEntTeam(ent) == TEAM.ALLIES )
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I am AALIED at ^srsidetunnelb4wall on my way to ^6KICK YOUR ASS !!!");                         
+                    }
+                }
+                if(GetEntTeam(ent) == TEAM.AXIS )
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^6I am AXIS at ^srsidetunnelb4wall DEFENDER !!!");                         
+                    }
+                }
+            */
+		Util.MapDebugPrint( "^srsidetunnelb4wall TRIGGER ENTER" );                 
+ 			Util.MapDebugPrint(GetEntName(ent) + " ^srsidetunnelb4wall Soldier entering");           
+			Util.MapDebugPrint("^srsidetunnelb4wall Soldier enter");
+ 		},
+ 		OnExit = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I am on my way to steal Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^1rsidetunnelb4wall Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+                                            if ( Map.AllyInside == 0 )
+        {
+            	//Util.BotChat( 1, "say", "NO ALLIES in ^6COMPLEX", 1 );
+          		Util.MapDebugPrint( "^6COMPLEX CLEAR" );  
+        }
+            }
+		Util.MapDebugPrint( "^srsidetunnelb4wall TRIGGER Exit" );  		        
+	},
+    },        
+
+
+basementofpartsroom =
+ 	{
+ 		Name="basementofpartsroom",
+ 		TriggerOnClass = CLASS.ANYPLAYER,
+ 		OnEnter = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I am on my way to steal Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^1basementofpartsroom Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_1" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_2" );
+                SetGoalPriority( "DEFEND_partshouse_1", .85, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_partshouse_2", .85, TEAM.AXIS );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_village_.*" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ruinsarea_.*" );
+            }
+        /*
+                if(GetEntTeam(ent) == TEAM.ALLIES )
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I am AALIED at ^mbasementofpartsroom on my way to ^6KICK YOUR ASS !!!");                         
+                    }
+                }
+                if(GetEntTeam(ent) == TEAM.AXIS )
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^6I am AXIS at ^mbasementofpartsroom DEFENDER !!!");                         
+                    }
+                }
+            */
+		Util.MapDebugPrint( "^mbasementofpartsroom TRIGGER ENTER" );                 
+ 			Util.MapDebugPrint(GetEntName(ent) + " ^mbasementofpartsroom Soldier entering");           
+			Util.MapDebugPrint("^mbasementofpartsroom Soldier enter");
+ 		},
+ 		OnExit = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I am on my way to steal Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^1basementofpartsroom Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+                                            if ( Map.AllyInside == 0 )
+        {
+            	//Util.BotChat( 1, "say", "NO ALLIES in ^6COMPLEX", 1 );
+          		Util.MapDebugPrint( "^6COMPLEX CLEAR" );  
+        }
+            }
+		Util.MapDebugPrint( "^mbasementofpartsroom TRIGGER Exit" );  		        
+	},
+    },        
+
+redyellowtunnelexitataxishq =
+ 	{
+ 		Name="redyellowtunnelexitataxishq",
+ 		TriggerOnClass = CLASS.ANYPLAYER,
+ 		OnEnter = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I am on my way to steal Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^1redyellowtunnelexitataxishq Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_1" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_2" );
+                SetGoalPriority( "DEFEND_partshouse_1", .85, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_partshouse_2", .85, TEAM.AXIS );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_village_.*" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ruinsarea_.*" );
+            }
+        /*
+                if(GetEntTeam(ent) == TEAM.ALLIES )
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I am AALIED at ^3redyellowtunnelexitataxishq on my way to ^6KICK YOUR ASS !!!");                         
+                    }
+                }
+                if(GetEntTeam(ent) == TEAM.AXIS )
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^6I am at ^3redyellowtunnelexitataxishq AXIS DEFENDER !!!");                         
+                    }
+                }
+            */
+		Util.MapDebugPrint( "^3redyellowtunnelexitataxishq TRIGGER ENTER" );                 
+ 			Util.MapDebugPrint(GetEntName(ent) + " ^3redyellowtunnelexitataxishq Soldier entering");           
+			Util.MapDebugPrint("^3redyellowtunnelexitataxishq Soldier enter");
+ 		},
+ 		OnExit = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I am on my way to steal Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^1redyellowtunnelexitataxishq Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+                                            if ( Map.AllyInside == 0 )
+        {
+            	//Util.BotChat( 1, "say", "NO ALLIES in ^6COMPLEX", 1 );
+          		Util.MapDebugPrint( "^6COMPLEX CLEAR" );  
+        }
+            }
+		Util.MapDebugPrint( "^3redyellowtunnelexitataxishq TRIGGER Exit" );  		
+	},
+    },        
+
+dynowall =
+ 	{
+ 		Name="dynowall",
+ 		TriggerOnClass = CLASS.ANYPLAYER,
+ 		OnEnter = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I am on my way to steal Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^1dynowall Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ramppath_1" ); 
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ramppath_2" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ramppath_3" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_1" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_2" );
+                SetGoalPriority( "DEFEND_partshouse_1", .85, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_partshouse_2", .85, TEAM.AXIS );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_village_.*" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ruinsarea_.*" );                
+            }
+        /*
+                if(GetEntTeam(ent) == TEAM.ALLIES )
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I am AALIED at ^hdynowall on my way to ^6KICK YOUR ASS !!!");                         
+                    }
+
+                }
+                if(GetEntTeam(ent) == TEAM.AXIS )
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^6I am AXIS at ^hdynowall DEFENDER !!!");                         
+                    }
+                } 
+            */           
+		Util.MapDebugPrint( "^hdynowall TRIGGER ENTER" );                 
+ 			Util.MapDebugPrint(GetEntName(ent) + " ^hdynowall Soldier entering");           
+			Util.MapDebugPrint("^hdynowall Soldier enter");
+ 		},
+ 		OnExit = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I am on my way to steal Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^1dynowall Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+                                            if ( Map.AllyInside == 0 )
+        {
+            	//Util.BotChat( 1, "say", "NO ALLIES in ^6COMPLEX", 1 );
+          		Util.MapDebugPrint( "^6COMPLEX CLEAR" );  
+        }
+            }
+		Util.MapDebugPrint( "^hdynowall TRIGGER Exit" );  		        
+	},
+    },        
+
+
+/*
+
+                if(GetEntTeam(ent) == TEAM.ALLIES )
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I am AALIED on my way to ^6KICK YOUR ASS !!!");                         
+                    }
+                }
+                if(GetEntTeam(ent) == TEAM.AXIS )
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^6I am AXIS DEFENDER !!!");                         
+                    }
+                }
+
+*/
+
+
+
+doublebridgepath =
+ 	{
+ 		Name="doublebridgepath",
+ 		TriggerOnClass = CLASS.ANYPLAYER,
+ 		OnEnter = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )                        
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I am on my way to steal Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^1doublebridgepath Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+            //SetGoalPriority( "ARTILLERY_D_BRIDGE_.*", .75, TEAM.AXIS );
+             
+            SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_D_BRIDGE_.*" );
+            SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_spawnbridgeatstart" );
+                        SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_hilltopdef_1" );
+            SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_rooftop" );
+            SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_spawn_2" );          
+           SetGoalPriority( "CALLARTILLERY_rooftop", 1.85, TEAM.AXIS ); 
+            SetGoalPriority( "ARTILLERY_D_traxspawn_.*", 1.85, TEAM.AXIS );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_1" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_2" );
+                SetGoalPriority( "DEFEND_partshouse_1", .85, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_partshouse_2", .85, TEAM.AXIS );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_village_.*" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ruinsarea_.*" );
+                                if ( Map.AllyInside == 0 )
+        {
+            	//Util.BotChat( 1, "say", "NO ALLIES in ^6COMPLEX", 1 );
+          		Util.MapDebugPrint( "^6COMPLEX CLEAR" );  
+        }
+            }
+        /*
+                if(GetEntTeam(ent) == TEAM.ALLIES )
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I am AALIED at ^mdoublebridgepath on my way to ^7KICK YOUR ASS !!!");                         
+                    }
+
+                }
+                if(GetEntTeam(ent) == TEAM.AXIS )
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^6I am AXIS DEFENDER AT ^mdoublebridgepath !!!");                         
+                    }
+                }
+            */
+		Util.MapDebugPrint( "^mTEST_doublebridgepath TRIGGER ENTER" );                 
+ 			Util.MapDebugPrint(GetEntName(ent) + " ^mTEST_doublebridgepath Soldier entering");           
+			Util.MapDebugPrint("^mTEST_doublebridgepath Soldier enter");
+ 		},
+ 		OnExit = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I am on my way to steal Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^1doublebridgepath Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+                                            if ( Map.AllyInside == 0 )
+        {
+            	//Util.BotChat( 1, "say", "NO ALLIES in ^6COMPLEX", 1 );
+          		Util.MapDebugPrint( "^6COMPLEX CLEAR" );  
+        }
+            }
+        
+		Util.MapDebugPrint( "^mTEST_doublebridgepath TRIGGER Exit" );  		        
+	},
+    },        
+
+doublemgpathtunnel1 =
+ 	{
+ 		Name="doublemgpathtunnel1",
+ 		TriggerOnClass = CLASS.ANYPLAYER,
+ 		OnEnter = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I am on my way to steal Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^1doublemgpathtunnel1 Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_1" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_2" );
+                SetGoalPriority( "DEFEND_partshouse_1", .85, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_partshouse_2", .85, TEAM.AXIS );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_village_.*" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ruinsarea_.*" );
+                                                if ( Map.AllyInside == 0 )
+        {
+            	//Util.BotChat( 1, "say", "NO ALLIES in ^6COMPLEX", 1 );
+          		Util.MapDebugPrint( "^6COMPLEX CLEAR" );  
+        }
+              // NEW SHIT BEING TESTED
+ 
+      SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_D_traxspawn_.*" );
+     SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_ramppath_.*" );      
+    SetGoalPriority( "ARTILLERY_D_traxspawn_.*", 3.60, TEAM.AXIS );
+           
+    SetGoalPriority( "CALLARTILLERY_newbridgecallingplace", 3.60, TEAM.AXIS );
+    SetGoalPriority( "CALLARTILLERY_frontofhqbuilding", 3.60, TEAM.AXIS );
+    SetGoalPriority( "ARTILLERY_S_ramppath_.*", 3.60, TEAM.AXIS );    
+    SetGoalPriority( "CALLARTILLERY_mineramppath", 3.60, TEAM.AXIS );
+    SetGoalPriority( "CALLARTILLERY_trainentrance", 3.60, TEAM.AXIS );
+ 
+ 
+  SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_trainentrance" );   
+  SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_frontofhqbuilding" );  
+ SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_newbridgecallingplace" );
+ SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_mineramppath" );
+ 
+  //CALLARTILLERY_newbridgecallingplace  
+    SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_traxspawn_.*" );
+    SetGoalPriority( "ARTILLERY_S_traxspawn_.*", 3.60, TEAM.AXIS );    
+    
+         
+            }
+        /*
+                if(GetEntTeam(ent) == TEAM.ALLIES )
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I am AALIED at ^idoublemgpathtunnel1 on my way to ^7KICK YOUR ASS !!!");                         
+                    }
+
+                }
+                if(GetEntTeam(ent) == TEAM.AXIS )
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^6I am AXIS DEFENDER AT ^idoublemgpathtunnel1 !!!");                         
+                    }
+                } 
+               */        
+		Util.MapDebugPrint( "^idoublemgpathtunnel1 TRIGGER ENTER" );                 
+ 			Util.MapDebugPrint(GetEntName(ent) + " ^idoublemgpathtunnel1 Soldier entering");           
+			Util.MapDebugPrint("^idoublemgpathtunnel1 Soldier enter");
+ 		},
+ 		OnExit = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I am on my way to steal Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^1doublemgpathtunnel1 Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+                                            if ( Map.AllyInside == 0 )
+        {
+            	//Util.BotChat( 1, "say", "NO ALLIES in ^6COMPLEX", 1 );
+          		Util.MapDebugPrint( "^6COMPLEX CLEAR" );  
+        }
+            }
+		Util.MapDebugPrint( "^idoublemgpathtunnel1 TRIGGER Exit" );  		        
+	},
+    },
+
+doublemgpathtunnel2 =
+ 	{
+ 		Name="doublemgpathtunnel2",
+ 		TriggerOnClass = CLASS.ANYPLAYER,
+ 		OnEnter = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I am on my way to steal Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^1doublemgpathtunnel2 Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+            }
+        /*
+                if(GetEntTeam(ent) == TEAM.ALLIES )
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I am AALIED at ^zdoublemgpathtunnel2 on my way to ^7KICK YOUR ASS !!!");                         
+                    }
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_1" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_2" );
+                SetGoalPriority( "DEFEND_partshouse_1", .85, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_partshouse_2", .85, TEAM.AXIS );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_village_.*" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ruinsarea_.*" );
+                }
+                if(GetEntTeam(ent) == TEAM.AXIS )
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^6I am AXIS DEFENDER AT ^zdoublemgpathtunnel2 !!!");                         
+                    }
+                }
+            */
+		Util.MapDebugPrint( "^zdoublemgpathtunnel2 TRIGGER ENTER" );                 
+ 			Util.MapDebugPrint(GetEntName(ent) + " ^zdoublemgpathtunnel2 Soldier entering");           
+			Util.MapDebugPrint("^zdoublemgpathtunnel2 Soldier enter");
+ 		},
+ 		OnExit = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I am on my way to steal Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^6I am AXIS DEFENDER AT doublemgpathtunnel2 Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+                                            if ( Map.AllyInside == 0 )
+        {
+            	//Util.BotChat( 1, "say", "NO ALLIES in ^6COMPLEX", 1 );
+          		Util.MapDebugPrint( "^6COMPLEX CLEAR" );  
+        }
+            }
+		Util.MapDebugPrint( "^zdoublemgpathtunnel2 TRIGGER Exit" );  		        
+	},
+    },
+
+trax =
+ 	{
+ 		Name="trax",
+ 		TriggerOnClass = CLASS.ANYPLAYER,
+ 		OnEnter = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I am on my way to steal Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^6I am AXIS DEFENDER Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+            	//Util.BotChat( 1, "say", "^4ALLIES ^6ARE crossing the BRIDGE into the ^1AXIS ^7COMPLEX ^3!!!", 1 ); 
+                                      //SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_hilltopdef_1" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_spawnbridgeatstart" );
+                    SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_spawn_2" );    
+            }
+        /*
+                if(GetEntTeam(ent) == TEAM.ALLIES )
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I am AALIED at ^btrax on my way to ^7KICK YOUR ASS !!!");                         
+                    }
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_1" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_2" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_village_.*" );
+               // SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ruinsarea_.*" );
+                }
+            
+                if(GetEntTeam(ent) == TEAM.AXIS )
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^6I am AXIS DEFENDER AT ^btrax !!!");                         
+                    }
+                }
+       */
+		Util.MapDebugPrint( "^btrax TRIGGER ENTER" );                 
+ 			Util.MapDebugPrint(GetEntName(ent) + " ^btrax Soldier entering");           
+			Util.MapDebugPrint("^btrax Soldier enter");
+ 		},
+ 		OnExit = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I am at ^btrax on my way to steal Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^6I am AXIS DEFENDER AT ^btrax^6 Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+                                                        if ( Map.AllyInside == 0 )
+        {
+            	//Util.BotChat( 1, "say", "ALLIES ARE coming into the ^6COMPLEX ^3!!!", 1 );
+          		Util.MapDebugPrint( "^6COMPLEX NOT CLEAR" );  
+        }
+                                                else if ( Map.AllyInside >> 0 )
+        {
+            	//Util.BotChat( 1, "say", "^6MORE ^4ALLIES ^6ARE coming into the ^1AXIS ^7COMPLEX ^3!!!", 1 );
+          		Util.MapDebugPrint( "^6COMPLEX NOT CLEAR" );  
+        }
+            }
+		Util.MapDebugPrint( "^btrax TRIGGER Exit" );  		        
+	},
+    },
+
+mineramp =
+ 	{
+ 		Name="mineramp",
+ 		TriggerOnClass = CLASS.ANYPLAYER,
+ 		OnEnter = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I have Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^6I am AXIS DEFENDER AT mineramp Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+            }
+        /*
+                if(GetEntTeam(ent) == TEAM.ALLIES )
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I am AALIED at ^zmineramp with Parts !!!");                         
+                    }
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_1" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_2" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_village_.*" );
+               // SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ruinsarea_.*" );
+                }
+                if(GetEntTeam(ent) == TEAM.AXIS )
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^6I am AXIS DEFENDER AT ^zmineramp !!!");                         
+                    }
+                }
+            */
+		Util.MapDebugPrint( "^zmineramp TRIGGER ENTER" );                 
+ 			Util.MapDebugPrint(GetEntName(ent) + " ^zdoublemgpathtunnel2 Soldier entering");           
+			Util.MapDebugPrint("^zmineramp Soldier enter");
+ 		},
+ 		OnExit = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I am at mineramp with Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^6I am AXIS DEFENDER AT mineramp");
+                        break;
+                    }
+                }
+                }
+            /*
+                                if ( Map.AllyInside == 0 )
+        {
+            	//Util.BotChat( 1, "say", "NO ALLIES in ^6COMPLEX MineRamp", 1 );
+          		Util.MapDebugPrint( "^6COMPLEX CLEAR" );  
+        }
+                            else if ( Map.AllyInside >> 0 )
+        {
+            	//Util.BotChat( 1, "say", "ALLIES in the ^6COMPLEX we have been ^1INFILTRATED^3!!! MineRamp", 1 );
+          		Util.MapDebugPrint( "^6COMPLEX ^1INFILTRATED^3!!! MineRamp" );  
+        }
+    */
+            }
+		Util.MapDebugPrint( "^zmineramp TRIGGER Exit" );  		        
+	},
+    },
+    
+    //WHERE I AM - rename
+HQbuilding =
+ 	{
+ 		Name="HQbuilding",//turn off - turn on defence with conditionals
+ 		TriggerOnClass = CLASS.ANYPLAYER,
+ 		OnEnter = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^2I am on my way to stole Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^2Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+                            if(GetEntTeam(ent) == TEAM.ALLIES )
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^4I am AALIED at ^zHQ Parts Building to ^3Steal Parts !!!");                         
+                    }
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_1" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_partshouse_2" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_village_.*" );
+               // SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ruinsarea_.*" );
+                }
+                if(GetEntTeam(ent) == TEAM.AXIS )
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^6I am AXIS DEFENDER AT ^zHQ Parts Building !!!");                         
+                    }
+                }
+            }
+		//Util.MapDebugPrint( "^6HQbuilding TRIGGER ENTER" );                 
+ 			Util.MapDebugPrint(GetEntTeam(ent) + " ^6HQbuilding Soldier entering");           
+			//Util.MapDebugPrint("^6HQbuilding Soldier enter");
+ 		},
+ 		OnExit = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^2I am in HQbuilding stealing Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^2Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+            }
+		Util.MapDebugPrint(GetEntTeam(ent) + "^6HQbuilding TRIGGER Exit" );  		        
+	},
+    },
+
+trainstolenz =//use train tracking instead
+ 	{
+ 		Name="trainstolenz",
+ 		TriggerOnEntity = GetGoal("MOVER_train").GetEntity(),
+ 		OnEnter = function(ent)
+ 		{
+            //Map.TrainStolen == true;
+ 			Util.MapDebugPrint(GetEntName(ent) + " ^6trainstolenz move");
+/*
+                        SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_2ndflparts_1" );
+                    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_1stflparts_1" );       
+                    SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_D_traxspawn_.*" );      
+                    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_hilltopdef_1" );
+                    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_rooftop" );
+                    //SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_spawn_2" );                                              
+                    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_village_1" );
+                    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_ruins_1" );
+                    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_ruins_2" );
+                    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_ruins_3" );
+                    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_village_2" );
+                    SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_ruins_.*" );
+                    SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_village_.*" );      
+                    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_AXISDEFAULT" );   
+                    SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_tunnel_.*" );    
+                 SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_hilltop_.*" );   
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_roof_1" );    
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_trainexit_1" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_trainexit_2" );  
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_trainexit_3" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_trainexit_4" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_trainexit_5" );  
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_trainexit_6" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_trainexit_7" );    
+                SetGoalPriority( "DEFEND_trainexit_1", .89, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_trainexit_2", .89, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_trainexit_3", .89, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_trainexit_4", .89, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_trainexit_5", .99, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_trainexit_6", .89, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_trainexit_7", .89, TEAM.AXIS );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_partshouse_.*" );
+                	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_village_.*" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ruinsarea_.*" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_train_.*" );           
+                SetAvailableMapGoals( TEAM.AXIS, true, "RIDE_Train" );             
+                SetAvailableMapGoals( TEAM.AXIS, true, "SWITCH_traingate" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "MOVER_train" );
+                //SetGoalPriority( "MOBILEMG42_bridgepathlastdefence", 2.99, TEAM.AXIS );
+                ClearGoalRole( "MOBILEMG42_bridgepathlastdefence", ROLE.DEFENDER );//key to defense    
+	            SetAvailableMapGoals( TEAM.AXIS, false, "MOBILEMG42_bridgepathlastdefence" ); 
+			Util.MapDebugPrint("^6trainstolenz enter");
+            Util.BotChat( 1, "say", "^3ALLIES ARE STEALING THE TRAIN !!!!   ^1STOP THEM !!!!!!movetrigger", 3 );
+            */            
+ 		},
+ 		OnExit = function(ent)
+ 		{
+			Util.MapDebugPrint(GetEntName(ent) + " exited trainstolenz trigger");
+    /*
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_train_1" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_train_2" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_train_3" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_train_4" );              
+    SetAvailableMapGoals( TEAM.AXIS, true, "RIDE_Train" );             
+    SetAvailableMapGoals( TEAM.AXIS, true, "SWITCH_traingate" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "MOVER_train" );
+   
+    SetGoalPriority( "SWITCH_traingate", 0.99, TEAM.AXIS );
+    SetGoalPriority( "RIDE_Train", 1.99, TEAM.AXIS );    
+    SetGoalPriority( "DEFEND_train_1", 0.0, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_2", 0.0, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_3", 0.0, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_4", 0.0, TEAM.AXIS );
+  */
+			Util.MapDebugPrint("^6trainstolenz exit");
+ 		},
+
+	},
+
+trainleftbuilding =//use train tracking instead
+ 	{
+ 		Name="trainleftbuilding",
+ 		TriggerOnEntity = GetGoal("MOVER_train").GetEntity(),
+ 		OnEnter = function(ent)
+ 		{
+ 			Util.MapDebugPrint(GetEntName(ent) + " ^6trainleftbuilding entering move");
+    /*
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_1" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_2" );  
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_3" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_4" );            
+    SetAvailableMapGoals( TEAM.AXIS, false, "RIDE_Train" );             
+    SetAvailableMapGoals( TEAM.AXIS, false, "SWITCH_traingate" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "MOVER_train" );
+    
+    SetGoalPriority( "SWITCH_traingate", 0.0, TEAM.AXIS );
+    SetGoalPriority( "RIDE_Train", 0.0, TEAM.AXIS ); 
+    SetGoalPriority( "DEFEND_train_1", .99, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_2", .79, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_3", .89, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_4", .89, TEAM.AXIS );
+   */
+			Util.MapDebugPrint("^6trainleftbuilding enter");
+ 		},
+ 		OnExit = function(ent)
+ 		{
+			Util.MapDebugPrint(GetEntName(ent) + " exited aabb trigger trainleftbuilding");
+    /*
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_train_1" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_train_2" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_train_3" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_train_4" );              
+    SetAvailableMapGoals( TEAM.AXIS, true, "RIDE_Train" );             
+    SetAvailableMapGoals( TEAM.AXIS, true, "SWITCH_traingate" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "MOVER_train" );
+   
+    SetGoalPriority( "SWITCH_traingate", 0.99, TEAM.AXIS );
+    SetGoalPriority( "RIDE_Train", 1.99, TEAM.AXIS );    
+    SetGoalPriority( "DEFEND_train_1", 0.0, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_2", 0.0, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_3", 0.0, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_train_4", 0.0, TEAM.AXIS );
+   */
+			Util.MapDebugPrint("^6trainleftbuilding exit");
+ 		},
+
+	},
+
+tunnelentrance =
+ 	{
+ 		Name="tunnelentrance",
+ 		TriggerOnClass = CLASS.ANYPLAYER,
+ 		OnEnter = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^2I am on my way to steal Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^2Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+            }
+		//Util.MapDebugPrint( "^ytunnelentrance TRIGGER ENTER" );                 
+ 			Util.MapDebugPrint(GetEntTeam(ent) + " ^ytunnelentrance Soldier entering");           
+			//Util.MapDebugPrint("^ytunnelentrance Soldier enter");
+ 		},
+ 		OnExit = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^2I am on my way to steal Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^2Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+            //defend ruinsarea with conditionals
+            }
+		Util.MapDebugPrint(GetEntTeam(ent) + "^ytunnelentrance TRIGGER Exit" );  		        
+	},
+    }, 
+
+sidepathtunnelexit =
+ 	{
+ 		Name="sidepathtunnelexit",
+ 		TriggerOnClass = CLASS.ANYPLAYER,
+ 		OnEnter = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^2I am on my way to steal Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^2Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+            //defend bridge with conditionals
+            }
+		//Util.MapDebugPrint( "^2sidepathtunnelexit TRIGGER ENTER" );                 
+ 			Util.MapDebugPrint(GetEntTeam(ent) + " ^6sidepathtunnelexit Soldier entering");           
+			//Util.MapDebugPrint("^6sidepathtunnelexit Soldier enter");
+ 		},
+ 		OnExit = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^2I am on my way to steal Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^2Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+            }
+		Util.MapDebugPrint(GetEntTeam(ent) + "^2sidepathtunnelexit TRIGGER Exit" );  		        
+	},
+    }, 
+
+sidepathtunnelentrance =
+ 	{
+ 		Name="sidepathtunnelentrance",
+ 		TriggerOnClass = CLASS.ANYPLAYER,
+ 		OnEnter = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^2I am on my way to steal Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^2Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+            //defend bridge with conditionals
+            }
+		//Util.MapDebugPrint( "^2sidepathtunnelentrance TRIGGER ENTER" );                 
+ 			Util.MapDebugPrint(GetEntTeam(ent) + " ^6sidepathtunnelentrance Soldier entering");           
+			//Util.MapDebugPrint("^6sidepathtunnelentranceSoldier enter");
+ 		},
+ 		OnExit = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^2I am on my way to steal Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^2Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+            }
+		Util.MapDebugPrint(GetEntTeam(ent) + "^2sidepathtunnelentrance TRIGGER Exit" );  		        
+	},
+    }, 
+
+tunnelmidway =
+ 	{
+ 		Name="tunnelmidway",//turn on axis ruinsarea defence
+ 		TriggerOnClass = CLASS.ANYPLAYER,
+ 		OnEnter = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^2I am on my way to steal Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^2Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+            //defend ramp dynowall ruinsarea with conditionals
+            }
+		//Util.MapDebugPrint( "^jtunnelmidway TRIGGER ENTER" );                 
+ 			Util.MapDebugPrint(GetEntTeam(ent) + " ^jtunnelmidway Soldier entering");           
+			//Util.MapDebugPrint("^jtunnelmidway Soldier enter");
+ 		},
+ 		OnExit = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^2I am on my way to steal Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^2Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+            }
+		Util.MapDebugPrint(GetEntTeam(ent) + "^jtunnelmidway TRIGGER Exit" );  		        
+	},
+    }, 
+
+pathtoramp =
+ 	{
+ 		Name="pathtoramp",
+ 		TriggerOnClass = CLASS.ANYPLAYER,
+ 		OnEnter = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^8I am on my way to steal Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^8Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+                SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_ramppath_.*" );
+    SetGoalPriority( "ARTILLERY_S_ramppath_.*", 3.60, TEAM.AXIS );    
+    SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_mineramppath" );
+    SetGoalPriority( "CALLARTILLERY_mineramppath", 3.60, TEAM.AXIS );
+            Util.MapDebugPrint(GetEntTeam(ent) + " ^8pathtoramp Allied Soldier entering"); 
+            }
+		Util.MapDebugPrint( "^8pathtoramp TRIGGER ENTER" );                 
+ 			Util.MapDebugPrint(GetEntName(ent) + " ^8pathtoramp Soldier entering");           
+			Util.MapDebugPrint("^8pathtoramp Soldier enter");
+ 		},
+ 		OnExit = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^8I am on my way to steal Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^8Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+            Util.MapDebugPrint(GetEntTeam(ent) + " ^8pathtoramp Allied Soldier exiting");
+            //Util.BotChat( 1, "say", "^8pathtoramp Allied Soldier exiting", 1 );
+                        SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_dynowall_1" );  
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_dynowall_2" );//key to defense
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_dynowall_3" ); //key to defense 
+            SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_ramppath_1" ); 
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ramppath_2" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ramppath_3" );
+            }
+		Util.MapDebugPrint( "^8pathtoramp TRIGGER Exit" );  		        
+	},
+    }, 
+
+//WHERE I AM - rename
+beforethetraxtrigger =
+ 	{
+ 		Name="beforethetraxtrigger",//turn off axis village defence - turn on bridge defence with conditionals
+ 		TriggerOnClass = CLASS.ANYPLAYER,
+ 		OnEnter = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^2I am on my way to steal Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^2Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+            }
+		//Util.MapDebugPrint( "^6beforethetraxtrigger TRIGGER ENTER" );                 
+ 			Util.MapDebugPrint(GetEntTeam(ent) + " ^6beforethetraxtrigger Soldier entering");           
+			//Util.MapDebugPrint("^6beforethetraxtrigger Soldier enter");
+ 		},
+ 		OnExit = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^2I am on my way to steal Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^2Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+            }
+		Util.MapDebugPrint(GetEntTeam(ent) + "^6beforethetraxtrigger TRIGGER Exit" );  		        
+	},
+    }, 
+
+tunnelexit =
+ 	{
+ 		Name="tunnelexit",//turn off axis village defence - turn on ruinsarea defence? turn on bridge defence? with conditionals
+ 		TriggerOnClass = CLASS.ANYPLAYER,
+ 		OnEnter = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^2I am on my way to steal Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^2Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+            //todo defend ruinsarea mineramp dynowall mountmg42bridgeguns
+            }
+		//Util.MapDebugPrint( "^utunnelexit TRIGGER ENTER" );                 
+ 			Util.MapDebugPrint(GetEntTeam(ent) + " ^utunnelexit Soldier entering");           
+			//Util.MapDebugPrint("^utunnelexit Soldier enter");
+ 		},
+ 		OnExit = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^2I stole Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^2Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+            }
+            SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_dynowall_1" );  
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_dynowall_2" );//key to defense
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_dynowall_3" ); //key to defense 
+            SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_ramppath_1" ); 
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ramppath_2" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ramppath_3" );
+        //todo defend mineramp dynowall mountmg42bridgeguns
+		Util.MapDebugPrint(GetEntTeam(ent) + "^utunnelexit TRIGGER Exit" );  		        
+	},
+    }, 
+
+tunnelexit =
+ 	{
+ 		Name="tunnelexit",//turn off axis village defence - turn on ruinsarea defence? turn on bridge defence? with conditionals
+ 		TriggerOnClass = CLASS.ANYPLAYER,
+ 		OnEnter = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^2I stole Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^2Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+            //todo defend ruinsarea mineramp dynowall mountmg42bridgeguns
+            }
+		//Util.MapDebugPrint( "^utunnelexit TRIGGER ENTER" );                 
+ 			Util.MapDebugPrint(GetEntTeam(ent) + " ^utunnelexit Soldier entering");           
+			//Util.MapDebugPrint("^utunnelexit Soldier enter");
+ 		},
+ 		OnExit = function(ent)
+ 		{
+                        if(GetEntTeam(ent) == TEAM.ALLIES )
+            {
+                if (GetEntFlags( ent, ENTFLAG.CARRYINGGOAL))
+                {
+                    b = Util.GetBotByName(GetEntName(ent));
+                    if (b)
+                    {
+                        b.SayTeam("^2I stole Train Parts Number");                         
+                    }
+                foreach (id and bot in BotTable)
+                {
+                    if ( bot.GetTeam() == TEAM.AXIS )
+                    {
+                        bot.SayTeam("^2Do not Allow The Allies To Invade!");
+                        break;
+                    }
+                }
+                }
+            }
+            SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_dynowall_1" );  
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_dynowall_2" );//key to defense
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_dynowall_3" ); //key to defense 
+            SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_ramppath_1" ); 
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ramppath_2" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ramppath_3" );
+        //todo defend mineramp dynowall mountmg42bridgeguns
+		Util.MapDebugPrint(GetEntTeam(ent) + "^utunnelexit TRIGGER Exit" );  		        
+	},
+    },
+
+traintracking =
+ 	{
+ 		Name="traintracking",
+ 		TriggerOnEntity = GetGoal("MOVER_train").GetEntity(),
+ 		OnEnter = function(ent)
+ 		{
+            if (Map.FixedTrain == true)
+            {
+            Map.TrainStolen == true;
+ 			Util.MapDebugPrint(GetEntName(ent) + " ^6trainstolen move");
+
+                        SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_2ndflparts_1" );
+                    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_1stflparts_1" );       
+                    SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_D_traxspawn_.*" );      
+                    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_hilltopdef_1" );
+                    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_rooftop" );
+                    //SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_spawn_2" );                                              
+                    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_village_1" );
+                    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_ruins_1" );
+                    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_ruins_2" );
+                    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_ruins_3" );
+                    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_village_2" );
+                    SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_ruins_.*" );
+                    SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_village_.*" );      
+                    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_AXISDEFAULT" );   
+                    SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_tunnel_.*" );    
+                 SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_hilltop_.*" );   
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_roof_1" );    
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_trainexit_1" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_trainexit_2" );  
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_trainexit_3" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_trainexit_4" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_trainexit_5" );  
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_trainexit_6" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_trainexit_7" );    
+                SetGoalPriority( "DEFEND_trainexit_1", .89, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_trainexit_2", .89, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_trainexit_3", .89, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_trainexit_4", .89, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_trainexit_5", .99, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_trainexit_6", .89, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_trainexit_7", .89, TEAM.AXIS );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_partshouse_.*" );
+                	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_village_.*" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ruinsarea_.*" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_train_.*" );           
+                SetAvailableMapGoals( TEAM.AXIS, true, "RIDE_Train" );             
+                SetAvailableMapGoals( TEAM.AXIS, true, "SWITCH_traingate" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "MOVER_train" );
+                //SetGoalPriority( "MOBILEMG42_bridgepathlastdefence", 2.99, TEAM.AXIS );
+                ClearGoalRole( "MOBILEMG42_bridgepathlastdefence", ROLE.DEFENDER );//key to defense    
+	            SetAvailableMapGoals( TEAM.AXIS, false, "MOBILEMG42_bridgepathlastdefence" ); 
+			Util.MapDebugPrint("^6trainstolen enter");
+            //Util.BotChat( 1, "say", "^3ALLIES ARE STEALING THE TRAIN !!!!   ^1STOP THEM !!!!!!trackingtrigger", 3 );
+            }            
+ 		},
+ 		OnExit = function(ent)
+ 		{
+			Util.MapDebugPrint(GetEntTeam(ent) + " exited aabb trigger traintracking");
+
+            Map.TrainStolen == false;
+ 			Util.MapDebugPrint(GetEntTeam(ent) + " ^6trainstolen move");
+
+                        //SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_2ndflparts_1" );
+                    //SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_1stflparts_1" );       
+                    SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_D_traxspawn_.*" );      
+                    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_hilltopdef_1" );
+                    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_rooftop" );
+                    SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_spawn_2" );                                              
+                    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_village_1" );
+                    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_ruins_1" );
+                    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_ruins_2" );
+                    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_ruins_3" );
+                    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_village_2" );
+                    SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_ruins_.*" );
+                    SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_village_.*" );
+                        SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_newbridgecallingplace" );      
+                    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_AXISDEFAULT" );   
+                    SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_tunnel_.*" );    
+                 SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_hilltop_.*" );   
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_roof_1" );    
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_trainexit_1" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_trainexit_2" );  
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_trainexit_3" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_trainexit_4" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_trainexit_5" );  
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_trainexit_6" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_trainexit_7" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_1" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_2" );  
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_3" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_train_4" );
+                SetGoalPriority( "DEFEND_train_1", .98, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_train_2", .88, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_train_3", .88, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_train_4", .88, TEAM.AXIS );    
+                SetGoalPriority( "DEFEND_trainexit_1", .89, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_trainexit_2", .89, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_trainexit_3", .89, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_trainexit_4", .89, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_trainexit_5", .98, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_trainexit_6", .89, TEAM.AXIS );
+                SetGoalPriority( "DEFEND_trainexit_7", .89, TEAM.AXIS );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_partshouse_.*" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_village_.*" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_ruinsarea_.*" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_train_.*" );           
+                SetAvailableMapGoals( TEAM.AXIS, true, "RIDE_Train" );             
+                SetAvailableMapGoals( TEAM.AXIS, true, "SWITCH_traingate" );
+                SetAvailableMapGoals( TEAM.AXIS, true, "MOVER_train" );
+                //SetGoalPriority( "MOBILEMG42_bridgepathlastdefence", 2.99, TEAM.AXIS );
+                ClearGoalRole( "MOBILEMG42_bridgepathlastdefence", ROLE.DEFENDER );//key to defense    
+	            SetAvailableMapGoals( TEAM.AXIS, false, "MOBILEMG42_bridgepathlastdefence" ); 
+			Util.MapDebugPrint("^6trainstolen enter");
+            //Util.BotChat( 1, "say", "^3AXIS ARE RETURNING THE TRAIN !!! STEAL IT !!!trackingtrigger", 3 ); 
+			Util.MapDebugPrint("^6traintracking exit");
+ 		},
+
+	},
+
+};
+
+global OnMapLoad = function()
+{
+	// Register callback functions
+                      
+	OnTrigger( "Allied Team have built the Ruin MG42 nest!!", Map.Allied_MG42_Construction_Built );
+	OnTrigger( "MISSING_STRING", Map.Allied_MG42_Construction_1_Built );
+    OnTrigger( "Axis have destroyed the Ruin MG42 Nest!!", Map.Allied_MG42_Construction_Destroyed );
+	OnTrigger( "MISSING_STRING", Map.Allied_MG42_Construction_1_Destroyed );
+	OnTrigger( "Allies have destroyed the left bridge-MG42!!", Map.Axis_MG42_Construction_Destroyed );
+	OnTrigger( "Allies have destroyed the right bridge-MG42!!", Map.Axis_MG42_Construction_1_Destroyed );
+	OnTrigger( "Axis Team have built the right bridge-MG42!!", Map.Axis_MG42_Construction_Built );
+	OnTrigger( "Axis Team have built the left bridge-MG42!!", Map.Axis_MG42_Construction_1_Built );   
+    OnTrigger( "Axis have destroyed the Mine-Ramp!!", Map.Allied_Mine_Ramp_Destroyed );
+    OnTrigger( "Allied Team have built the Mine-Ramp!!", Map.Allied_Mine_Ramp_Built );
+    OnTrigger( "Allied team has destroyed the Axis Command Post!", Map.Axis_Command_Post_Destroyed );
+	OnTrigger( "Axis Command Post constructed. Charge speed increased!", Map.Axis_Command_Post_Built );
+    OnTrigger( "The Allies breached the Deoptwall!", Map.Wall_Crack_Destroyed );    
+	OnTrigger( "Replacement Part 1 has been fixed!!", Map.Replacement_Part_1_Built );
+	OnTrigger( "Replacement Part 2 has been fixed!!", Map.Replacement_Part_2_Built );
+	OnTrigger( "MISSING_STRING", Map.Replacement_Part_1_Destroyed );//CAN NOT BE DESTROYED
+	OnTrigger( "MISSING_STRING", Map.Replacement_Part_2_Destroyed );//CAN NOT BE DESTROYED
+    OnTrigger( "Allies captured erst1_holder", Map.cappoint_1_closed );//do not touch - put dyno secured count
+    OnTrigger( "Allies captured erst2_holder", Map.cappoint_2_closed );//do not touch - put dyno secured count    
+    OnTrigger( "Allies captured the Deopt!", Map.TrainFixed );    
+    OnTrigger( "gate_button_start", Map.gatestop );    
+	OnTrigger( "CHECKPOINT_ruinflag to team 1", Map.ruinflag_Axis_Captured );
+	OnTrigger( "CHECKPOINT_ruinflag to team 2", Map.ruinflag_Allies_Captured );
+	OnTrigger( "CHECKPOINT_vllgflag to team 1", Map.vllgflag_Axis_Captured );
+	OnTrigger( "CHECKPOINT_vllgflag to team 2", Map.vllgflag_Allies_Captured );
+    OnTrigger( "Flag dropped Replacement Part!", Map.Replacement_Part_GENERIC_Dropped );
+	OnTrigger( "Allies have stolen The Replacement Part!", Map.Replacement_Part_GENERIC_Taken );
+	OnTrigger( "Flag returned Replacement Part!", Map.Replacement_Part_GENERIC_Returned );
+        
+//NOT USED TRIGGERS
+    //OnTrigger( "gate_button_stop", Map.gate_stop );
+    //OnTrigger( "gate_button_stop", Map.gatestop_open );
+    //OnTrigger( "gate_button_stop", Map.gatestop_close );
+    //OnTrigger( "The Replacement Part dropped.", Map.Replacement_Part_1_Dropped );
+	//OnTrigger( "The Replacement Part dropped.", Map.Replacement_Part_2_Dropped );
+	//OnTrigger( "Allies have stolen The Replacement Part!", Map.Replacement_Part_Taken );
+    //OnTrigger( "Allies have stolen The Replacement Part!", Map.Replacement_Part_1_Taken );
+	//OnTrigger( "Flag returned Replacement Part!", Map.Replacement_Part_Returned );// - put dyno RETURNED count
+	//OnTrigger( "Flag returned Replacement Part!", Map.Replacement_Part_1_Returned );// - put dyno RETURNED count
+	//OnTrigger( "Allies captured erst1_holder", Map.Replacement_Part_Secured );//do not touch
+	//OnTrigger( "Allies captured erst2_holder", Map.Replacement_Part_1_Secured );//do not touch
+         
+//custom triggers to track allied movement       
+    trainstop = OnTriggerRegion(AABB(-1534.926,29171.191,1.125,-887.135,29269.232,105.037), Map.trainstop );//trainstopsatswitchbeforegate    
+    dogshit1 = OnTriggerRegion(AABB(-2081.527,21103.125,9.125,-1839.125,21295.473,177.959), Map.dogshit1 );//firstfloorparts
+    dogshit2 = OnTriggerRegion(AABB(-2817.384,21338.875,321.125,-2671.125,21478.641,443.125), Map.dogshit2 );//secondfloorparts
+    intrusion = OnTriggerRegion(AABB(-3790.871,17674.445,1.132,2330.853,29632.875,557.712), Map.intrusion);
+    gatestart = OnTriggerRegion(AABB(-987.434,29210.875,1.125,-887.125,29367.539,83.466), Map.gatestart);
+    sewer = OnTriggerRegion(AABB(-1711.359,16485.658,-182.875,-1239.125,17346.145,-84.875), Map.sewer);
+    rsidetunnelb4wall = OnTriggerRegion(AABB(-2501.451,19483.113,65.125,-1505.125,19568.875,139.129), Map.rsidetunnelb4wall);
+    basementofpartsroom = OnTriggerRegion(AABB(-3006.206,21128.043,-278.875,-2627.201,21269.748,-204.871), Map.basementofpartsroom);
+    redyellowtunnelexitataxishq = OnTriggerRegion(AABB(263.938,20587.348,65.126,427.479,20870.785,139.129), Map.redyellowtunnelexitataxishq);    
+    dynowall = OnTriggerRegion(AABB(-3024.873,19696.082,21.049,-2566.953,21088.836,147.125), Map.dynowall);
+    doublebridgepath = OnTriggerRegion(AABB(1087.125,20767.125,49.125,2496.875,20995.428,131.126), Map.doublebridgepath);
+    doublemgpathtunnel1 = OnTriggerRegion(AABB(489.059,18783.152,65.125,1193.804,18880.875,139.131), Map.doublemgpathtunnel1);
+    doublemgpathtunnel2 = OnTriggerRegion(AABB(487.710,20495.129,35.488,1096.725,20592.875,139.127), Map.doublemgpathtunnel2);
+    trax = OnTriggerRegion(AABB(1626.659,16102.446,33.125,1939.288,17981.938,131.158), Map.trax);
+    mineramp = OnTriggerRegion(AABB(-2776.568,16602.775,10.944,-2091.963,17500.889,258.862), Map.mineramp);
+    trainbackendsitting = OnTriggerRegion(AABB(-710.383,23709.854,1.125,-255.126,23823.508,152.000), Map.trainbackendsitting);
+    trainfrontendsitting = OnTriggerRegion(AABB(-792.854,24098.777,-0.914,-255.126,24159.959,91.130), Map.trainfrontendsitting);
+    trainmove = OnTriggerRegion(AABB(-583.039,24053.377,1.134,-255.125,24151.797,91.128), Map.trainmove);
+    
+    
+      
+    tunnelexit = OnTriggerRegion(AABB(-912.724,13316.613,9.125,-623.276,13457.263,83.132), Map.tunnelexit);
+    tunnelentrance = OnTriggerRegion(AABB(-1936.724,10825.478,9.125,-1647.276,10910.119,83.129), Map.tunnelentrance);
+    sidepathtunnelexit = OnTriggerRegion(AABB(2792.301,14387.171,44.013,3103.921,14512.916,266.070), Map.sidepathtunnelexit);
+    sidepathtunnelentrance = OnTriggerRegion(AABB(3263.809,9822.807,530.179,3596.971,10040.150,850.864), Map.sidepathtunnelentrance);
+    tunnelmidway = OnTriggerRegion(AABB(-1511.241,11859.746,9.125,-1285.130,12192.629,83.127), Map.tunnelmidway);
+    pathtoramp = OnTriggerRegion(AABB(-1972.430,15380.117,16.366,-1055.588,16303.035,197.132), Map.pathtoramp);
+    beforethetraxtrigger = OnTriggerRegion(AABB(1216.080,14279.944,-6.709,2572.334,16101.791,136.455), Map.beforethetraxtrigger);
+    
+    
+
+trainstolenz = OnTriggerRegion(AABB(-565.755,24838.939,1.126,-207.126,24885.891,91.127), Map.trainstolenz);
+trainleftbuilding = OnTriggerRegion(AABB(-719.312,25663.125,1.126,-62.290,25742.627,91.141), Map.trainleftbuilding);
+HQbuilding = OnTriggerRegion(AABB(-3024.873,21103.203,9.125,-1839.125,21882.396,530.135), Map.HQbuilding);
+traintracking = OnTriggerRegion(AABB(-1545.977,24099.514,1.125,-255.173,29632.875,314.179), Map.traintracking);
+
+/////////////////////////////////////////////////////////////////    
+	//~Util.DisableGoal( ".*", true ); // all but routes
+	//~SetAvailableMapGoals( TEAM.AXIS, true, "ATTACK_.*" );
+	//~SetAvailableMapGoals( TEAM.ALLIES, true, "ATTACK_.*" );
+////////////////////////////////////////////////////////////////
+
+    SetGoalRole( "BUILD_Allied_Mine_Ramp", ROLE.ATTACKER );
+    SetGoalRole( "PLANT_Wall_Crack", ROLE.ATTACKER );
+    //SetGoalRole( "BUILD_Allied_Mine_Ramp", "PLANT_Wall_Crack", );" ROLE.ATTACKER ); 
+    //FLAGRETURN_Replacement_Part_dropped_1
+    //FLAG_Replacement_Part_dropped_1  
+    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_village_1" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_ruins_1" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_ruins_2" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_ruins_3" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_village_2" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_ruins_.*" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_village_.*" );      
+     SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_AXISDEFAULT" );   
+    SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_tunnel_.*" );
+    SetAvailableMapGoals( TEAM.ALLIES, true, "BUILD_Allied_Mine_Ramp" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_Allied_Mine_Ramp" );     
+    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_topofhill" );
+    SetAvailableMapGoals( TEAM.ALLIES, false, "TRIPMINE_.*" );            
+    SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_ramppathtower1" );   
+    SetAvailableMapGoals( TEAM.AXIS, true, "TRIPMINE_.*" );              
+    SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_Wall_Crack" );     
+    SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Allied_MG42_Construction_1" );//axis bots use this against allies, its bad for allies
+    SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Allied_MG42_Construction" );//axis bots use this against allies, its bad for allies
+    SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_Allied_MG42_Construction_1" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "MOUNTMG42_483" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "MOUNTMG42_482" );      
+    SetAvailableMapGoals( TEAM.ALLIES, true, "CHECKPOINT_ruinflag" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "CHECKPOINT_ruinflag" );//flag is axis at start but this make bots go to flag
+    SetAvailableMapGoals( TEAM.ALLIES, true, "CHECKPOINT_vllgflag" );//allies seem to ignore this at start
+    SetAvailableMapGoals( TEAM.AXIS, false, "CHECKPOINT_vllgflag" );//flag is axis at start but this make bots go to flag    
+    SetAvailableMapGoals( TEAM.ALLIES, false, "CAPPOINT_replacementpart_1" );
+    SetAvailableMapGoals( TEAM.ALLIES, false, "CAPPOINT_replacementpart_2" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "CAPPOINT_replacementpart_1" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "CAPPOINT_replacementpart_2" );      
+    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_stopthetrain" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_stopthetrain_.*" );
+    SetAvailableMapGoals( TEAM.ALLIES, false, "SWITCH_traingate" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "SWITCH_traingate" );
+    SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_Axis_Command_Post" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "BUILD_Axis_Command_Post" );
+    SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Replacement_Part_1" );
+    SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Replacement_Part_2" );
+//start
+    SetAvailableMapGoals( TEAM.ALLIES, false, "MOUNTMG42_610" );
+    SetAvailableMapGoals( TEAM.ALLIES, false, "MOUNTMG42_612" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "MOUNTMG42_610" );//detrimental to defence
+    SetAvailableMapGoals( TEAM.AXIS, false, "MOUNTMG42_612" );//detrimental to defence       
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_ruinsarea_.*" );               
+    SetAvailableMapGoals( TEAM.AXIS, true, "MOUNTMG42_Axis_MG42_Construction_1" );//key to defense     
+    SetAvailableMapGoals( TEAM.AXIS, true, "MOUNTMG42_Axis_MG42_Construction" );//key to defense  
+    SetAvailableMapGoals( TEAM.ALLIES, false, "MOUNTMG42_Axis_MG42_Construction_1" );//key to defense     
+    SetAvailableMapGoals( TEAM.ALLIES, false, "MOUNTMG42_Axis_MG42_Construction" );//key to defense           
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_ramppath_1" ); 
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_ramppath_2" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_ramppath_3" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_hilltopdef_1" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_spawnbridgeatstart" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_spawn_2" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_rooftop" );//4 & 6 s
+    SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_D_BRIDGE_.*" );
+    SetGoalPriority( "ARTILLERY_D_BRIDGE_.*", .99, TEAM.AXIS ); 
+                   
+    SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_D_traxspawn_.*" );     
+    SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_traxspawn_4S" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_traxspawn_6S" );
+    SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_village_.*" );                        
+	SetAvailableMapGoals( TEAM.AXIS, false, "RIDE_Train" );                
+	SetAvailableMapGoals( TEAM.ALLIES, false, "RIDE_Train" );   
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_train_1" );//key to defense
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_train_2" );//key to defense
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_train_3" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_train_4" ); 
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_2ndflparts_1" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_1stflparts_1" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_partshouse_1" );//key to defense
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_partshouse_2" ); //key to defense
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_dynowall_1" );  
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_dynowall_2" );//key to defense
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_dynowall_3" ); //key to defense     
+    SetAvailableMapGoals( TEAM.AXIS, false, "MOVER_train" );   
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_sewer_1" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_sewer_2" ); 
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_trainexit_1" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_trainexit_2" );  
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_trainexit_3" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_trainexit_4" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_trainexit_5" );  
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_trainexit_6" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_trainexit_7" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_hilltop_1" );   
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_hilltop_2" ); 
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_hilltop_3" );        
+	SetAvailableMapGoals( TEAM.AXIS, true, "MOBILEMG42_bridgepathlastdefence" );    
+	SetAvailableMapGoals( TEAM.ALLIES, false, "MOBILEMG42_bridgepathlastdefence" );  
+	SetAvailableMapGoals( TEAM.ALLIES, false, "TRIPMINE_lastdefenseattrain_.*" );          
+    //roles
+    SetGoalPriority( "TRIPMINE_*.*", .89, TEAM.AXIS );
+    SetGoalRole( "TRIPMINE_*.*", ROLE.DEFENDER2 );//key to defense 
+    //SetGoalRole( "TRIPMINE_lastdefenseattrain_.*", ROLE.DEFENDER2 );//key to defense
+    //SetGoalPriority( "TRIPMINE_lastdefenseattrain_.*", 2.81, TEAM.AXIS );
+    SetAvailableMapGoals( TEAM.AXIS, false, "TRIPMINE_lastdefenseattrain_.*" );    	       
+    SetGoalRole( "DEFEND_ramppathtower1", ROLE.DEFENDER1 );//key to defense
+    SetGoalRole( "PLANT_Allied_Mine_Ramp", ROLE.DEFENDER1 ); //key to defense          
+    SetGoalRole( "PLANT_Axis_Command_Post", ROLE.ATTACKER1 ); 
+    SetGoalRole( "MOBILEMG42_bridgepathlastdefence", ROLE.DEFENDER );//key to defense
+    SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_traxspawn_4S" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_traxspawn_6S" );
+    SetGoalPriority( "ARTILLERY_S_traxspawn_4S", 2.82, TEAM.AXIS );
+    SetGoalPriority( "ARTILLERY_S_traxspawn_6S", 2.81, TEAM.AXIS );            
+    //Priority
+    SetGoalPriority( "FLAG_Replacement_Part_dropped", .90, TEAM.ALLIES );
+    SetGoalPriority( "FLAG_Replacement_Part_dropped_1", .90, TEAM.ALLIES ); 
+    SetGoalPriority( "FLAGRETURN_Replacement_Part_dropped", .90, TEAM.AXIS );
+    SetGoalPriority( "FLAGRETURN_Replacement_Part_dropped_1", .90, TEAM.AXIS );
+    SetGoalPriority( "CHECKPOINT_ruinflag", .92, TEAM.ALLIES );
+    SetGoalPriority( "CHECKPOINT_vllgflag", .99, TEAM.ALLIES );
+    SetGoalPriority( "CHECKPOINT_ruinflag", .82, TEAM.AXIS );
+    SetGoalPriority( "CHECKPOINT_vllgflag", .81, TEAM.AXIS );
+    SetGoalPriority( "MOBILEMG42_bridgepathlastdefence", 3.81, TEAM.AXIS );           
+
+    SetGoalPriority( "MOUNTMG42_Axis_MG42_Construction", .85, TEAM.AXIS );
+    SetGoalPriority( "MOUNTMG42_Axis_MG42_Construction_1", .85, TEAM.AXIS );                      
+    //SetGoalPriority( "MOUNTMG42_610", .85, TEAM.AXIS );
+    //SetGoalPriority( "MOUNTMG42_612", .85, TEAM.AXIS );                             
+    //by gate at end DEFEND_trainexit_1-7
+
+    Util.DisableGoal( "SWITCH_traingate", true ); 
+    Util.DisableGoal( "MOUNTMG42_482", true );
+    Util.DisableGoal( "MOUNTMG42_483", true );
+    //at health room disable it
+    Util.DisableGoal( "MOUNTMG42_338", true );
+    Util.DisableGoal( "MOVER_truck", true );
+    //across from ruins flag
+    Util.DisableGoal( "MOUNTMG42_610", true );//across from ruins flag
+    Util.DisableGoal( "MOUNTMG42_612", true );//2 mg42 guns enable these at start 
+    Util.DisableGoal( "PLANT_Replacement_Part_1", true );
+    Util.DisableGoal( "PLANT_Replacement_Part_2", true );
+    Util.SetMaxUsers( 2, "DEFEND_partshouse_1" );
+    Util.SetMaxUsers( 2, "DEFEND_partshouse_2" ); 
+    SetAvailableMapGoals( TEAM.AXIS, true, "BUILD_Axis_MG42_Construction_1" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "BUILD_Axis_MG42_Construction" );
+    Util.RemoveGoal( "MOVER_truck", true );
+    Util.RemoveGoal( "PLANT_Replacement_Part_1", true );
+    Util.RemoveGoal( "PLANT_Replacement_Part_2", true );
+
+    // Max users per goal
+    //Util.SetMaxUsers( 1, "MOUNTMG42_.*" );
+    Util.SetMaxUsers( 1, "TRIPMINE_.*" );
+    Util.SetMaxUsers( 1, "CHECKPOINT_vllgflag", 1 );
+    Util.SetMaxUsers( 2, "CHECKPOINT_ruinflag", 2 );
+    Util.SetMaxUsers( 2, "CHECKPOINT_ruinflag", 1 );
+    Util.SetMaxUsers( 1, "DEFEND_hilltop_1" );
+    Util.SetMaxUsers( 1, "DEFEND_hilltop_2" );
+    Util.SetMaxUsers( 1, "DEFEND_hilltop_3" );
+    Util.SetMaxUsers( 1, "DEFEND_dynowall_1" );
+    Util.SetMaxUsers( 1, "DEFEND_dynowall_2" );
+    Util.SetMaxUsers( 1, "DEFEND_dynowall_3" );
+    Util.ExcludeClass( "PLANT_Allied_Mine_Ramp", 1, 3 );
+    Util.LimitToClass( "PLANT_Axis_Command_Post", 2, 5 );
+    Util.LimitToClass( "PLANT_Axis_MG42_Construction_1", 2, 5 );
+    Util.LimitToClass( "PLANT_Axis_MG42_Construction", 2, 5 );
+    Util.LimitToClass( "PLANT_Allied_Mine_Ramp", 1, 5 );
+    //Util.LimitToClass( "PLANT_Replacement_Part_1", 1, 5 );
+    //Util.LimitToClass( "PLANT_Replacement_Part_2", 1, 5 );
+    Util.LimitToClass( "PLANT_Allied_MG42_Construction", 1, 5 );
+    Util.LimitToClass( "PLANT_Allied_MG42_Construction_1", 1, 5 );
+            
+    SetGoalPriority( "FLAG_Replacement_Part_1", .91, TEAM.ALLIES );
+    SetGoalPriority( "FLAG_Replacement_Part", .91, TEAM.ALLIES );    
+//DOES THIS MATTER - AXIS KEEP WINNING NOW SO WORTH A TRY
+    SetGoalPriority( "PLANT_Wall_Crack", .85, TEAM.ALLIES );
+    SetGoalPriority( "BUILD_Allied_Mine_Ramp", .85, TEAM.ALLIES );
+    SetGoalPriority( "PLANT_Allied_Mine_Ramp", .99, TEAM.AXIS );
+          
+// Camp times
+	SetMapGoalProperties( "MOUNTMG42_Axis_MG42_Construction", {MinCampTime=150, MaxCampTime=900} );
+	SetMapGoalProperties( "MOUNTMG42_Axis_MG42_Construction_1", {MinCampTime=150, MaxCampTime=900} );
+	SetMapGoalProperties( "DEFEND_train_1", {MinCampTime=150, MaxCampTime=900} );
+	SetMapGoalProperties( "DEFEND_train_2", {MinCampTime=150, MaxCampTime=900} );
+	SetMapGoalProperties( "DEFEND_train_3", {MinCampTime=150, MaxCampTime=900} );
+	SetMapGoalProperties( "DEFEND_train_4", {MinCampTime=150, MaxCampTime=900} );    
+	SetMapGoalProperties( "DEFEND_1stflparts_1", {MinCampTime=150, MaxCampTime=900} );
+	SetMapGoalProperties( "DEFEND_2ndflparts_1", {MinCampTime=150, MaxCampTime=900} );
+    SetMapGoalProperties( "DEFEND_partshouse_1", {MinCampTime=150, MaxCampTime=900} );
+	SetMapGoalProperties( "DEFEND_partshouse_2", {MinCampTime=150, MaxCampTime=900} );    
+    SetMapGoalProperties( "DEFEND_dynowall_1", {MinCampTime=150, MaxCampTime=900} );    
+	SetMapGoalProperties( "DEFEND_dynowall_2", {MinCampTime=150, MaxCampTime=900} );
+	SetMapGoalProperties( "DEFEND_dynowall_3", {MinCampTime=150, MaxCampTime=900} );
+    SetMapGoalProperties( "DEFEND_hilltop_1", {MinCampTime=150, MaxCampTime=900} );
+	SetMapGoalProperties( "DEFEND_hilltop_2", {MinCampTime=150, MaxCampTime=900} );    
+	SetMapGoalProperties( "DEFEND_hilltop_3", {MinCampTime=150, MaxCampTime=900} );    
+    SetMapGoalProperties( "DEFEND_village_3", {MinCampTime=850, MaxCampTime=900} );
+    SetMapGoalProperties( "DEFEND_village_4", {MinCampTime=850, MaxCampTime=900} );
+    SetMapGoalProperties( "DEFEND_village_5", {MinCampTime=850, MaxCampTime=900} );
+    SetGoalPriority( "DEFEND_village_5", .60, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_village_4", .60, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_village_3", .60, TEAM.AXIS );
+    Util.SetMaxUsers( 2, "DEFEND_village_5" );
+    Util.SetMaxUsers( 2, "DEFEND_village_4" );
+    Util.SetMaxUsers( 2, "DEFEND_village_3" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_village_1" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_village_2" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_village_3" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_village_4" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_village_5" ); 
+ // NEW SHIT BEING TESTED
+ 
+    SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_D_traxspawn_.*" );
+    SetGoalPriority( "ARTILLERY_D_traxspawn_.*", 3.60, TEAM.AXIS );    
+    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_newbridgecallingplace" );
+    SetGoalPriority( "CALLARTILLERY_newbridgecallingplace", 3.60, TEAM.AXIS ); 
+    SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_ramppath_.*" );
+    SetGoalPriority( "ARTILLERY_S_ramppath_.*", 3.60, TEAM.AXIS );    
+    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_mineramppath" );
+    SetGoalPriority( "CALLARTILLERY_mineramppath", 3.60, TEAM.AXIS );
+ 
+  //CALLARTILLERY_newbridgecallingplace  
+    SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_traxspawn_.*" );
+    SetGoalPriority( "ARTILLERY_S_traxspawn_.*", 2.60, TEAM.AXIS );    
+    SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_frontofhqbuilding" );
+    SetGoalPriority( "CALLARTILLERY_frontofhqbuilding", 3.60, TEAM.AXIS );                               
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_roof_1" );
+    SetAvailableMapGoals( TEAM.ALLIES, false, "DEFEND_roof_1" );        
+	SetMapGoalProperties( "DEFEND_roof_1", {MinCampTime=150, MaxCampTime=900} );        
+    Util.SetMaxUsers( 1, "DEFEND_roof_1" );        
+    Util.UpdateSwitchData();
+    
+	Util.MapDebugPrint( "^1BETA Omni-Bot 0.9 map script for " + GetMapName() + " executed." );
+	Util.MapDebugPrint( "Ets|^1C^2Y^3B^6E^5R^04^1W^2O^3L^6F ^6Omni-bot map script ^2ver .000^32d ^14TESTING_d ^1BETA ^3For the map: ^7" + GetMapName() + " executed." );
+	print( "Ets|^1C^2Y^3B^6E^5R^04^1W^2O^3L^6F ^6Omni-bot 0.9 map script ^2ver .000^32d ^14TESTING_d ^1BETA ^3For the map: ^7" + GetMapName() );
+	
+	Util.BotChat( 0, "say", "Ets|^1C^2Y^3B^6E^5R^04^1W^2O^3L^6F ^6Omni-bot 0.9 map script ^2ver .000^32d ^14TESTING_d ^1BETA ^3For the map: ^7" + GetMapName(), 1 );    
+                    
+};
+
+global OnBotJoin = function( bot )
+{
+	// Uncomment for shootable breakables
+	bot.TargetBreakableDist = 90.0;
+	// Only set MaxViewDistance on maps with limited sight (e.g. fog)
+	//~bot.MaxViewDistance = 2400;
+};
+
+global InitializeRoutes = function()
+{
+	MapRoutes =
+	{
+		CHECKPOINT_ruinflag =
+		{
+		},
+        CAPPOINT_replacementpart_1 = 
+        {
+         ROUTE_1stfloorparts = 
+         {
+            ROUTE_partsescape_1 = 
+            {
+                ROUTE_partsescape_2 = 
+                {
+                    ROUTE_partsescape_3 = 
+                    {
+                        ROUTE_partsescape_4 = 
+                        {
+                            ROUTE_partsescape_5 = 
+                            {
+                                ROUTE_partsescape_6 = 
+                                {
+                                    ROUTE_partsescape_7 = 
+                                    {
+                                        ROUTE_partsescape_8 = 
+                                        {
+                                            ROUTE_partsescape_9 = 
+                                            {
+                                                ROUTE_partsescape_10 = 
+                                                {
+                                                    ROUTE_partsescape_11 = 
+                                                    {
+                                                        ROUTE_partsescape_12 = {},
+                                                    },
+                                                },
+                                            },
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+                ROUTE_partsescape_holeinthewall = 
+                { Weight = 3,
+                    ROUTE_partsescape_holeinthewall_1 = 
+                    {
+                        ROUTE_partsescape_holeinthewall_2 = 
+                        {
+                           ROUTE_partsescape_5 = 
+                           {
+                            ROUTE_partsescape_6 = 
+                            {
+                                ROUTE_partsescape_7 = 
+                                {
+                                    ROUTE_partsescape_8 = 
+                                    {
+                                        ROUTE_partsescape_9 = 
+                                        {
+                                            ROUTE_partsescape_10 = 
+                                            {
+                                                ROUTE_partsescape_11 = 
+                                                {
+                                                    ROUTE_partsescape_12 = {},
+                                                },
+                                            },
+                                        },
+                                    },
+                                },
+                            },
+                           }, 
+                        },
+                    },
+                },
+            },
+            ROUTE_partsescape_walkintoartydoor = 
+            {
+               ROUTE_partsescape_sideway_1 = 
+               {
+                ROUTE_partsescape_sideway_2 = 
+                {
+                    ROUTE_partsescape_sideway_3 = 
+                    {
+                      ROUTE_partsescape_12 = {},  
+                    },
+                },
+               }, 
+            },
+         },
+        ROUTE_2ndfloorparts = 
+                  {
+            ROUTE_partsescape_1 = 
+            {
+                ROUTE_partsescape_2 = 
+                {Weight = 2,
+                    ROUTE_partsescape_3 = 
+                    {
+                        ROUTE_partsescape_4 = 
+                        {
+                            ROUTE_partsescape_5 = 
+                            {
+                                ROUTE_partsescape_6 = 
+                                {
+                                    ROUTE_partsescape_7 = 
+                                    {
+                                        ROUTE_partsescape_8 = 
+                                        {
+                                            ROUTE_partsescape_9 = 
+                                            {
+                                                ROUTE_partsescape_10 = 
+                                                {
+                                                    ROUTE_partsescape_11 = 
+                                                    {
+                                                        ROUTE_partsescape_12 = {},
+                                                    },
+                                                },
+                                            },
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+                ROUTE_partsescape_holeinthewall = 
+                { Weight = 3,
+                    ROUTE_partsescape_holeinthewall_1 = 
+                    {
+                        ROUTE_partsescape_holeinthewall_2 = 
+                        {
+                           ROUTE_partsescape_5 = 
+                           {
+                            ROUTE_partsescape_6 = 
+                            {
+                                ROUTE_partsescape_7 = 
+                                {
+                                    ROUTE_partsescape_8 = 
+                                    {
+                                        ROUTE_partsescape_9 = 
+                                        {
+                                            ROUTE_partsescape_10 = 
+                                            {
+                                                ROUTE_partsescape_11 = 
+                                                {
+                                                    ROUTE_partsescape_12 = {},
+                                                },
+                                            },
+                                        },
+                                    },
+                                },
+                            },
+                           }, 
+                        },
+                    },
+                },
+            },
+            ROUTE_partsescape_walkintoartydoor = 
+            {
+               ROUTE_partsescape_sideway_1 = 
+               {
+                ROUTE_partsescape_sideway_2 = 
+                {
+                    ROUTE_partsescape_sideway_3 = 
+                    {
+                      ROUTE_partsescape_12 = {},  
+                    },
+                },
+               }, 
+            },
+         },
+        },
+        CAPPOINT_replacementpart_1 = 
+        {
+         ROUTE_1stfloorparts = 
+         {Weight = 2,
+            ROUTE_partsescape_1 = 
+            {
+                ROUTE_partsescape_2 = 
+                {
+                    ROUTE_partsescape_3 = 
+                    {
+                        ROUTE_partsescape_4 = 
+                        {
+                            ROUTE_partsescape_5 = 
+                            {
+                                ROUTE_partsescape_6 = 
+                                {
+                                    ROUTE_partsescape_7 = 
+                                    {
+                                        ROUTE_partsescape_8 = 
+                                        {
+                                            ROUTE_partsescape_9 = 
+                                            {
+                                                ROUTE_partsescape_10 = 
+                                                {
+                                                    ROUTE_partsescape_11 = 
+                                                    {
+                                                        ROUTE_partsescape_12 = {},
+                                                    },
+                                                },
+                                            },
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+                ROUTE_partsescape_holeinthewall = 
+                {
+                    ROUTE_partsescape_holeinthewall_1 = 
+                    {
+                        ROUTE_partsescape_holeinthewall_2 = 
+                        {
+                           ROUTE_partsescape_5 = 
+                           {
+                            ROUTE_partsescape_6 = 
+                            {
+                                ROUTE_partsescape_7 = 
+                                {
+                                    ROUTE_partsescape_8 = 
+                                    {
+                                        ROUTE_partsescape_9 = 
+                                        {
+                                            ROUTE_partsescape_10 = 
+                                            {
+                                                ROUTE_partsescape_11 = 
+                                                {
+                                                    ROUTE_partsescape_12 = {},
+                                                },
+                                            },
+                                        },
+                                    },
+                                },
+                            },
+                           }, 
+                        },
+                    },
+                },
+            },
+            ROUTE_partsescape_walkintoartydoor = 
+            {
+               ROUTE_partsescape_sideway_1 = 
+               {
+                ROUTE_partsescape_sideway_2 = 
+                {
+                    ROUTE_partsescape_sideway_3 = 
+                    {
+                      ROUTE_partsescape_12 = {},  
+                    },
+                },
+               }, 
+            },
+         },
+        ROUTE_2ndfloorparts = 
+                  {
+            ROUTE_partsescape_1 = 
+            {
+                ROUTE_partsescape_2 = 
+                {
+                    ROUTE_partsescape_3 = 
+                    {
+                        ROUTE_partsescape_4 = 
+                        {
+                            ROUTE_partsescape_5 = 
+                            {
+                                ROUTE_partsescape_6 = 
+                                {
+                                    ROUTE_partsescape_7 = 
+                                    {
+                                        ROUTE_partsescape_8 = 
+                                        {
+                                            ROUTE_partsescape_9 = 
+                                            {
+                                                ROUTE_partsescape_10 = 
+                                                {
+                                                    ROUTE_partsescape_11 = 
+                                                    {
+                                                        ROUTE_partsescape_12 = {},
+                                                    },
+                                                },
+                                            },
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+                ROUTE_partsescape_holeinthewall = 
+                {
+                    ROUTE_partsescape_holeinthewall_1 = 
+                    {
+                        ROUTE_partsescape_holeinthewall_2 = 
+                        {
+                           ROUTE_partsescape_5 = 
+                           {
+                            ROUTE_partsescape_6 = 
+                            {
+                                ROUTE_partsescape_7 = 
+                                {
+                                    ROUTE_partsescape_8 = 
+                                    {
+                                        ROUTE_partsescape_9 = 
+                                        {
+                                            ROUTE_partsescape_10 = 
+                                            {
+                                                ROUTE_partsescape_11 = 
+                                                {
+                                                    ROUTE_partsescape_12 = {},
+                                                },
+                                            },
+                                        },
+                                    },
+                                },
+                            },
+                           }, 
+                        },
+                    },
+                },
+            },
+            ROUTE_partsescape_walkintoartydoor = 
+            {Weight = 4,
+               ROUTE_partsescape_sideway_1 = 
+               {
+                ROUTE_partsescape_sideway_2 = 
+                {
+                    ROUTE_partsescape_sideway_3 = 
+                    {
+                      ROUTE_partsescape_12 = {},  
+                    },
+                },
+               }, 
+            },
+         },
+        },
+		PLANT_Wall_Crack =
+		{
+            ROUTE_firstalliedspawn = 
+            {
+                ROUTE_minerampandsewerentrance = 
+                {
+                    ROUTE_mine_rampinside = 
+                    {
+                       ROUTE_partsescape_holeinthewall = {}, 
+                    },
+                },
+            },
+            ROUTE_villageflag_alliedspawn = 
+            {
+                ROUTE_minerampandsewerentrance = 
+                {
+                    ROUTE_mine_rampinside = 
+                    {
+                       ROUTE_partsescape_holeinthewall = {}, 
+                    },
+                },
+            },
+            ROUTE_ruinsflag_alliedspawn = 
+            {
+                ROUTE_minerampandsewerentrance = 
+                {
+                    ROUTE_mine_rampinside = 
+                    {
+                       ROUTE_partsescape_holeinthewall = {}, 
+                    },
+                },
+            },
+		},
+		CHECKPOINT_vllgflag =
+		{
+		},
+		FLAG_Replacement_Part =
+		{
+		},
+		FLAG_Replacement_Part_1 =
+		{
+		},
+		BUILD_Replacement_Part_1 =
+		{
+		},
+		PLANT_Replacement_Part_1 =
+		{
+		},
+		BUILD_Replacement_Part_2 =
+		{
+		},
+		PLANT_Replacement_Part_2 =
+		{
+		},
+		BUILD_Allied_MG42_Construction =
+		{
+		},
+		PLANT_Allied_MG42_Construction =
+		{
+		},
+		BUILD_Axis_MG42_Construction =
+		{
+		},
+		PLANT_Axis_MG42_Construction =
+		{
+		},
+		BUILD_Axis_MG42_Construction_1 =
+		{
+		},
+		PLANT_Axis_MG42_Construction_1 =
+		{
+		},
+		BUILD_Allied_MG42_Construction_1 =
+		{
+		},
+		PLANT_Allied_MG42_Construction_1 =
+		{
+		},
+		BUILD_Allied_Mine_Ramp =
+		{
+            ROUTE_firstalliedspawn = 
+            {
+                ROUTE_minerampandsewerentrance = {},
+            },
+            ROUTE_villageflag_alliedspawn = 
+            {
+                ROUTE_minerampandsewerentrance = {},
+            },
+            ROUTE_ruinsflag_alliedspawn = 
+            {
+                ROUTE_minerampandsewerentrance = {}, 
+            },
+		},
+		PLANT_Allied_Mine_Ramp =
+		{
+		},
+		BUILD_Axis_Command_Post =
+		{
+		},
+		PLANT_Axis_Command_Post =
+		{
+		},
+	};
+	Util.Routes(MapRoutes);
+
+};
+
