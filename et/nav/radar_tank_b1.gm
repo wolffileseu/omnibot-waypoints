@@ -1,0 +1,1011 @@
+//==========================================================================================
+//
+//	radar_tank_b1.gm
+//
+//	Who     	When		What
+//------------------------------------------------------------------------------------------
+//	^1C ^04 ^1W	18 June 2021	Initial Script
+// 06.27.21 version 2.1 READY FOR TESTING the bots,
+// Much work is still required because Allied team always wins & too quickly!
+// Things to DO: add tripmines for axis defence, add artillery for axis defense, clean up and streamline script.
+// 
+// 
+//
+//==========================================================================================
+//
+
+global Map =
+{
+	Debug = 0, // please set to zero before distributing your script
+        Talk = true,
+	Suicide = false,
+        SouthPak75mmgunINTACT = true,
+        NorthPak75mmgunINTACT = true,
+        tankpath2 = false,
+        TankBuilt = false,//DEFAULT is DAMAGED
+        MainEntranceDestroyed = false,//DEFAULT is INTACT
+        SideEntranceDestroyed = false,//DEFAULT is INTACT
+        tankisatpath4 = false,
+
+/////////////////////////////////////////////////////////////////////////////
+
+// this seems to make bots give out health packs and ammo better than DEFAULT does
+	DispenseHealthTime = 10.0,
+	DispenseAmmoTime = 1.0,
+
+//////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////
+
+	Roles =
+	{
+		AXIS =
+		{
+			AllBots = true, // each bot is considered for a role
+			DEFENDER =
+			{
+				spawnpt = 4,				
+				numbots = 6,
+				crucialClass = CLASS.ENGINEER, CLASS.SOLDIER, CLASS.FIELDOPS,
+			},
+			DEFENDER1 =
+			{
+				spawnpt = 1,
+				numbots = 6,
+				crucialClass = CLASS.ENGINEER, CLASS.MEDIC,
+			},
+			DEFENDER2 =
+			{
+			        //spawnpt = 3,
+				numbots = 6,
+				crucialClass = CLASS.ENGINEER, CLASS.MEDIC,
+			},
+                        INFILTRATOR =
+			{
+				//spawnpt = 3,
+				numbots = 2,
+				crucialClass =  CLASS.COVERTOPS,
+			},
+
+		},
+	},
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////start type 2 vehicle trigger///////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////START Part 1 of 2 - type 2 vehicle trigger/////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+tankpath_1 =
+ 	{
+ 		Name="tankpath_1",
+ 		TriggerOnEntity = GetGoal("MOVER_tank").GetEntity(),
+ 		OnEnter = function(ent)
+ 		{
+ 			Util.MapDebugPrint(GetEntName(ent) + " ^6tankpath_1 entering");
+	
+        //SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_b_1");
+        //SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_b_2");
+			Util.MapDebugPrint("^6tankpath_1 enter");
+ 		},
+ 		OnExit = function(ent)
+ 		{
+			Util.MapDebugPrint(GetEntName(ent) + " exited aabb trigger");
+			//Util.DisableGroup( "group5");  //this is defend
+			//Util.DisableGroup( "group4");
+			//Util.EnableGroup( "group7", TEAM.ALLIES);
+			//Util.EnableGroup( "group13", TEAM.AXIS);
+
+
+			Util.MapDebugPrint("^6tankpath_1 exit");
+ 		},
+
+	},
+
+	tankpath_2 =
+ 	{
+ 		Name="tankpath_2",
+ 		TriggerOnEntity = GetGoal("MOVER_tank").GetEntity(),
+ 		OnEnter = function(ent)
+ 		{
+ 			Util.MapDebugPrint(GetEntName(ent) + "^6tankpath_2 entering");
+			//Map.RideVehicle.truck.Enabled = true;
+			//Util.EnableGroup( "group9", TEAM.ALLIES);
+			//Util.EnableGroup( "group12", TEAM.AXIS);
+        SetAvailableMapGoals( TEAM.ALLIES, false, "ESCORT_Tank");
+        SetAvailableMapGoals( TEAM.ALLIES, false, "MOUNT_Tank");
+        SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Tank");
+        SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_a_3");
+	    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_a_4");
+	    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_a_5");
+            //SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_b_1");
+   // SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_b_2");
+	//SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_b_3");
+	//SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_b_4");
+	//SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_b_5");
+                                  Map.tankpath2 = true;
+        //SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_d_1");
+        //SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_d_2");
+			//SetAvailableMapGoals( TEAM.AXIS, true, "BUILD_MG42" );
+			Util.MapDebugPrint("^6tankpath_2 enter");
+
+ 		},
+ 		OnExit = function(ent)
+ 		{
+			Util.MapDebugPrint(GetEntName(ent) + "exited aabb trigger");
+	//SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_b_3");
+	//SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_b_4");
+	//SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_b_5");
+
+			//Util.DisableGroup( "group13");
+                        //Util.EnableGroup( "group8");
+
+			Util.MapDebugPrint("^6tankpath_2 exit");
+ 		},
+	},
+
+	tankpath_3 =
+ 	{
+ 		Name="tankpath_3",
+ 		TriggerOnEntity = GetGoal("MOVER_tank").GetEntity(),
+ 		OnEnter = function(ent)
+ 		{
+ 			Util.MapDebugPrint(GetEntName(ent) + "^6tankpath_3 entering");
+			//Map.RideVehicle.truck.Enabled = true;
+
+
+                        //Util.disableGroup( "group9", TEAM.ALLIES);
+			//Util.EnableGroup( "group14", TEAM.AXIS);
+			//Util.DisableGroup( "group15");
+			Util.MapDebugPrint("^6tankpath_3 enter");
+
+ 		},
+ 		OnExit = function(ent)
+ 		{
+
+                         //Util.DisableGroup( "group8");
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_c_1");
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_c_2");
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_c_3");
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_c_4");
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_c_5");
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_b_1");
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_b_2");
+	SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_b_3");
+	SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_b_4");
+	SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_b_5");
+
+	//SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_d_3");
+	//SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_d_4");
+	//SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_d_5");
+        //SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_d_6");
+        //SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_d_7");
+			//Util.EnableGroup( "group10", TEAM.ALLIES);
+			Util.MapDebugPrint(GetEntName(ent) + " exited aabb trigger");
+			Util.MapDebugPrint("^6tankpath_3 exit");
+ 		},
+	},
+
+
+
+
+	
+tankpath_4 =
+ 	{
+ 		Name="tankpath_4",
+ 		TriggerOnEntity = GetGoal("MOVER_tank").GetEntity(),
+ 		OnEnter = function(ent)
+ 		{
+ 			Util.MapDebugPrint(GetEntName(ent) + " ^6tankpath_4 entering");
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_d_3");
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_d_4");
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_d_5");
+        SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_d_6");
+        SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_d_7");
+
+			Util.MapDebugPrint("^6tankpath_4 enter");
+ 		},
+ 		OnExit = function(ent)
+ 		{
+           
+         //if (Map.MainEntranceDestroyed == true)
+         //     {
+          //          {
+	        	//Util.MapDebugPrint( "^3MainEntranceDESTROYED" );
+                 //   }
+                 // if (Map.NorthPak75mmgunINTACT or Map.SouthPak75mmgunINTACT)
+                //    {
+       // SetAvailableMapGoals( TEAM.ALLIES, false, "ESCORT_Tank");
+       // SetAvailableMapGoals( TEAM.ALLIES, false, "MOUNT_Tank");
+      //  SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Tank");
+	//	Util.MapDebugPrint( "^5Tank_DamagedGUNSnotDESTROYED" );
+      //           }
+      //          
+      if (!Map.NorthPak75mmgunINTACT && !Map.SouthPak75mmgunINTACT)
+                     {
+        SetAvailableMapGoals( TEAM.ALLIES, true, "ESCORT_Tank");
+        SetAvailableMapGoals( TEAM.ALLIES, true, "MOUNT_Tank");
+        SetAvailableMapGoals( TEAM.ALLIES, true, "BUILD_Tank");
+		Util.MapDebugPrint( "^3Tank_DamagedGUNSDESTROYED" );
+                    }
+              else 
+              {
+        SetAvailableMapGoals( TEAM.ALLIES, false, "ESCORT_Tank");
+        SetAvailableMapGoals( TEAM.ALLIES, false, "MOUNT_Tank");
+        SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Tank");                
+              }
+     //  }
+ 	//	},
+
+       		Util.MapDebugPrint(GetEntName(ent) + " exited aabb trigger");
+                        Map.tankisatpath4 = true;
+			Util.MapDebugPrint("^6tankpath_4 exit");
+      },
+
+    },
+
+
+
+	tankpath_5 =
+ 	{
+ 		Name="tankpath_5",
+ 		TriggerOnEntity = GetGoal("MOVER_tank").GetEntity(),
+ 		OnEnter = function(ent)
+ 		{
+ 			Util.MapDebugPrint(GetEntName(ent) + "^6tankpath_5 entering");
+			//Map.RideVehicle.truck.Enabled = true;
+			//Util.EnableGroup( "group9", TEAM.ALLIES);
+			//Util.EnableGroup( "group12", TEAM.AXIS);
+       // SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_d_6");
+        //SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_d_7");
+    		//SetAvailableMapGoals( TEAM.AXIS, true, {
+		//		"DEFEND_endofpath_1",
+                      //          "DEFEND_endofpath_2",
+                       //         "DEFEND_endofpath_3",
+                        //        "DEFEND_endofpath_4",
+			//});
+			Util.MapDebugPrint("^6tankpath_5 enter");
+
+ 		},
+ 		OnExit = function(ent)
+ 		{
+			Util.MapDebugPrint(GetEntName(ent) + "exited aabb trigger");
+			//Util.DisableGroup( "group13");
+      //Util.EnableGroup( "group8");
+		//~	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_main.*" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_d_1");
+        SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_d_2");
+        	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_d_3");
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_d_4");
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_d_5");
+			Util.MapDebugPrint("^6tankpath_5 exit");
+ 		},
+	},
+
+	tankpath_6 =
+ 	{
+ 		Name="tankpath_6",
+ 		TriggerOnEntity = GetGoal("MOVER_tank").GetEntity(),
+ 		OnEnter = function(ent)
+ 		{
+ 			Util.MapDebugPrint(GetEntName(ent) + "^6tankpath_6 entering");
+			//Map.RideVehicle.truck.Enabled = true;
+
+			//SetAvailableMapGoals( TEAM.AXIS, false, {
+				//"PLANT_Bridge",
+				//"BUILD_MG42",
+				//"BUILD_Truck_Barrier_2",
+				//"MOUNTMG42_Balcony_MG",
+			//});
+      //Util.disableGroup( "group9", TEAM.ALLIES);    //cyber_defences
+			//Util.EnableGroup( "group14", TEAM.AXIS);
+			//Util.DisableGroup( "group15");
+			Util.MapDebugPrint("^6tankpath_6 enter");
+
+ 		},
+ 		OnExit = function(ent)
+ 		{
+
+     //Util.DisableGroup( "group8");//allies around barrier 2
+
+			//Util.EnableGroup( "group10", TEAM.ALLIES);
+			Util.MapDebugPrint(GetEntName(ent) + " exited aabb trigger");
+			Util.MapDebugPrint("^6tankpath_6 exit");
+ 		},
+	},
+	
+tankpath_7 =
+ 	{
+ 		Name="tankpath_7",
+ 		TriggerOnEntity = GetGoal("MOVER_tank").GetEntity(),
+ 		OnEnter = function(ent)
+ 		{
+ 			Util.MapDebugPrint(GetEntName(ent) + " ^6tankpath_7 entering");
+	//SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_barrier.*" );
+    		//SetAvailableMapGoals( TEAM.AXIS, false, {
+		//		"DEFEND_endofpath_1",
+                 //               "DEFEND_endofpath_2",
+                 //               "DEFEND_endofpath_3",
+                  //              "DEFEND_endofpath_4",
+		//	});
+    		//SetAvailableMapGoals( TEAM.AXIS, true, {
+                //                "DEFEND_axislost_4",
+                 //               "DEFEND_axislost_3",
+                //                "DEFEND_axislost_2",
+                 //               "DEFEND_axislost_1",
+		//	});
+    		//SetAvailableMapGoals( TEAM.AXIS, true, {
+                //                "DEFEND_axislost_5",
+                 //               "DEFEND_axislost_6",
+                //                "DEFEND_axislost_7",
+                 //               "DEFEND_axislost_8",
+		//	});
+			Util.MapDebugPrint("^6tankpath_7 enter");
+ 		},
+ 		OnExit = function(ent)
+ 		{
+			Util.MapDebugPrint(GetEntName(ent) + " exited aabb trigger");
+			//Util.DisableGroup( "group5");  //this is defend
+			//Util.DisableGroup( "group4");
+			//Util.EnableGroup( "group7", TEAM.ALLIES);
+			//Util.EnableGroup( "group13", TEAM.AXIS);
+	//~		//SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_Main_Entrance" );
+	//~		//SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_main.*" );
+			Util.MapDebugPrint("^6tankpath_7 exit");
+ 		},
+
+	},
+
+	tankpath_8 =
+ 	{
+ 		Name="tankpath_8",
+ 		TriggerOnEntity = GetGoal("MOVER_tank").GetEntity(),
+ 		OnEnter = function(ent)
+ 		{
+ 			Util.MapDebugPrint(GetEntName(ent) + "^6tankpath_8 entering");
+			//Map.RideVehicle.truck.Enabled = true;
+
+			Util.MapDebugPrint("^6tankpath_8 enter");
+
+ 		},
+ 		OnExit = function(ent)
+ 		{
+			Util.MapDebugPrint(GetEntName(ent) + "exited aabb trigger");
+
+			Util.MapDebugPrint("^6tankpath_8 exit");
+ 		},
+	},
+
+	tankpath_9 =
+ 	{
+ 		Name="tankpath_9",
+ 		TriggerOnEntity = GetGoal("MOVER_tank").GetEntity(),
+ 		OnEnter = function(ent)
+ 		{
+ 			Util.MapDebugPrint(GetEntName(ent) + "^6tankpath_9 entering");
+
+			Util.MapDebugPrint("^6tankpath_9 enter");
+
+ 		},
+ 		OnExit = function(ent)
+ 		{
+
+			Util.MapDebugPrint(GetEntName(ent) + " exited aabb trigger");
+
+			Util.MapDebugPrint("^6tankpath_9 exit");
+
+ 		},
+	},
+
+tankpath_10 =
+ 	{
+ 		Name="tankpath_10",
+ 		TriggerOnEntity = GetGoal("MOVER_tank").GetEntity(),
+ 		OnEnter = function(ent)
+ 		{
+ 			Util.MapDebugPrint(GetEntName(ent) + " ^6tankpath_10 entering");
+			//Map.RideVehicle.truck.Enabled = true;
+			//SetAvailableMapGoals( TEAM.AXIS, false, "BUILD_Truck_Barrier_1" );
+			//Util.SetGoalPosition( 428.9, 2221.7, 164.125, Map.Plant_Main_Entrance);
+			Util.MapDebugPrint("^6tankpath_10 enter");
+ 		},
+ 		OnExit = function(ent)
+ 		{
+			Util.MapDebugPrint(GetEntName(ent) + " exited aabb trigger");
+
+			Util.MapDebugPrint("^6tankpath_10 exit");
+ 		},
+
+	},
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////END PART 1 OF 2 - TYPE 2 VEHICLR TRIGGER///////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	Axis_Road_MG_Nest_Built = function( trigger )
+	{
+		Util.MapDebugPrint( "^6Axis_Road_MG_Nest_Built" );
+	},
+
+	Axis_Watchtower_MG_Nest_Built = function( trigger )
+	{
+		Util.MapDebugPrint( "^6Axis_Watchtower_MG_Nest_Built" );
+	},
+
+	Bunker_MG_Nest_Built = function( trigger )
+	{
+		Util.MapDebugPrint( "^6Bunker_MG_Nest_Built" );
+	},
+
+	ALLIED_Command_Post_Built = function( trigger )
+	{
+		Util.MapDebugPrint( "^6ALLIED_Command_Post_Built" );
+	},
+
+	ALLIED_Command_Post_Destroyed = function( trigger )
+	{
+		Util.MapDebugPrint( "^6ALLIED_Command_Post_Destroyed" );
+	},
+
+	AXIS_Command_Post_Built = function( trigger )
+	{
+		Util.MapDebugPrint( "^6AXIS_Command_Post_Built" );
+	},
+
+	AXIS_Command_Post_Destroyed = function( trigger )
+	{
+		Util.MapDebugPrint( "^6AXIS_Command_Post_Destroyed" );
+	},
+
+	Tank_Built = function( trigger )
+	{
+        SetAvailableMapGoals( TEAM.ALLIES, true, "ESCORT_Tank");
+        SetAvailableMapGoals( TEAM.ALLIES, true, "MOUNT_Tank");
+        SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Tank");
+        SetAvailableMapGoals( TEAM.AXIS, true, "ESCORT_Tank");
+        SetAvailableMapGoals( TEAM.AXIS, true, "MOUNT_Tank");
+                    Map.TankBuilt = true;
+		Util.MapDebugPrint( "^6Tank_Built" );
+	},
+
+	Tank_Damaged = function( trigger )
+	{
+               if (Map.tankisatpath4 == true)
+                {
+                       Util.MapDebugPrint( "^1Tank_DamagedATpath4" );
+                     }
+                  if (Map.NorthPak75mmgunINTACT or Map.SouthPak75mmgunINTACT)
+                    {
+        SetAvailableMapGoals( TEAM.ALLIES, false, "ESCORT_Tank");
+        SetAvailableMapGoals( TEAM.ALLIES, false, "MOUNT_Tank");
+        SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Tank");
+        SetAvailableMapGoals( TEAM.AXIS, false, "ESCORT_Tank");
+        SetAvailableMapGoals( TEAM.AXIS, false, "MOUNT_Tank");
+		Util.MapDebugPrint( "^5Tank_DamagedGUNSnotDESTROYED" );
+                 }
+                else if (!Map.NorthPak75mmgunINTACT && !Map.SouthPak75mmgunINTACT)
+                     {
+        SetAvailableMapGoals( TEAM.ALLIES, false, "ESCORT_Tank");
+        SetAvailableMapGoals( TEAM.ALLIES, false, "MOUNT_Tank");
+        SetAvailableMapGoals( TEAM.ALLIES, true, "BUILD_Tank");
+        SetAvailableMapGoals( TEAM.AXIS, false, "ESCORT_Tank");
+        SetAvailableMapGoals( TEAM.AXIS, false, "MOUNT_Tank");
+		Util.MapDebugPrint( "^3Tank_DamagedGUNSDESTROYED" );
+                     }
+        SetAvailableMapGoals( TEAM.AXIS, false, "ESCORT_Tank");
+        SetAvailableMapGoals( TEAM.AXIS, false, "MOUNT_Tank");
+                    Map.TankBuilt = false;
+		Util.MapDebugPrint( "^6Tank_Damaged" );
+	},
+
+	Axis_Road_MG_Nest_Destroyed = function( trigger )
+	{
+		Util.MapDebugPrint( "^6Axis_Road_MG_Nest_Destroyed" );
+	},
+
+	Axis_Watchtower_MG_Nest_Destroyed = function( trigger )
+	{
+		Util.MapDebugPrint( "^6Axis_Watchtower_MG_Nest_Destroyed" );
+	},
+
+	Bunker_MG_Nest_Destroyed = function( trigger )
+	{
+		Util.MapDebugPrint( "^6Bunker_MG_Nest_Destroyed" );
+	},
+
+	Main_Entrance_Destroyed = function( trigger )
+	{
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ATTACK_frontgate_1" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ATTACK_frontgate_2" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ATTACK_frontgate_3" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ATTACK_frontgate_4" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ATTACK_frontgate_5" );
+    SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_FRONTGATEBOOM");
+    SetAvailableMapGoals( TEAM.AXIS, false, "PLANTMINE_rBunkerEast3");
+    SetAvailableMapGoals( TEAM.AXIS, false, "PLANTMINE_rBunkerWest1");
+        SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_a_1");
+        SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_a_2");
+            SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_c_1");
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_c_2");
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_c_3");
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_c_4");
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_c_5");
+	SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_North_Pak_75mm_gun" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_South_Pak_75mm_gun" );
+                           Map.MainEntranceDestroyed = true;
+        SetAvailableMapGoals( TEAM.ALLIES, true, "BUILD_Tank");
+		Util.MapDebugPrint( "^6Main_Entrance_IS_Destroyed" );
+	},
+
+	North_Pak_75mm_gun_Destroyed = function( trigger )
+	{
+
+         if (!Map.SouthPak75mmgunINTACT)
+                {
+    SetAvailableMapGoals( TEAM.AXIS, false, "PLANTMINE.*");
+   	SetGoalPriority( "PLANTMINE_rBunkerEast1", 0.0, TEAM.AXIS, CLASS.ENGINEER );
+   	SetGoalPriority( "PLANTMINE_rBunkerEast2", 0.0, TEAM.AXIS, CLASS.ENGINEER );
+        SetAvailableMapGoals( TEAM.ALLIES, true, "BUILD_Tank");
+	Wp.SetWaypointFlag("rightside","axis",false);
+	Wp.SetWaypointFlag("rightsidemid","axis",false);
+	Wp.SetWaypointFlag("rightsidewall","axis",false);
+	Wp.SetWaypointFlag("bakmiddle","axis",false);
+	Wp.SetWaypointFlag("bakleftwall","axis",false);
+	Wp.SetWaypointFlag("bakrightwall","axis",false);
+	Wp.SetWaypointFlag("frontleftside","axis",false);
+        	Wp.SetWaypointFlag("thewall","axis",false);
+        SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_b_1");
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_b_2");
+	SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_b_3");
+	SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_b_4");
+	SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_b_5");
+        SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_Main_Entrance");
+        		Util.MapDebugPrint( "^5Both_North_Pak_75mm_gun_Destroyed_BUILD_TANK" );
+                    }
+        else if (Map.SouthPak75mmgunINTACT == true)
+                {
+	SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_South_PAK_75mm_Gun" );
+        SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Tank");
+        		Util.MapDebugPrint( "^1North_Pak_75mm_gun_Destroyed_PLANT_SOUTH" );
+                    }
+    SetAvailableMapGoals( TEAM.AXIS, false, "PLANTMINE_rWestParts4");
+    SetAvailableMapGoals( TEAM.AXIS, false, "PLANTMINE_rEastParts1");
+    SetAvailableMapGoals( TEAM.AXIS, false, "PLANTMINE_rEastParts2");
+    SetAvailableMapGoals( TEAM.AXIS, false, "PLANTMINE_rEastParts3");
+	SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_North_Pak_75mm_gun" ); 
+                   Map.NorthPak75mmgunINTACT = false;
+		Util.MapDebugPrint( "^6North_Pak_75mm_gun_Destroyed" );
+	},
+
+	South_PAK_75mm_Gun_Destroyed = function( trigger )
+	{
+
+         if (!Map.NorthPak75mmgunINTACT)
+                {
+    SetAvailableMapGoals( TEAM.AXIS, false, "PLANTMINE.*");
+   	SetGoalPriority( "PLANTMINE_rBunkerEast1", 0.0, TEAM.AXIS, CLASS.ENGINEER );
+   	SetGoalPriority( "PLANTMINE_rBunkerEast2", 0.0, TEAM.AXIS, CLASS.ENGINEER );
+        SetAvailableMapGoals( TEAM.ALLIES, true, "BUILD_Tank");
+        SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_b_1");
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_b_2");
+	SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_b_3");
+	SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_b_4");
+	SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_b_5");
+	Wp.SetWaypointFlag("rightside","axis",false);
+	Wp.SetWaypointFlag("rightsidemid","axis",false);
+	Wp.SetWaypointFlag("rightsidewall","axis",false);
+	Wp.SetWaypointFlag("bakmiddle","axis",false);
+	Wp.SetWaypointFlag("bakleftwall","axis",false);
+	Wp.SetWaypointFlag("bakrightwall","axis",false);
+	Wp.SetWaypointFlag("frontleftside","axis",false);
+    Wp.SetWaypointFlag("thewall","axis",false);
+        SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_Main_Entrance");
+                		Util.MapDebugPrint( "^5Both_South_Pak_75mm_gun_Destroyed_BUILD_TANK" );
+                    }
+         else if (Map.NorthPak75mmgunINTACT == true)
+                {
+	SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_North_Pak_75mm_gun" );
+        SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Tank");
+                		Util.MapDebugPrint( "^1South_Pak_75mm_gun_Destroyed_PLANT_NORTH" );
+                    } 
+    SetAvailableMapGoals( TEAM.AXIS, false, "PLANTMINE_rWestParts1");
+    SetAvailableMapGoals( TEAM.AXIS, false, "PLANTMINE_rWestParts2");
+    SetAvailableMapGoals( TEAM.AXIS, false, "PLANTMINE_rWestParts3");     
+	SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_South_PAK_75mm_Gun" );
+                   Map.SouthPak75mmgunINTACT = false;
+		Util.MapDebugPrint( "^6South_PAK_75mm_Gun_Destroyed" );
+	},
+
+	roadbunker_Axis_Captured = function( trigger )
+	{
+	SetAvailableMapGoals( TEAM.ALLIES, true, "CHECKPOINT_roadbunker" );
+        SetAvailableMapGoals( TEAM.AXIS, false, "CHECKPOINT_roadbunker");
+		Util.MapDebugPrint( "^6roadbunker_Axis_Captured" );
+	},
+
+	roadbunker_Allies_Captured = function( trigger )
+	{
+	SetAvailableMapGoals( TEAM.ALLIES, false, "CHECKPOINT_roadbunker" );
+        SetAvailableMapGoals( TEAM.AXIS, true, "CHECKPOINT_roadbunker");
+		Util.MapDebugPrint( "^6roadbunker_Allies_Captured" );
+	},
+
+	Side_Entrance_Destroyed = function( trigger )
+	{
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_sidedoor_1");
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_sidedoor_2");
+        SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_a_1");
+        SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_a_2");
+            SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_a_1");
+        SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_a_2");
+        SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_a_3");
+	    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_a_4");
+	    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_a_5");    
+	SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_Side_Entrance" );
+                    Map.SideEntranceDestroyed = true;
+		Util.MapDebugPrint( "^6Side_Entrance_Destroyed" );
+	},
+
+};
+
+global OnMapLoad = function()
+{
+	// Register callback functions
+	OnTrigger( "The Axis Road MG Nest has been constructed.", Map.Axis_Road_MG_Nest_Built );
+	OnTrigger( "The Axis Watchtower MG Nest has been constructed.", Map.Axis_Watchtower_MG_Nest_Built );
+	OnTrigger( "The Bunker MG Nest has been constructed.", Map.Bunker_MG_Nest_Built );
+	OnTrigger( "Allied Command Post constructed. Charge speed increased!", Map.ALLIED_Command_Post_Built );
+	OnTrigger( "Axis team has destroyed the Allied Command Post!", Map.ALLIED_Command_Post_Destroyed );
+	OnTrigger( "^2Axis Command Post constructed. Alternative Spawn created!", Map.AXIS_Command_Post_Built );
+	OnTrigger( "^2Allied team has destroyed the Axis Command Post!", Map.AXIS_Command_Post_Destroyed );
+	OnTrigger( "The Tank has been repaired!", Map.Tank_Built );
+	OnTrigger( "The Tank has been damaged!", Map.Tank_Damaged );
+	OnTrigger( "The Axis Road MG Nest has been destroyed.", Map.Axis_Road_MG_Nest_Destroyed );
+	OnTrigger( "The Axis Watchtower MG Nest has been destroyed.", Map.Axis_Watchtower_MG_Nest_Destroyed );
+	OnTrigger( "The Bunker MG Nest has been destroyed.", Map.Bunker_MG_Nest_Destroyed );
+
+	OnTrigger( "^2Allies have breached the Side Entrance!", Map.Side_Entrance_Destroyed );
+	OnTrigger( "radar_allies_entrance1_destroyed", Map.Main_Entrance_Destroyed );
+	OnTrigger( "^2Allies have destroyed the North Anti-Tank Gun!", Map.North_Pak_75mm_gun_Destroyed );
+	OnTrigger( "the South PAK 75mm Gun Destroyed.", Map.South_PAK_75mm_Gun_Destroyed );
+	OnTrigger( "^2Axis reclaimed the Forward Bunker!", Map.roadbunker_Axis_Captured );
+	OnTrigger( "^2Allies capture the Forward Bunker!", Map.roadbunker_Allies_Captured );
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////START Part 2 of 2 - type 2 vehicle trigger////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////PUT IN TRIGGER SECTION//////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+OnTriggerRegion(AABB(-992.873,-2890.818,1217.125,1198.702,-2089.692,1299.125), Map.tankpath_1);
+OnTriggerRegion(AABB(-1432.139,-2137.209,1209.618,-981.251,-385.535,1423.377), Map.tankpath_2);
+OnTriggerRegion(AABB(-2013.852,32.596,1221.369,-1103.756,1222.657,1423.073), Map.tankpath_3);
+OnTriggerRegion(AABB(-2452.463,1512.886,1194.569,-1349.762,3485.800,1441.443), Map.tankpath_4);
+OnTriggerRegion(AABB(-1022.170,3087.028,1299.725,271.999,3497.279,1459.174), Map.tankpath_5);
+OnTriggerRegion(AABB(316.470,3140.531,1285.125,724.875,4126.569,1371.125), Map.tankpath_6);
+OnTriggerRegion(AABB(333.125,4499.336,1285.125,718.077,4914.617,1371.125), Map.tankpath_7);
+OnTriggerRegion(AABB(382.388,5136.548,1297.125,648.875,5952.875,1371.125), Map.tankpath_8);
+OnTriggerRegion(AABB(379.125,6079.126,1297.125,644.241,6897.711,1371.125), Map.tankpath_9);
+OnTriggerRegion(AABB(366.839,7158.885,1285.125,804.223,7480.986,1359.125), Map.tankpath_10);
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////END Part 2 of 2 - type 2 vehicle trigger////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	//~Util.DisableGoal( ".*", true ); // all but routes
+	//~SetAvailableMapGoals( TEAM.AXIS, true, "ATTACK_.*" );
+	//~SetAvailableMapGoals( TEAM.ALLIES, true, "ATTACK_.*" );
+        SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_Main_Entrance");
+	SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_North_Pak_75mm_gun" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_Side_Entrance" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_South_PAK_75mm_Gun" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "BUILD_Tank" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "ESCORT_Tank" );
+	SetAvailableMapGoals( TEAM.ALLIES, false, "MOUNT_Tank" );
+
+	SetAvailableMapGoals( TEAM.ALLIES, true, "ATTACK_frontgate_1" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "ATTACK_frontgate_2" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "ATTACK_frontgate_3" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "ATTACK_frontgate_4" );
+	SetAvailableMapGoals( TEAM.ALLIES, true, "ATTACK_frontgate_5" );
+
+	SetAvailableMapGoals( TEAM.ALLIES, true, "CHECKPOINT_roadbunker" );
+        SetAvailableMapGoals( TEAM.AXIS, true, "CHECKPOINT_roadbunker");
+
+    SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_FRONTGATEBOOM");
+    SetGoalPriority( "PLANT_FRONTGATEBOOM", 0.97, TEAM.ALLIES, CLASS.ENGINEER );
+    
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_a_1");
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_a_2");
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_a_3");
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_a_4");
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_a_5");
+
+////
+    SetAvailableMapGoals( TEAM.AXIS, false, "BUILD_Axis_Road_MG_Nest");
+    SetAvailableMapGoals( TEAM.AXIS, false, "BUILD_Axis_Watchtower_MG_Nest");
+	SetAvailableMapGoals( TEAM.AXIS, false, "BUILD_Bunker_MG_Nest");
+
+    SetAvailableMapGoals( TEAM.AXIS, false, "MOUNTMG42_Allied_Spawn_MG");
+    SetAvailableMapGoals( TEAM.AXIS, false, "MOUNTMG42_Axis_Road_MG_Nest");
+	SetAvailableMapGoals( TEAM.AXIS, false, "MOUNTMG42_Axis_Watchtower_MG_Nest");
+	SetAvailableMapGoals( TEAM.AXIS, false, "MOUNTMG42_Bunker_MG_Nest");
+	SetAvailableMapGoals( TEAM.AXIS, false, "MOUNTMG42_CP_Bunker_MG");
+////    
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_b_1");
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_b_2");
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_b_3");
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_b_4");
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_b_5");
+    
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_c_1");
+	SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_c_2");
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_c_3");
+	SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_c_4");
+	SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_c_5");
+    
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_d_1");
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_d_2");
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_d_3");
+	SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_d_4");
+	SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_zone_d_5");
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_d_6");
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_zone_d_7");
+
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_sidedoor_1");
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_sidedoor_2");
+    SetAvailableMapGoals( TEAM.AXIS, true, "PLANTMINE_rBunkerEast1");
+    SetAvailableMapGoals( TEAM.AXIS, true, "PLANTMINE_rBunkerEast2");
+
+   	SetGoalPriority( "PLANTMINE_rBunkerEast1", 0.93, TEAM.AXIS, CLASS.ENGINEER );
+   	SetGoalPriority( "PLANTMINE_rBunkerEast2", 0.93, TEAM.AXIS, CLASS.ENGINEER );
+   
+   	SetGoalPriority( "BUILD_Tank", 0.97, TEAM.ALLIES, CLASS.ENGINEER ); 
+    SetGoalPriority( "PLANT_Main_Entrance", 0.97, TEAM.ALLIES, CLASS.ENGINEER );
+	//SetGoalPriority( "PLANT_Side_Entrance", 0.0, TEAM.ALLIES, CLASS.ENGINEER );
+	SetGoalPriority( "PLANT_North_Pak_75mm_gun", 0.95, TEAM.ALLIES, CLASS.ENGINEER );
+	SetGoalPriority( "PLANT_South_PAK_75mm_Gun", 0.93, TEAM.ALLIES, CLASS.ENGINEER );
+	SetGoalPriority( "Plant_Command_Post", 0.0, 0, CLASS.ENGINEER );
+	SetGoalPriority( "Plant_*.*_Nest", 0.0, 0, CLASS.ENGINEER );
+	SetGoalPriority( "CHECKPOINT_roadbunker", 0.0, 0, CLASS.ENGINEER );
+    SetGoalPriority( "MOUNTMG42_.*", 0.0, 0, CLASS.ENGINEER );
+    SetGoalPriority( "DEFEND_.*", 0.0, TEAM.AXIS, CLASS.ENGINEER );
+   	SetGoalPriority( "DEFEND_.*", 0.93, TEAM.AXIS );
+   	SetGoalPriority( "ATTACK_.*", 0.93, TEAM.ALLIES );
+   	SetGoalPriority( "CHECKPOINT_roadbunker", 0.85 );
+
+    //SAMPLE//SetGoalPriority( "DEFEND_.*", 0.93, TEAM.ALLIES, CLASS.ENGINEER );
+
+ //Util.AddUseWp("PLANT_Main_Entrance", "mainentrance1");// Antenna is the waypoint name
+ //Util.AddUseWp("PLANT_Main_Entrance", "mainentrance2");// Antenna is the waypoint name
+ //Util.AddUseWp("PLANT_Main_Entrance", "mainentrance3");// Antenna is the waypoint name
+ Util.AddUseWp("PLANT_Main_Entrance", "Main Entrance1");// Antenna is the waypoint name
+
+	Wp.SetWaypointFlag("rightside","axis",true);
+	Wp.SetWaypointFlag("rightsidemid","axis",true);
+	Wp.SetWaypointFlag("rightsidewall","axis",true);
+	Wp.SetWaypointFlag("bakmiddle","axis",true);
+	Wp.SetWaypointFlag("bakleftwall","axis",true);
+	Wp.SetWaypointFlag("bakrightwall","axis",true);
+	Wp.SetWaypointFlag("frontleftside","axis",true);
+    	Wp.SetWaypointFlag("thewall","axis",true);
+
+	// Max users per goal
+	//Util.SetMaxUsers( 1, "MOUNTMG42_.*" );
+
+	// Camp times
+	//SetMapGoalProperties( "MOUNTMG42_.*", {MinCampTime=15, MaxCampTime=90} );
+
+
+	Util.MapDebugPrint( "^6ETS^4| ^2Custom ^3Omni-bot map script ^6Version ^52.1 ^3For the map: ^7" + GetMapName() + " executed." );
+	print( "^6ETS^4| ^2Custom  ^3Omni-bot map script ^6Version ^52.1 ^3For the map: ^7" + GetMapName() );
+	
+	Util.BotChat( 0, "say", "^6ETS^4| ^2Custom ^3Omni-bot map script ^6Version ^52.1 ^3For the map: ^7" + GetMapName(), 1 );
+};
+
+global OnBotJoin = function( bot )
+{
+	// Uncomment for shootable breakables
+	bot.TargetBreakableDist = 90.0;
+	// Only set MaxViewDistance on maps with limited sight (e.g. fog)
+	//~bot.MaxViewDistance = 2400;
+};
+
+global InitializeRoutes = function()
+{
+	MapRoutes =
+	{
+		BUILD_Bunker_MG_Nest =
+		{
+		},
+		PLANT_Bunker_MG_Nest =
+		{
+		},
+		BUILD_Axis_Watchtower_MG_Nest =
+		{
+		},
+		PLANT_Axis_Watchtower_MG_Nest =
+		{
+		},
+		BUILD_Axis_Road_MG_Nest =
+		{
+		},
+		PLANT_Axis_Road_MG_Nest =
+		{
+		},
+		PLANT_FRONTGATEBOOM =
+		{
+                 ROUTE_Alliedfirstspawnfl1 = 
+                     {
+                     ROUTE_alliedfirstspawnfrontgate = 
+                         {
+                          Weight = 2,
+                         ROUTE_flagtankexit = 
+                             {
+                             ROUTE_Flagspawn_allies = 
+                                 {
+                                 ROUTE_flagmainexit = 
+                                     {
+                                     ROUTE_MainEntrance = {},
+                                     },
+                                 },
+                             },
+                        ROUTE_MainEntrance = {}, 
+                         },
+                          Weight = 2,
+                    ROUTE_alliedfirstspawnsidegate = 
+                         {
+                         ROUTE_flagtankexit = 
+                             {
+                             ROUTE_Flagspawn_allies = 
+                                 {
+                                 ROUTE_flagmainexit = 
+                                     {
+                                     ROUTE_MainEntrance = {},
+                                     },
+                                 },
+                             },
+                        ROUTE_MainEntrance = {},
+                         },
+                     },
+		},
+		BUILD_Command_Post =
+		{
+		},
+		PLANT_Command_Post =
+		{
+		},
+		BUILD_Tank =
+		{
+		},
+		PLANT_North_Pak_75mm_gun =
+		{
+                 ROUTE_Flagspawn_allies = 
+                     {
+                     ROUTE_flagmainexit = 
+                         {
+                         ROUTE_MainEntrance = 
+                             {
+                             ROUTE_leftpassage = {},
+                             ROUTE_rightpassage = {},
+                             },
+                         ROUTE_Sideentrance = 
+                            {
+                            ROUTE_Northgun = {},    
+                            }, 
+                         },
+                     },
+                 ROUTE_Flagspawn_allies =
+                     {
+                     ROUTE_flagmainexit = 
+                         {
+                         ROUTE_MainEntrance = 
+                             {
+                             ROUTE_leftpassage = 
+                                 {
+                                 ROUTE_Southbridgeway =
+                                     {
+                                     ROUTE_Southbakway =
+                                         {
+                                         ROUTE_behindaxisbackspawn = 
+                                             {
+                                             ROUTE_Northgun = {},
+                                             },
+                                          }, 
+                                       },
+                                  ROUTE_Garagebakcorner = 
+                                     {
+                                     ROUTE_Northgun = {},
+                                     },
+                                 },
+                              
+                             ROUTE_rightpassage = 
+                                 {
+                                 ROUTE_Southsideway = 
+                                     {
+                                     ROUTE_behindaxisbackspawn =
+                                         {
+                                         ROUTE_Northgun = {},
+                                         },
+                                     ROUTE_Southbakway = 
+                                         {
+                                         ROUTE_Northgun = {},
+                                         },
+                                     },
+                                 },
+                             },
+                             
+                        ROUTE_Sideentrance = 
+                            {
+                             ROUTE_Northgun = {},                              
+                            },
+                    },
+                     },
+		},
+		PLANT_South_PAK_75mm_Gun =
+		{
+                 ROUTE_Flagspawn_allies = 
+                     {
+                     ROUTE_flagmainexit = 
+                         {
+                         ROUTE_MainEntrance = 
+                             {
+                             ROUTE_leftpassage = {},
+                             ROUTE_rightpassage = {},
+                             },
+                         ROUTE_Sideentrance = 
+                            {
+                            ROUTE_radarhill = 
+                                {
+                                 ROUTE_Southgun = {},   
+                                },    
+                            }, 
+                         },
+                     },
+                 ROUTE_Flagspawn_allies =
+                     {
+                     ROUTE_flagmainexit = 
+                         {
+                         ROUTE_MainEntrance = 
+                             {
+                             ROUTE_leftpassage = 
+                                 {
+                                 ROUTE_Southbridgeway =
+                                     {
+                                     ROUTE_Southgun = {},
+                                       },
+                                 },
+                              
+                             ROUTE_rightpassage = 
+                                 {
+                                 ROUTE_Southsideway = 
+                                     {
+                                     ROUTE_Southgun = {},
+                                     },
+                                 },
+                             },
+                             
+                        ROUTE_Sideentrance = 
+                            {
+                             ROUTE_radarhill = 
+                                 {
+                                 ROUTE_Southgun = {},   
+                                 },   
+                            
+                            },
+                    },
+                     },
+		},
+		CHECKPOINT_roadbunker =
+		{
+		},
+	};
+	Util.Routes(MapRoutes);
+};
