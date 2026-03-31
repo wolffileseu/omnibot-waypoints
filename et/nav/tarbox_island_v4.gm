@@ -1,0 +1,147 @@
+//==========================================================================================
+//
+//  tarbox_island_v4.gm
+//
+// Who                           	When		What
+//------------------------------------------------------------------------------------------
+// ^1C^2Y^3B^6E^5R^04^1W^2O^3L^6F	31 March 2026	Initial Script
+//
+//==========================================================================================
+//
+
+global Map =
+{
+	Debug = 0, // please delete this line before distributing your script
+
+	Axis_Command_Post_Built = function()
+	{
+		Util.MapDebugPrint("Axis_Command_Post_Built");
+	},
+
+	Axis_Command_Post_Destroyed = function()
+	{
+		Util.MapDebugPrint("Axis_Command_Post_Destroyed");
+	},
+
+	Allied_Command_Post_Built = function()
+	{
+		Util.MapDebugPrint("Allied_Command_Post_Built");
+	},
+
+	Allied_Command_Post_Destroyed = function()
+	{
+		Util.MapDebugPrint("Allied_Command_Post_Destroyed");
+	},
+
+	axis_east_wall_Destroyed = function()
+	{
+		Util.MapDebugPrint("axis_east_wall_Destroyed");
+	},
+
+	axis_north_wall_Destroyed = function()
+	{
+		Util.MapDebugPrint("axis_north_wall_Destroyed");
+	},
+
+	axis_west_wall_Destroyed = function()
+	{
+		Util.MapDebugPrint("axis_west_wall_Destroyed");
+	},
+
+	cone_that_contains_the_documents_Destroyed = function()
+	{
+		Util.MapDebugPrint("cone_that_contains_the_documents_Destroyed");
+	},
+
+	secret_documents_Taken = function()
+	{
+		Util.MapDebugPrint("secret_documents_Taken");
+	},
+
+	secret_documents_Returned = function()
+	{
+		Util.MapDebugPrint("secret_documents_Returned");
+	},
+
+	secret_documents_Secured = function()
+	{
+		Util.MapDebugPrint("secret_documents_Secured");
+	},
+
+	forward_spawn_Axis_Captured = function()
+	{
+		Util.MapDebugPrint("forward_spawn_Axis_Captured");
+	},
+
+	forward_spawn_Allies_Captured = function()
+	{
+		Util.MapDebugPrint("forward_spawn_Allies_Captured");
+	},
+
+};
+
+global OnMapLoad = function()
+{
+    OnTrigger("Axis Command Post constructed. Charge speed increased!", Map.Axis_Command_Post_Built);    
+    OnTrigger("Allied Command Post constructed. Charge speed increased!", Map.Allied_Command_Post_Built);
+	OnTrigger("MISSING_STRING", Map.Allied_Command_Post_Destroyed);
+	OnTrigger("MISSING_STRING", Map.Axis_Command_Post_Destroyed);    
+	OnTrigger("axis east wall Destroyed.", Map.axis_east_wall_Destroyed);
+	OnTrigger("axis north wall Destroyed.", Map.axis_north_wall_Destroyed);
+	OnTrigger("axis west wall Destroyed.", Map.axis_west_wall_Destroyed);
+	OnTrigger("the cone that contains the documents Destroyed.", Map.cone_that_contains_the_documents_Destroyed);
+	OnTrigger("Allies have stolen the secret documents!", Map.secret_documents_Taken);
+	OnTrigger("MISSING_STRING", Map.secret_documents_Returned);
+	OnTrigger("Allied team have stolen the secret docs and won the game!!!", Map.secret_documents_Secured);
+	OnTrigger("CHECKPOINT_forward_spawn to team 1", Map.forward_spawn_Axis_Captured);
+	OnTrigger("CHECKPOINT_forward_spawn to team 2", Map.forward_spawn_Allies_Captured);
+
+	//~Util.DisableGoal(".*", true);
+	//~SetAvailableMapGoals(TEAM.AXIS, true, "ATTACK.*");
+	//~SetAvailableMapGoals(TEAM.ALLIES, true, "ATTACK.*");
+
+	//Util.SetMaxUsers(1, "MOUNTMG42.*");
+
+	//SetMapGoalProperties("MOUNTMG42.*", {MinCampTime=15, MaxCampTime=90});
+
+
+	Util.MapDebugPrint("Omni-bot map script for " + GetMapName() + " executed.");
+};
+
+global OnBotJoin = function(bot)
+{
+	//~bot.TargetBreakableDist = 90;
+	//~bot.MaxViewDistance = 2400;
+};
+
+global InitializeRoutes = function()
+{
+	MapRoutes =
+	{
+		PLANT_cone_that_contains_the_documents =
+		{
+		},
+		FLAG_secret_documents =
+		{
+		},
+		CHECKPOINT_forward_spawn =
+		{
+		},
+		BUILD_Command_Post =
+		{
+		},
+		PLANT_Command_Post =
+		{
+		},
+		PLANT_axis_north_wall =
+		{
+		},
+		PLANT_axis_west_wall =
+		{
+		},
+		PLANT_axis_east_wall =
+		{
+		},
+	};
+	Util.Routes(MapRoutes);
+};
