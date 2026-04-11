@@ -1,0 +1,308 @@
+//==========================================================================================
+//
+//	wolken4_final.gm
+//
+//	Who                  	When		What
+//------------------------------------------------------------------------------------------
+//	maker@bigsighstudios.com	16 October 2017	Initial Script
+//cyber4wolf fixed building plane version 1.D
+//==========================================================================================
+//
+
+global Map =
+{
+	Debug = 0, // please set to zero before distributing your script
+	ShowMovers = false,
+
+	Command_Post_Dyno = 0,
+	Command_Post_Owner = 0, //0 = unbuilt, 1 = Axis, 2 = Allies
+	Gun_Controls_Dyno = 0,
+	mortar_launcher_Dyno = 0,
+
+	Command_Post_Built = function( trigger )
+	{
+		if ( TestMap ) { return; }
+		Util.MapDebugPrint( "Command_Post_Built" );
+	},
+	Command_Post_Planted = function( trigger )
+	{
+		if ( TestMap ) { return; }
+		Map.Command_Post_Dyno += 1;
+		Util.MapDebugPrint( "Command_Post_Planted" );
+	},
+	Command_Post_Defused = function( trigger )
+	{
+		if ( TestMap ) { return; }
+		Map.Command_Post_Dyno -= 1;
+		Util.MapDebugPrint( "Command_Post_Defused" );
+	},
+	Command_Post_Destroyed = function( trigger )
+	{
+		if ( TestMap ) { return; }
+		Map.Command_Post_Dyno = 0;
+		Util.MapDebugPrint( "Command_Post_Destroyed" );
+	},
+
+
+	Turmfaust_Destroyed = function( trigger )
+	{
+        
+		//if ( TestMap ) { return; }
+Wp.SetWaypointFlag("outsideladder", "closed", true);
+Wp.SetWaypointFlag("insideladder", "closed", true);
+SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_faust_.*" );
+SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_littlegun" );
+SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_littlegun_1" );
+SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_littlegun_2" );
+SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_littlegun_3" );
+SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_littlegun_4" );
+SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_planeparts" );
+SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_planeparts2" );
+SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_planeparts3" );
+SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_planeparts4" );
+
+SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_planeparts_.*" );
+
+SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_parts_.*" );
+//SetAvailableMapGoals( TEAM.AXIS, true, "PLANTMINE_parts_.*" );
+
+
+		Util.EnableGoal( "PLANT_mortar_Launcher", true );
+        
+		Util.MapDebugPrint( "Turmfaust_Destroyed" );
+	},
+
+
+	mortar_launcher_Built = function( trigger )
+	{
+		if ( TestMap ) { return; }
+		Wp.SetWaypointFlag("mortar_launcher_2", "closed", false);
+		Util.MapDebugPrint( "mortar_launcher_Built" );
+	},
+	mortar_launcher_Planted = function( trigger )
+	{
+		if ( TestMap ) { return; }
+		Map.mortar_launcher_Dyno += 1;
+		Util.MapDebugPrint( "mortar_launcher_Planted" );
+	},
+	mortar_launcher_Defused = function( trigger )
+	{
+		if ( TestMap ) { return; }
+		Map.mortar_launcher_Dyno -= 1;
+		Util.MapDebugPrint( "mortar_launcher_Defused" );
+	},
+	mortar_launcher_Destroyed = function( trigger )
+	{
+		if ( TestMap ) { return; }
+		Map.mortar_launcher_Dyno = 0;
+		Wp.SetWaypointFlag("mortar_launcher_2", "closed", true);
+		Util.MapDebugPrint( "mortar_launcher_Destroyed" );
+	},
+
+
+	Gun_Ready = function( trigger )
+	{
+		if ( TestMap ) { return; }
+		Util.EnableGoal( "PLANT_Gun_Controls", true );
+		Util.MapDebugPrint( "Gun_Ready" );
+	},
+
+	Gun_Controls_Planted = function( trigger )
+	{
+		if ( TestMap ) { return; }
+		Map.Gun_Controls_Dyno += 1;
+		Util.MapDebugPrint( "Gun_Controls_Planted" );
+	},
+	Gun_Controls_Defused = function( trigger )
+	{
+		if ( TestMap ) { return; }
+		Map.Gun_Controls_Dyno -= 1;
+		Util.MapDebugPrint( "Gun_Controls_Defused" );
+	},
+	Gun_Controls_Destroyed = function( trigger )
+	{
+		if ( TestMap ) { return; }
+		Map.Gun_Controls_Dyno = 0;
+		Util.MapDebugPrint( "Gun_Controls_Destroyed" );
+	},
+
+
+	spare_parts_Taken = function( trigger )
+	{
+		if ( TestMap ) { return; }
+		Util.MapDebugPrint( "spare_parts_Taken" );
+	},
+	spare_parts_Returned = function( trigger )
+	{
+		if ( TestMap ) { return; }
+		Util.MapDebugPrint( "spare_parts_Returned" );
+	},
+	spare_parts_Secured = function( trigger )
+	{
+		if ( TestMap ) { return; }
+		sleep(5);
+        SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_parts_.*" );
+        SetAvailableMapGoals( TEAM.ALLIES, true, "BUILD_Plane" );
+        SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_mortar_Launcher" );
+		//Util.EnableGoal( "BUILD_Plane", true );
+	//	Util.EnableGoal( "PLANT_mortar_Launcher", true );
+		Util.MapDebugPrint( "spare_parts_Secured" );
+	},
+    
+    	planerepaired = function( trigger )
+	{
+		if ( TestMap ) { return; }
+		sleep(5);
+SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_planeparts" );
+SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_planeparts2" );
+SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_planeparts3" );
+SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_planeparts4" );
+
+SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_planeparts_.*" );
+        SetAvailableMapGoals( TEAM.AXIS, true, "PLANTMINE_biggun_.*" );
+                SetAvailableMapGoals( TEAM.AXIS, false, "PLANTMINE_parts_.*" );
+            SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_biggun_.*" );
+        SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Plane" );
+        //SetAvailableMapGoals( TEAM.ALLIES, true, "PLANT_mortar_Launcher" );
+		//Util.EnableGoal( "BUILD_Plane", true );
+	//	Util.EnableGoal( "PLANT_mortar_Launcher", true );
+		Util.MapDebugPrint( "planerepaired" );
+	},
+
+};
+
+global OnMapLoad = function()
+{
+	if ( TestMapOn )
+		{ Util.AutoTestMap(); }
+
+	// Register callback functions
+	OnTrigger( "Axis Command Post constructed. Charge speed increased!", Map.Command_Post_Built );
+	//OnTrigger( "Allied Command Post constructed. Charge speed increased!", Map.Command_Post_Built );
+	OnTrigger( "Planted at the Command Post.", Map.Command_Post_Planted );
+	OnTrigger( "Defused at the Command Post.", Map.Command_Post_Defused );
+	OnTrigger( "Allied Team have destroyed the Axis Command Post", Map.Command_Post_Destroyed );
+
+	OnTrigger( "Axis have built the mortar launcher", Map.mortar_launcher_Built );
+	OnTrigger( "Planted at the mortar launcher.", Map.mortar_launcher_Planted );
+	OnTrigger( "Defused at the mortar launcher.", Map.mortar_launcher_Defused );
+	OnTrigger( "Allies have destroyed the mortar launcher!", Map.mortar_launcher_Destroyed );
+
+	OnTrigger( "Planted at the MISSING_STRING.", Map.Gun_Controls_Planted );
+	OnTrigger( "Defused at the MISSING_STRING.", Map.Gun_Controls_Defused );
+	OnTrigger( "MISSING_STRING", Map.Gun_Controls_Destroyed );
+
+	OnTrigger( "MISSING_STRING", Map.spare_parts_Taken );
+	OnTrigger( "MISSING_STRING", Map.spare_parts_Returned );
+	OnTrigger( "The Allies have secured the spare parts!", Map.spare_parts_Secured );
+	
+	//missed + custom triggers
+    OnTrigger( "Allies have repaired the plane", Map.planerepaired );
+	OnTrigger( "Allies have broke into the construction site!", Map.Gun_Ready );
+	OnTrigger( "Allies have disabled the Turmfaust!", Map.Turmfaust_Destroyed );
+	
+	//After Turmfaust_Destroyed, the tank auto-moves up to destroy main gate. Then:
+	//"Settings Allied autospawn to Garrison"
+	//"Settings Axis autospawn to Cave"
+
+
+	//~Util.DisableGoal( ".*", true ); // all but routes
+	//~SetAvailableMapGoals( TEAM.AXIS, true, "ATTACK_.*" );
+	//~SetAvailableMapGoals( TEAM.ALLIES, true, "ATTACK_.*" );
+
+	Util.DisableGoal( "PLANT_Gun_Controls", true );
+	Util.DisableGoal( "PLANT_mortar_Launcher", true );
+SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Plane" );	
+	// Max users per goal
+	Util.SetMaxUsers( 1, "BUILD_Command_Post" );
+	Util.SetMaxUsers( 1, "PLANT_Command_Post" );    
+	Util.SetMaxUsers( 1, "ATTACK_.*" );    
+	Util.SetMaxUsers( 1, "DEFEND_.*" );
+	Util.SetMaxUsers( 1, "GRENADE_.*" );
+	Util.SetMaxUsers( 1, "SNIPE_.*" );
+	Util.SetMaxUsers( 0, "MOUNTMG42_.*" );
+	Util.SetMaxUsers( 1, "MOBILEMG42_.*" );
+	Util.SetMaxUsers( 1, "MOBILEMORTAR_.*" );
+	Util.SetMaxUsers( 1, "AIRSTRIKE_.*" );
+	Util.SetMaxUsers( 1, "CALLARTILLERY_.*" );
+Util.AddUseWp( "BUILD_Plane", "planefix" );
+Util.AddUseWp( "PLANT_Turmfaust", "insideplant" );
+Util.AddUseWp( "PLANT_Turmfaust", "outsideplant" );
+Util.AddUseWp( "PLANT_Turmfaust", "outsideplant2" );
+SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_planeparts" );
+SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_planeparts2" );
+SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_planeparts3" );
+SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_planeparts4" );
+
+SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_planeparts_.*" );
+
+
+
+SetAvailableMapGoals( TEAM.AXIS, false, "PLANTMINE_biggun_.*" );
+SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_littlegun" );
+SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_littlegun_1" );
+SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_littlegun_2" );
+SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_littlegun_3" );
+SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_littlegun_4" );
+SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_parts_.*" );
+SetAvailableMapGoals( TEAM.AXIS, true, "PLANTMINE_parts_.*" );
+SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_biggun_.*" );
+SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_faust_.*" );
+	SetGoalPriority( "DEFEND_faust_.*", .99, TEAM.AXIS, 1 );
+Wp.SetWaypointFlag("outsideladder", "closed", false);
+Wp.SetWaypointFlag("insideladder", "closed", false);
+	SetGoalPriority( "BUILD_Command_Post", 0.7, TEAM.ALLIES, 1 );
+SetGoalPriority( "PLANT_Command_Post", 0.0, 1, 3, TEAM.AXIS );//works    
+	SetGoalPriority( "FLAG_spare_parts", 1.0, TEAM.ALLIES, 1 );
+	SetGoalPriority( "CAPPOINT_Parts", 0.96, TEAM.ALLIES, 1 );
+	SetGoalPriority( "BUILD_Plane", 5.95, TEAM.ALLIES, 1 );
+	SetGoalPriority( "BUILD_mortar_launcher", 5.0, TEAM.AXIS, 1 );
+	//SetGoalPriority( "PLANT_mortar_launcher", 5.0, TEAM.ALLIES, 1 );
+SetGoalPriority( "PLANT_mortar_launcher", 0.9, 2, 5, TEAM.ALLIES );//works
+SetGoalPriority( "PLANT_mortar_launcher", 0.0, 2, 3, TEAM.ALLIES );//works
+SetGoalPriority( "PLANTMINE_biggun_.*", 0.95, 1, 3, TEAM.AXIS );//works
+Util.SetMaxUsers( 1, "PLANTMINE_biggun_.*" );
+	SetMapGoalProperties( "MOUNTMG42_.*", {MinCampTime=15, MaxCampTime=90} );
+	SetMapGoalProperties( "MOBILEMG42_.*", {MinCampTime=10, MaxCampTime=60} );
+
+	Wp.SetWaypointFlag("mortar_launcher_2", "closed", true);
+	
+		Util.MapDebugPrint( "^1ETS^4| ^3Custom ^6Omni-bot map script ^2ver 1.D ^3For the map: ^7" + GetMapName() + " executed." );
+	print( "^1ETS^4| ^3Custom ^6Omni-bot map script ^2ver 1.D ^3For the map: ^7" + GetMapName() );
+	
+	Util.BotChat( 0, "say", "^1ETS^4| ^3Custom ^6Omni-bot map script ^2ver 1.D ^3For the map: ^7" + GetMapName(), 1 );
+};
+
+global OnBotJoin = function( bot )
+{
+	// Uncomment for shootable breakables
+	//~bot.TargetBreakableDist = 90.0;
+	// Only set MaxViewDistance on maps with limited sight (e.g. fog)
+	//~bot.MaxViewDistance = 2400;
+};
+
+global InitializeRoutes = function()
+{
+	MapRoutes =
+	{
+		FLAG_spare_parts =
+		{
+		},
+		PLANT_Gun_Controls =
+		{
+		},
+		BUILD_Command_Post =
+		{
+		},
+		PLANT_Command_Post =
+		{
+		},
+		BUILD_mortar_launcher =
+		{
+		},
+		PLANT_mortar_launcher =
+		{
+		},
+	};
+	Util.Routes(MapRoutes);
+};
