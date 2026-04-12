@@ -1,0 +1,419 @@
+//==========================================================================================
+//    WARNING!!  ATTENTION!! DANGER!! WARNING!!
+//
+//	wolken5_fp.gm
+//
+//	Who       	When		What
+//------------------------------------------------------------------------------------------
+//	^6BOTZ^3R^jUS	24 April 2020	Initial Script
+//  The Flag Spawn Has 2 ALLIED SPAWN LOCATIONS IN THE TABLE IN THE CORNER 
+//    WARNING!!  ATTENTION!! DANGER!! WARNING!!
+//
+//   Save a copy of wolken5_fp_goals.gm when you save goals in the omnibot mod you will
+//   fuck up the goals file and lose the plant airshipengine goal. The coppied file will
+//   allow you to fix all previously made goals to their correct settings.
+//    05.03/2024 edited C4W
+//
+//    WARNING!!  ATTENTION!! DANGER!! WARNING!!
+//
+//    SERIOUSLY, SAVE A COPY OF THE GOALS FILE,
+// 
+//    BECAUSE SAVING A GOAL IN CREATION MOD WILL FUCK UP THE AIRSHIP GOAL!
+//
+//    IT IS A PAIN IN THE ASS FIXING THE GOAL SO THE BOTS DO PLANT IN THE CORRECT LOCATION ON THE AIRSHIP. 
+//
+//    if they plant dyno at the wrong end of the airship the goals file got messed up, AGAIN. LOL
+//
+//==========================================================================================
+//  CYBER4WOLF version 2.7 04.12.2026
+//
+
+global Map =
+{
+
+ Roles =
+  {
+		AXIS =
+		{
+			AllBots = true, // each bot is considered for a role
+			DEFENDER =
+			{
+				
+				numbots = 2,
+				crucialClass = CLASS.ENGINEER, CLASS.MEDIC,
+			},
+			DEFENDER1 =
+			{
+				spawnpt = 3,				
+				numbots = 2,
+				crucialClass = CLASS.ENGINEER, CLASS.MEDIC,
+			},
+			DEFENDER2 =
+			{
+
+				numbots = 6,
+				//crucialClass = CLASS.ENGINEER, CLASS.MEDIC, CLASS.SOLDIER, CLASS.COVERTOPS,
+			},
+
+		},
+
+		ALLIES =
+		{
+			AllBots = true, // each bot is considered for a role
+			ATTACKER =
+			{
+				//spawnpt = 2,
+				numbots = 2,
+				crucialClass = CLASS.ENGINEER, CLASS.MEDIC,
+			},
+			ATTACKER1 =
+			{
+				//spawnpt = 1,
+				numbots = 2,
+				crucialClass = CLASS.ENGINEER, CLASS.MEDIC,
+			},
+			ATTACKER2 =
+			{
+				//spawnpt = 1,
+				numbots = 2,
+				crucialClass = CLASS.ENGINEER, CLASS.MEDIC,
+			},			
+		},
+  },
+	Debug = 0, // please set to zero before distributing your script
+
+    DispenseHealthTime = 0.1,//low number makes bot drop health packs
+	DispenseAmmoTime = 0.3,//higher number leaves fieldops ability to call arty
+    
+    DefendingTeam = TEAM.AXIS,// this is always helpful to the bots to have it specified which team is on defense.
+
+
+
+	Airships_Engine_Destroyed = function( trigger )
+	{
+		Util.MapDebugPrint( "Airships_Engine_Destroyed" );
+	},
+	Airships_Engine_Planted = function( trigger )
+	{
+		Util.MapDebugPrint( "^4AirshipsEnginePlanted" );
+	},
+	Airships_Engine_Defused = function( trigger )
+	{
+		Util.MapDebugPrint( "^4AirshipsEngineDefused" );
+	},
+
+	Axis_Command_Post_Built = function( trigger )
+	{
+	//SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_Command_Post" );
+		Util.MapDebugPrint( "^1AxisCommandPostBuilt" );
+	},
+
+  	Allied_Command_Post_Built = function( trigger )
+	{
+	//SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_Command_Post" );
+		Util.MapDebugPrint( "^1AlliedCommandPostBuilt" );
+	},
+
+	Axis_Command_Post_Destroyed = function( trigger )
+	{
+	//SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_Command_Post" );
+	//SetAvailableMapGoals( TEAM.AXIS, false, "BUILD_Command_Post" );
+	//SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Command_Post" );
+		Util.MapDebugPrint( "^4AxisCommandPostDestroyed" );
+	},
+
+	Allied_Command_Post_Destroyed = function( trigger )
+	{
+	//SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_Command_Post" );
+	//SetAvailableMapGoals( TEAM.AXIS, false, "BUILD_Command_Post" );
+	//SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Command_Post" );
+		Util.MapDebugPrint( "^4AlliedCommandPostDestroyed" );
+	},
+
+	Main_Entrance_Destroyed = function( trigger )
+	{
+        SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_start" );    
+ SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_starttop" );    
+SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_start_.*" );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_maindoor_.*" );
+	SetGoalPriority( "DEFEND_BLIMP_1", 0.93, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_BLIMP_2", 0.95, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_BLIMP_3", 0.95, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_BLIMP_4", 0.93, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_BLIMP_5", 0.91, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_BLIMP_6", 0.91, TEAM.AXIS );
+            SetAvailableMapGoals( TEAM.AXIS, false, "TRIPMINE_start_1" );        
+    SetAvailableMapGoals( TEAM.AXIS, false, "TRIPMINE_start_2" );       
+    SetAvailableMapGoals( TEAM.AXIS, false, "TRIPMINE_start_3" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "TRIPMINE_inside_.*" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "PLANTMINE_begining_.*" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_flag_.*" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_1stdoor_.*" );
+	SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_BLIMP_.*" );
+  ClearGoalRole("PLANT_Main_Entrance", { ROLE.ATTACKER });
+SetGoalRole("PLANT_AIRSHIPZENGINE", { ROLE.ATTACKER });
+ClearGoalRole("PLANT_Main_Entrance", { ROLE.ATTACKER1 });
+SetGoalRole("PLANT_AIRSHIPZENGINE", { ROLE.ATTACKER1 });
+//ClearGoalRole("PLANT_Main_Entrance", { ROLE.ATTACKER2 });
+//SetGoalRole("PLANT_Top_Entrance", { ROLE.ATTACKER2 });
+		Util.MapDebugPrint( "Main_Entrance_Destroyed" );
+	},
+
+	Top_Entrance_Destroyed = function( trigger )
+	{
+        SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_start" );    
+ SetAvailableMapGoals( TEAM.AXIS, false, "CALLARTILLERY_starttop" );    
+SetAvailableMapGoals( TEAM.AXIS, false, "ARTILLERY_S_start_.*" );        
+	SetGoalPriority( "DEFEND_BLIMP_1", 0.93, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_BLIMP_2", 0.95, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_BLIMP_3", 0.95, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_BLIMP_4", 0.93, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_BLIMP_5", 0.91, TEAM.AXIS );
+    SetGoalPriority( "DEFEND_BLIMP_6", 0.91, TEAM.AXIS );
+    SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_maindoor_.*" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "TRIPMINE_inside_.*" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "PLANTMINE_begining_.*" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_flag_.*" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_1stdoor_.*" );
+	SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_BLIMP_.*" );
+        SetAvailableMapGoals( TEAM.AXIS, false, "TRIPMINE_start_1" );        
+    SetAvailableMapGoals( TEAM.AXIS, false, "TRIPMINE_start_2" );       
+    SetAvailableMapGoals( TEAM.AXIS, false, "TRIPMINE_start_3" );
+  ClearGoalRole("PLANT_Top_Entrance", { ROLE.ATTACKER2 });
+SetGoalRole("PLANT_AIRSHIPZENGINE", { ROLE.ATTACKER2 });
+
+		Util.MapDebugPrint( "Top_Entrance_Destroyed" );
+	},
+
+	forwardspawn1_flag_Axis_Captured = function( trigger )
+	{
+		Util.MapDebugPrint( "forwardspawn1_flag_Axis_Captured" );
+	},
+
+	forwardspawn1_flag_Allies_Captured = function( trigger )
+	{
+		Util.MapDebugPrint( "forwardspawn1_flag_Allies_Captured" );
+	},
+
+
+
+
+
+
+	Main_Entrance_Defused = function( trigger )
+	{
+		Util.MapDebugPrint( "^4MainEntranceDefused" );
+	},
+
+	Top_Entrance_Defused = function( trigger )
+	{
+		Util.MapDebugPrint( "^4TopEntranceDefused" );
+	},
+
+	Main_Entrance_Planted = function( trigger )
+	{
+		Util.MapDebugPrint( "^4MainEntrancePlanted" );
+	},
+
+	Top_Entrance_Planted = function( trigger )
+	{
+		Util.MapDebugPrint( "^4TopEntrancePlanted" );
+  },
+	Airships_Engine_Planted = function( trigger )
+	{
+		Util.MapDebugPrint( "^4AirshipsEnginePlanted" );
+	},
+
+	Airships_Engine_Defused = function( trigger )
+	{
+		Util.MapDebugPrint( "^4AirshipsEngineDefused" );
+  },
+
+
+
+};
+
+global OnMapLoad = function()
+{
+	// Register callback functions
+
+
+
+	OnTrigger( "Axis Command Post constructed. Charge speed increased!", Map.Axis_Command_Post_Built );
+  OnTrigger( "Allied Command Post constructed. Charge speed increased!", Map.Allied_Command_Post_Built );
+    
+  OnTrigger( "Axis team has destroyed the Allied Command Post!", Map.Allied_Command_Post_Destroyed );
+	OnTrigger( "Allied team has destroyed the Axis Command Post!", Map.Axis_Command_Post_Destroyed );
+
+	OnTrigger( "MISSING_STRING", Map.Airships_Engine_Destroyed );
+	OnTrigger( "Planted at the Airship's Engine.", Map.Airships_Engine_Planted );
+	OnTrigger( "Defused at the Airship's Engine.", Map.Airships_Engine_Defused );
+
+
+	OnTrigger( "Planted at the Main Entrance.", Map.Main_Entrance_Planted );
+	OnTrigger( "Defused at the Main Entrance.", Map.Main_Entrance_Defused );
+	OnTrigger( "Allies have destroyed the Main Entrance!", Map.Main_Entrance_Destroyed );
+
+	OnTrigger( "Allies have destroyed the Top Entrance!", Map.Top_Entrance_Destroyed );
+	OnTrigger( "Planted at the Top Entrance.", Map.Top_Entrance_Planted );
+	OnTrigger( "Defused at the Top Entrance.", Map.Top_Entrance_Defused );
+
+	OnTrigger( "Axis have reclaimed the Forward Spawn!", Map.forwardspawn1_flag_Axis_Captured );
+	OnTrigger( "Allies have captured the Forward Spawn!", Map.forwardspawn1_flag_Allies_Captured );
+
+
+SetGoalRole("PLANT_Main_Entrance", { ROLE.ATTACKER });
+SetGoalRole("PLANT_Main_Entrance", { ROLE.ATTACKER1 });
+SetGoalRole("PLANT_Top_Entrance", { ROLE.ATTACKER2 });
+
+//SetGoalPriority( "ARTILLERY_S_start_1", 1.99, TEAM.AXIS );
+//SetGoalPriority( "ARTILLERY_S_start_3", 0.99, TEAM.AXIS );
+//SetGoalPriority( "CALLARTILLERY_start", 1.99, TEAM.AXIS );
+//SetGoalPriority( "CALLARTILLERY_starttop", 0.99, TEAM.AXIS );
+//SetGoalRole("PLANT_Main_Entrance", { ROLE.DEFENDER });
+//SetGoalRole("DEFEND_BLIMP_.*", { ROLE.DEFENDER1 });
+SetGoalRole("TRIPMINE_inside_.*", { ROLE.DEFENDER2 });
+
+
+	//~Util.DisableGoal( ".*", true ); // all but routes
+	//SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_.*" );
+	SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_flag_.*" );
+    SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_maindoor_.*" );
+	SetAvailableMapGoals( TEAM.AXIS, true, "DEFEND_1stdoor_.*" );
+	SetAvailableMapGoals( TEAM.AXIS, true, "PLANTMINE_begining_.*" );
+	SetAvailableMapGoals( TEAM.AXIS, true, "TRIPMINE_inside_.*" );
+	SetAvailableMapGoals( TEAM.AXIS, false, "DEFEND_BLIMP_.*" );
+	//SetGoalPriority( "DEFEND_BLIMP_.*", 0.90, TEAM.AXIS );
+    //SetGoalPriority( "DEFEND_flag_.*", 0.90, TEAM.AXIS );
+    //SetGoalPriority( "DEFEND_maindoor_.*", 0.90, TEAM.AXIS );
+    //SetGoalPriority( "DEFEND_1stdoor_.*", 0.90, TEAM.AXIS );
+	//SetAvailableMapGoals( TEAM.ALLIES, true, "ATTACK_.*" );
+	//SetGoalPriority( "PLANT_AIRSHIPZENGINE", 1.00, TEAM.ALLIES );
+	//SetGoalPriority( "PLANT_Main_Entrance", 0.95, TEAM.ALLIES );
+	//SetGoalPriority( "PLANT_Top_Entrance", 0.90, TEAM.ALLIES );
+	//SetGoalPriority( "BUILD_Command_Post", 0.85, TEAM.ALLIES );
+    
+    
+    SetAvailableMapGoals( TEAM.AXIS, true, "TRIPMINE_start_1" );
+        
+    SetAvailableMapGoals( TEAM.AXIS, true, "TRIPMINE_start_2" );   
+    
+    SetAvailableMapGoals( TEAM.AXIS, true, "TRIPMINE_start_3" );
+Util.AddUseWp("PLANT_Airships_Engine", "air_1");// tunnel 1 the waypoint name
+Util.AddUseWp("PLANT_AIRSHIPZENGINE", "air_1");// tunnel 1 the waypoint name
+Util.AddUseWp("PLANT_Airships_Engine", "air_2");// tunnel 1 the waypoint name
+Util.AddUseWp("PLANT_AIRSHIPZENGINE", "air_2");// tunnel 1 the waypoint name
+Util.AddUseWp("PLANT_Airships_Engine", "air_3");// tunnel 1 the waypoint name
+Util.AddUseWp("PLANT_AIRSHIPZENGINE", "air_3");// tunnel 1 the waypoint name
+Util.AddUseWp("PLANT_Airships_Engine", "air_4");// tunnel 1 the waypoint name
+Util.AddUseWp("PLANT_AIRSHIPZENGINE", "air_4");// tunnel 1 the waypoint name
+Util.AddUseWp("PLANT_Airships_Engine", "air_5");// tunnel 1 the waypoint name
+Util.AddUseWp("PLANT_AIRSHIPZENGINE", "air_5");// tunnel 1 the waypoint name
+Util.AddUseWp("PLANT_Airships_Engine", "air_6");// tunnel 1 the waypoint name
+Util.AddUseWp("PLANT_AIRSHIPZENGINE", "air_6");// tunnel 1 the waypoint name
+Util.AddUseWp("PLANT_Airships_Engine", "air_7");// tunnel 1 the waypoint name
+Util.AddUseWp("PLANT_AIRSHIPZENGINE", "air_7");// tunnel 1 the waypoint name
+Util.AddUseWp("PLANT_Airships_Engine", "air_8");// tunnel 1 the waypoint name
+Util.AddUseWp("PLANT_AIRSHIPZENGINE", "air_8");// tunnel 1 the waypoint name
+Util.AddUseWp("PLANT_Airships_Engine", "air_9");// tunnel 1 the waypoint name
+Util.AddUseWp("PLANT_AIRSHIPZENGINE", "air_9");// tunnel 1 the waypoint name
+Util.AddUseWp("PLANT_Airships_Engine", "air_10");// tunnel 1 the waypoint name
+Util.AddUseWp("PLANT_AIRSHIPZENGINE", "air_10");// tunnel 1 the waypoint name
+Util.AddUseWp("PLANT_Airships_Engine", "air_11");// tunnel 1 the waypoint name
+Util.AddUseWp("PLANT_AIRSHIPZENGINE", "air_11");// tunnel 1 the waypoint name
+Util.AddUseWp("PLANT_Airships_Engine", "air_12");// tunnel 1 the waypoint name
+Util.AddUseWp("PLANT_AIRSHIPZENGINE", "air_12");// tunnel 1 the waypoint name
+
+Util.AddUseWp("PLANT_Main_Entrance", "main_1");// tunnel 1 the waypoint name
+Util.AddUseWp("PLANT_Main_Entrance", "main_2");// tunnel 1 the waypoint name
+Util.AddUseWp("PLANT_Main_Entrance", "main_3");// tunnel 1 the waypoint name
+Util.AddUseWp("PLANT_Main_Entrance", "main_4");// tunnel 1 the waypoint name
+Util.AddUseWp("PLANT_Main_Entrance", "main_5");// tunnel 1 the waypoint name
+Util.AddUseWp("PLANT_Main_Entrance", "main_6");// tunnel 1 the waypoint name
+Util.AddUseWp("PLANT_Main_Entrance", "main_7");// tunnel 1 the waypoint name
+
+	//SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_Main_Entrance" );
+	//SetAvailableMapGoals( TEAM.AXIS, false, "BUILD_Command_Post" );
+	//SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_Top_Entrance" );
+	//SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_AIRSHIPZENGINE" );
+	//SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_Airships_Engine" );
+	//SetAvailableMapGoals( TEAM.AXIS, false, "PLANT_Command_Post" );
+	//SetAvailableMapGoals( TEAM.AXIS, false, "HEALTHCAB_tankbay_healthcabinet" );
+	//SetAvailableMapGoals( TEAM.AXIS, false, "CHECKPOINT_forwardspawn1_flag" );
+	//SetAvailableMapGoals( TEAM.AXIS, false, "AMMOCAB_tankbay_ammocabinet" );
+	//SetAvailableMapGoals( TEAM.AXIS, false, "DEFUSE_Main_Entrance" );
+	//SetAvailableMapGoals( TEAM.AXIS, false, "DEFUSE_Top_Entrance" );
+	//SetAvailableMapGoals( TEAM.AXIS, false, "DEFUSE_Command_Post" );
+	//SetAvailableMapGoals( TEAM.AXIS, false, "DEFUSE_Airships_Engine" );
+	//SetAvailableMapGoals( TEAM.AXIS, false, "DEFUSE_AIRSHIPZENGINE" );
+
+	//SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_Main_Entrance" );
+	//SetAvailableMapGoals( TEAM.ALLIES, false, "BUILD_Command_Post" );
+	//SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_Top_Entrance" );
+	//SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_AIRSHIPZENGINE" );
+	//SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_Airships_Engine" );
+	//SetAvailableMapGoals( TEAM.ALLIES, false, "PLANT_Command_Post" );
+	//SetAvailableMapGoals( TEAM.ALLIES, false, "HEALTHCAB_tankbay_healthcabinet" );
+	//SetAvailableMapGoals( TEAM.ALLIES, false, "CHECKPOINT_forwardspawn1_flag" );
+	//SetAvailableMapGoals( TEAM.ALLIES, false, "AMMOCAB_tankbay_ammocabinet" );
+	//SetAvailableMapGoals( TEAM.ALLIES, false, "DEFUSE_Main_Entrance" );
+	//SetAvailableMapGoals( TEAM.ALLIES, false, "DEFUSE_Top_Entrance" );
+	//SetAvailableMapGoals( TEAM.ALLIES, false, "DEFUSE_Command_Post" );
+	//SetAvailableMapGoals( TEAM.ALLIES, false, "DEFUSE_Airships_Engine" );
+	//SetAvailableMapGoals( TEAM.ALLIES, false, "DEFUSE_AIRSHIPZENGINE" );
+SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_start" );    
+ SetAvailableMapGoals( TEAM.AXIS, true, "CALLARTILLERY_starttop" );    
+SetAvailableMapGoals( TEAM.AXIS, true, "ARTILLERY_S_start_.*" ); 
+	Util.LimitToClass("PLANT_Command_Post", 0, CLASS.COVERTOPS);
+	//Util.ExcludeClass("DEFEND_.*", 0, CLASS.MEDIC, CLASS.ENGINEER);
+
+	// Max users per goal
+	//Util.SetMaxUsers( 1, "MOUNTMG42_.*" );
+	Util.SetMaxUsers( 1, "BUILD_Command_Post" );
+	Util.SetMaxUsers( 1, "PLANT_Command_Post" );
+
+
+	// Camp times
+	//SetMapGoalProperties( "MOUNTMG42_.*", {MinCampTime=15, MaxCampTime=90} );
+	SetMapGoalProperties( "DEFEND_BLIMP_.*", {MinCampTime=175, MaxCampTime=900} );
+SetMapGoalProperties( "DEFEND_.*", {MinCampTime=175, MaxCampTime=900} );
+
+	Util.MapDebugPrint( "Omni-bot map script for " + GetMapName() + " executed." );
+	print( "^2Custom ^4- ^1C4W ^3Omni-bot map script is ^2v2.7 ^3For the map: ^7" + GetMapName() );
+	
+	Util.BotChat( 0, "say", "^2Custom ^4- ^jC4W ^3Omni-bot map script is ^2v2.7 ^3For the map: ^7" + GetMapName(), 1 );
+};
+
+global OnBotJoin = function( bot )
+{
+	// Uncomment for shootable breakables
+	//~bot.TargetBreakableDist = 90.0;
+	// Only set MaxViewDistance on maps with limited sight (e.g. fog)
+	//~bot.MaxViewDistance = 2400;
+};
+
+global InitializeRoutes = function()
+{
+	MapRoutes =
+	{
+		PLANT_Top_Entrance =
+		{
+		},
+		PLANT_Main_Entrance =
+		{
+		},
+		PLANT_Airships_Engine =
+		{
+		},
+		CHECKPOINT_forwardspawn1_flag =
+		{
+		},
+		BUILD_Command_Post =
+		{
+		},
+		PLANT_Command_Post =
+		{
+		},
+	};
+	Util.Routes(MapRoutes);
+};
