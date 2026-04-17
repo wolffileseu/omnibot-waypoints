@@ -1,0 +1,198 @@
+global _MG = 
+{
+	AMMOCAB_400 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "AMMOCAB",
+		Position = Vec3(-656.000, 0.000, 1076.000),
+		Range = 1250,
+		TagName = "",
+		TeamAvailability = 6,
+	},
+	AMMOCAB_t85 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "AMMOCAB",
+		Position = Vec3(-628.000, -1060.000, -24.000),
+		Range = 1250,
+		TeamAvailability = 6,
+	},
+	AMMOCAB_t88 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "AMMOCAB",
+		Position = Vec3(-676.000, 1060.000, -24.000),
+		Range = 1250,
+		TeamAvailability = 6,
+	},
+	AMMOCAB_t91 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "AMMOCAB",
+		Position = Vec3(904.000, -1236.000, -416.000),
+		Range = 1250,
+		TeamAvailability = 6,
+	},
+	AMMOCAB_t94 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "AMMOCAB",
+		Position = Vec3(904.000, 1192.000, -416.000),
+		Range = 1250,
+		TeamAvailability = 6,
+	},
+	BUILD_Command_Post = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "BUILD",
+		Position = Vec3(-24.000, 284.000, -394.000),
+		TagName = "Command Post",
+		TeamAvailability = 6,
+	},
+	BUILD_North_bridge = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "BUILD",
+		Position = Vec3(980.000, 1092.000, 164.000),
+		TagName = "North bridge",
+		TeamAvailability = 4,
+	},
+	BUILD_Roof_fortification = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "BUILD",
+		Position = Vec3(48.500, -1078.000, 540.000),
+		TagName = "Roof fortification",
+		TeamAvailability = 2,
+	},
+	BUILD_South_bridge = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "BUILD",
+		Position = Vec3(980.000, -240.000, 164.000),
+		TagName = "South bridge",
+		TeamAvailability = 4,
+	},
+	HEALTHCAB_t86 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "HEALTHCAB",
+		Position = Vec3(-676.000, -1060.000, -24.000),
+		Range = 1250,
+		TeamAvailability = 6,
+	},
+	HEALTHCAB_t89 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "HEALTHCAB",
+		Position = Vec3(-628.000, 1060.000, -24.000),
+		Range = 1250,
+		TeamAvailability = 6,
+	},
+	HEALTHCAB_t92 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "HEALTHCAB",
+		Position = Vec3(904.000, -1188.000, -416.000),
+		Range = 1250,
+		TeamAvailability = 6,
+	},
+	HEALTHCAB_t95 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "HEALTHCAB",
+		Position = Vec3(904.000, 1240.000, -416.000),
+		Range = 1250,
+		TeamAvailability = 6,
+	},
+	MOUNTMG42_571 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "MOUNTMG42",
+		MaxCampTime = 60,
+		MinCampTime = 15,
+		Position = Vec3(-832.000, -1029.000, 196.000),
+		TagName = "",
+		TeamAvailability = 6,
+	},
+	MOUNTMG42_572 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "MOUNTMG42",
+		MaxCampTime = 60,
+		MinCampTime = 15,
+		Position = Vec3(-832.000, 1029.000, 196.000),
+		TagName = "",
+		TeamAvailability = 6,
+	},
+	PLANT_Blockway_wall = 
+	{
+		CreateOnLoad = 0,
+		ExplosiveType = 1,
+		GoalType = "PLANT",
+		Position = Vec3(-192.000, -1216.000, 16.000),
+		TagName = "Blockway wall",
+		TeamAvailability = 4,
+	},
+	PLANT_Command_Post = 
+	{
+		CreateOnLoad = 0,
+		ExplosiveType = 3,
+		GoalType = "PLANT",
+		Position = Vec3(-2.500, 288.000, -396.000),
+		TagName = "Command Post",
+		TeamAvailability = 6,
+	},
+	PLANT_Generator = 
+	{
+		CreateOnLoad = 0,
+		ExplosiveType = 1,
+		GoalType = "PLANT",
+		Position = Vec3(352.000, -1184.000, 596.000),
+		TeamAvailability = 4,
+	},
+	PLANT_North_bridge = 
+	{
+		CreateOnLoad = 0,
+		ExplosiveType = 3,
+		GoalType = "PLANT",
+		Position = Vec3(928.000, 580.001, 56.000),
+		TagName = "North bridge",
+		TeamAvailability = 2,
+	},
+	PLANT_Roof_fortification = 
+	{
+		CreateOnLoad = 0,
+		ExplosiveType = 3,
+		GoalType = "PLANT",
+		Position = Vec3(158.000, -1184.000, 632.000),
+		TagName = "Roof fortification",
+		TeamAvailability = 4,
+	},
+	PLANT_South_bridge = 
+	{
+		CreateOnLoad = 0,
+		ExplosiveType = 1,
+		GoalType = "PLANT",
+		Position = Vec3(928.000, -608.000, 56.000),
+		TagName = "South bridge",
+		TeamAvailability = 2,
+	},
+	REPAIRMG42_571 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "REPAIRMG42",
+		Position = Vec3(-832.000, -1029.000, 196.000),
+		TagName = "",
+		TeamAvailability = 6,
+	},
+	REPAIRMG42_572 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "REPAIRMG42",
+		Position = Vec3(-832.000, 1029.000, 196.000),
+		TagName = "",
+		TeamAvailability = 6,
+	},
+	Version = 1,
+};
