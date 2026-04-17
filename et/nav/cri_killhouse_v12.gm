@@ -1,0 +1,140 @@
+//==========================================================================================
+//
+//  cri_killhouse_v12.gm
+//
+// Who                           	When		What
+//------------------------------------------------------------------------------------------
+// ^1C^2Y^3B^6E^5R^04^1W^2O^3L^6F	17 April 2026	Initial Script version 1.0
+// crashes everytime when using & exiting omnibot creation mod
+//==========================================================================================
+//
+
+global Map =
+{
+	Debug = 0, // please delete this line before distributing your script
+
+	Command_Post_Built = function()
+	{
+		Util.MapDebugPrint("Command_Post_Built");
+	},
+
+	North_bridge_Built = function()
+	{
+		Util.MapDebugPrint("North_bridge_Built");
+	},
+
+	Roof_fortification_Built = function()
+	{
+		Util.MapDebugPrint("Roof_fortification_Built");
+	},
+
+	South_bridge_Built = function()
+	{
+		Util.MapDebugPrint("South_bridge_Built");
+	},
+
+	Blockway_wall_Destroyed = function()
+	{
+		Util.MapDebugPrint("Blockway_wall_Destroyed");
+	},
+
+	Command_Post_Destroyed = function()
+	{
+		Util.MapDebugPrint("Command_Post_Destroyed");
+	},
+
+	Generator_Destroyed = function()
+	{
+		Util.MapDebugPrint("Generator_Destroyed");
+	},
+
+	North_bridge_Destroyed = function()
+	{
+		Util.MapDebugPrint("North_bridge_Destroyed");
+	},
+
+	Roof_fortification_Destroyed = function()
+	{
+		Util.MapDebugPrint("Roof_fortification_Destroyed");
+	},
+
+	South_bridge_Destroyed = function()
+	{
+		Util.MapDebugPrint("South_bridge_Destroyed");
+	},
+
+};
+
+global OnMapLoad = function()
+{
+	OnTrigger("MISSING_STRING", Map.Command_Post_Built);
+	OnTrigger("MISSING_STRING", Map.North_bridge_Built);
+	OnTrigger("MISSING_STRING", Map.Roof_fortification_Built);
+	OnTrigger("MISSING_STRING", Map.South_bridge_Built);
+	OnTrigger("MISSING_STRING", Map.Blockway_wall_Destroyed);
+	OnTrigger("MISSING_STRING", Map.Command_Post_Destroyed);
+	OnTrigger("MISSING_STRING", Map.Generator_Destroyed);
+	OnTrigger("MISSING_STRING", Map.North_bridge_Destroyed);
+	OnTrigger("MISSING_STRING", Map.Roof_fortification_Destroyed);
+	OnTrigger("MISSING_STRING", Map.South_bridge_Destroyed);
+
+	//~Util.DisableGoal(".*", true);
+	//~SetAvailableMapGoals(TEAM.AXIS, true, "ATTACK.*");
+	//~SetAvailableMapGoals(TEAM.ALLIES, true, "ATTACK.*");
+
+	//Util.SetMaxUsers(1, "MOUNTMG42.*");
+
+	//SetMapGoalProperties("MOUNTMG42.*", {MinCampTime=15, MaxCampTime=90});
+
+
+	Util.MapDebugPrint("Omni-bot map script for " + GetMapName() + " executed.");
+    if ( GetGameState() == "Playing" )
+	{
+		sleep(15);
+		Util.BotChat( 0, "say", "Ets|^1C^2Y^3B^6E^5R^04^1W^2O^3L^6F ^6Omni-bot map script ^2ver 1.0 ^3For the map: ^7" + GetMapName() + " running" , 1 );
+	}	
+};
+
+global OnBotJoin = function(bot)
+{
+	//~bot.TargetBreakableDist = 90;
+	//~bot.MaxViewDistance = 2400;
+};
+
+global InitializeRoutes = function()
+{
+	MapRoutes =
+	{
+		BUILD_South_bridge =
+		{
+		},
+		PLANT_South_bridge =
+		{
+		},
+		BUILD_Roof_fortification =
+		{
+		},
+		PLANT_Roof_fortification =
+		{
+		},
+		BUILD_North_bridge =
+		{
+		},
+		PLANT_North_bridge =
+		{
+		},
+		PLANT_Generator =
+		{
+		},
+		PLANT_Blockway_wall =
+		{
+		},
+		BUILD_Command_Post =
+		{
+		},
+		PLANT_Command_Post =
+		{
+		},
+	};
+	Util.Routes(MapRoutes);
+};
