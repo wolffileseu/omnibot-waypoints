@@ -1,0 +1,156 @@
+//==========================================================================================
+//
+//  apocalypse_city_v1.gm
+//
+// Who                           	When		What
+//------------------------------------------------------------------------------------------
+// ^1C^2Y^3B^6E^5R^04^1W^2O^3L^6F	24 April 2026	Initial Script
+// Version 1.0
+//==========================================================================================
+//
+
+global Map =
+{
+	Debug = 0, // please delete this line before distributing your script
+    
+    DispenseHealthTime = 0.1,//low number makes bot drop health packs
+	DispenseAmmoTime = 0.3,//higher number leaves fieldops ability to call arty
+    DefendingTeam = TEAM.AXIS,// this is always helpful to the bots to have it specified which team is on defense.
+
+	Nuke_Built = function()
+	{
+		Util.MapDebugPrint("Nuke_Built");
+	},
+
+	Rubblebarrier_Built = function()
+	{
+		Util.MapDebugPrint("Rubblebarrier_Built");
+	},
+
+	allied_Command_Post_Built = function()
+	{
+		Util.MapDebugPrint("allied_Command_Post_Built");
+	},
+
+	axis_Command_Post_Built = function()
+	{
+		Util.MapDebugPrint("axis_Command_Post_Built");
+	},
+
+	plywoodfence_Built = function()
+	{
+		Util.MapDebugPrint("plywoodfence_Built");
+	},
+
+	Nuke_Destroyed = function()
+	{
+		Util.MapDebugPrint("Nuke_Destroyed");
+	},
+
+	Rubblebarrier_Destroyed = function()
+	{
+		Util.MapDebugPrint("Rubblebarrier_Destroyed");
+	},
+
+	allied_Command_Post_Destroyed = function()
+	{
+		Util.MapDebugPrint("allied_Command_Post_Destroyed");
+	},
+
+	axis_Command_Post_Destroyed = function()
+	{
+		Util.MapDebugPrint("axis_Command_Post_Destroyed");
+	},
+
+	middlewall_Destroyed = function()
+	{
+		Util.MapDebugPrint("middlewall_Destroyed");
+	},
+
+	plywoodfence_Destroyed = function()
+	{
+		Util.MapDebugPrint("plywoodfence_Destroyed");
+	},
+
+};
+
+global OnMapLoad = function()
+{
+	OnTrigger("MISSING_STRING", Map.Nuke_Built);
+	OnTrigger("MISSING_STRING", Map.Rubblebarrier_Built);
+	OnTrigger("MISSING_STRING", Map.allied_Command_Post_Built);
+	OnTrigger("MISSING_STRING", Map.axis_Command_Post_Built);
+	OnTrigger("MISSING_STRING", Map.plywoodfence_Built);
+	OnTrigger("MISSING_STRING", Map.Nuke_Destroyed);
+	OnTrigger("MISSING_STRING", Map.Rubblebarrier_Destroyed);
+	OnTrigger("MISSING_STRING", Map.allied_Command_Post_Destroyed);
+	OnTrigger("MISSING_STRING", Map.axis_Command_Post_Destroyed);
+	OnTrigger("MISSING_STRING", Map.middlewall_Destroyed);
+	OnTrigger("MISSING_STRING", Map.plywoodfence_Destroyed);
+
+	//~Util.DisableGoal(".*", true);
+	//~SetAvailableMapGoals(TEAM.AXIS, true, "ATTACK.*");
+	//~SetAvailableMapGoals(TEAM.ALLIES, true, "ATTACK.*");
+	Util.LimitToClass( "PLANT_Command_Post", 1, 5 );//in theory it makes the goal for COVERTOPS only. if other class bots are going to the goal this can be used to stop that. 
+	Util.LimitToClass( "PLANT_Command_Post", 2, 5 );//in theory it makes the goal for COVERTOPS only. if other class bots are going to the goal this can be used to stop that. 
+    Util.LimitToClass( "BUILD_Command_Post", 1, 3 );//in theory it makes the goal for ENGINEER only. if other class bots are going to the goal this can be used to stop that. 
+	Util.LimitToClass( "BUILD_Command_Post", 2, 3 );//in theory it makes the goal for ENGINEER only. if other class bots are going to the goal this can be used to stop that. 
+	//Util.SetMaxUsers(1, "MOUNTMG42.*");
+
+	//SetMapGoalProperties("MOUNTMG42.*", {MinCampTime=15, MaxCampTime=90});
+
+
+	Util.MapDebugPrint("Omni-bot map script for " + GetMapName() + " executed.");
+        	if ( GetGameState() == "Playing" )
+	{
+		sleep(15);
+		Util.BotChat( 0, "say", "Ets|^1C^2Y^3B^6E^5R^04^1W^2O^3L^6F ^6Omni-bot map script ^2ver 1.0 ^3For the map: ^7" + GetMapName() + " executed." , 1 );
+	}
+};
+
+global OnBotJoin = function(bot)
+{
+	bot.TargetBreakableDist = 90;
+	//~bot.MaxViewDistance = 2400;
+};
+
+global InitializeRoutes = function()
+{
+	MapRoutes =
+	{
+		BUILD_Nuke =
+		{
+		},
+		PLANT_Nuke =
+		{
+		},
+		BUILD_plywoodfence =
+		{
+		},
+		PLANT_plywoodfence =
+		{
+		},
+		BUILD_Rubblebarrier =
+		{
+		},
+		PLANT_Rubblebarrier =
+		{
+		},
+		BUILD_axis_Command_Post =
+		{
+		},
+		PLANT_axis_Command_Post =
+		{
+		},
+		BUILD_allied_Command_Post =
+		{
+		},
+		PLANT_allied_Command_Post =
+		{
+		},
+		PLANT_middlewall =
+		{
+		},
+	};
+	Util.Routes(MapRoutes);
+};
