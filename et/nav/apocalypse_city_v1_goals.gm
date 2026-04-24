@@ -1,0 +1,145 @@
+global _MG = 
+{
+	AMMOCAB_first_ammocabinet = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "AMMOCAB",
+		Position = Vec3(3761.000, 3193.000, 51.000),
+		Range = 1250,
+		TeamAvailability = 6,
+	},
+	AMMOCAB_first_ammocabinet_1 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "AMMOCAB",
+		Position = Vec3(-967.000, 1713.000, 55.000),
+		Range = 1250,
+		TagName = "first_ammocabinet",
+		TeamAvailability = 6,
+	},
+	AMMOCAB_second_ammocabinet = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "AMMOCAB",
+		Position = Vec3(2513.000, 749.000, 51.000),
+		Range = 1250,
+		TeamAvailability = 6,
+	},
+	BUILD_Nuke = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "BUILD",
+		Mobile = 1,
+		Position = Vec3(233.500, -710.000, 56.000),
+		TeamAvailability = 4,
+	},
+	BUILD_Rubblebarrier = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "BUILD",
+		Position = Vec3(624.000, 0.000, 80.000),
+		TeamAvailability = 2,
+	},
+	BUILD_allied_Command_Post = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "BUILD",
+		Position = Vec3(3797.000, 2426.000, 40.000),
+		TagName = "allied Command Post",
+		TeamAvailability = 4,
+	},
+	BUILD_axis_Command_Post = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "BUILD",
+		Position = Vec3(-988.000, 1602.000, 42.000),
+		TagName = "axis Command Post",
+		TeamAvailability = 2,
+	},
+	BUILD_plywoodfence = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "BUILD",
+		Position = Vec3(448.000, 1408.000, 80.000),
+		TeamAvailability = 2,
+	},
+	HEALTHCAB_first_healthcabinet = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "HEALTHCAB",
+		Position = Vec3(3872.000, 3191.000, 51.000),
+		Range = 1250,
+		TeamAvailability = 6,
+	},
+	HEALTHCAB_first_healthcabinet_1 = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "HEALTHCAB",
+		Position = Vec3(-856.000, 1711.000, 55.000),
+		Range = 1250,
+		TagName = "first_healthcabinet",
+		TeamAvailability = 6,
+	},
+	HEALTHCAB_second_healthcabinet = 
+	{
+		CreateOnLoad = 0,
+		GoalType = "HEALTHCAB",
+		Position = Vec3(2624.000, 747.000, 51.000),
+		Range = 1250,
+		TeamAvailability = 6,
+	},
+	PLANT_Nuke = 
+	{
+		CreateOnLoad = 0,
+		ExplosiveType = 3,
+		GoalType = "PLANT",
+		Position = Vec3(248.500, -700.000, 40.000),
+		TeamAvailability = 2,
+	},
+	PLANT_Rubblebarrier = 
+	{
+		CreateOnLoad = 0,
+		ExplosiveType = 3,
+		GoalType = "PLANT",
+        RandomUsePoint = 1,
+		Position = Vec3(815.000, -83.250, 82.500),
+		TeamAvailability = 4,
+	},
+	PLANT_allied_Command_Post = 
+	{
+		CreateOnLoad = 0,
+		ExplosiveType = 3,
+		GoalType = "PLANT",
+		Position = Vec3(3782.161, 2438.247, 35.345),
+		TagName = "allied Command Post",
+		TeamAvailability = 2,
+	},
+	PLANT_axis_Command_Post = 
+	{
+		CreateOnLoad = 0,
+		ExplosiveType = 3,
+		GoalType = "PLANT",
+		Position = Vec3(-1002.839, 1614.247, 37.345),
+		TagName = "axis Command Post",
+		TeamAvailability = 4,
+	},
+	PLANT_middlewall = 
+	{
+		CreateOnLoad = 0,
+		ExplosiveType = 1,
+		GoalType = "PLANT",
+        RandomUsePoint = 1,
+		Position = Vec3(1460.000, 1648.000, 64.000),
+		TeamAvailability = 4,
+	},
+	PLANT_plywoodfence = 
+	{
+		CreateOnLoad = 0,
+		ExplosiveType = 3,
+		GoalType = "PLANT",
+        RandomUsePoint = 1,
+		Position = Vec3(585.000, 1139.000, 51.500),
+		TeamAvailability = 4,
+	},
+	Version = 1,
+};
